@@ -6,6 +6,11 @@ import java.util.Observable;
  * Created by BenNelson on 2/2/18.
  *
  */
+
+/*
+    What's up?
+*/
+
 public class ClientRoot extends Observable {
 
     private Player clientPlayer;
