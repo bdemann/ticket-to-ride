@@ -1,4 +1,8 @@
 package com.a340team.tickettoride.shared;
+import android.util.Log;
+
+import com.a340team.tickettoride.client.guifacade.LoginGuiFacade;
+
 import java.util.ArrayList;
 
 /**
@@ -15,7 +19,6 @@ public class Game implements IGame {
 
     @Override
     public void setPlayerWithLongestRoute(String playerName) {
-
     }
 
     @Override

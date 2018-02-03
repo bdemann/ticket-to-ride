@@ -6,4 +6,8 @@ package com.a340team.tickettoride.client.guifacade;
  */
 
 public class LoginGuiFacade {
+
+    public static void signIn() {
+
+    }
 }
