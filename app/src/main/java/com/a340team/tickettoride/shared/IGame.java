@@ -2,6 +2,8 @@ package com.a340team.tickettoride.shared;
 import java.util.ArrayList;
 
 /**
+ * Interface for a single Game in the ticket to ride game yay!
+ *
  * Created by BenNelson on 2/2/18.
  */
 public interface IGame {
@@ -11,7 +13,7 @@ public interface IGame {
     void setCardsFaceUp(ArrayList<TrainCard> cardsFaceUp);
     void setOpenRoutes(ArrayList<Route> openRoutes);
     void setClaimedRoutes(ArrayList<Route> claimedRoutes);
-    void setOpponents(ArrayList<String> otherPlayers);
+    void setPlayers(ArrayList<Player> Players);
     void generateScoreSummary();
     void setGameMap(TTRMap gameMap);
     String getPlayerWithLongestRoute();
@@ -20,7 +22,7 @@ public interface IGame {
     ArrayList<TrainCard> getCardsFaceUp();
     ArrayList<Route> getOpenRoutes();
     ArrayList<Route> getClaimedRoutes();
-    ArrayList<String> getOpponents();
+    ArrayList<Player> getPlayers();
     String getScoreSummary();
     TTRMap getGameMap();
 

@@ -4,31 +4,70 @@ import android.graphics.Color;
 import java.util.ArrayList;
 
 /**
+ * This class implements the player class for ticket to ride.
+ *
  * Created by BenNelson on 2/2/18.
  */
 public class Player implements IPlayer {
+
+    private String username;
+    private String password;
+    private Color color;
+
+    public Player(String username, String password, Color color)
+    {
+        this.username = username;
+        this.password = password;
+        this.color = color;
+    }
+
     @Override
-    public void addDestCard(Card card) {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public void addDestCard(DestinationCard card) {
 
     }
 
     @Override
-    public void discardDestCard(Card card) {
+    public void discardDestCard(DestinationCard card) {
 
     }
 
     @Override
-    public void addTrainCard(Card card) {
+    public void addTrainCard(TrainCard card) {
 
     }
 
     @Override
-    public void discardTrainCar(Card card) {
+    public void discardTrainCard(TrainCard card) {
 
     }
 
     @Override
     public void addRoute(Route route) {
+
+    }
+
+    @Override
+    public void performAction(PlayerAction action) {
 
     }
 
@@ -39,6 +78,7 @@ public class Player implements IPlayer {
 
     @Override
     public void setColor(Color color) {
+        this.color = color;
 
     }
 
@@ -64,7 +104,7 @@ public class Player implements IPlayer {
 
     @Override
     public Color getColor() {
-        return null;
+        return this.color;
     }
 
     @Override
@@ -79,6 +119,11 @@ public class Player implements IPlayer {
 
     @Override
     public int getCurrentGame() {
+        return 0;
+    }
+
+    @Override
+    public int getRemainingActions() {
         return 0;
     }
 }

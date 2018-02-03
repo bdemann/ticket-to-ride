@@ -2,9 +2,17 @@ package com.a340team.tickettoride.shared;
 import java.util.ArrayList;
 
 /**
+ *
  * Created by BenNelson on 2/2/18.
  */
 public class Game implements IGame {
+
+    private ArrayList<Player> players;
+
+    public Game(ArrayList<Player> players){
+        this.players = players;
+    }
+
     @Override
     public void setPlayerWithLongestRoute(String playerName) {
 
@@ -36,7 +44,8 @@ public class Game implements IGame {
     }
 
     @Override
-    public void setOpponents(ArrayList<String> otherPlayers) {
+    public void setPlayers(ArrayList<Player> Players) {
+        this.players = players;
 
     }
 
@@ -81,8 +90,8 @@ public class Game implements IGame {
     }
 
     @Override
-    public ArrayList<String> getOpponents() {
-        return null;
+    public ArrayList<Player> getPlayers() {
+        return this.players;
     }
 
     @Override

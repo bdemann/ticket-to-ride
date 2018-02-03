@@ -10,11 +10,6 @@ import java.util.Observable;
  *
  */
 
-/*
-    What's up?
-    Nothin much
-    Mike Got it to work!!!
-*/
 
 public class ClientRoot extends Observable {
 
