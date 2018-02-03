@@ -1,4 +1,4 @@
-package com.a340team.tickettoride.client;
+package com.a340team.tickettoride.shared;
 
 /**
  * Created by BenNelson on 2/2/18.

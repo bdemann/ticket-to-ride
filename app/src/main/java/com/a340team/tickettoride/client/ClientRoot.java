@@ -1,5 +1,8 @@
 package com.a340team.tickettoride.client;
 
+import com.a340team.tickettoride.shared.Game;
+import com.a340team.tickettoride.shared.Player;
+
 import java.util.Observable;
 
 /**

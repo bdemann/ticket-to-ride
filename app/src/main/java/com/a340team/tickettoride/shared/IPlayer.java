@@ -1,7 +1,6 @@
-package com.a340team.tickettoride.client;
+package com.a340team.tickettoride.shared;
 import android.graphics.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**

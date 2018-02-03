@@ -1,4 +1,4 @@
-package com.a340team.tickettoride.client;
+package com.a340team.tickettoride.shared;
 import java.util.ArrayList;
 
 /**
