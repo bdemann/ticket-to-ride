@@ -1,7 +1,4 @@
-package com.a340team.tickettoride.shared;
-import android.util.Log;
-
-import com.a340team.tickettoride.client.guifacade.LoginGuiFacade;
+package com.a340team.tickettoride.shared.model;
 
 import java.util.ArrayList;
 

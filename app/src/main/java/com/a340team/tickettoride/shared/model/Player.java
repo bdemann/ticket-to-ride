@@ -1,4 +1,4 @@
-package com.a340team.tickettoride.shared;
+package com.a340team.tickettoride.shared.model;
 import android.graphics.Color;
 
 import java.util.ArrayList;

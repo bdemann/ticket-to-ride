@@ -1,4 +1,4 @@
-package com.a340team.tickettoride.shared;
+package com.a340team.tickettoride.shared.model;
 
 /**
  * Created by BenNelson on 2/3/18.
