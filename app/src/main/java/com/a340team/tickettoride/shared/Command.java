@@ -1,4 +1,4 @@
-package shared.command;
+package com.a340team.tickettoride.shared;
 
 import java.io.InputStreamReader;
 
