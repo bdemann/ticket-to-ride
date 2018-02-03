@@ -33,7 +33,7 @@ public class ClientCommunicator {
         Result result = "";
         HttpURLConnection connection = openConnection("/command");
         send(connection, command);
-        functResult = printResponseBodyInfo(connection);
+        result = printResponseBodyInfo(connection);
 
         return result;
     }
