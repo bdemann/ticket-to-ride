@@ -1,4 +1,4 @@
-package com.a340team.tickettoride.client;
+package com.a340team.tickettoride.client.model;
 
 import com.a340team.tickettoride.shared.model.Game;
 import com.a340team.tickettoride.shared.model.Player;
