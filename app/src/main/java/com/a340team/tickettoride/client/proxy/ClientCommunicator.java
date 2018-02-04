@@ -9,7 +9,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import shared.command.Command;
+//Have to set up Gson
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
+import com.a340team.tickettoride.shared.Command;
+import com.a340team.tickettoride.shared.Encoder;
+import com.a340team.tickettoride.shared.commandResults.GeneralCommandResult;
 
 /**
  * Created by paulinecausse on 2/3/18.
@@ -22,15 +29,13 @@ public class ClientCommunicator {
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT;
     private static final String HTTP_POST = "POST";
 
+    private Encoder encoder;
+
     public static ClientCommunicator SINGLETON = new ClientCommunicator();
 
-    //Static variables
-    private static Gson gson = new Gson();      //make a decoder class instead
-
-
     //Command
-    public Result command(Command command) {
-        Result result = "";
+    public GeneralCommandResult command(Command command) {
+        GeneralCommandResult result = new GeneralCommandResult();
         HttpURLConnection connection = openConnection("/command");
         send(connection, command);
         result = printResponseBodyInfo(connection);
@@ -42,32 +47,32 @@ public class ClientCommunicator {
     {
         try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())){
             //Encoding in JSON
-            gson.toJson(command, outputStreamWriter);
+            encoder.encode(command,outputStreamWriter);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    private Result printResponseBodyInfo(HttpURLConnection connection) {
-        Result result = "OOPS";
+    private GeneralCommandResult printResponseBodyInfo(HttpURLConnection connection) {
+        GeneralCommandResult commandResult = new GeneralCommandResult();
         try {
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
                 InputStream respBody = connection.getInputStream();
                 String respData = readString(respBody);
 
-                result = gson.fromJson(respData, Result.class);
+                commandResult = encoder.decode(respData);
             }
             else {
-                result.setErrorMessage(connection.getResponseMessage());
+                commandResult.setUserMessage(connection.getResponseMessage());
             }
         } catch (JsonSyntaxException | JsonIOException | IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return commandResult;
     }
 
 

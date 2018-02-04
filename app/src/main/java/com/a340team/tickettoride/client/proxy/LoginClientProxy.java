@@ -1,42 +1,43 @@
 package com.a340team.tickettoride.client.proxy;
 
-import shared.command.Command;
+import com.a340team.tickettoride.shared.Command;
+import com.a340team.tickettoride.shared.commandResults.GeneralCommandResult;
 
 /**
  * Created by paulinecausse on 2/3/18.
  */
 
-public class ServerProxy {
+public class LoginClientProxy {
 
     private String serverHost;
     private String serverPort;
 
-    public static final ServerProxy SINGLETON = new ServerProxy();
+    public static final LoginClientProxy SINGLETON = new LoginClientProxy();
 
-    public ServerProxy()
+    public LoginClientProxy()
     {
         this.serverHost = "localhost";
         this.serverPort = "8080";
     }
 
     //if we want customized host and port
-    public ServerProxy(String serverHost, String serverPort)
+    public LoginClientProxy(String serverHost, String serverPort)
     {
         this.serverHost = serverHost;
         this.serverPort = serverPort;
     }
 
-    public Result signIn(String username, String password)
+    public GeneralCommandResult signIn(String username, String password)
     {
         Command command = generateLoginCommand("signIn", username, password);
-        Result result = ClientCommunicator.SINGLETON.command(command);
+        GeneralCommandResult result = ClientCommunicator.SINGLETON.command(command);
         return result;
     }
 
-    public Result register(String username, String password)
+    public GeneralCommandResult register(String username, String password)
     {
         Command command = generateLoginCommand("register", username, password);
-        Result result = ClientCommunicator.SINGLETON.command(command);
+        GeneralCommandResult result = ClientCommunicator.SINGLETON.command(command);
         return result;
     }
 
