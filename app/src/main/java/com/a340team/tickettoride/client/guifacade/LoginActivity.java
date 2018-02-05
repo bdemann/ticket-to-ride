@@ -59,13 +59,15 @@ public class LoginActivity extends AppCompatActivity{
 //    private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private EditText mUserNameView;
-    private EditText mPasswordView;
-    private EditText register_UserNameView;
-    private EditText register_PasswordView;
-    private EditText register_PasswordConfirmView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private EditText mUserNameView = null;
+    private EditText mPasswordView = null;
+    private EditText register_UserNameView = null;
+    private EditText register_PasswordView = null;
+    private EditText register_PasswordConfirmView = null;
+    private Button SignInButton = null;
+    private Button RegisterButton = null;
+    private View mProgressView = null;
+    private View mLoginFormView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +93,14 @@ public class LoginActivity extends AppCompatActivity{
 //            }
 //        });
 
-        Button SignInButton = (Button) findViewById(R.id.sign_in_button);
+        SignInButton = (Button) findViewById(R.id.sign_in_button);
         SignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginGuiFacade.signIn(mUserNameView.getText().toString(), mPasswordView.getText().toString());
             }
         });
-        Button RegisterButton = (Button) findViewById(R.id.register_button);
+        RegisterButton = (Button) findViewById(R.id.register_button);
         RegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +113,29 @@ public class LoginActivity extends AppCompatActivity{
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+    public void disableInput(){
+        mUserNameView.setFocusable(false);
+        mPasswordView.setFocusable(false);
+        register_UserNameView.setFocusable(false);
+        register_PasswordView.setFocusable(false);
+        register_PasswordConfirmView.setFocusable(false);
+        SignInButton.setEnabled(false);
+        RegisterButton.setEnabled(false);
+
+    }
+
+    public void enableInput(){
+        mUserNameView.setFocusable(false);
+        mPasswordView.setFocusable(false);
+        register_UserNameView.setFocusable(false);
+        register_PasswordView.setFocusable(false);
+        register_PasswordConfirmView.setFocusable(false);
+        SignInButton.setEnabled(false);
+        RegisterButton.setEnabled(false);
+
+    }
+
 
 
 //    /**
