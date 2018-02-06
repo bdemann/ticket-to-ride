@@ -1,5 +1,7 @@
 package shared;
 
+import com.google.gson.Gson;
+
 import java.io.InputStreamReader;
 
 /**
@@ -29,7 +31,7 @@ public class Command {
     }
 
     public Command(InputStreamReader inputStreamReader) {
-        Command tempCommand = (Command)gson.fromJson(inputStreamReader, Command.class);
+        Command tempCommand = gson.fromJson(inputStreamReader, Command.class);
 
         methodName = tempCommand.getMethodName();
         parameterTypeNames = tempCommand.getParameterTypeNames();
@@ -91,30 +93,30 @@ public class Command {
         return result.toString();
     }
 
-    public Object execute() {
-        Object result = null;
-        StringProcessor stringProcessor = StringProcessor.instance();
-
-        try {
-            Method method = StringProcessor.class.getMethod(methodName, parameterTypes);
-            result = method.invoke(stringProcessor, parameters);
-        } catch (NoSuchMethodException | SecurityException e) {
-            System.out.println("ERROR: Could not find the method " + methodName + ", or, there was a security error");
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            System.err.println("Illegal accesss while trying to execute the method " + methodName);
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            System.out.println("ERROR: Illegal argument while trying to find the method " + methodName);
-            e.printStackTrace();
-        }
-        catch(Exception e)
-        {
-            result = "not an integer";
-        }
-
-        return result;
-    }
+//    public Object execute() {
+//        Object result = null;
+//        ServerFacade serverFacade = ServerFacade.instance();
+//
+//        try {
+//            Method method = ServerFacade.class.getMethod(methodName, parameterTypes);
+//            result = method.invoke(serverFacade, parameters);
+//        } catch (NoSuchMethodException | SecurityException e) {
+//            System.out.println("ERROR: Could not find the method " + methodName + ", or, there was a security error");
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            System.err.println("Illegal accesss while trying to execute the method " + methodName);
+//            e.printStackTrace();
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("ERROR: Illegal argument while trying to find the method " + methodName);
+//            e.printStackTrace();
+//        }
+//        catch(Exception e)
+//        {
+//            result = "not an integer";
+//        }
+//
+//        return result;
+//    }
 
     private final void createParameterTypes() {
         parameterTypes = new Class<?>[parameterTypeNames.length];

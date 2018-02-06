@@ -1,5 +1,7 @@
 package shared;
 
+import com.google.gson.Gson;
+
 import shared.commandResults.GeneralCommandResult;
 
 import java.io.OutputStreamWriter;
@@ -13,14 +15,13 @@ public class CommandEncoder {
 
     public CommandEncoder(){}
 
-    public GeneralCommandResult decode(String respData)
+    public GeneralCommandResult decodeCommand(String respData)
     {
-        GeneralCommandResult commandResult = gson.fromJson(respData, GeneralCommandResult.class);
+        return gson.fromJson(respData, GeneralCommandResult.class);
 
-        return commandResult;
     }
 
-    public void encode(Command command, OutputStreamWriter outputStreamWriter)
+    public void encodeCommand(Command command, OutputStreamWriter outputStreamWriter)
     {
         gson.toJson(command, outputStreamWriter);
     }
