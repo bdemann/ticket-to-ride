@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 /**
  * Command class that creates the command objects
  */
-public class Command {
+public class Command implements ICommand{
     private static Gson gson = new Gson();      //make a decoder class instead
 
     private String methodName;
@@ -91,6 +91,11 @@ public class Command {
         }
 
         return result.toString();
+    }
+
+    public Object execute() {
+        //TODO implement the execute command
+        return null;
     }
 
 //    public Object execute() {

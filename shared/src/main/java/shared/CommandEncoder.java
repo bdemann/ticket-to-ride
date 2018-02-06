@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 
 import shared.commandResults.GeneralCommandResult;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 /**
@@ -15,16 +18,37 @@ public class CommandEncoder {
 
     public CommandEncoder(){}
 
-    public GeneralCommandResult decodeCommand(String respData)
+    public static GeneralCommandResult decodeCommand(String respData)
     {
         return gson.fromJson(respData, GeneralCommandResult.class);
 
     }
 
-    public void encodeCommand(Command command, OutputStreamWriter outputStreamWriter)
-    {
+    public static void encodeCommand(Command command, OutputStreamWriter outputStreamWriter) {
         gson.toJson(command, outputStreamWriter);
     }
 
 
+    public static void encodeCommandResults(GeneralCommandResult results, OutputStream responseBody) {
+        String json = gson.toJson(results);
+        try {
+            responseBody.write(json.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ICommand decodeCommand(InputStream requestBody) {
+        //TODO implement decode Command with an imput string
+        return null;
+    }
+
+    public static void encodeTestResults(Object o, OutputStream responseBody) {
+        String json = gson.toJson(o);
+        try {
+            responseBody.write(json.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
