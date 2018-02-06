@@ -1,5 +1,8 @@
 package proxy;
 
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,12 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-//Have to set up Gson
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
 import shared.Command;
-import shared.Encoder;
+import shared.CommandEncoder;
 import shared.commandResults.GeneralCommandResult;
 
 /**
@@ -28,16 +27,15 @@ public class ClientCommunicator {
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT;
     private static final String HTTP_POST = "POST";
 
-    private Encoder encoder;
+    private CommandEncoder encoder;
 
     public static ClientCommunicator SINGLETON = new ClientCommunicator();
 
     //Command
     public GeneralCommandResult command(Command command) {
-        GeneralCommandResult result = new GeneralCommandResult();
         HttpURLConnection connection = openConnection("/command");
         send(connection, command);
-        result = printResponseBodyInfo(connection);
+        GeneralCommandResult result = printResponseBodyInfo(connection);
 
         return result;
     }
@@ -46,7 +44,7 @@ public class ClientCommunicator {
     {
         try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())){
             //Encoding in JSON
-            encoder.encode(command,outputStreamWriter);
+            encoder.encodeCommand(command,outputStreamWriter);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -61,7 +59,7 @@ public class ClientCommunicator {
                 InputStream respBody = connection.getInputStream();
                 String respData = readString(respBody);
 
-                commandResult = encoder.decode(respData);
+                commandResult = encoder.decodeCommand(respData);
             }
             else {
                 commandResult.setUserMessage(connection.getResponseMessage());
