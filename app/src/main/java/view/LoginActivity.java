@@ -1,4 +1,4 @@
-package guifacade;
+package view;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.a340team.tickettoride.R;
+
+import guifacade.LoginGuiFacade;
 
 /**
  * A login screen that offers login via username/password.
