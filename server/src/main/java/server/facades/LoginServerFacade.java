@@ -16,9 +16,9 @@ public class LoginServerFacade implements ILoginServerFacade {
     public CommandResult login(String username, String password) {
         Player player = ServerRoot.getPlayer(username);
         if(player.getPassword().equals(password)){
-            return new LoginCommandResult();
+            return new LoginCommandResult(true, ServerRoot.getCommandList());
         }
-        return new LoginCommandResult();
+        return new LoginCommandResult(false, ServerRoot.getCommandList());
     }
 
     @Override
@@ -26,9 +26,9 @@ public class LoginServerFacade implements ILoginServerFacade {
         Player player = ServerRoot.getPlayer(username);
         if(player != null){
             // Player already exists
-            return new RegisterCommandResult();
+            return new RegisterCommandResult(true, ServerRoot.getCommandList());
         }
         ServerRoot.addPlayer(new Player(username, password));
-        return new RegisterCommandResult();
+        return new RegisterCommandResult(false, ServerRoot.getCommandList());
     }
 }

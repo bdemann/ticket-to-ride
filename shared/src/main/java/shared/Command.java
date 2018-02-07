@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
 
+import shared.commandResults.CommandResult;
+
 /**
  * Created by paulinecausse on 2/3/18.
  */
@@ -93,7 +95,7 @@ public class Command implements ICommand{
         return result.toString();
     }
 
-    public Object execute() {
+    public CommandResult execute() {
         //TODO implement the execute command
         return null;
     }

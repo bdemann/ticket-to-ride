@@ -17,12 +17,12 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     public CommandResult sendChat(Chat message) {
         Game currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
         ServerRoot.addChat(currentGame, message);
-        return new ChatCommandResult();
+        return new ChatCommandResult(true, ServerRoot.getCommandList());
     }
 
     @Override
     public CommandResult startGame(Game game) {
         //TODO What exactly should happen when we start a game?
-        return new GeneralCommandResult();
+        return new GeneralCommandResult(true, ServerRoot.getCommandList());
     }
 }

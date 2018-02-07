@@ -16,6 +16,17 @@ public abstract class CommandResult {
     boolean commandSuccess;
     String userMessage;
 
+    public CommandResult(boolean success, List<Command> clientCommands){
+        this.commandSuccess = success;
+        this.clientCommands = clientCommands;
+    }
+
+    public CommandResult(String exceptionType, String exceptionMessage){
+        this.commandSuccess = false;
+        this.exceptionType = exceptionType;
+        this.exceptionMessage = exceptionMessage;
+    }
+
     public void setExceptionType(String exceptionType)
     {
         this.exceptionType = exceptionType;
