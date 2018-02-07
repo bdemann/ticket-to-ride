@@ -16,6 +16,7 @@ import presenter.LoginPresenter;
 /**
  * A login screen that offers login via username/password.
  */
+
 public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     // UI references.
@@ -26,9 +27,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private EditText passwordConfirmText = null;
     private Button signInButton = null;
     private Button registerButton = null;
-    private View mProgressView = null;
-    private View mLoginFormView = null;
-
 
     //Private data members
     private String username;
