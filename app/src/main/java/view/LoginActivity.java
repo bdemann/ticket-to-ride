@@ -18,19 +18,7 @@ import guifacade.LoginGuiFacade;
 /**
  * A login screen that offers login via username/password.
  */
-public class LoginActivity extends AppCompatActivity{
-
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-//    private UserLoginTask mAuthTask = null;
+public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     // UI references.
     private EditText mUserNameView = null;
@@ -52,18 +40,18 @@ public class LoginActivity extends AppCompatActivity{
 
         //We need to create an intent in order to "intend" for it to do something.
         Intent intent = getIntent();
-
-
-        //FragmentManager fm = getFragmentManager();
-        //Fragment fragment = fm.findFragmentById(R.id.login_form);
-
         startActivity(intent);
+        SignInButton = (Button) findViewById(R.id.sign_in_button);
+        SignInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginGuiFacade.signIn(mUserNameView.getText().toString(), mPasswordView.getText().toString());
+            }
+        });
 
 
 
-
-
-        /*
+/*
         // Set up the login form.
         mUserNameView = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -88,7 +76,10 @@ public class LoginActivity extends AppCompatActivity{
 
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);*/
+        mProgressView = findViewById(R.id.login_progress);
+
+       */
+
     }
 
 
@@ -114,6 +105,50 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    public void enableSignIn(boolean enabled) {
+
+    }
+
+    @Override
+    public void enableRegister(boolean enabled) {
+
+    }
+
+    @Override
+    public void setUsername(String username) {
+
+    }
+
+    @Override
+    public void setPassword(String password) {
+
+    }
+
+    @Override
+    public String getUsernameSignIn() {
+        return null;
+    }
+
+    @Override
+    public String getPasswordSignIn() {
+        return null;
+    }
+
+    @Override
+    public String getUsernameRegister() {
+        return null;
+    }
+
+    @Override
+    public String getPasswordRegister() {
+        return null;
+    }
+
+    @Override
+    public void displayMessage(String message) {
+
+    }
 
 
 //    /**
