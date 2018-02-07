@@ -1,6 +1,9 @@
 package server.facades;
 
 import server.model.ServerRoot;
+import shared.commandResults.ChatCommandResult;
+import shared.commandResults.CommandResult;
+import shared.commandResults.GeneralCommandResult;
 import shared.model.Chat;
 import shared.model.Game;
 import shared.server.facades.ILobbyServerFacade;
@@ -11,13 +14,15 @@ import shared.server.facades.ILobbyServerFacade;
 
 public class LobbyServerFacade implements ILobbyServerFacade {
     @Override
-    public void sendChat(Chat message) {
+    public CommandResult sendChat(Chat message) {
         Game currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
         ServerRoot.addChat(currentGame, message);
+        return new ChatCommandResult();
     }
 
     @Override
-    public void startGame(Game game) {
+    public CommandResult startGame(Game game) {
         //TODO What exactly should happen when we start a game?
+        return new GeneralCommandResult();
     }
 }

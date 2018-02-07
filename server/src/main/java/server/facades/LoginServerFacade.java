@@ -1,6 +1,9 @@
 package server.facades;
 
 import server.model.ServerRoot;
+import shared.commandResults.CommandResult;
+import shared.commandResults.LoginCommandResult;
+import shared.commandResults.RegisterCommandResult;
 import shared.model.Player;
 import shared.server.facades.ILoginServerFacade;
 
@@ -10,19 +13,22 @@ import shared.server.facades.ILoginServerFacade;
 
 public class LoginServerFacade implements ILoginServerFacade {
     @Override
-    public boolean login(String username, String password) {
+    public CommandResult login(String username, String password) {
         Player player = ServerRoot.getPlayer(username);
-        return player.getPassword().equals(password);
+        if(player.getPassword().equals(password)){
+            return new LoginCommandResult();
+        }
+        return new LoginCommandResult();
     }
 
     @Override
-    public boolean register(String username, String password) {
+    public CommandResult register(String username, String password) {
         Player player = ServerRoot.getPlayer(username);
         if(player != null){
             // Player already exists
-            return false;
+            return new RegisterCommandResult();
         }
         ServerRoot.addPlayer(new Player(username, password));
-        return true;
+        return new RegisterCommandResult();
     }
 }

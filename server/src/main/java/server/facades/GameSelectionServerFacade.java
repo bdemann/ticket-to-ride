@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.model.ServerRoot;
+import shared.commandResults.CommandResult;
+import shared.commandResults.CreateGameCommandResult;
+import shared.commandResults.JoinGameCommandResult;
 import shared.model.Game;
 import shared.model.Player;
 import shared.server.facades.IGameSelectionServerFacade;
@@ -14,14 +17,16 @@ import shared.server.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
-    public void createGame(Player creator) {
+    public CommandResult createGame(Player creator) {
         List<Player> playerList = new ArrayList<>();
         playerList.add(creator);
         ServerRoot.addGame(new Game(playerList));
+        return new CreateGameCommandResult();
     }
 
     @Override
-    public void joinGame(Game game, Player joiner) {
+    public CommandResult joinGame(Game game, Player joiner) {
         ServerRoot.getGame(game.getId()).addPlayer(joiner);
+        return new JoinGameCommandResult();
     }
 }

@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 
 import shared.CommandEncoder;
 import shared.ICommand;
+import shared.commandResults.CommandResult;
 import shared.commandResults.GeneralCommandResult;
 
 /**
@@ -19,14 +20,10 @@ public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
 
         ICommand command = (ICommand) CommandEncoder.decodeCommand(exchange.getRequestBody());
-        GeneralCommandResult results = null;
+        CommandResult results = null;
 
-        try {
-            //TODO I need to know what we are putting in these Command results
-            results = new GeneralCommandResult();
-        } catch (Exception e) {
-            results = new GeneralCommandResult();
-        }
+        //TODO I need to know what we are putting in these Command results
+        results = command.execute();
 
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         CommandEncoder.encodeCommandResults(results, exchange.getResponseBody());

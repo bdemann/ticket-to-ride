@@ -1,5 +1,6 @@
 package shared.server.facades;
 
+import shared.commandResults.CommandResult;
 import shared.model.Game;
 import shared.model.Player;
 
@@ -8,6 +9,6 @@ import shared.model.Player;
  */
 
 public interface IGameSelectionServerFacade {
-    public void createGame(Player creator);
-    public void joinGame(Game game, Player joiner);
+    public CommandResult createGame(Player creator);
+    public CommandResult joinGame(Game game, Player joiner);
 }

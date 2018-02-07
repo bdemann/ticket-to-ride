@@ -1,5 +1,6 @@
 package shared.server.facades;
 
+import shared.commandResults.CommandResult;
 import shared.model.Chat;
 import shared.model.Game;
 
@@ -8,6 +9,6 @@ import shared.model.Game;
  */
 
 public interface ILobbyServerFacade {
-    public void sendChat(Chat message);
-    public void startGame(Game game);
+    public CommandResult sendChat(Chat message);
+    public CommandResult startGame(Game game);
 }

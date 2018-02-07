@@ -2,6 +2,7 @@ package shared;
 
 import com.google.gson.Gson;
 
+import shared.commandResults.CommandResult;
 import shared.commandResults.GeneralCommandResult;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class CommandEncoder {
     }
 
 
-    public static void encodeCommandResults(GeneralCommandResult results, OutputStream responseBody) {
+    public static void encodeCommandResults(CommandResult results, OutputStream responseBody) {
         String json = gson.toJson(results);
         try {
             responseBody.write(json.getBytes());
