@@ -1,5 +1,6 @@
 package proxy;
 
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
@@ -17,6 +18,9 @@ import shared.CommandEncoder;
 import shared.commandResults.GeneralCommandResult;
 
 /**
+ *
+ *
+ *
  * Created by paulinecausse on 2/3/18.
  */
 
