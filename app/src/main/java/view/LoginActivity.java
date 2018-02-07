@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.a340team.tickettoride.R;
 
 import guifacade.LoginGuiFacade;
+import presenter.LoginPresenter;
 
 /**
  * A login screen that offers login via username/password.
@@ -21,8 +22,8 @@ import guifacade.LoginGuiFacade;
 public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     // UI references.
-    private EditText mUserNameView = null;
-    private EditText mPasswordView = null;
+    private EditText usernameText = null;
+    private EditText passwordText = null;
     private EditText register_UserNameView = null;
     private EditText register_PasswordView = null;
     private EditText register_PasswordConfirmView = null;
@@ -30,6 +31,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private Button RegisterButton = null;
     private View mProgressView = null;
     private View mLoginFormView = null;
+
+
+    //Private data members
+    private String username;
+    private String password;
+
+    private boolean signInEnabled = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         SignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginGuiFacade.signIn(mUserNameView.getText().toString(), mPasswordView.getText().toString());
+
+                verifySignIn();
+
+                if(signInEnabled) {
+                    //Set what ever is in the text, and sign in.
+                    setUsername(usernameText.getText().toString());
+                    setPassword(passwordText.getText().toString());
+                    LoginPresenter.signIn();
+                }
+                //Maybe display a message if they aren't filling in both username and password?
             }
         });
 
@@ -83,9 +101,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
 
+
     public void disableInput(){
-        mUserNameView.setFocusable(false);
-        mPasswordView.setFocusable(false);
+        usernameText.setFocusable(false);
+        passwordText.setFocusable(false);
         register_UserNameView.setFocusable(false);
         register_PasswordView.setFocusable(false);
         register_PasswordConfirmView.setFocusable(false);
@@ -95,8 +114,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     public void enableInput(){
-        mUserNameView.setFocusable(false);
-        mPasswordView.setFocusable(false);
+        usernameText.setFocusable(false);
+        passwordText.setFocusable(false);
         register_UserNameView.setFocusable(false);
         register_PasswordView.setFocusable(false);
         register_PasswordConfirmView.setFocusable(false);
@@ -117,12 +136,12 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public void setUsername(String username) {
-
+        this.username = username;
     }
 
     @Override
     public void setPassword(String password) {
-
+        this.password = password;
     }
 
     @Override
@@ -149,6 +168,20 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     public void displayMessage(String message) {
 
     }
+
+    private void verifySignIn() {
+
+        //The user has to put some information in those text boxes
+        String empty = "";
+        String usernameTextBox = usernameText.getText().toString();
+        String passwordTextBox = passwordText.getText().toString();
+        if(!usernameTextBox.equals(empty) && !passwordTextBox.equals(empty)){
+            //Should be good to sign in
+            signInEnabled = true;
+        }
+
+    }
+
 
 
 //    /**
