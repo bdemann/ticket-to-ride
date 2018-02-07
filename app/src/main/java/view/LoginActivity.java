@@ -1,7 +1,5 @@
 package view;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -13,7 +11,6 @@ import android.widget.EditText;
 
 import com.a340team.tickettoride.R;
 
-import guifacade.LoginGuiFacade;
 import presenter.LoginPresenter;
 
 /**
@@ -22,13 +19,13 @@ import presenter.LoginPresenter;
 public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     // UI references.
-    private EditText usernameText = null;
-    private EditText passwordText = null;
-    private EditText register_UserNameView = null;
-    private EditText register_PasswordView = null;
-    private EditText register_PasswordConfirmView = null;
-    private Button SignInButton = null;
-    private Button RegisterButton = null;
+    private EditText usernameSignInText = null;
+    private EditText passwordSignInText = null;
+    private EditText usernameRegisterText = null;
+    private EditText passwordRegisterText = null;
+    private EditText passwordConfirmText = null;
+    private Button signInButton = null;
+    private Button registerButton = null;
     private View mProgressView = null;
     private View mLoginFormView = null;
 
@@ -36,7 +33,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     //Private data members
     private String username;
     private String password;
-
     private boolean signInEnabled = false;
 
 
@@ -50,77 +46,72 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         //We need to create an intent in order to "intend" for it to do something.
         Intent intent = getIntent();
         startActivity(intent);
-        SignInButton = (Button) findViewById(R.id.sign_in_button);
-        SignInButton.setOnClickListener(new OnClickListener() {
+
+        //Set up the variables
+        //Sign In Portion
+        usernameSignInText = (EditText) findViewById(R.id.username);
+        passwordSignInText = (EditText) findViewById(R.id.password);
+        signInButton = (Button) findViewById(R.id.sign_in_button);
+
+        //Register Portion
+        usernameRegisterText = (EditText) findViewById(R.id.register_username);
+        passwordRegisterText = (EditText) findViewById(R.id.register_password);
+        passwordConfirmText = (EditText) findViewById(R.id.register_password_confirm);
+        registerButton = (Button) findViewById(R.id.register_button);
+
+        //Button Listeners
+        signInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 verifySignInIsFilled();
 
-                if(signInEnabled) {
+                if (signInEnabled) {
                     //Set what ever is in the text, and sign in.
-                    setUsername(usernameText.getText().toString());
-                    setPassword(passwordText.getText().toString());
-                    LoginPresenter.signIn();
+                    setUsername(usernameSignInText.getText().toString());
+                    setPassword(passwordSignInText.getText().toString());
+                    LoginPresenter.signIn(username, password);
                 }
                 //Maybe display a message if they aren't filling in both username and password?
             }
         });
 
-
-
-/*
-        // Set up the login form.
-        mUserNameView = (EditText) findViewById(R.id.username);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        register_UserNameView = (EditText) findViewById(R.id.register_user_name);
-        register_PasswordView = (EditText) findViewById(R.id.register_password);
-        register_PasswordConfirmView = (EditText) findViewById(R.id.register_password_confirm);
-        SignInButton = (Button) findViewById(R.id.sign_in_button);
-        SignInButton.setOnClickListener(new OnClickListener() {
+        registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginGuiFacade.signIn(mUserNameView.getText().toString(), mPasswordView.getText().toString());
-            }
-        });
-        RegisterButton = (Button) findViewById(R.id.register_button);
-        RegisterButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LoginGuiFacade.register(register_UserNameView.getText().toString(), register_PasswordView.getText().toString(),
-                        register_PasswordConfirmView.getText().toString());
+
+                //Set up for register functionality.
+
             }
         });
 
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-
-       */
-
+        //Not sure what these are for?
+        //mLoginFormView = findViewById(R.id.login_form);
+        //mProgressView = findViewById(R.id.login_progress);
     }
 
 
 
     public void disableInput(){
-        usernameText.setFocusable(false);
-        passwordText.setFocusable(false);
-        register_UserNameView.setFocusable(false);
-        register_PasswordView.setFocusable(false);
-        register_PasswordConfirmView.setFocusable(false);
-        SignInButton.setEnabled(false);
-        RegisterButton.setEnabled(false);
+        usernameSignInText.setFocusable(false);
+        passwordSignInText.setFocusable(false);
+        usernameRegisterText.setFocusable(false);
+        passwordRegisterText.setFocusable(false);
+        passwordConfirmText.setFocusable(false);
+        signInButton.setEnabled(false);
+        registerButton.setEnabled(false);
 
     }
 
     public void enableInput(){
-        usernameText.setFocusable(false);
-        passwordText.setFocusable(false);
-        register_UserNameView.setFocusable(false);
-        register_PasswordView.setFocusable(false);
-        register_PasswordConfirmView.setFocusable(false);
-        SignInButton.setEnabled(false);
-        RegisterButton.setEnabled(false);
+        usernameSignInText.setFocusable(false);
+        passwordSignInText.setFocusable(false);
+        usernameRegisterText.setFocusable(false);
+        passwordRegisterText.setFocusable(false);
+        passwordConfirmText.setFocusable(false);
+        signInButton.setEnabled(false);
+        registerButton.setEnabled(false);
 
     }
 
@@ -173,8 +164,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
         //The user has to put some information in those text boxes
         String empty = "";
-        String usernameTextBox = usernameText.getText().toString();
-        String passwordTextBox = passwordText.getText().toString();
+        String usernameTextBox = usernameSignInText.getText().toString();
+        String passwordTextBox = passwordSignInText.getText().toString();
         if(!usernameTextBox.equals(empty) && !passwordTextBox.equals(empty)){
             //Should be good to sign in
             signInEnabled = true;
