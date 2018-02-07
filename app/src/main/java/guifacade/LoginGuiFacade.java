@@ -10,7 +10,7 @@ import proxy.LoginClientProxy;
 public class LoginGuiFacade {
 
     public static boolean signIn(String userName, String password) {
-        LoginClientProxy loginClientProxy = LoginClientProxy.SINGLETON;
+        LoginClientProxy loginClientProxy = new LoginClientProxy();
         loginClientProxy.signIn(userName, password);
         return true;
     }
@@ -18,7 +18,7 @@ public class LoginGuiFacade {
     public static boolean register(String userName, String password, String password_confirm){
         if (!password.equals(password_confirm))
             return false;
-        LoginClientProxy loginClientProxy = LoginClientProxy.SINGLETON;
+        LoginClientProxy loginClientProxy = new LoginClientProxy();
         loginClientProxy.register(userName, password);
         return true;
     }
