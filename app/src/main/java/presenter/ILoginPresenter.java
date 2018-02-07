@@ -7,8 +7,8 @@ package presenter;
 
 public interface ILoginPresenter {
 
-    void registerPasswordChanged();
-    void confirmPasswordChanged();
-    void signIn();
-    void register();
+    void _registerPasswordChanged();
+    void _confirmPasswordChanged();
+    void _signIn();
+    void _register();
 }
