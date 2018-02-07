@@ -24,8 +24,8 @@ public class LoginPresenter implements ILoginPresenter {
     private LoginPresenter() { }
 
     //Makes the singleton code a little cleaner
-    public static void signIn(){
-        LoginPresenter.instance()._signIn();
+    public static void signIn(String username, String password){
+        LoginPresenter.instance()._signIn(username,password);
     }
 
 
@@ -42,9 +42,11 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void _signIn() {
+    public void _signIn(String username, String password) {
         //Since this is called, we need to get the sign in information from the view
         //then we can communicate with the LoginGuiFacade
+        System.out.println("USERNAME: " + username + "\n");
+        System.out.println("PASSWORD: " + password + "\n");
 
 
 
