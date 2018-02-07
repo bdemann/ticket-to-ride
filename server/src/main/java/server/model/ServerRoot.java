@@ -1,8 +1,10 @@
 package server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import shared.Command;
 import shared.model.Chat;
 import shared.model.Game;
 import shared.model.Player;
@@ -15,6 +17,7 @@ public class ServerRoot extends Observable {
     private List<Player> _players;
     private List<Game> _games;
     private List<List<Chat>> chats;
+    private List<Command> commands = new ArrayList<>();
 
     private static final ServerRoot _instance = new ServerRoot();
 
@@ -53,5 +56,10 @@ public class ServerRoot extends Observable {
             }
         }
         return null;
+    }
+
+    public static List<Command> getCommandList() {
+        //TODO I am not really sure how we are going to keep track of this. I'm just going to send a plain list. Do we want to keep a list for each player. If yes where do we store that, if no do we just have a lit of all the commands?
+        return _instance.commands;
     }
 }

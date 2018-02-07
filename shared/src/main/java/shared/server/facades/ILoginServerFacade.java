@@ -7,6 +7,6 @@ import shared.commandResults.CommandResult;
  */
 
 public interface ILoginServerFacade {
-    public CommandResult login(String username, String password);
+    public CommandResult signin(String username, String password);
     public CommandResult register(String username, String password);
 }

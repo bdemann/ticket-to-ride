@@ -3,6 +3,7 @@ package shared;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 
 import shared.commandResults.CommandResult;
 
@@ -16,13 +17,15 @@ import shared.commandResults.CommandResult;
 public class Command implements ICommand{
     private static Gson gson = new Gson();      //make a decoder class instead
 
+    private String className;
     private String methodName;
     private String[] parameterTypeNames;
     private Object[] parameters;
     private String[] parametersAsJsonStrings;
     private Class<?>[] parameterTypes;
 
-    public Command(String methodName, String[] parameterTypeNames, Object[] parameters) {
+    public Command(String className, String methodName, String[] parameterTypeNames, Object[] parameters) {
+        this.className = className;
         this.methodName = methodName;
         this.parameterTypeNames = parameterTypeNames;
         this.parametersAsJsonStrings = new String[parameters.length];
@@ -95,9 +98,15 @@ public class Command implements ICommand{
         return result.toString();
     }
 
-    public CommandResult execute() {
-        //TODO implement the execute command
-        return null;
+    public CommandResult execute() throws Exception{
+        try {
+            Class<?> receiver = Class.forName(className);
+            Method method = receiver.getMethod(methodName, parameterTypes);
+            Object t = receiver.newInstance();
+            return (CommandResult) method.invoke(t, parameters);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
 //    public Object execute() {
