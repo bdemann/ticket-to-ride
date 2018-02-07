@@ -15,10 +15,6 @@ public class ChatCommandResult extends CommandResult {
         super(success, clientCommands);
     }
 
-    public ChatCommandResult(String exceptionType, String exceptionMessage) {
-        super(exceptionType, exceptionMessage);
-    }
-
     public String getMessage(){
         return message;
     }

@@ -15,6 +15,7 @@ import java.net.URL;
 
 import shared.Command;
 import shared.CommandEncoder;
+import shared.commandResults.CommandResult;
 import shared.commandResults.GeneralCommandResult;
 
 /**
@@ -33,13 +34,18 @@ public class ClientCommunicator {
 
     private CommandEncoder encoder;
 
-    public static ClientCommunicator SINGLETON = new ClientCommunicator();
+    //TODO I think we should make our fields private and have approprate accessors to them. We should talk abou this.
+    private static ClientCommunicator SINGLETON = new ClientCommunicator();
+
+    public static CommandResult sendCommand(Command command){
+        return SINGLETON._sendCommand(command);
+    }
 
     //Command
-    public GeneralCommandResult command(Command command) {
-        HttpURLConnection connection = openConnection("/command");
+    private CommandResult _sendCommand(Command command) {
+        HttpURLConnection connection = openConnection("/_sendCommand");
         send(connection, command);
-        GeneralCommandResult result = printResponseBodyInfo(connection);
+        CommandResult result = printResponseBodyInfo(connection);
 
         return result;
     }
@@ -55,8 +61,8 @@ public class ClientCommunicator {
         }
     }
 
-    private GeneralCommandResult printResponseBodyInfo(HttpURLConnection connection) {
-        GeneralCommandResult commandResult = new GeneralCommandResult();
+    private CommandResult printResponseBodyInfo(HttpURLConnection connection) {
+        CommandResult commandResult = null;
         try {
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 

@@ -1,7 +1,7 @@
 package proxy;
 
 import shared.Command;
-import shared.commandResults.GeneralCommandResult;
+import shared.commandResults.CommandResult;
 
 /**
  *
@@ -28,18 +28,16 @@ public class LoginClientProxy {
         this.serverPort = serverPort;
     }
 
-    public GeneralCommandResult signIn(String username, String password)
+    public CommandResult signIn(String username, String password)
     {
         Command command = generateLoginCommand("signIn", username, password);
-        GeneralCommandResult result = ClientCommunicator.SINGLETON.command(command);
-        return result;
+        return ClientCommunicator.sendCommand(command);
     }
 
-    public GeneralCommandResult register(String username, String password)
+    public CommandResult register(String username, String password)
     {
         Command command = generateLoginCommand("register", username, password);
-        GeneralCommandResult result = ClientCommunicator.SINGLETON.command(command);
-        return result;
+        return ClientCommunicator.sendCommand(command);
     }
 
     private Command generateLoginCommand(String methodName, String username, String password){

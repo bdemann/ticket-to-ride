@@ -12,8 +12,4 @@ public class JoinGameCommandResult extends CommandResult {
     public JoinGameCommandResult(boolean success, List<Command> clientCommands) {
         super(success, clientCommands);
     }
-
-    public JoinGameCommandResult(String exceptionType, String exceptionMessage) {
-        super(exceptionType, exceptionMessage);
-    }
 }

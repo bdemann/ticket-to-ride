@@ -12,8 +12,4 @@ public class LoginCommandResult extends CommandResult {
     public LoginCommandResult(boolean success, List<Command> clientCommands) {
         super(success, clientCommands);
     }
-
-    public LoginCommandResult(String exceptionType, String exceptionMessage) {
-        super(exceptionType, exceptionMessage);
-    }
 }

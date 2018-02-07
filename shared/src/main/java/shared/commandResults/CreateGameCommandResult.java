@@ -12,8 +12,4 @@ public class CreateGameCommandResult extends CommandResult {
     public CreateGameCommandResult(boolean success, List<Command> clientCommands) {
         super(success, clientCommands);
     }
-
-    public CreateGameCommandResult(String exceptionType, String exceptionMessage) {
-        super(exceptionType, exceptionMessage);
-    }
 }

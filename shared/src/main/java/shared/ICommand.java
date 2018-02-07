@@ -7,5 +7,5 @@ import shared.commandResults.CommandResult;
  */
 
 public interface ICommand {
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws Exception;
 }

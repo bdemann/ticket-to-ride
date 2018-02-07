@@ -13,7 +13,7 @@ import shared.server.facades.ILoginServerFacade;
 
 public class LoginServerFacade implements ILoginServerFacade {
     @Override
-    public CommandResult login(String username, String password) {
+    public CommandResult signin(String username, String password) {
         Player player = ServerRoot.getPlayer(username);
         if(player.getPassword().equals(password)){
             return new LoginCommandResult(true, ServerRoot.getCommandList());
