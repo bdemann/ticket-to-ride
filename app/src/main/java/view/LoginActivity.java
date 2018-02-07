@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             @Override
             public void onClick(View view) {
 
-                verifySignIn();
+                verifySignInIsFilled();
 
                 if(signInEnabled) {
                     //Set what ever is in the text, and sign in.
@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     }
 
-    private void verifySignIn() {
+    private void verifySignInIsFilled() {
 
         //The user has to put some information in those text boxes
         String empty = "";
@@ -181,6 +181,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         }
 
     }
+
 
 
 
