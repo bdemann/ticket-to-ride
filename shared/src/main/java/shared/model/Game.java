@@ -1,6 +1,6 @@
 package shared.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -8,9 +8,10 @@ import java.util.ArrayList;
  */
 public class Game implements IGame {
 
-    private ArrayList<Player> players;
+    private List<Player> players;
+    private int id;
 
-    public Game(ArrayList<Player> players){
+    public Game(List<Player> players){
         this.players = players;
     }
 
@@ -19,32 +20,32 @@ public class Game implements IGame {
     }
 
     @Override
-    public void setTrainCardDeck(ArrayList<TrainCard> trainCardDeck) {
+    public void setTrainCardDeck(List<TrainCard> trainCardDeck) {
 
     }
 
     @Override
-    public void setDestCardDeck(ArrayList<DestinationCard> destCardDeck) {
+    public void setDestCardDeck(List<DestinationCard> destCardDeck) {
 
     }
 
     @Override
-    public void setCardsFaceUp(ArrayList<TrainCard> cardsFaceUp) {
+    public void setCardsFaceUp(List<TrainCard> cardsFaceUp) {
 
     }
 
     @Override
-    public void setOpenRoutes(ArrayList<Route> openRoutes) {
+    public void setOpenRoutes(List<Route> openRoutes) {
 
     }
 
     @Override
-    public void setClaimedRoutes(ArrayList<Route> claimedRoutes) {
+    public void setClaimedRoutes(List<Route> claimedRoutes) {
 
     }
 
     @Override
-    public void setPlayers(ArrayList<Player> Players) {
+    public void setPlayers(List<Player> Players) {
         this.players = players;
 
     }
@@ -65,32 +66,32 @@ public class Game implements IGame {
     }
 
     @Override
-    public ArrayList<TrainCard> getTrainCardDeck() {
+    public List<TrainCard> getTrainCardDeck() {
         return null;
     }
 
     @Override
-    public ArrayList<DestinationCard> getDestCardDeck() {
+    public List<DestinationCard> getDestCardDeck() {
         return null;
     }
 
     @Override
-    public ArrayList<TrainCard> getCardsFaceUp() {
+    public List<TrainCard> getCardsFaceUp() {
         return null;
     }
 
     @Override
-    public ArrayList<Route> getOpenRoutes() {
+    public List<Route> getOpenRoutes() {
         return null;
     }
 
     @Override
-    public ArrayList<Route> getClaimedRoutes() {
+    public List<Route> getClaimedRoutes() {
         return null;
     }
 
     @Override
-    public ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return this.players;
     }
 
@@ -102,5 +103,14 @@ public class Game implements IGame {
     @Override
     public TTRMap getGameMap() {
         return null;
+    }
+
+    @Override
+    public void addPlayer(Player joiner) {
+        players.add(joiner);
+    }
+
+    public int getId() {
+        return id;
     }
 }
