@@ -6,8 +6,8 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import server.server.handlers.CommandHandler;
-import server.server.handlers.TestHandler;
+import server.handlers.CommandHandler;
+import server.handlers.TestHandler;
 
 /**
  * Created by Ben on 2/6/2018.
