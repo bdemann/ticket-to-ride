@@ -13,8 +13,6 @@ public class LoginClientProxy {
     private String serverHost;
     private String serverPort;
 
-    public static final LoginClientProxy SINGLETON = new LoginClientProxy();
-
     public LoginClientProxy()
     {
         this.serverHost = "localhost";
@@ -48,7 +46,7 @@ public class LoginClientProxy {
         param[0] = username;
         param[1] = password;
 
-        Command command = new Command(methodName, paramTypes, param);
+        Command command = new Command("LoginServerFacade", methodName, paramTypes, param);
 
         return command;
     }
