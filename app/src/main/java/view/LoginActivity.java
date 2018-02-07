@@ -1,5 +1,8 @@
 package view;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -21,11 +24,6 @@ public class LoginActivity extends AppCompatActivity{
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -47,28 +45,31 @@ public class LoginActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //This will start our main or first activity.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //We need to create an intent in order to "intend" for it to do something.
+        Intent intent = getIntent();
+
+
+        //FragmentManager fm = getFragmentManager();
+        //Fragment fragment = fm.findFragmentById(R.id.login_form);
+
+        startActivity(intent);
+
+
+
+
+
+        /*
         // Set up the login form.
         mUserNameView = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
         register_UserNameView = (EditText) findViewById(R.id.register_user_name);
         register_PasswordView = (EditText) findViewById(R.id.register_password);
         register_PasswordConfirmView = (EditText) findViewById(R.id.register_password_confirm);
-
-
-
-//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-//                    attemptLogin();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-
         SignInButton = (Button) findViewById(R.id.sign_in_button);
         SignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -87,8 +88,9 @@ public class LoginActivity extends AppCompatActivity{
 
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mProgressView = findViewById(R.id.login_progress);*/
     }
+
 
     public void disableInput(){
         mUserNameView.setFocusable(false);
