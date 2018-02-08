@@ -2,7 +2,6 @@ package shared;
 
 import com.google.gson.Gson;
 
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 
 import shared.commandResults.CommandResult;
@@ -15,79 +14,45 @@ import shared.commandResults.CommandResult;
  * Command class that creates the command objects
  */
 public class Command implements ICommand{
-    private static Gson gson = new Gson();      //make a decoder class instead
+    private String _className;
+    private String _methodName;
+    private Class<?>[] _parmTypes;
+    private Object[] _parms;
 
-    private String className;
-    private String methodName;
-    private String[] parameterTypeNames;
-    private Object[] parameters;
-    private String[] parametersAsJsonStrings;
-    private Class<?>[] parameterTypes;
+    public Command(String className, String methodName, Class<?>[] parmTypes, Object[] parms) {
+        this._className = className;
+        this._methodName = methodName;
+        this._parmTypes = parmTypes;
+        this._parms = parms;
+    }
 
-    public Command(String className, String methodName, String[] parameterTypeNames, Object[] parameters) {
-        this.className = className;
-        this.methodName = methodName;
-        this.parameterTypeNames = parameterTypeNames;
-        this.parametersAsJsonStrings = new String[parameters.length];
-        for(int i = 0; i < parameters.length; i++) {
-            parametersAsJsonStrings[i] = gson.toJson(parameters[i]);
+    public CommandResult execute() throws Exception{
+        try {
+            Class<?> receiver = Class.forName(_className);
+            Method method = receiver.getMethod(_methodName, _parmTypes);
+            Object t = receiver.newInstance();
+            return (CommandResult) method.invoke(t, _parms);
+        } catch (Exception e) {
+            throw e;
         }
-        this.parameters = null;
-    }
-
-    public Command(InputStreamReader inputStreamReader) {
-        Command tempCommand = gson.fromJson(inputStreamReader, Command.class);
-
-        methodName = tempCommand.getMethodName();
-        parameterTypeNames = tempCommand.getParameterTypeNames();
-        parametersAsJsonStrings = tempCommand.getParametersAsJsonStrings();
-        createParameterTypes();
-        parameters = new Object[parametersAsJsonStrings.length];
-        for(int i = 0; i < parametersAsJsonStrings.length; i++) {
-            parameters[i] = gson.fromJson(parametersAsJsonStrings[i], parameterTypes[i]);
-        }
-    }
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public String[] getParameterTypeNames() {
-        return parameterTypeNames;
-    }
-
-    public Object[] getParameters() {
-        return parameters;
-    }
-
-    public String[] getParametersAsJsonStrings() {
-        return parametersAsJsonStrings;
     }
 
     public String toString() {
         StringBuffer result = new StringBuffer();
-        result.append("methodName = " + methodName + "\n");
+        result.append("_methodName = " + _methodName + "\n");
 
-        result.append("    parameterTypeNames = ");
-        for(String parameterTypeName : parameterTypeNames) {
-            result.append(parameterTypeName + ", ");
+        result.append("    _parmTypes = ");
+        for(Class parmType : _parmTypes) {
+            result.append(parmType + ", ");
         }
         result.delete(result.length()-2, result.length());
         result.append("\n");
 
-        result.append("    parametersAsJsonStrings = ");
-        for(String parameterString : parametersAsJsonStrings) {
-            result.append("'" + parameterString + "'");
-            result.append(", ");
-        }
-        result.delete(result.length()-2, result.length());
-        result.append("\n");
-
-        result.append("    parameters = ");
-        if(parameters == null) {
+        result.append("    _parms = ");
+        if(_parms == null) {
             result.append("null\n");
         } else {
-            for(Object parameter : parameters) {
+            for(Object parameter : _parms) {
                 result.append(parameter);
                 result.append("(" + parameter.getClass().getName() + ")");
                 result.append(", ");
@@ -98,81 +63,4 @@ public class Command implements ICommand{
         return result.toString();
     }
 
-    public CommandResult execute() throws Exception{
-        try {
-            Class<?> receiver = Class.forName(className);
-            Method method = receiver.getMethod(methodName, parameterTypes);
-            Object t = receiver.newInstance();
-            return (CommandResult) method.invoke(t, parameters);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-//    public Object execute() {
-//        Object result = null;
-//        ServerFacade serverFacade = ServerFacade.instance();
-//
-//        try {
-//            Method method = ServerFacade.class.getMethod(methodName, parameterTypes);
-//            result = method.invoke(serverFacade, parameters);
-//        } catch (NoSuchMethodException | SecurityException e) {
-//            System.out.println("ERROR: Could not find the method " + methodName + ", or, there was a security error");
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            System.err.println("Illegal accesss while trying to execute the method " + methodName);
-//            e.printStackTrace();
-//        } catch (IllegalArgumentException e) {
-//            System.out.println("ERROR: Illegal argument while trying to find the method " + methodName);
-//            e.printStackTrace();
-//        }
-//        catch(Exception e)
-//        {
-//            result = "not an integer";
-//        }
-//
-//        return result;
-//    }
-
-    private final void createParameterTypes() {
-        parameterTypes = new Class<?>[parameterTypeNames.length];
-        for(int i = 0; i < parameterTypeNames.length; i++) {
-            try {
-                parameterTypes[i] = getClassFor(parameterTypeNames[i]);
-            } catch (ClassNotFoundException e) {
-                System.err.println("ERROR: IN Command.execute could not create a parameter type from the parameter type name " +
-                        parameterTypeNames[i]);
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public final Class<?> getClassFor(String className)
-            throws ClassNotFoundException
-    {
-        Class<?> result = null;
-        switch (className) {
-            case "boolean" :
-                result = boolean.class; break;
-            case "byte"    :
-                result = byte.class;    break;
-            case "char"    :
-                result = char.class;    break;
-            case "double"  :
-                result = double.class;  break;
-            case "float"   :
-                result = float.class;   break;
-            case "int"     :
-                result = int.class;     break;
-            case "long"    :
-                result = long.class;    break;
-            case "short"   :
-                result = short.class;   break;
-            case "String"  :
-                result = String.class;  break;
-            default:
-                result = Class.forName(className);
-        }
-        return result;
-    }
 }

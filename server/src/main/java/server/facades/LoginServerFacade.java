@@ -12,6 +12,7 @@ import shared.server.facades.ILoginServerFacade;
  */
 
 public class LoginServerFacade implements ILoginServerFacade {
+
     @Override
     public CommandResult signin(String username, String password) {
         Player player = ServerRoot.getPlayer(username);
@@ -26,9 +27,9 @@ public class LoginServerFacade implements ILoginServerFacade {
         Player player = ServerRoot.getPlayer(username);
         if(player != null){
             // Player already exists
-            return new RegisterCommandResult(true, ServerRoot.getCommandList());
+            return new RegisterCommandResult(false, ServerRoot.getCommandList());
         }
         ServerRoot.addPlayer(new Player(username, password));
-        return new RegisterCommandResult(false, ServerRoot.getCommandList());
+        return new RegisterCommandResult(true, ServerRoot.getCommandList());
     }
 }
