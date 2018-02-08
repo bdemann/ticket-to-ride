@@ -21,6 +21,11 @@ public class CommandResult {
         this.clientCommands = clientCommands;
     }
 
+    public CommandResult(boolean success, String userMessage){
+        this.commandSuccess = success;
+        this.userMessage = userMessage;
+    }
+
     public CommandResult(String exceptionType, String exceptionMessage){
         this.commandSuccess = false;
         this.exceptionType = exceptionType;
