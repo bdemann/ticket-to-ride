@@ -86,15 +86,19 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private void _verifySignInIsFilled() {
 
         //The user has to put some information in those text boxes
-        String empty = "";
         String usernameTextBox = _usernameSignInText.getText().toString();
         String passwordTextBox = _passwordSignInText.getText().toString();
-        if(!usernameTextBox.equals(empty) && !passwordTextBox.equals(empty)){
-            //Should be good to sign in
-            _signInEnabled = true;
+        if(!usernameTextBox.isEmpty() && !passwordTextBox.isEmpty()){
+            if(!ViewUtilities.containsSpecialCharacters(usernameTextBox) &&
+                    !ViewUtilities.containsSpecialCharacters(passwordTextBox)) {
+                //Should be good to sign in
+                _signInEnabled = true;
+            }
         }
 
+
     }
+
 
     private void _disableInput(){
         _usernameSignInText.setFocusable(false);
