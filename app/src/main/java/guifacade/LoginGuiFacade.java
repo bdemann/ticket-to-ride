@@ -1,8 +1,10 @@
 package guifacade;
 
+import model.ClientRoot;
 import proxy.LoginClientProxy;
 import proxy.serverproxies.LoginServerProxy;
 import shared.commandResults.CommandResult;
+import shared.model.Player;
 
 /**
  *
@@ -10,23 +12,53 @@ import shared.commandResults.CommandResult;
  */
 
 public class LoginGuiFacade {
+    private static ClientRoot _clientRoot;
 
-    public static void signIn(String username, String password) {
+    public static String signIn(String username, String password) {
         //This GuiFacade will send the username and password on to the server.
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult commandResults = lsp.signin(username,password);
 
-        //Now if things work properly, we should be able to disect the commandResults.
+        //send username and password to root
+        if(commandResults.getCommandSuccess()){
+            _updatePlayer(username, password);
+        }
+        else{
+            //check for exception
+            if(commandResults.getExceptionType() != null){
+                return "Exception of type: " + commandResults.getExceptionType() +
+                        ". " + commandResults.getExceptionMessage();
+            }
+            return commandResults.getUserMessage();
+        }
+
+        return commandResults.getUserMessage();
     }
 
-    public static void register(String username, String password){
 
-        LoginServerProxy lsp = new LoginServerProxy();
+    public static String register(String username, String password){
+
+        LoginClientProxy lsp = new LoginClientProxy();
         CommandResult commandResults = lsp.register(username,password);
 
-        //Now if things work properly, we should be able to disect the commandResults.
+        //send username and password to root
+        if(commandResults.getCommandSuccess()){
+            _updatePlayer(username, password);
+        }
+        else{
+            //check for exception
+            if(commandResults.getExceptionType() != null){
+                return "Exception of type: " + commandResults.getExceptionType() +
+                        ". " + commandResults.getExceptionMessage();
+            }
+            return commandResults.getUserMessage();
+        }
+        return commandResults.getUserMessage();
+    }
 
-
+    private static void _updatePlayer(String username, String password){
+        Player player = new Player(username, password);
+        _clientRoot.setClientPlayer(player);
     }
 }
