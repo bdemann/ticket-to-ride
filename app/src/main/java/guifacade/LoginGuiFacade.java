@@ -20,7 +20,13 @@ public class LoginGuiFacade {
         //Now if things work properly, we should be able to disect the commandResults.
     }
 
-    public static void register(String username, String password, String password_confirm){
+    public static void register(String username, String password){
+
+        LoginServerProxy lsp = new LoginServerProxy();
+        CommandResult commandResults = lsp.register(username,password);
+
+        //Now if things work properly, we should be able to disect the commandResults.
+
 
     }
 }

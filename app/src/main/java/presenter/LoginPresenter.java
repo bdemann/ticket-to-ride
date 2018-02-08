@@ -54,7 +54,11 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     }
 
     @Override
-    public void register() {
+    public void register(String username, String password) {
+
+        System.out.println("USERNAME: " + username + "\n");
+        System.out.println("PASSWORD: " + password + "\n");
+        //LoginGuiFacade.register(username,password);
 
     }
 

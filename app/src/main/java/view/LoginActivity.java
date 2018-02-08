@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private Button _signInButton;
     private Button _registerButton;
     private boolean _signInEnabled = false;
+    private boolean _registerEnabled = false;
     private LoginPresenter _loginPresenter;
 
 
@@ -84,7 +85,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     private void _verifySignInIsFilled() {
-
         //The user has to put some information in those text boxes
         String usernameTextBox = _usernameSignInText.getText().toString();
         String passwordTextBox = _passwordSignInText.getText().toString();
@@ -96,6 +96,23 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             }
         }
 
+
+    }
+
+    private void _verifyRegisterIsValid() {
+        //The user has to put some information in those text boxes
+        String usernameTextBox = _usernameRegisterText.getText().toString();
+        String passwordTextBox = _passwordRegisterText.getText().toString();
+        String confirmTextBox = _passwordConfirmText.getText().toString();
+        if(!usernameTextBox.isEmpty() && !passwordTextBox.isEmpty() && !confirmTextBox.isEmpty()){
+            if(passwordTextBox.equals(confirmTextBox)){
+                if(!ViewUtilities.containsSpecialCharacters(usernameTextBox) &&
+                        !ViewUtilities.containsSpecialCharacters(passwordTextBox)) {
+                    //Should be good to register
+                    _registerEnabled = true;
+                }
+            }
+        }
 
     }
 
@@ -171,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
                 }
                 _enableInput();
+                _signInEnabled = false;
             }
         });
 
@@ -179,7 +197,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             public void onClick(View view) {
 
                 //Set up for register functionality.
+                _disableInput();
+                _verifyRegisterIsValid();
 
+                if(_registerEnabled){
+                    String username = _usernameRegisterText.getText().toString();
+                    String password = _passwordRegisterText.getText().toString();
+                    _loginPresenter.register(username,password);
+                }
+                _enableInput();
+                _registerEnabled = false;
             }
         });
     }
