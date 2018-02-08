@@ -12,4 +12,8 @@ public class LoginCommandResult extends CommandResult {
     public LoginCommandResult(boolean success, List<Command> clientCommands) {
         super(success, clientCommands);
     }
+
+    public LoginCommandResult(boolean success, String userMessage){
+        super(success, userMessage);
+    }
 }
