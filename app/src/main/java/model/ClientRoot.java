@@ -14,28 +14,41 @@ import java.util.Observable;
 
 public class ClientRoot extends Observable {
 
-    private Player clientPlayer;
-    private Game clientGame;
+    private Player _clientPlayer;
+    private Game _clientGame;
+    private static ClientRoot _instance;
 
-    public ClientRoot(Player player, Game game) {
-        this.clientPlayer = player;
-        this.clientGame = game;
+    public static ClientRoot instance() {
+
+        if (_instance == null)
+            _instance = new ClientRoot();
+        return _instance;
     }
-    public void setClientPlayer(Player player) {
-        this.clientPlayer = player;
-        setChanged();
-        notifyObservers();
+
+    private ClientRoot(){
+        this._clientPlayer = null;
+        this._clientGame = null;
     }
+
+    //Getters and Setters
     public Player getClientPlayer(){
-        return clientPlayer;
+        return _clientPlayer;
     }
 
     public Game getClientGame() {
-        return clientGame;
+        return _clientGame;
+    }
+
+    public void setClientPlayer(Player player) {
+        this._clientPlayer = player;
+        setChanged();
+        //The notify observers method can be overloaded with an object, will then be Object o param
+        //for the update function.
+        notifyObservers();
     }
 
     public void setClientGame(Game clientGame) {
-        this.clientGame = clientGame;
+        this._clientGame = clientGame;
         setChanged();
         notifyObservers();
     }

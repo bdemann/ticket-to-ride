@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.a340team.tickettoride.R;
 
+import model.ClientRoot;
 import presenter.LoginPresenter;
 
 /**
@@ -40,8 +41,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         //We need to create an intent in order to "intend" for it to do something.
         Intent intent = getIntent();
 
-        _loginPresenter = new LoginPresenter();
-
+        _setUpObserver();
         _initializeLoginElements();
         _createLoginListeners();
 
@@ -116,6 +116,21 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         _signInButton.setEnabled(true);
         _registerButton.setEnabled(true);
 
+        _usernameSignInText.setFocusableInTouchMode(true);
+        _passwordSignInText.setFocusableInTouchMode(true);
+        _usernameRegisterText.setFocusableInTouchMode(true);
+        _passwordRegisterText.setFocusableInTouchMode(true);
+        _passwordConfirmText.setFocusableInTouchMode(true);
+        _signInButton.setEnabled(true);
+        _registerButton.setEnabled(true);
+
+    }
+
+    private void _setUpObserver(){
+
+        ClientRoot root = ClientRoot.instance();
+        _loginPresenter = new LoginPresenter(root);
+        root.addObserver(_loginPresenter);
     }
 
     private void _initializeLoginElements(){
@@ -140,15 +155,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             @Override
             public void onClick(View view) {
 
+                _disableInput();
                 _verifySignInIsFilled();
 
                 if (_signInEnabled) {
                     //Set what ever is in the text, and sign in.
                     String username = _usernameSignInText.getText().toString();
                     String password = _passwordSignInText.getText().toString();
+                    _loginPresenter.signIn(username,password);
+                    //Switch activities if successful
 
                 }
-                //Maybe display a message if they aren't filling in both _username and _password?
+                _enableInput();
             }
         });
 
@@ -161,5 +179,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             }
         });
     }
+
+
 }
 
