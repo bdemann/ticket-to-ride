@@ -8,7 +8,7 @@ import java.util.List;
  * Created by paulinecausse on 2/3/18.
  */
 
-public abstract class CommandResult {
+public class CommandResult {
     String exceptionType;
     String exceptionMessage;
     List<Command> clientCommands;
