@@ -25,8 +25,7 @@ public class Player implements IPlayer {
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
-        //TODO I can imagine that there would be times when the user would not yet have a color assosicated with them. Is black an okay default?
-        this.color = Color.black;
+        this.color = null;
     }
 
     @Override
