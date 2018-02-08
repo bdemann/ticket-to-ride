@@ -6,7 +6,6 @@ package server;
 
 public class Server {
     public static void main(String[] args) {
-        System.out.print("Hello world");
         int serverPortNumber;
         if (args.length == 0) {
             serverPortNumber = 8080;
@@ -14,5 +13,6 @@ public class Server {
             serverPortNumber = Integer.parseInt(args[0]);
         }
         new ServerCommunicator(serverPortNumber).run();
+        System.out.println("Server Started on localhost:" + serverPortNumber + "/");
     }
 }

@@ -16,13 +16,17 @@ import shared.model.Player;
 public class ServerRoot extends Observable {
     private List<Player> _players;
     private List<Game> _games;
-    private List<List<Chat>> chats;
-    private List<Command> commands = new ArrayList<>();
+    private List<List<Chat>> _chats;
+    private List<Command> _commands = new ArrayList<>();
 
     private static final ServerRoot _instance = new ServerRoot();
 
     private ServerRoot(){
         super();
+        _players = new ArrayList<>();
+        _games = new ArrayList<>();
+        _chats = new ArrayList<>();
+        _commands = new ArrayList<>();
     }
 
     public static void addGame(Game game) {
@@ -46,7 +50,7 @@ public class ServerRoot extends Observable {
     }
 
     public static void addChat(Game game, Chat message) {
-        _instance.chats.get(game.getId()).add(message);
+        _instance._chats.get(game.getId()).add(message);
     }
 
     public static Player getPlayer(String username) {
@@ -60,6 +64,6 @@ public class ServerRoot extends Observable {
 
     public static List<Command> getCommandList() {
         //TODO I am not really sure how we are going to keep track of this. I'm just going to send a plain list. Do we want to keep a list for each player. If yes where do we store that, if no do we just have a lit of all the commands?
-        return _instance.commands;
+        return _instance._commands;
     }
 }

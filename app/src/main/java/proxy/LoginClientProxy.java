@@ -39,9 +39,9 @@ public class LoginClientProxy {
     }
 
     private Command generateLoginCommand(String methodName, String username, String password){
-        String[] paramTypes = new String[2];
-        paramTypes[0] = "String";
-        paramTypes[1] = "String";
+        Class<?>[] paramTypes = new Class<?>[2];
+        paramTypes[0] = String.class;
+        paramTypes[1] = String.class;
         String[] param = new String[2];
         param[0] = username;
         param[1] = password;
