@@ -14,14 +14,14 @@ import shared.server.facades.IGameSelectionServerFacade;
 public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     @Override
     public CommandResult createGame(Player creator) {
-        String[] parmTypes = {Player.class.toString()};
+        Class<?>[] parmTypes = {Player.class};
         Object[] parmValues = {creator};
         return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues));
     }
 
     @Override
     public CommandResult joinGame(Game game, Player joiner) {
-        String[] parmTypes = {Game.class.toString(), Player.class.toString()};
+        Class<?>[] parmTypes = {Game.class, Player.class};
         Object[] parmValues = {game, joiner};
         return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues));
     }
