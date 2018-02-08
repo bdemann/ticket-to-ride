@@ -1,6 +1,8 @@
 package guifacade;
 
 import proxy.LoginClientProxy;
+import proxy.serverproxies.LoginServerProxy;
+import shared.commandResults.CommandResult;
 
 /**
  *
@@ -9,17 +11,16 @@ import proxy.LoginClientProxy;
 
 public class LoginGuiFacade {
 
-    public static boolean signIn(String userName, String password) {
-        LoginClientProxy loginClientProxy = new LoginClientProxy();
-        loginClientProxy.signIn(userName, password);
-        return true;
+    public static void signIn(String username, String password) {
+        //This GuiFacade will send the username and password on to the server.
+        //It will receive certain results and decide what to do with them.
+        LoginServerProxy lsp = new LoginServerProxy();
+        CommandResult commandResults = lsp.signin(username,password);
+
+        //Now if things work properly, we should be able to disect the commandResults.
     }
 
-    public static boolean register(String userName, String password, String password_confirm){
-        if (!password.equals(password_confirm))
-            return false;
-        LoginClientProxy loginClientProxy = new LoginClientProxy();
-        loginClientProxy.register(userName, password);
-        return true;
+    public static void register(String username, String password, String password_confirm){
+
     }
 }

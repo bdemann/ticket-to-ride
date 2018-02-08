@@ -3,6 +3,7 @@ package presenter;
 import java.util.Observable;
 import java.util.Observer;
 
+import guifacade.LoginGuiFacade;
 import model.ClientRoot;
 import shared.model.Player;
 import view.LoginActivity;
@@ -46,9 +47,10 @@ public class LoginPresenter implements ILoginPresenter, Observer {
         //then we can communicate with the LoginGuiFacade
         //System.out.println("USERNAME: " + username + "\n");
         //System.out.println("PASSWORD: " + password + "\n");
-        Player p = new Player(username, password);
 
-        _clientRoot.setClientPlayer(p);
+        //Player p = new Player(username, password);
+        //_clientRoot.setClientPlayer(p);
+        LoginGuiFacade.signIn(username, password);
     }
 
     @Override
