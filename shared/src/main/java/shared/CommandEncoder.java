@@ -3,7 +3,6 @@ package shared;
 import com.google.gson.Gson;
 
 import shared.commandResults.CommandResult;
-import shared.commandResults.GeneralCommandResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,9 +18,9 @@ public class CommandEncoder {
 
     public CommandEncoder(){}
 
-    public static GeneralCommandResult decodeCommand(String respData)
+    public static CommandResult decodeCommand(String respData)
     {
-        return gson.fromJson(respData, GeneralCommandResult.class);
+        return gson.fromJson(respData, CommandResult.class);
 
     }
 
