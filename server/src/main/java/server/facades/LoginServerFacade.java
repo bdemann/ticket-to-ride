@@ -16,10 +16,13 @@ public class LoginServerFacade implements ILoginServerFacade {
     @Override
     public CommandResult signin(String username, String password) {
         Player player = ServerRoot.getPlayer(username);
-        if(player.getPassword().equals(password)){
-            return new LoginCommandResult(true, ServerRoot.getCommandList());
+        if(player == null){
+            return new LoginCommandResult(false, "Player does not exists");
         }
-        return new LoginCommandResult(false, ServerRoot.getCommandList());
+        if(player.getPassword().equals(password)){
+            return new LoginCommandResult(true, "Login successful");
+        }
+        return new LoginCommandResult(false, "Wrong password");
     }
 
     @Override
@@ -27,9 +30,9 @@ public class LoginServerFacade implements ILoginServerFacade {
         Player player = ServerRoot.getPlayer(username);
         if(player != null){
             // Player already exists
-            return new RegisterCommandResult(false, ServerRoot.getCommandList());
+            return new RegisterCommandResult(false, "Player already exists");
         }
         ServerRoot.addPlayer(new Player(username, password));
-        return new RegisterCommandResult(true, ServerRoot.getCommandList());
+        return new RegisterCommandResult(true, "Register successful");
     }
 }
