@@ -18,6 +18,16 @@ public class CommandEncoder {
 
     public CommandEncoder(){}
 
+//    public static void main(String[] args){
+//        String methods = "method";
+//        String[] paramTypes = {"String"};
+//        String[] param = {"hello"};
+//        Command command = new Command("class", methods,paramTypes,param);
+//
+//        encodeCommand(command);
+//    }
+
+
     public static CommandResult decodeCommand(String respData)
     {
         return gson.fromJson(respData, CommandResult.class);
@@ -26,6 +36,8 @@ public class CommandEncoder {
 
     public static void encodeCommand(Command command, OutputStreamWriter outputStreamWriter) {
         gson.toJson(command, outputStreamWriter);
+        String json = gson.toJson(command);
+        System.out.print(json);
     }
 
 
@@ -39,8 +51,9 @@ public class CommandEncoder {
     }
 
     public static ICommand decodeCommand(InputStream requestBody) {
-        //TODO implement decode Command with an imput string
-        return null;
+        //TODO implement decode Command with an input string
+//        System.out.print("\nGSON: " + gson.fromJson(requestBody.toString(), Command.class) + "\n");
+        return gson.fromJson(requestBody.toString(), Command.class);
     }
 
     public static void encodeTestResults(Object o, OutputStream responseBody) {
