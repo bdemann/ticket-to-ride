@@ -43,7 +43,7 @@ public class ServerCommunicator {
 
         server.setExecutor(null); // use the default executor.
 
-        server.createContext("/command", command);
+        server.createContext("/_sendCommand", command);
         server.createContext("/test", testHandler);
 
         server.start();
