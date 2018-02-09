@@ -12,7 +12,12 @@ import shared.model.Player;
  */
 
 public class LoginGuiFacade {
-    private static ClientRoot _clientRoot;
+    private static ClientRoot _clientRoot = ClientRoot.instance();
+
+    public static void main(String[] args) {
+        String result = signIn("username", "password");
+
+    }
 
     public static String signIn(String username, String password) {
         //This GuiFacade will send the username and password on to the server.
@@ -27,12 +32,15 @@ public class LoginGuiFacade {
         else{
             //check for exception
             if(commandResults.getExceptionType() != null){
+                System.out.print("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
                 return "Exception of type: " + commandResults.getExceptionType() +
                         ". " + commandResults.getExceptionMessage();
             }
+            System.out.print("False. UserMessage: " + commandResults.getUserMessage());
             return commandResults.getUserMessage();
         }
 
+        System.out.print("True. UserMessage: " + commandResults.getUserMessage());
         return commandResults.getUserMessage();
     }
 
@@ -49,11 +57,14 @@ public class LoginGuiFacade {
         else{
             //check for exception
             if(commandResults.getExceptionType() != null){
+                System.out.print("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
                 return "Exception of type: " + commandResults.getExceptionType() +
                         ". " + commandResults.getExceptionMessage();
             }
+            System.out.print("False. UserMessage: " + commandResults.getUserMessage());
             return commandResults.getUserMessage();
         }
+        System.out.print("True. UserMessage: " + commandResults.getUserMessage());
         return commandResults.getUserMessage();
     }
 
