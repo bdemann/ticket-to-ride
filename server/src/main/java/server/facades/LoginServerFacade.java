@@ -12,6 +12,10 @@ import shared.server.facades.ILoginServerFacade;
  */
 
 public class LoginServerFacade implements ILoginServerFacade {
+    public static void main(String[] args){
+        LoginServerFacade loginServerFacade = new LoginServerFacade();
+        CommandResult commandResult = loginServerFacade.signin("username", "password");
+    }
 
     @Override
     public CommandResult signin(String username, String password) {
