@@ -12,4 +12,8 @@ public class RegisterCommandResult extends CommandResult {
     public RegisterCommandResult(boolean success, List<Command> clientCommands) {
         super(success, clientCommands);
     }
+
+    public RegisterCommandResult(boolean success, String userMessage){
+        super(success,userMessage);
+    }
 }

@@ -10,6 +10,7 @@ import shared.server.facades.ILoginServerFacade;
  */
 
 public class LoginServerProxy implements ILoginServerFacade{
+    public LoginServerProxy(){}
     @Override
     public CommandResult signin(String username, String password) {
         return ClientCommunicator.sendCommand(generateLoginCommand("signin", username, password));
@@ -21,10 +22,11 @@ public class LoginServerProxy implements ILoginServerFacade{
     }
 
     private Command generateLoginCommand(String methodName, String username, String password){
-        Class<?>[] parmTypes = {String.class, String.class};
+        String[] parmTypes = {"String", "String"};
         String[] parm = {username, password};
+        String className = "server.facades.LoginServerFacade";
 
-        Command command = new Command("server.facades.LoginServerFacade", methodName, parmTypes, parm);
+        Command command = new Command(className, methodName, parmTypes, parm);
 
         return command;
     }
