@@ -1,7 +1,6 @@
 package view;
 
 import android.graphics.Color;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
-public class JoinGameActivity extends AppCompatActivity {
+public class CreateGameActivity extends AppCompatActivity {
 
     private EditText GameNameField;
     private ImageButton redButton;
@@ -33,7 +32,7 @@ public class JoinGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_game);
+        setContentView(R.layout.activity_create_game);
 
         PlayerColor = Color.RED;
         NumberOfPlayers = 2;

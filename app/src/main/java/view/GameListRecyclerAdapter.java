@@ -34,6 +34,7 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
 
         @Override
         public void onClick(View v) {
+
             String ChosenGame =  _gameList.get(getAdapterPosition());
         }
     }
