@@ -27,6 +27,8 @@ public class CommandHandler implements HttpHandler {
         } catch (Exception e){
             //TODO I am wondering about the merit of having the CommandResult class being abstract. It seems we could just make instances of it when we needed a GeneralCommadnResult instead of having another class whose sole purpose is to be an implementable version of the CommandResult
             results = new CommandResult(e.getClass().toString(), e.getMessage());
+            System.out.print(results);
+            e.printStackTrace();
         }
 
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
