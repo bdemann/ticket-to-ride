@@ -12,4 +12,8 @@ public class CreateGameCommandResult extends CommandResult {
     public CreateGameCommandResult(boolean success, List<Command> clientCommands) {
         super(success, clientCommands);
     }
+
+    public CreateGameCommandResult(boolean success, String userMessage){
+        super(success, userMessage);
+    }
 }

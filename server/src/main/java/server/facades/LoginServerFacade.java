@@ -5,7 +5,7 @@ import shared.commandResults.CommandResult;
 import shared.commandResults.LoginCommandResult;
 import shared.commandResults.RegisterCommandResult;
 import shared.model.Player;
-import shared.server.facades.ILoginServerFacade;
+import shared.facades.ILoginServerFacade;
 
 /**
  *

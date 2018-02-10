@@ -10,9 +10,17 @@ public class Game implements IGame {
 
     private List<Player> players;
     private int id;
+    private int numberPlayer;
 
-    public Game(List<Player> players){
+    public Game(List<Player> players,int id, int numberPlayer){
         this.players = players;
+        this.id = id;
+        this.numberPlayer = numberPlayer;
+    }
+
+    public Game() {}
+
+    public void setId(){
     }
 
     @Override
@@ -45,7 +53,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void setPlayers(List<Player> Players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
 
     }
@@ -112,5 +120,9 @@ public class Game implements IGame {
 
     public int getId() {
         return id;
+    }
+
+    public int getNumberPlayer() {
+        return numberPlayer;
     }
 }

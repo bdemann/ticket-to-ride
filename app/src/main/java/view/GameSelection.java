@@ -12,7 +12,7 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 
-public class GameSelection extends AppCompatActivity {
+public class GameSelection extends AppCompatActivity implements IGameSelection{
 
     private ArrayList<String> _gameList;
     private RecyclerView _recyclerView;

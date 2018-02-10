@@ -36,6 +36,9 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
         public void onClick(View v) {
 
             String ChosenGame =  _gameList.get(getAdapterPosition());
+            Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
+            intent.putExtra("GameID", ChosenGame);
+            v.getContext().startActivity(intent);
         }
     }
 
