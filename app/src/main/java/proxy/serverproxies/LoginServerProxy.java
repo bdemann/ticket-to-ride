@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
-import shared.server.facades.ILoginServerFacade;
+import shared.facades.ILoginServerFacade;
 import tasks.LoginTask;
 import view.LoginActivity;
 
