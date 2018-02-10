@@ -6,6 +6,7 @@ import shared.commandResults.CommandResult;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
@@ -27,8 +28,12 @@ public class CommandEncoder {
 //        encodeCommand(command);
 //    }
 
+    public static String encodeGeneric(Object o){
+        return gson.toJson(o);
+    }
 
-    public static CommandResult decodeCommand(String respData)
+
+    public static CommandResult decodeCommandResult(String respData)
     {
         return gson.fromJson(respData, CommandResult.class);
 
@@ -50,11 +55,20 @@ public class CommandEncoder {
         }
     }
 
-    public static ICommand decodeCommand(InputStream requestBody) {
-        //TODO implement decode Command with an input string
-//        System.out.print("\nGSON: " + gson.fromJson(requestBody.toString(), Command.class) + "\n");
-        return gson.fromJson(requestBody.toString(), Command.class);
+//    public static ICommand decodeCommand(InputStream requestBody) {
+//        //TODO implement decode Command with an input string
+//        System.out.print("Command!");
+////        System.out.print("\nGSON: " + gson.fromJson(requestBody.toString(), Command.class) + "\n");
+//        ICommand command = gson.fromJson(requestBody.toString(), ICommand.class);
+//
+//        System.out.print("Command again!");
+//        return command;
+//    }
+    public static Command decodeCommand2(InputStreamReader inputStreamReader){
+        Command tempCommand = (Command)gson.fromJson(inputStreamReader, Command.class);
+        return tempCommand;
     }
+
 
     public static void encodeTestResults(Object o, OutputStream responseBody) {
         String json = gson.toJson(o);
