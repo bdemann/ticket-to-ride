@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
-public class CreateGameActivity extends AppCompatActivity {
+public class CreateGameActivity extends AppCompatActivity implements ICreateGameActivity{
 
     private EditText GameNameField;
     private ImageButton redButton;
@@ -62,7 +62,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
     }
 
-    private void _enableAllButtons(){
+    @Override
+    public void _enableAllButtons(){
         redButton.setEnabled(true);
         blueButton.setEnabled(true);
         yellowButton.setEnabled(true);
@@ -75,7 +76,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
     }
 
-    private void _onClickListenerSetup(){
+    @Override
+    public void _onClickListenerSetup(){
 
         //Color Buttons
         redButton.setOnClickListener(new View.OnClickListener() {

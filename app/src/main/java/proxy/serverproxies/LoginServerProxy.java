@@ -3,7 +3,7 @@ package proxy.serverproxies;
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
-import shared.server.facades.ILoginServerFacade;
+import shared.facades.ILoginServerFacade;
 
 /**
  * Created by Ben on 2/7/2018.

@@ -1,4 +1,4 @@
-package shared.server.facades;
+package shared.facades;
 
 import shared.commandResults.CommandResult;
 import shared.model.Game;
