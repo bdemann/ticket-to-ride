@@ -7,13 +7,22 @@ package shared.logging;
 public class Logger {
 
     public static final Logger _instance = new Logger();
+    private Level _level;
 
     private Logger(){
+        _level = Level.ALL;
+    }
 
+    public static void setLevel(Level level){
+        _instance._level = level;
+    }
+
+    public static void log(String message, Level level){
+        System.out.println(message);
     }
 
     public static void log(Object message, Level level){
-        System.out.println(message.toString());
+        System.out.println(message);
     }
 
     public static void log(Object message){
