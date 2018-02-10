@@ -13,9 +13,9 @@ import shared.server.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(Player creator) {
-        Class<?>[] parmTypes = {Player.class};
-        Object[] parmValues = {creator};
+    public CommandResult createGame(Player creator, int numberPlayer) {
+        Class<?>[] parmTypes = {Player.class, int.class};
+        Object[] parmValues = {creator, numberPlayer};
         return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues));
     }
 
