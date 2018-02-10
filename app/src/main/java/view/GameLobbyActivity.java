@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
 import com.a340team.tickettoride.R;
 
-public class GameLobbyActivity extends AppCompatActivity {
+public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyActivity{
 
     private RecyclerView _recycler;
     private EditText _chatText;
@@ -34,7 +33,8 @@ public class GameLobbyActivity extends AppCompatActivity {
         _makeOnClickListeners();
     }
 
-    private void _makeOnClickListeners(){
+    @Override
+    public void _makeOnClickListeners(){
         _startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
