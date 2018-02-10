@@ -1,9 +1,12 @@
 package server.handlers;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
@@ -25,7 +28,6 @@ public class CommandHandler implements HttpHandler {
             command = (ICommand) CommandEncoder.decodeCommand(exchange.getRequestBody());
         } catch (Exception e){
             results = new CommandResult(e.getClass().toString(), e.getMessage());
-            System.out.print(results);
             e.printStackTrace();
         }
 
@@ -33,7 +35,6 @@ public class CommandHandler implements HttpHandler {
             results = command.execute();
         } catch (Exception e){
             results = new CommandResult(e.getClass().toString(), e.getMessage());
-            System.out.print(results);
             e.printStackTrace();
         }
 

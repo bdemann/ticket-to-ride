@@ -30,7 +30,6 @@ public class Command implements ICommand, Serializable {
     public CommandResult execute() throws Exception{
         try {
             Class<?> receiver = Class.forName(_className);
-
             Method method = receiver.getMethod(_methodName,_parmTypes);
             Object t = receiver.newInstance();
             return (CommandResult) method.invoke(t, _parms);
@@ -43,7 +42,7 @@ public class Command implements ICommand, Serializable {
         StringBuffer result = new StringBuffer();
         result.append("_methodName = " + _methodName + "\n");
 
-        result.append("    _parmTypes = ");
+        result.append("\t_parmTypes = ");
 
         for(Class parmType : _parmTypes) {
             result.append(parmType + ", ");
@@ -51,7 +50,7 @@ public class Command implements ICommand, Serializable {
         result.delete(result.length()-2, result.length());
         result.append("\n");
 
-        result.append("    _parms = ");
+        result.append("\t_parms = ");
         if(_parms == null) {
             result.append("null\n");
         } else {
