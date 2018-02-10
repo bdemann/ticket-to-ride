@@ -15,8 +15,8 @@ public class LoginGuiFacade {
     private static ClientRoot _clientRoot = ClientRoot.instance();
 
     public static void main(String[] args) {
-        String result = signIn("username", "password");
-
+        String registerResult = register("username", "password");
+        String loginResult = signIn("username", "password");
     }
 
     public static String signIn(String username, String password) {
@@ -27,7 +27,7 @@ public class LoginGuiFacade {
 
         //send username and password to root
         if(commandResults.getCommandSuccess()){
-            _updatePlayer(username, password);
+            _addPlayer(username, password);
         }
         else{
             //check for exception
@@ -52,23 +52,23 @@ public class LoginGuiFacade {
 
         //send username and password to root
         if(commandResults.getCommandSuccess()){
-            _updatePlayer(username, password);
+            _addPlayer(username, password);
         }
         else{
             //check for exception
             if(commandResults.getExceptionType() != null){
-                System.out.print("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
+//                System.out.print("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
                 return "Exception of type: " + commandResults.getExceptionType() +
                         ". " + commandResults.getExceptionMessage();
             }
-            System.out.print("False. UserMessage: " + commandResults.getUserMessage());
+//            System.out.print("False. UserMessage: " + commandResults.getUserMessage());
             return commandResults.getUserMessage();
         }
-        System.out.print("True. UserMessage: " + commandResults.getUserMessage());
+//        System.out.print("True. UserMessage: " + commandResults.getUserMessage() + "\n");
         return commandResults.getUserMessage();
     }
 
-    private static void _updatePlayer(String username, String password){
+    private static void _addPlayer(String username, String password){
         Player player = new Player(username, password);
         _clientRoot.setClientPlayer(player);
     }
