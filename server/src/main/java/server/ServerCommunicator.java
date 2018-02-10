@@ -16,16 +16,6 @@ import server.handlers.TestHandler;
 public class ServerCommunicator {
     private static final int MAX_WAITING_CONNECTIONS = 10;
 
-    public static void main(String[] args) {
-        int serverPortNumber;
-        if (args.length == 0) {
-            serverPortNumber = 8080;
-        } else {
-            serverPortNumber = Integer.parseInt(args[0]);
-        }
-        new ServerCommunicator(serverPortNumber).run();
-    }
-
     private HttpServer server;
     private int serverPortNumber;
 
@@ -43,7 +33,7 @@ public class ServerCommunicator {
 
         server.setExecutor(null); // use the default executor.
 
-        server.createContext("/_sendCommand", command);
+        server.createContext("/sendCommand", command);
         server.createContext("/test", testHandler);
 
         server.start();

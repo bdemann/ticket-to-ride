@@ -2,13 +2,14 @@ package shared.commandResults;
 
 import shared.Command;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by paulinecausse on 2/3/18.
  */
 
-public class CommandResult {
+public class CommandResult implements Serializable {
     String exceptionType;
     String exceptionMessage;
     List<Command> clientCommands;

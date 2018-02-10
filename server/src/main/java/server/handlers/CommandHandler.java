@@ -5,7 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.Scanner;
 
+import shared.Command;
 import shared.CommandEncoder;
 import shared.ICommand;
 import shared.commandResults.CommandResult;
@@ -17,15 +19,19 @@ import shared.commandResults.CommandResult;
 public class CommandHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-
-        ICommand command = (ICommand) CommandEncoder.decodeCommand(exchange.getRequestBody());
+        ICommand command = null;
         CommandResult results = null;
+        try {
+            command = (ICommand) CommandEncoder.decodeCommand(exchange.getRequestBody());
+        } catch (Exception e){
+            results = new CommandResult(e.getClass().toString(), e.getMessage());
+            System.out.print(results);
+            e.printStackTrace();
+        }
 
-        //TODO I need to know what we are putting in these Command results
         try {
             results = command.execute();
         } catch (Exception e){
-            //TODO I am wondering about the merit of having the CommandResult class being abstract. It seems we could just make instances of it when we needed a GeneralCommadnResult instead of having another class whose sole purpose is to be an implementable version of the CommandResult
             results = new CommandResult(e.getClass().toString(), e.getMessage());
             System.out.print(results);
             e.printStackTrace();

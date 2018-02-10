@@ -39,7 +39,7 @@ public class LoginClientProxy {
     }
 
     private Command generateLoginCommand(String methodName, String username, String password){
-        String[] parmTypes = {"String", "String"};
+        Class<?>[] parmTypes = {String.class, String.class};
         String[] parm = {username, password};
 
         Command command = new Command("server.facades.LoginServerFacade", methodName, parmTypes, parm);

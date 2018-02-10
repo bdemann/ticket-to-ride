@@ -1,6 +1,8 @@
 package shared;
 
 import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import shared.commandResults.CommandResult;
 
@@ -14,54 +16,30 @@ import java.io.OutputStreamWriter;
  */
 
 public class CommandEncoder {
-    private static Gson gson = new Gson();
+    private static CommandEncoder _instance = new CommandEncoder();
+    private XStream xStream;
 
-    public CommandEncoder(){}
-
-//    public static void main(String[] args){
-//        String methods = "method";
-//        String[] paramTypes = {"String"};
-//        String[] param = {"hello"};
-//        Command command = new Command("class", methods,paramTypes,param);
-//
-//        encodeCommand(command);
-//    }
-
-
-    public static CommandResult decodeCommand(String respData)
-    {
-        return gson.fromJson(respData, CommandResult.class);
-
+    private CommandEncoder(){
+        xStream = new XStream(new DomDriver());
     }
 
-    public static void encodeCommand(Command command, OutputStreamWriter outputStreamWriter) {
-        gson.toJson(command, outputStreamWriter);
-        String json = gson.toJson(command);
-        System.out.print(json);
+    public static CommandResult decodeCommandResults(InputStream inputStream){
+        return (CommandResult) _instance.xStream.fromXML(inputStream);
     }
-
 
     public static void encodeCommandResults(CommandResult results, OutputStream responseBody) {
-        String json = gson.toJson(results);
-        try {
-            responseBody.write(json.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        _instance.xStream.toXML(results, responseBody);
     }
 
-    public static ICommand decodeCommand(InputStream requestBody) {
-        //TODO implement decode Command with an input string
-//        System.out.print("\nGSON: " + gson.fromJson(requestBody.toString(), Command.class) + "\n");
-        return gson.fromJson(requestBody.toString(), Command.class);
+    public static void encodeCommand(Command command, OutputStream outputStream) {
+        _instance.xStream.toXML(command, outputStream);
     }
 
-    public static void encodeTestResults(Object o, OutputStream responseBody) {
-        String json = gson.toJson(o);
-        try {
-            responseBody.write(json.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static ICommand decodeCommand(InputStream inputStream) {
+        return (ICommand) _instance.xStream.fromXML(inputStream);
+    }
+
+    public static void encodeTestResults(Object o, OutputStream outputStream) {
+        _instance.xStream.toXML(o, outputStream);
     }
 }

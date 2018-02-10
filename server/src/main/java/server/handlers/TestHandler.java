@@ -17,7 +17,7 @@ import shared.commandResults.CommandResult;
 public class TestHandler  implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String[] parmTypes = {"String", "String"};
+        Class<?>[] parmTypes = {String.class, String.class};
         Object[] parmValues = {"bdemann", "password"};
         Command command = new Command("server.facades.LoginServerFacade", "register", parmTypes, parmValues);
         CommandResult result;

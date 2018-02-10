@@ -22,7 +22,7 @@ public class LoginServerProxy implements ILoginServerFacade{
     }
 
     private Command generateLoginCommand(String methodName, String username, String password){
-        String[] parmTypes = {"String", "String"};
+        Class<?>[] parmTypes = {String.class, String.class};
         String[] parm = {username, password};
         String className = "server.facades.LoginServerFacade";
 

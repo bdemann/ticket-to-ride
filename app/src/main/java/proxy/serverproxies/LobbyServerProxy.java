@@ -15,15 +15,14 @@ import shared.server.facades.ILobbyServerFacade;
 public class LobbyServerProxy implements ILobbyServerFacade {
     @Override
     public CommandResult sendChat(Chat message) {
-        String[] parmTypes = {"Chat"};
+        Class<?>[] parmTypes = {Chat.class};
         Object[] parmValues = {message};
-        //TODO it still feels weird that any code in the client module would need to know so specifcally about the location of the LobbyServerFacade... even if its the Lobby Server Proxy. Am I doing this right?
         return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "sendChat", parmTypes, parmValues));
     }
 
     @Override
     public CommandResult startGame(Game game) {
-        String[] parmTypes = {"Game"};
+        Class<?>[] parmTypes = {Game.class};
         Object[] parmValues = {game};
         return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
     }
