@@ -1,5 +1,7 @@
 package presenter;
 
+import android.content.Context;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -42,16 +44,11 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     }
 
     @Override
-    public void signIn(String username, String password) {
-        //Since this is called, we need to get the sign in information from the view
-        //then we can communicate with the LoginGuiFacade
-        //System.out.println("USERNAME: " + username + "\n");
-        //System.out.println("PASSWORD: " + password + "\n");
+    public String signIn(String username, String password) {
 
-        //Player p = new Player(username, password);
-        //_clientRoot.setClientPlayer(p);
-        LoginGuiFacade.signIn(username, password);
+        return LoginGuiFacade.signIn(username, password);
     }
+
 
     @Override
     public void register(String username, String password) {

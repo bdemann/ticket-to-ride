@@ -1,5 +1,6 @@
 package view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -8,11 +9,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
 import model.ClientRoot;
 import presenter.LoginPresenter;
+import tasks.LoginTask;
 
 /**
  * A signin screen that offers signin via _username/_password.
@@ -81,7 +84,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public void displayMessage(String message) {
-
+        //Just pop up a toast letting the user know what happened
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), message, duration);
+        toast.show();
     }
 
     private void _verifySignInIsFilled() {
@@ -115,7 +121,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         }
 
     }
-
 
     private void _disableInput(){
         _usernameSignInText.setFocusable(false);
@@ -183,8 +188,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
                     //Set what ever is in the text, and sign in.
                     String username = _usernameSignInText.getText().toString();
                     String password = _passwordSignInText.getText().toString();
-                    _loginPresenter.signIn(username,password);
+                    String message =  _loginPresenter.signIn(username,password);
+                    displayMessage(message);
+
                     //Switch activities if successful
+                    //Intent intent = new Intent(view.getContext(), Activity.class);
 
                 }
                 _enableInput();

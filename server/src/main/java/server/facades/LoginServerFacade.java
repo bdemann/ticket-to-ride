@@ -8,6 +8,7 @@ import shared.model.Player;
 import shared.server.facades.ILoginServerFacade;
 
 /**
+ *
  * Created by Ben on 2/6/2018.
  */
 
@@ -19,6 +20,8 @@ public class LoginServerFacade implements ILoginServerFacade {
 
     @Override
     public CommandResult signin(String username, String password) {
+
+
         Player player = ServerRoot.getPlayer(username);
         if(player == null){
             return new LoginCommandResult(false, "Player does not exists");
@@ -27,6 +30,7 @@ public class LoginServerFacade implements ILoginServerFacade {
             return new LoginCommandResult(true, "Login successful");
         }
         return new LoginCommandResult(false, "Wrong password");
+
     }
 
     @Override
