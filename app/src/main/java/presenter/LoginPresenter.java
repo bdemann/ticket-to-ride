@@ -14,6 +14,13 @@ import view.LoginActivity;
  */
 
 public class LoginPresenter implements ILoginPresenter, Observer {
+    public static void main(String[] args){
+        ClientRoot root = ClientRoot.instance();
+        LoginPresenter loginPresenter = new LoginPresenter(root);
+        String result = loginPresenter.register("userName", "passWord");
+
+        System.out.println("UserMessage: " + result + "\n");
+    }
 
     private ClientRoot _clientRoot;
 
@@ -42,7 +49,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     }
 
     @Override
-    public void signIn(String username, String password) {
+    public String signIn(String username, String password) {
         //Since this is called, we need to get the sign in information from the view
         //then we can communicate with the LoginGuiFacade
         //System.out.println("USERNAME: " + username + "\n");
@@ -50,16 +57,15 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 
         //Player p = new Player(username, password);
         //_clientRoot.setClientPlayer(p);
-        LoginGuiFacade.signIn(username, password);
+        return LoginGuiFacade.signIn(username, password);
     }
 
     @Override
-    public void register(String username, String password) {
+    public String register(String username, String password) {
 
-        System.out.println("USERNAME: " + username + "\n");
-        System.out.println("PASSWORD: " + password + "\n");
-        //LoginGuiFacade.register(username,password);
-
+        //System.out.println("USERNAME: " + username + "\n");
+        //System.out.println("PASSWORD: " + password + "\n");
+        return LoginGuiFacade.register(username,password);
     }
 
 }
