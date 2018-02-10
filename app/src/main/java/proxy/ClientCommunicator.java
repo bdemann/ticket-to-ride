@@ -31,7 +31,7 @@ public class ClientCommunicator {
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT;
     private static final String HTTP_POST = "POST";
 
-    private CommandEncoder encoder;
+    private CommandEncoder encoder = new CommandEncoder();
 
     //TODO I think we should make our fields private and have approprate accessors to them. We should talk abou this.
     private static ClientCommunicator SINGLETON = new ClientCommunicator();
@@ -44,9 +44,7 @@ public class ClientCommunicator {
     private CommandResult _sendCommand(Command command) {
         HttpURLConnection connection = openConnection("/_sendCommand");
         send(connection, command);
-        CommandResult result = printResponseBodyInfo(connection);
-
-        return result;
+        return printResponseBodyInfo(connection);
     }
 
     private void send(HttpURLConnection connection, Command command)
@@ -54,6 +52,9 @@ public class ClientCommunicator {
         try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())){
             //Encoding in JSON
             encoder.encodeCommand(command,outputStreamWriter);
+
+//            outputStreamWriter.close();
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -68,7 +69,7 @@ public class ClientCommunicator {
                 InputStream respBody = connection.getInputStream();
                 String respData = readString(respBody);
 
-                commandResult = encoder.decodeCommand(respData);
+                commandResult = encoder.decodeCommandResult(respData);
             }
             else {
                 commandResult.setUserMessage(connection.getResponseMessage());
@@ -81,7 +82,6 @@ public class ClientCommunicator {
         return commandResult;
     }
 
-
     private void sendReqBody(String result, HttpURLConnection connection)
     {
         try {
@@ -93,7 +93,6 @@ public class ClientCommunicator {
             e.printStackTrace();
         }
     }
-
 
     private HttpURLConnection openConnection(String contextIdentifier) {
         HttpURLConnection result = null;
