@@ -41,6 +41,8 @@ public class ServerCommunicator {
             return;
         }
 
+        System.out.print("Hey again!");
+
         server.setExecutor(null); // use the default executor.
 
         server.createContext("/_sendCommand", command);
