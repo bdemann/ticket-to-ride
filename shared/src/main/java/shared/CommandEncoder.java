@@ -42,7 +42,7 @@ public class CommandEncoder {
     public static void encodeCommand(Command command, OutputStreamWriter outputStreamWriter) {
         gson.toJson(command, outputStreamWriter);
         String json = gson.toJson(command);
-        System.out.print(json);
+        //System.out.print(json);
     }
 
 
