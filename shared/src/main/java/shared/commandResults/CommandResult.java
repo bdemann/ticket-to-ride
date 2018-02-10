@@ -16,6 +16,7 @@ public class CommandResult implements Serializable {
     String resultType;
     boolean commandSuccess;
     String userMessage;
+    Object result;
 
     public CommandResult(boolean success, List<Command> clientCommands){
         this.commandSuccess = success;
@@ -31,6 +32,10 @@ public class CommandResult implements Serializable {
         this.commandSuccess = false;
         this.exceptionType = exceptionType;
         this.exceptionMessage = exceptionMessage;
+    }
+
+    public void setResult(Object o){
+        this.result = o;
     }
 
     public void setExceptionType(String exceptionType)
@@ -79,5 +84,9 @@ public class CommandResult implements Serializable {
     public String getUserMessage()
     {
         return userMessage;
+    }
+
+    public Object getResult(){
+        return result;
     }
 }
