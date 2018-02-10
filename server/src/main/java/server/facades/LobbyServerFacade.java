@@ -5,7 +5,7 @@ import shared.commandResults.ChatCommandResult;
 import shared.commandResults.CommandResult;
 import shared.model.Chat;
 import shared.model.Game;
-import shared.server.facades.ILobbyServerFacade;
+import shared.facades.ILobbyServerFacade;
 
 /**
  * Created by Ben on 2/6/2018.

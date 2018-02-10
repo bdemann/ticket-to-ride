@@ -9,7 +9,7 @@ import shared.commandResults.CreateGameCommandResult;
 import shared.commandResults.JoinGameCommandResult;
 import shared.model.Game;
 import shared.model.Player;
-import shared.server.facades.IGameSelectionServerFacade;
+import shared.facades.IGameSelectionServerFacade;
 
 /**
  * Created by Ben on 2/6/2018.
