@@ -5,7 +5,7 @@ import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
 import shared.model.Player;
-import shared.server.facades.IGameSelectionServerFacade;
+import shared.facades.IGameSelectionServerFacade;
 
 /**
  * Created by Ben on 2/7/2018.
