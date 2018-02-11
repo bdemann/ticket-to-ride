@@ -38,7 +38,19 @@ public class LoginServerProxy implements ILoginServerFacade{
 
     @Override
     public CommandResult register(String username, String password) {
-        return ClientCommunicator.sendCommand(generateLoginCommand("register", username, password));
+
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute(generateLoginCommand("register", username, password));
+
+        CommandResult results = null;
+
+        try {
+            results = loginTask.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     private Command generateLoginCommand(String methodName, String username, String password){

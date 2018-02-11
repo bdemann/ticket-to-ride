@@ -23,21 +23,30 @@ public class LoginGuiFacade {
     private static ClientRoot _clientRoot = ClientRoot.instance();
 
     public static void main(String[] args) {
-       // String result = signIn("username", "password");
+        String result = signIn("username", "password");
 
     }
-
 
     public static String signIn(String username, String password) {
         //This GuiFacade will send the username and password on to the server.
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult result = lsp.signin(username,password);
-        return _processSignInResults(username,password,result);
+        return _processResults(username,password,result);
     }
 
-    private static String _processSignInResults(String username, String password, CommandResult commandResults){
+    public static String register(String username, String password){
 
+        LoginServerProxy lsp = new LoginServerProxy();
+        CommandResult result = lsp.register(username,password);
+        return _processResults(username,password,result);
+    }
+
+    private static String _processResults(String username, String password, CommandResult commandResults){
+
+        if(commandResults == null){
+            return "Server Down";
+        }
         //send username and password to root
         if(commandResults.getCommandSuccess()){
             _updatePlayer(username, password);
@@ -55,30 +64,6 @@ public class LoginGuiFacade {
         }
 
         System.out.println("True. UserMessage: " + commandResults.getUserMessage());
-        return commandResults.getUserMessage();
-    }
-
-
-    public static String register(String username, String password){
-
-        LoginClientProxy lsp = new LoginClientProxy();
-        CommandResult commandResults = lsp.register(username,password);
-
-        //send username and password to root
-        if(commandResults.getCommandSuccess()){
-            _updatePlayer(username, password);
-        }
-        else{
-            //check for exception
-            if(commandResults.getExceptionType() != null){
-                System.out.print("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
-                return "Exception of type: " + commandResults.getExceptionType() +
-                        ". " + commandResults.getExceptionMessage();
-            }
-            System.out.print("False. UserMessage: " + commandResults.getUserMessage());
-            return commandResults.getUserMessage();
-        }
-        System.out.print("True. UserMessage: " + commandResults.getUserMessage());
         return commandResults.getUserMessage();
     }
 

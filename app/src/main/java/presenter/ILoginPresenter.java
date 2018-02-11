@@ -12,5 +12,5 @@ interface ILoginPresenter {
     void registerPasswordChanged();
     void confirmPasswordChanged();
     String signIn(String username, String password);
-    void register(String username, String password);
+    String register(String username, String password);
 }

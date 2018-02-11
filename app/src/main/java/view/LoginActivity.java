@@ -193,7 +193,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
                     //Switch activities if successful
                     //Intent intent = new Intent(view.getContext(), Activity.class);
-
                 }
                 _enableInput();
                 _signInEnabled = false;
@@ -211,7 +210,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
                 if(_registerEnabled){
                     String username = _usernameRegisterText.getText().toString();
                     String password = _passwordRegisterText.getText().toString();
-                    _loginPresenter.register(username,password);
+                    String message = _loginPresenter.register(username,password);
+                    displayMessage(message);
                 }
                 _enableInput();
                 _registerEnabled = false;
