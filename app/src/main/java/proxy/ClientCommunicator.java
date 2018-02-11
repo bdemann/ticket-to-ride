@@ -22,7 +22,7 @@ import shared.commandResults.CommandResult;
 
 public class ClientCommunicator {
 
-    private static final String SERVER_HOST = "192.168.0.124";// "localhost";
+    private static final String SERVER_HOST = "192.168.0.2";// "localhost";
     private static final String SERVER_PORT = "8080";
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT + "/";
     private static final String HTTP_POST = "POST";

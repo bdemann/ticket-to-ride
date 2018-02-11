@@ -32,23 +32,23 @@ public class LoginGuiFacade {
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult result = lsp.signin(username,password);
-        return _processResults(username,password,result);
+        return _processResults(username,password,result, true);
     }
 
     public static String register(String username, String password){
 
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult result = lsp.register(username,password);
-        return _processResults(username,password,result);
+        return _processResults(username,password,result, false);
     }
 
-    private static String _processResults(String username, String password, CommandResult commandResults){
+    private static String _processResults(String username, String password, CommandResult commandResults, boolean isSignIn){
 
         if(commandResults == null){
             return "Server Down";
         }
         //send username and password to root
-        if(commandResults.getCommandSuccess()){
+        if(commandResults.getCommandSuccess() && isSignIn){
             _updatePlayer(username, password);
         }
         else{
@@ -59,8 +59,10 @@ public class LoginGuiFacade {
                         ". " + commandResults.getExceptionMessage();
             }
 
-            System.out.println("False. UserMessage: " + commandResults.getUserMessage());
-            return commandResults.getUserMessage();
+            if(!commandResults.getCommandSuccess()){
+                System.out.println("False. UserMessage: " + commandResults.getUserMessage());
+                return commandResults.getUserMessage();
+            }
         }
 
         System.out.println("True. UserMessage: " + commandResults.getUserMessage());

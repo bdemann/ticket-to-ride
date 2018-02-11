@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private void _setUpObserver(){
 
         ClientRoot root = ClientRoot.instance();
-        _loginPresenter = new LoginPresenter(root);
+        _loginPresenter = new LoginPresenter(root, getApplicationContext());
         root.addObserver(_loginPresenter);
     }
 
@@ -190,9 +190,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
                     String password = _passwordSignInText.getText().toString();
                     String message =  _loginPresenter.signIn(username,password);
                     displayMessage(message);
-
-                    //Switch activities if successful
-                    //Intent intent = new Intent(view.getContext(), Activity.class);
                 }
                 _enableInput();
                 _signInEnabled = false;
@@ -218,6 +215,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             }
         });
     }
+
+
 
 
 }

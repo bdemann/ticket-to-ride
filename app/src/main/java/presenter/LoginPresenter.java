@@ -1,13 +1,16 @@
 package presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.Observable;
 import java.util.Observer;
 
 import guifacade.LoginGuiFacade;
 import model.ClientRoot;
+import shared.commandResults.CommandResult;
 import shared.model.Player;
+import view.GameSelection;
 import view.LoginActivity;
 
 /**
@@ -18,19 +21,24 @@ import view.LoginActivity;
 public class LoginPresenter implements ILoginPresenter, Observer {
 
     private ClientRoot _clientRoot;
+    private Context _context;
 
-    public LoginPresenter(ClientRoot clientRoot){
+    public LoginPresenter(ClientRoot clientRoot, Context appContext){
         this._clientRoot = clientRoot;
+        this._context = appContext;
+
     }
 
     @Override
     public void update(Observable obs, Object o) {
 
         System.out.println("Update called\n");
-        /*if(o instanceof Player)
-        {
-            System.out.println("Object was player\n");
-        }*/
+
+        if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
+            Intent intent = new Intent(_context, GameSelection.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            _context.startActivity(intent);
+        }
     }
 
     @Override
