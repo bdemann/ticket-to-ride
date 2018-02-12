@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.a340team.tickettoride.R;
 
-public class GameAcitvity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

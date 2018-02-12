@@ -12,11 +12,12 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 
-public class GameSelection extends AppCompatActivity implements IGameSelection{
+public class GameSelectionActivity extends AppCompatActivity implements IGameSelection{
 
     private ArrayList<String> _gameList;
     private RecyclerView _recyclerView;
     private Button _createGameButton;
+    private Button _joinGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class GameSelection extends AppCompatActivity implements IGameSelection{
 
         _recyclerView = (RecyclerView) findViewById(R.id.GameRecycler);
         _createGameButton = (Button) findViewById(R.id.create_new_game_button);
+        _joinGameButton = (Button) findViewById(R.id.join_game_button);
 
         GameListRecyclerAdapter adapter = new GameListRecyclerAdapter(_gameList);
         _recyclerView.setAdapter(adapter);

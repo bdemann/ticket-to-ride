@@ -48,7 +48,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         _startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), GameAcitvity.class);
+            Intent intent = new Intent(view.getContext(), GameActivity.class);
             startActivity(intent);
             }
         });
