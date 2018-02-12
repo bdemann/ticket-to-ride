@@ -23,11 +23,11 @@ public class CreateGameGuiFacade {
         LoginGuiFacade loginGuiFacade = new LoginGuiFacade();
         String registerResult = loginGuiFacade.register("username", "password");
         System.out.println("registerResult: " + registerResult + "\n");
-        String createGameResult = createGame(4, Color.GREEN);
+        String createGameResult = createGame(4, Color.GREEN, "");
         System.out.println("createGame: " + createGameResult + "\n");
     }
 
-    public static String createGame(int numberPlayer, int color) {
+    public static String createGame(int numberPlayer, int color, String gameName) {
         GameSelectionServerProxy gssp = new GameSelectionServerProxy();
         CommandResult commandResult = new CommandResult(null,null);
         Player player = _clientRoot.getClientPlayer();
@@ -39,7 +39,7 @@ public class CreateGameGuiFacade {
             return "Can't create a game without registering first";
         }
 
-        commandResult = gssp.createGame(player, numberPlayer, color);
+        commandResult = gssp.createGame(player, numberPlayer, color, gameName);
 
         if(commandResult.getCommandSuccess()){
             if(commandResult.getResult() == null){
