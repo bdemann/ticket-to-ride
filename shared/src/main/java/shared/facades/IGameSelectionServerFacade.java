@@ -9,6 +9,6 @@ import shared.model.Player;
  */
 
 public interface IGameSelectionServerFacade {
-    public CommandResult createGame(Player creator, int numberPlayer, int color);
+    public CommandResult createGame(Player creator, int numberPlayer, int color, String gameName);
     public CommandResult joinGame(int gameId, Player joiner);
 }
