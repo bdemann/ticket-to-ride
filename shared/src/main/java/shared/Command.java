@@ -27,6 +27,13 @@ public class Command implements ICommand, Serializable {
         this._parms = parms;
     }
 
+    public Command(String className, String methodName) {
+        this._className = className;
+        this._methodName = methodName;
+        this._parmTypes = new Class[0];
+        this._parms = new Object[0];
+    }
+
     public CommandResult execute() throws Exception{
         try {
             Class<?> receiver = Class.forName(_className);

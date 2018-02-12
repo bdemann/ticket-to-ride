@@ -8,12 +8,12 @@ import java.util.List;
  */
 public class Game implements IGame {
 
-    private List<Player> _players;
+    private List<IPlayer> _players;
     private int _id;
     private int _maxNumberPlayer;
     private int _numberPlayer;
 
-    public Game(List<Player> players, int numberPlayer){
+    public Game(List<IPlayer> players, int numberPlayer){
         this._players = players;
         this._maxNumberPlayer = numberPlayer;
         this._numberPlayer = 1;
@@ -55,7 +55,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(List<IPlayer> players) {
         this._players = players;
 
     }
@@ -101,7 +101,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public List<Player> getPlayers() {
+    public List<IPlayer> getPlayers() {
         return this._players;
     }
 
@@ -116,7 +116,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void addPlayer(Player joiner) {
+    public void addPlayer(IPlayer joiner) {
         _players.add(joiner);
         _numberPlayer ++;
     }

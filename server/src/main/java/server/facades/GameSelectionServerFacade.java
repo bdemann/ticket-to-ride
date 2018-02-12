@@ -2,15 +2,18 @@ package server.facades;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import server.model.ServerRoot;
+import server.proxies.ClientCommands;
+import server.proxies.GameSelectionClientProxy;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.commandResults.CreateGameCommandResult;
+import shared.commandResults.GameListCommandResult;
 import shared.commandResults.JoinGameCommandResult;
 import shared.model.Game;
-import shared.model.Player;
+import shared.model.IGame;
+import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
 
 /**
@@ -19,33 +22,35 @@ import shared.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(Player creator, int numberPlayer, int color) {
-        Player player = ServerRoot.getPlayer(creator.getUsername());
+    public CommandResult createGame(IPlayer creator, int numberPlayer, int color) {
+        IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 
         player.setColor(color);
 
-        List<Player> playerList = new ArrayList<>();
+        List<IPlayer> playerList = new ArrayList<>();
         playerList.add(player);
 
-        Game game = new Game(playerList, numberPlayer);
+        IGame game = new Game(playerList, numberPlayer);
         ServerRoot.addGame(game);
 
         try {
             if (player.getGameId() != 0) {
-                return new CreateGameCommandResult(false, "Player can only be part of one game");
+                return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
             }
 
             System.out.println("GameID: " + game.getId());
 
             player.setGameId(game.getId());
-        }catch (NullPointerException e){
-            return new CreateGameCommandResult(false, "Player does not exist");
+        } catch (NullPointerException e) {
+            return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player does not exist");
         }
 
-        CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, "createGameSuccessfull");
+        CreateGameCommandResult createGameCommandResult = new CreateGameCommandResult(true, ClientCommands.getCommandList(creator.getUsername()), "createGameSuccessfull");
         createGameCommandResult.setResult(game);
 
         _createGameCommand(game);
+
+        new GameSelectionClientProxy().updateGameList();
 
         return createGameCommandResult;
         //TODO I think I have a different idea of what we need to be passing into these results... Lets talk about it. What is the message? Why don't we pass in this list of commands?
@@ -53,33 +58,38 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     }
 
     @Override
-    public CommandResult joinGame(int gameId, Player joiner) {
+    public CommandResult joinGame(int gameId, IPlayer joiner) {
 
-        Game currentGame = ServerRoot.getGame(gameId);
+        IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
-            return new JoinGameCommandResult(false, "Could not find game");
+            return new JoinGameCommandResult(false, ClientCommands.getCommandList(joiner.getUsername()),"Could not find game");
         }
         else if(currentGame.getNumberPlayer() >= currentGame.getMaxNumberPlayer()){
-            return new JoinGameCommandResult(false, "Cannot join. Game is full");
+            return new JoinGameCommandResult(false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
         }
 
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
         _createJoinCommand(joiner, currentGame);
 
-        return new JoinGameCommandResult(true, ServerRoot.getCommandList(joiner.getUsername()));
+        return new JoinGameCommandResult(true, ClientCommands.getCommandList(joiner.getUsername()));
     }
 
-    private void _createJoinCommand(Player player, Game game){
-        Class<?>[] parmTypes = {Player.class,Game.class};
+    @Override
+    public GameListCommandResult getGamesList(String username) {
+        return new GameListCommandResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
+    }
+
+    private void _createJoinCommand(IPlayer player, IGame game){
+        Class<?>[] parmTypes = {IPlayer.class,IGame.class};
         Object[] parm = {player,game};
 
         Command command = new Command("app.facade.GameSelectionClientFacade", "joinGame", parmTypes, parm);
     }
 
-    private void _createGameCommand(Game game){
-        Class<?>[] parmTypes = {Game.class};
-        Game[] parm = {game};
+    private void _createGameCommand(IGame game){
+        Class<?>[] parmTypes = {IGame.class};
+        IGame[] parm = {game};
 
         Command command = new Command("app.facade.GameSelectionClientFacade", "createGame", parmTypes, parm);
 

@@ -148,4 +148,7 @@ public interface IPlayer {
     int getRemainingActions();
 
 
+    int getGameId();
+
+    void setGameId(int id);
 }

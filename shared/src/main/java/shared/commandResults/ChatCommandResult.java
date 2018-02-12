@@ -2,7 +2,7 @@ package shared.commandResults;
 
 import java.util.List;
 
-import shared.Command;
+import shared.ICommand;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -11,7 +11,7 @@ import shared.Command;
 public class ChatCommandResult extends CommandResult {
     private String message;
 
-    public ChatCommandResult(boolean success, List<Command> clientCommands) {
+    public ChatCommandResult(boolean success, List<ICommand> clientCommands) {
         super(success, clientCommands);
     }
 

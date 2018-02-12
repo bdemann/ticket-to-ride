@@ -1,6 +1,6 @@
 package server.facades;
 
-import server.model.ServerRoot;
+import server.proxies.ClientCommands;
 import shared.commandResults.CommandResult;
 import shared.facades.IServerFacade;
 
@@ -11,6 +11,6 @@ import shared.facades.IServerFacade;
 public class ServerFacade implements IServerFacade {
     @Override
     public CommandResult getCommands(String username) {
-        return new CommandResult(true, ServerRoot.getCommandList(username));
+        return new CommandResult(true, ClientCommands.getCommandList(username));
     }
 }
