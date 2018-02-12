@@ -7,10 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
+
+import model.ClientRoot;
+import presenter.GameSelectionPresenter;
 
 /**
  * Created by mikeporet on 2/8/18.
@@ -38,12 +42,21 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
 
         @Override
         public void onClick(View v) {
+            //Send request to join game
+            int ChosenGameID =  getAdapterPosition();
+            String ChosenGameName = GameName.getText().toString();
+            GameSelectionPresenter gameSelectionPresenter = new GameSelectionPresenter(ClientRoot.instance());
 
-            int ChosenGame =  getAdapterPosition();
-            Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
-            intent.putExtra("GameID", ChosenGame);
-            intent.putExtra("GameName", GameName.toString());
-            v.getContext().startActivity(intent);
+            if (gameSelectionPresenter.joinGame(ChosenGameID)) {
+                Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
+                intent.putExtra("GameID", ChosenGameID);
+                intent.putExtra("GameName", ChosenGameName);
+                v.getContext().startActivity(intent);
+            }
+            else{
+                Toast toast = Toast.makeText(v.getContext(), "Join Game Failed", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
     }
 

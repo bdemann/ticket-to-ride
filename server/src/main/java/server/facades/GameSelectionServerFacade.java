@@ -31,12 +31,14 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         ServerRoot.addGame(game);
         ServerRoot.getGame(game.getId()).setGameName(gameName);
 
-        try {
-            if (player.getGameId() != 0) {
-                return new CreateGameCommandResult(false, "Player can only be part of one game");
-            }
+        //System.out.println("PLAYER ID: " + player.getGameId()) ;
 
-            System.out.println("GameID: " + game.getId());
+        try {
+//            if (player.getGameId() != 0) {
+//                return new CreateGameCommandResult(false, "Player can only be part of one game");
+//            }
+
+            //System.out.println("GameID: " + game.getId());
 
             player.setGameId(game.getId());
         }catch (NullPointerException e){
@@ -45,6 +47,8 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, "createGameSuccessfull");
         createGameCommandResult.setResult(game);
+
+        //System.out.println("GAME: " + ((Game) createGameCommandResult.getResult()).getId());
 
         _createGameCommand(game);
 
