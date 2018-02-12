@@ -35,12 +35,13 @@ public class CreateGameGuiFacade {
 
 
 
+
         int x = 0;
 
 
         Player player = _clientRoot.getClientPlayer();
 
-        player.setColor(color);
+        _clientRoot.getClientPlayer().setColor(color);
 
         if(player == null){
 
@@ -64,6 +65,6 @@ public class CreateGameGuiFacade {
     private static void _addGame(Game game){
         _clientRoot.setListGames(game);
 
-        System.out.println("Game: " + _clientRoot.getClientGame().getId() + "\n");
+        //System.out.println("Game: " + _clientRoot.getClientGame().getId() + "\n");
     }
 }
