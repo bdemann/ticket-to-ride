@@ -22,7 +22,7 @@ public class Logger {
     }
 
     public static void log(Object message, Level level){
-        System.out.println(message);
+        System.out.println(message.toString());
     }
 
     public static void log(Object message){

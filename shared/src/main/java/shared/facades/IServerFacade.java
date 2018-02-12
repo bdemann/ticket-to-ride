@@ -7,5 +7,5 @@ import shared.commandResults.CommandResult;
  */
 
 public interface IServerFacade {
-    public CommandResult getCommands();
+    public CommandResult getCommands(String username);
 }
