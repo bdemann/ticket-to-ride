@@ -18,24 +18,28 @@ import java.util.ArrayList;
 
 class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapter.ViewHolder>{
     private ArrayList<String> _gameList;
+    private ArrayList<String> _gameNumPlayersList;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
         public TextView GameName;
-
+        public TextView NumberPlayers;
+        public TextView GameID;
 
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            GameName = (TextView) itemView.findViewById(R.id.game_list_item);
+            GameName = (TextView) itemView.findViewById(R.id.game_name);
+            GameID = (TextView) itemView.findViewById(R.id.game_id_display);
+            NumberPlayers = (TextView) itemView.findViewById(R.id.number_players);
             GameName.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
 
-            String ChosenGame =  _gameList.get(getAdapterPosition());
+            int ChosenGame =  getAdapterPosition();
             Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
             intent.putExtra("GameID", ChosenGame);
             intent.putExtra("GameName", GameName.toString());
@@ -43,8 +47,9 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
         }
     }
 
-    public GameListRecyclerAdapter(ArrayList<String> _gameList) {
+    public GameListRecyclerAdapter(ArrayList<String> _gameList, ArrayList<String> _gameNumPlayersList) {
         this._gameList = _gameList;
+        this._gameNumPlayersList = _gameNumPlayersList;
     }
 
 
@@ -59,8 +64,15 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
 
     @Override
     public void onBindViewHolder(GameListRecyclerAdapter.ViewHolder holder, int position) {
+        //Setup text displays
         TextView name = holder.GameName;
         name.setText(_gameList.get(position));
+
+        TextView ID = holder.GameID;
+        ID.setText(Integer.toString(position));
+
+        TextView NumPlalyers = holder.GameID;
+        NumPlalyers.setText(_gameNumPlayersList.get(position));
 
     }
 
