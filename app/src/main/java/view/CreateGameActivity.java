@@ -10,9 +10,10 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
-import presenter.CreateGamePresenter;
+import model.ClientRoot;
+import presenter.GameSelectionPresenter;
 
-public class CreateGameActivity extends AppCompatActivity implements ICreateGameActivity{
+public class CreateGameActivity extends AppCompatActivity implements IGameSelection{
 
     private EditText GameNameField;
     private ImageButton redButton;
@@ -29,6 +30,7 @@ public class CreateGameActivity extends AppCompatActivity implements ICreateGame
     private String GameName;
     private int PlayerColor;
     private int NumberOfPlayers;
+    private GameSelectionPresenter _gameSelectionPresenter;
 
 
     @Override
@@ -36,36 +38,27 @@ public class CreateGameActivity extends AppCompatActivity implements ICreateGame
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
 
-        PlayerColor = Color.RED;
-        NumberOfPlayers = 2;
+        _initializGuiElements();
+        _enableAllButtons();
+        _onClickListenerSetup();
+        _setUpObserver();
 
 
-        //inflate widgets
-        redButton = (ImageButton) findViewById(R.id.redButton);
-        blueButton = (ImageButton) findViewById(R.id.blueButton);
-        yellowButton = (ImageButton) findViewById(R.id.yellowButton);
-        greenButton = (ImageButton) findViewById(R.id.greenButton);
-        blackButton = (ImageButton) findViewById(R.id.blackButton);
 
-        PlayersTwo = (Button) findViewById(R.id.player_2);
-        PlayersThree = (Button) findViewById(R.id.player_3);
-        PlayersFour = (Button) findViewById(R.id.player_4);
-        PlayersFive= (Button) findViewById(R.id.player_5);
-
-        CreateGameButton = (Button) findViewById(R.id.create_game_button);
-        CancelButton = (Button) findViewById(R.id.cancel_button);
-
-
-        //Disable selected buttons
-        redButton.setEnabled(false);
-        PlayersTwo.setEnabled(false);
 
 
 
     }
 
-    @Override
-    public void _enableAllButtons(){
+    private void _setUpObserver(){
+            ClientRoot root = ClientRoot.instance();
+            _gameSelectionPresenter = new GameSelectionPresenter(root);
+            root.addObserver(_gameSelectionPresenter);
+
+    }
+
+
+    private void _enableAllButtons(){
         redButton.setEnabled(true);
         blueButton.setEnabled(true);
         yellowButton.setEnabled(true);
@@ -78,8 +71,7 @@ public class CreateGameActivity extends AppCompatActivity implements ICreateGame
 
     }
 
-    @Override
-    public void _onClickListenerSetup(){
+    private void _onClickListenerSetup(){
 
         //Color Buttons
         redButton.setOnClickListener(new View.OnClickListener() {
@@ -164,8 +156,8 @@ public class CreateGameActivity extends AppCompatActivity implements ICreateGame
             @Override
             public void onClick(View view) {
                 if (!GameName.equals("")){
-                    CreateGamePresenter createGamePresenter = new CreateGamePresenter();
-                    createGamePresenter.createGame(NumberOfPlayers);
+                    //create the game
+
                 }
             }
         });
@@ -175,5 +167,31 @@ public class CreateGameActivity extends AppCompatActivity implements ICreateGame
                 finish();
             }
         });
+    }
+
+    private void _initializGuiElements(){
+        PlayerColor = Color.RED;
+        NumberOfPlayers = 2;
+
+
+        //inflate widgets
+        redButton = (ImageButton) findViewById(R.id.redButton);
+        blueButton = (ImageButton) findViewById(R.id.blueButton);
+        yellowButton = (ImageButton) findViewById(R.id.yellowButton);
+        greenButton = (ImageButton) findViewById(R.id.greenButton);
+        blackButton = (ImageButton) findViewById(R.id.blackButton);
+
+        PlayersTwo = (Button) findViewById(R.id.player_2);
+        PlayersThree = (Button) findViewById(R.id.player_3);
+        PlayersFour = (Button) findViewById(R.id.player_4);
+        PlayersFive= (Button) findViewById(R.id.player_5);
+
+        CreateGameButton = (Button) findViewById(R.id.create_game_button);
+        CancelButton = (Button) findViewById(R.id.cancel_button);
+
+
+        //Disable selected buttons
+        redButton.setEnabled(false);
+        PlayersTwo.setEnabled(false);
     }
 }

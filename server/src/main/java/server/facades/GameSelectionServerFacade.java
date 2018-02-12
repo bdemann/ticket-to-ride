@@ -19,8 +19,11 @@ import shared.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(Player creator, int numberPlayer) {
+    public CommandResult createGame(Player creator, int numberPlayer, int color) {
         Player player = ServerRoot.getPlayer(creator.getUsername());
+
+        player.setColor(color);
+
         List<Player> playerList = new ArrayList<>();
         playerList.add(player);
 
@@ -50,18 +53,19 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     }
 
     @Override
-    public CommandResult joinGame(Game game, Player joiner) {
-        Game currentGame = ServerRoot.getGame(game.getId());
+    public CommandResult joinGame(int gameId, Player joiner) {
+
+        Game currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
             return new JoinGameCommandResult(false, "Could not find game");
         }
-        else if(game.getNumberPlayer() >= game.getMaxNumberPlayer()){
+        else if(currentGame.getNumberPlayer() >= currentGame.getMaxNumberPlayer()){
             return new JoinGameCommandResult(false, "Cannot join. Game is full");
         }
 
-        ServerRoot.getGame(game.getId()).addPlayer(joiner);
+        ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
-        _createJoinCommand(joiner, game);
+        _createJoinCommand(joiner, currentGame);
 
         return new JoinGameCommandResult(true, ServerRoot.getCommandList(joiner.getUsername()));
     }

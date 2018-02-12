@@ -13,16 +13,16 @@ import shared.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(Player creator, int numberPlayer) {
-        Class<?>[] parmTypes = {Player.class, int.class};
-        Object[] parmValues = {creator, numberPlayer};
+    public CommandResult createGame(Player creator, int numberPlayer, int color) {
+        Class<?>[] parmTypes = {Player.class, int.class, int.class};
+        Object[] parmValues = {creator, numberPlayer, color};
         return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues));
     }
 
     @Override
-    public CommandResult joinGame(Game game, Player joiner) {
-        Class<?>[] parmTypes = {Game.class, Player.class};
-        Object[] parmValues = {game, joiner};
+    public CommandResult joinGame(int gameId, Player joiner) {
+        Class<?>[] parmTypes = {int.class, Player.class};
+        Object[] parmValues = {gameId, joiner};
         return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues));
     }
 }

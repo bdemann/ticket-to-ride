@@ -22,11 +22,6 @@ public class LoginGuiFacade {
 
     private static ClientRoot _clientRoot = ClientRoot.instance();
 
-    public static void main(String[] args) {
-        String result = signIn("username", "password");
-
-    }
-
     public static String signIn(String username, String password) {
         //This GuiFacade will send the username and password on to the server.
         //It will receive certain results and decide what to do with them.
@@ -54,18 +49,18 @@ public class LoginGuiFacade {
         else{
             //check for exception
             if(commandResults.getExceptionType() != null){
-                System.out.println("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
+                //System.out.println("ExceptionType: " + commandResults.getExceptionType()+". " + commandResults.getExceptionMessage());
                 return "Exception of type: " + commandResults.getExceptionType() +
                         ". " + commandResults.getExceptionMessage();
             }
 
             if(!commandResults.getCommandSuccess()){
-                System.out.println("False. UserMessage: " + commandResults.getUserMessage());
+                //System.out.println("False. UserMessage: " + commandResults.getUserMessage());
                 return commandResults.getUserMessage();
             }
         }
 
-        System.out.println("True. UserMessage: " + commandResults.getUserMessage());
+        //System.out.println("True. UserMessage: " + commandResults.getUserMessage());
         return commandResults.getUserMessage();
     }
 

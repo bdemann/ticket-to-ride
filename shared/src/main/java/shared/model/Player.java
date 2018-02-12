@@ -13,10 +13,10 @@ public class Player implements IPlayer {
 
     private String username;
     private String password;
-    private Color color;
+    private int color;
     private int gameId = 0;
 
-    public Player(String username, String password, Color color)
+    public Player(String username, String password, int color)
     {
         this.username = username;
         this.password = password;
@@ -26,7 +26,7 @@ public class Player implements IPlayer {
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
-        this.color = null;
+        this.color = 0;
     }
 
     public Player() {}
@@ -91,7 +91,7 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void setColor(Color color) {
+    public void setColor(int color) {
         this.color = color;
 
     }
@@ -117,7 +117,7 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public Color getColor() {
+    public int getColor() {
         return this.color;
     }
 

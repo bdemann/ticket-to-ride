@@ -91,7 +91,7 @@ public interface IPlayer {
      * Set the color of the player
      * @param color for the player
      */
-    void setColor(Color color);
+    void setColor(int color);
 
     /**
      * A player has a given score
@@ -121,7 +121,7 @@ public interface IPlayer {
      * Each player has a color
      * @return Color of the player
      */
-    Color getColor();
+    int getColor();
 
     /**
      *

@@ -1,5 +1,7 @@
 package guifacade;
 
+import android.graphics.Color;
+
 import java.sql.SQLOutput;
 
 import model.ClientRoot;
@@ -21,37 +23,37 @@ public class CreateGameGuiFacade {
         LoginGuiFacade loginGuiFacade = new LoginGuiFacade();
         String registerResult = loginGuiFacade.register("username", "password");
         System.out.println("registerResult: " + registerResult + "\n");
-        CommandResult createGameResult = createGame(4);
-        System.out.println("createGame: " + createGameResult.getUserMessage() + "\n");
-        Game game = (Game) createGameResult.getResult();
-        System.out.println("Game id: " + game.getId());
+        String createGameResult = createGame(4, Color.GREEN);
+        System.out.println("createGame: " + createGameResult + "\n");
     }
 
-    public static CommandResult createGame(int numberPlayer) {
+    public static String createGame(int numberPlayer, int color) {
         GameSelectionServerProxy gssp = new GameSelectionServerProxy();
         CommandResult commandResult = new CommandResult(null,null);
         Player player = _clientRoot.getClientPlayer();
 
+        player.setColor(color);
+
         if(player == null){
-            commandResult.setUserMessage("Can't create a game without registering first");
-            return commandResult;
+
+            return "Can't create a game without registering first";;
         }
 
-        commandResult = gssp.createGame(player, numberPlayer);
+        commandResult = gssp.createGame(player, numberPlayer, color);
 
         if(commandResult.getCommandSuccess()){
             if(commandResult.getResult() == null){
-                commandResult.setUserMessage("Couldn't add game to ClientRoot");
-                return commandResult;
+
+                return "Couldn't add game to ClientRoot";;
             }
             _addGame((Game) commandResult.getResult());
-            CommandResult joinResult = JoinGameGuiFacade.joinGame((Game) commandResult.getResult());
+            CommandResult joinResult = JoinGameGuiFacade.joinGame(((Game) commandResult.getResult()).getId());
             if(!joinResult.getCommandSuccess()){
                 commandResult.setUserMessage(joinResult.getUserMessage());
             }
         }
 
-        return commandResult;
+        return commandResult.getUserMessage();
     }
 
 
