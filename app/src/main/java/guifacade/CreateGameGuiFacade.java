@@ -36,7 +36,7 @@ public class CreateGameGuiFacade {
 
         if(player == null){
 
-            return "Can't create a game without registering first";;
+            return "Can't create a game without registering first";
         }
 
         commandResult = gssp.createGame(player, numberPlayer, color);
@@ -44,13 +44,9 @@ public class CreateGameGuiFacade {
         if(commandResult.getCommandSuccess()){
             if(commandResult.getResult() == null){
 
-                return "Couldn't add game to ClientRoot";;
+                return "Couldn't add game to ClientRoot";
             }
             _addGame((Game) commandResult.getResult());
-            CommandResult joinResult = JoinGameGuiFacade.joinGame(((Game) commandResult.getResult()).getId());
-            if(!joinResult.getCommandSuccess()){
-                commandResult.setUserMessage(joinResult.getUserMessage());
-            }
         }
 
         return commandResult.getUserMessage();

@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
+import guifacade.CreateGameGuiFacade;
 import model.ClientRoot;
 import presenter.GameSelectionPresenter;
 
@@ -157,6 +158,7 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
             public void onClick(View view) {
                 if (!GameName.equals("")){
                     //create the game
+                    _gameSelectionPresenter.createGame();
 
                 }
             }
