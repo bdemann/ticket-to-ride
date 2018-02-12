@@ -20,7 +20,7 @@ public class LobbyServerProxy implements ILobbyServerFacade {
     }
 
     @Override
-    public CommandResult startGame(Game game) {
+    public CommandResult startGame(Game game, String username) {
         Class<?>[] parmTypes = {Game.class};
         Object[] parmValues = {game};
         return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
