@@ -12,6 +12,7 @@ public class Game implements IGame {
     private int _id;
     private int _maxNumberPlayer;
     private int _numberPlayer;
+    private String _gameName;
 
     public Game(List<Player> players, int numberPlayer){
         this._players = players;
@@ -68,6 +69,10 @@ public class Game implements IGame {
     @Override
     public void setGameMap(TTRMap gameMap) {
 
+    }
+
+    public void setGameName(String gameName){
+        this._gameName = gameName;
     }
 
     @Override
@@ -131,5 +136,9 @@ public class Game implements IGame {
 
     public int getNumberPlayer() {
         return _numberPlayer;
+    }
+
+    public String getGameName(){
+        return _gameName;
     }
 }
