@@ -12,15 +12,15 @@ public class Game implements IGame {
     private int id;
     private int numberPlayer;
 
-    public Game(List<Player> players,int id, int numberPlayer){
+    public Game(List<Player> players, int numberPlayer){
         this.players = players;
-        this.id = id;
         this.numberPlayer = numberPlayer;
     }
 
     public Game() {}
 
-    public void setId(){
+    public void setId(int id){
+        this.id = id;
     }
 
     @Override
