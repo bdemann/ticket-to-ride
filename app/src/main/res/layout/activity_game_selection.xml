@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/login_background"
     android:orientation="vertical"
-    tools:context="view.GameSelection">
+    tools:context="view.GameSelectionActivity">
 
     <LinearLayout
         android:layout_width="350dp"
