@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/login_background"
     android:orientation="vertical"
-    tools:context="com.a340team.tickettoride.view.GameLobbyActivity">
+    tools:context="view.GameLobbyActivity">
 
     <LinearLayout
         android:layout_width="350dp"
