@@ -18,7 +18,7 @@ public class GameSelectionClientFacade{
 
     }
 
-    public void joinedGame(Player player, Game game) {
+    public void joinGame(Player player, Game game) {
         _clientRoot.getListGames().get(game.getId()).addPlayer(player);
 
         if(_clientRoot.getClientGame() != null){
