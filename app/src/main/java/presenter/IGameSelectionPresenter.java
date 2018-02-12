@@ -7,4 +7,5 @@ package presenter;
 public interface IGameSelectionPresenter {
 
     void createGame();
+    boolean joinGame(int gameID);
 }
