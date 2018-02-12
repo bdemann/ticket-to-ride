@@ -29,6 +29,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         Game game = new Game(playerList, numberPlayer);
         ServerRoot.addGame(game);
+        ServerRoot.getGame(game.getId()).setGameName(gameName);
 
         try {
             if (player.getGameId() != 0) {
