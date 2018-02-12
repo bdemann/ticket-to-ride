@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 public class GameSelectionActivity extends AppCompatActivity implements IGameSelection{
 
-    private ArrayList<String> _gameList;
+    private ArrayList<String> _gameNameList;
+    private ArrayList<String> _gameNumPlayersList;
     private RecyclerView _recyclerView;
     private Button _createGameButton;
     private Button _joinGameButton;
@@ -24,13 +25,14 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
 
-        _gameList = new ArrayList<>();
+        _gameNameList = new ArrayList<>();
+        _gameNumPlayersList = new ArrayList<>();
 
         _recyclerView = (RecyclerView) findViewById(R.id.GameRecycler);
         _createGameButton = (Button) findViewById(R.id.create_new_game_button);
         _joinGameButton = (Button) findViewById(R.id.join_game_button);
 
-        GameListRecyclerAdapter adapter = new GameListRecyclerAdapter(_gameList);
+        GameListRecyclerAdapter adapter = new GameListRecyclerAdapter(_gameNameList, _gameNumPlayersList);
         _recyclerView.setAdapter(adapter);
         _recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
