@@ -63,5 +63,7 @@ public class ClientRoot extends Observable {
 
     public void setListGames(Game game){
         this._listGames.add(game);
+        setChanged();
+        notifyObservers();
     }
 }
