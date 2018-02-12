@@ -20,20 +20,28 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
     public CommandResult createGame(Player creator, int numberPlayer) {
         System.out.println("in createGame!!");
-        Random rand = new Random();
-        int  id = rand.nextInt(500) + 1;
+//        Random rand = new Random();
+//        int  id = rand.nextInt(500) + 1;
 
         Player player = ServerRoot.getPlayer(creator.getUsername());
-        if(player.getGameId() != 0){
-            return new CreateGameCommandResult(false, "Player can only be part of one game");
-        }
-        player.setGameId(id);
-
         List<Player> playerList = new ArrayList<>();
         playerList.add(player);
 
-        Game game = new Game(playerList,id,numberPlayer);
+        Game game = new Game(playerList, numberPlayer);
         ServerRoot.addGame(game);
+
+        try {
+            if (player.getGameId() != 0) {
+                return new CreateGameCommandResult(false, "Player can only be part of one game");
+            }
+
+            System.out.println("GameID: " + game.getId());
+
+            player.setGameId(game.getId());
+        }catch (NullPointerException e){
+            return new CreateGameCommandResult(false, "Player does not exist");
+        }
+
         CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, "createGameSuccessfull");
         createGameCommandResult.setResult(game);
 
@@ -42,7 +50,13 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
     @Override
     public CommandResult joinGame(Game game, Player joiner) {
-        ServerRoot.getGame(game.getId()).addPlayer(joiner);
+        Game currentGame = ServerRoot.getGame(game.getId());
+        if(currentGame == null){
+            return new JoinGameCommandResult(false, "Could not find game");
+        }
+
+        game.addPlayer(joiner);
+
         return new JoinGameCommandResult(true, ServerRoot.getCommandList());
     }
 
