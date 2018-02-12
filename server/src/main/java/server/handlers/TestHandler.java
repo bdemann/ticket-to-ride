@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import shared.Command;
 import shared.CommandEncoder;
 import shared.commandResults.CommandResult;
+import shared.logging.Logger;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -17,6 +18,7 @@ import shared.commandResults.CommandResult;
 public class TestHandler  implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        Logger.log("Here is the test handler");
         Class<?>[] parmTypes = {String.class, String.class};
         Object[] parmValues = {"bdemann", "password"};
         Command command = new Command("server.facades.LoginServerFacade", "register", parmTypes, parmValues);
@@ -27,7 +29,7 @@ public class TestHandler  implements HttpHandler {
             result = new CommandResult(e.getClass().toString(), e.getMessage());
             e.printStackTrace();
         }
-
+        Logger.log(result);
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         CommandEncoder.encodeTestResults(result, exchange.getResponseBody());
         exchange.getResponseBody().close();

@@ -10,5 +10,5 @@ import shared.model.Game;
 
 public interface ILobbyServerFacade {
     public CommandResult sendChat(Chat message);
-    public CommandResult startGame(Game game);
+    public CommandResult startGame(Game game, String username);
 }

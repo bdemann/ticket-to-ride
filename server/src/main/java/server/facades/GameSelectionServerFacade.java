@@ -21,12 +21,12 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         List<Player> playerList = new ArrayList<>();
         playerList.add(creator);
         ServerRoot.addGame(new Game(playerList));
-        return new CreateGameCommandResult(true, ServerRoot.getCommandList());
+        return new CreateGameCommandResult(true, ServerRoot.getCommandList(creator.getUsername()));
     }
 
     @Override
     public CommandResult joinGame(Game game, Player joiner) {
         ServerRoot.getGame(game.getId()).addPlayer(joiner);
-        return new JoinGameCommandResult(true, ServerRoot.getCommandList());
+        return new JoinGameCommandResult(true, ServerRoot.getCommandList(joiner.getUsername()));
     }
 }
