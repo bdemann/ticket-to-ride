@@ -22,6 +22,7 @@ import presenter.GameSelectionPresenter;
 
 class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapter.ViewHolder>{
     private ArrayList<String> _gameList;
+    private ArrayList<Integer> _gameIDList;
     private ArrayList<String> _gameNumPlayersList;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -60,8 +61,9 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
         }
     }
 
-    public GameListRecyclerAdapter(ArrayList<String> _gameList, ArrayList<String> _gameNumPlayersList) {
+    public GameListRecyclerAdapter(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList) {
         this._gameList = _gameList;
+        this._gameIDList = _gameIDList;
         this._gameNumPlayersList = _gameNumPlayersList;
     }
 
@@ -82,7 +84,7 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
         name.setText(_gameList.get(position));
 
         TextView ID = holder.GameID;
-        ID.setText(Integer.toString(position));
+        ID.setText(Integer.toString(_gameIDList.get(position)));
 
         TextView NumPlalyers = holder.GameID;
         NumPlalyers.setText(_gameNumPlayersList.get(position));
@@ -92,5 +94,12 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
     @Override
     public int getItemCount() {
         return _gameList.size();
+    }
+
+    public void updateGameList(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList) {
+        this._gameList = _gameList;
+        this._gameIDList = _gameIDList;
+        this._gameNumPlayersList = _gameNumPlayersList;
+        notifyDataSetChanged();
     }
 }
