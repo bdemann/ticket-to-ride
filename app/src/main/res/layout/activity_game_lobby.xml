@@ -16,6 +16,12 @@
         android:background="@android:color/background_light"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/current_players"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Players" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/chat_recycler"
             android:layout_width="match_parent"

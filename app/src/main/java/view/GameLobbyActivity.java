@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.a340team.tickettoride.R;
+
+import java.util.ArrayList;
 
 public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyActivity{
 
@@ -16,7 +20,9 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
     private EditText _chatText;
     private ImageButton _sendButton;
     private Button _startGameButton;
+    private TextView _playerList;
     private String _gameID;
+    ArrayList<String> player_names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +35,12 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         _chatText = (EditText) findViewById(R.id.chat_text);
         _sendButton = (ImageButton) findViewById(R.id.send_button);
         _startGameButton = (Button) findViewById(R.id.start_game_button);
+        _playerList = (TextView) findViewById(R.id.current_players);
 
         _makeOnClickListeners();
+
+        //Put Game name in title bar
+        setTitle("Game: " + getIntent().getStringExtra("GameName"));
     }
 
     @Override
@@ -42,5 +52,10 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
             startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void UpdatePlayerList(String players) {
+        _playerList.setText(players);
     }
 }

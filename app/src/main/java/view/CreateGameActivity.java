@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
+import presenter.CreateGamePresenter;
+
 public class CreateGameActivity extends AppCompatActivity implements ICreateGameActivity{
 
     private EditText GameNameField;
@@ -162,7 +164,8 @@ public class CreateGameActivity extends AppCompatActivity implements ICreateGame
             @Override
             public void onClick(View view) {
                 if (!GameName.equals("")){
-                    //Send Create Game Command to Server
+                    CreateGamePresenter createGamePresenter = new CreateGamePresenter();
+                    createGamePresenter.createGame(NumberOfPlayers);
                 }
             }
         });
