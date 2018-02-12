@@ -93,4 +93,7 @@ public class ServerRoot extends Observable {
         _instance._commands.put(username, new ArrayList<Command>());
         return commands;
     }
+    public static List<Game> getGames(){
+        return _instance._games;
+    }
 }
