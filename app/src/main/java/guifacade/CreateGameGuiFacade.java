@@ -4,6 +4,7 @@ import java.sql.SQLOutput;
 
 import model.ClientRoot;
 import proxy.serverproxies.GameSelectionServerProxy;
+import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
 import shared.model.Player;
@@ -20,45 +21,42 @@ public class CreateGameGuiFacade {
         LoginGuiFacade loginGuiFacade = new LoginGuiFacade();
         String registerResult = loginGuiFacade.register("username", "password");
         System.out.println("registerResult: " + registerResult + "\n");
-        Player player = _clientRoot.getClientPlayer();
-        System.out.println("player: " + player.getUsername() + "\n");
-
-        String createGameResult = createGame(4);
-        System.out.println("createGame: " + createGameResult + "\n");
+        CommandResult createGameResult = createGame(4);
+        System.out.println("createGame: " + createGameResult.getUserMessage() + "\n");
+        Game game = (Game) createGameResult.getResult();
+        System.out.println("Game id: " + game.getId());
     }
 
-    public static String createGame(int numberPlayer) {
+    public static CommandResult createGame(int numberPlayer) {
         GameSelectionServerProxy gssp = new GameSelectionServerProxy();
         CommandResult commandResult = new CommandResult(null,null);
         Player player = _clientRoot.getClientPlayer();
 
         if(player == null){
-            return "Can't create a game without registering first";
+            commandResult.setUserMessage("Can't create a game without registering first");
+            return commandResult;
         }
 
         commandResult = gssp.createGame(player, numberPlayer);
 
         if(commandResult.getCommandSuccess()){
             if(commandResult.getResult() == null){
-                return "Couldn't add game to ClientRoot";
+                commandResult.setUserMessage("Couldn't add game to ClientRoot");
+                return commandResult;
             }
             _addGame((Game) commandResult.getResult());
-        }
-        else{
-            if(commandResult.getExceptionType() != null){
-                return "Exception of type: " + commandResult.getExceptionType() +
-                        ". " + commandResult.getExceptionMessage();
+            CommandResult joinResult = JoinGameGuiFacade.joinGame((Game) commandResult.getResult());
+            if(!joinResult.getCommandSuccess()){
+                commandResult.setUserMessage(joinResult.getUserMessage());
             }
-
-            return commandResult.getUserMessage();
         }
 
-        return commandResult.getUserMessage();
+        return commandResult;
     }
 
 
     private static void _addGame(Game game){
-        _clientRoot.setClientGame(game);
+        _clientRoot.setListGames(game);
 
         System.out.println("Game: " + _clientRoot.getClientGame().getId() + "\n");
     }
