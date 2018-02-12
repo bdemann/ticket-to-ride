@@ -56,6 +56,5 @@ public class CreateGameGuiFacade {
 
     private static void _addGame(Game game){
         _clientRoot.setListGames(game);
-        System.out.println("Game: " + _clientRoot.getClientGame().getId() + "\n");
     }
 }

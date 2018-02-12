@@ -6,4 +6,5 @@ package presenter;
 public interface IGameSelectionPresenter {
 
     String createGame(int creatorColor, String gameName, int numberOfPlayers);
+    boolean joinGame(int gameID);
 }
