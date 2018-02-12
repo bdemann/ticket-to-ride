@@ -34,6 +34,7 @@ public class CreateGameGuiFacade {
         CommandResult commandResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,color,gameName);
 
 
+
         int x = 0;
 
 
