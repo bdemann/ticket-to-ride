@@ -45,6 +45,8 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         _createGameCommand(game);
 
         return createGameCommandResult;
+        //TODO I think I have a different idea of what we need to be passing into these results... Lets talk about it. What is the message? Why don't we pass in this list of commands?
+        // return new CreateGameCommandResult(true, ServerRoot.getCommandList(creator.getUsername()));
     }
 
     @Override
@@ -57,11 +59,11 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             return new JoinGameCommandResult(false, "Cannot join. Game is full");
         }
 
-        game.addPlayer(joiner);
+        ServerRoot.getGame(game.getId()).addPlayer(joiner);
 
         _createJoinCommand(joiner, game);
 
-        return new JoinGameCommandResult(true, ServerRoot.getCommandList());
+        return new JoinGameCommandResult(true, ServerRoot.getCommandList(joiner.getUsername()));
     }
 
     private void _createJoinCommand(Player player, Game game){

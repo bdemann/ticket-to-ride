@@ -16,12 +16,12 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     public CommandResult sendChat(Chat message) {
         Game currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
         ServerRoot.addChat(currentGame, message);
-        return new ChatCommandResult(true, ServerRoot.getCommandList());
+        return new ChatCommandResult(true, ServerRoot.getCommandList(message.getSpeaker().getUsername()));
     }
 
     @Override
-    public CommandResult startGame(Game game) {
+    public CommandResult startGame(Game game, String username) {
         //TODO What exactly should happen when we start a game?
-        return new CommandResult(true, ServerRoot.getCommandList());
+        return new CommandResult(true, ServerRoot.getCommandList(username));
     }
 }
