@@ -18,6 +18,7 @@ public class ServerRoot extends Observable {
     private List<Game> _games;
     private List<List<Chat>> _chats;
     private List<Command> _commands = new ArrayList<>();
+    private int gameId = 0;
 
     private static final ServerRoot _instance = new ServerRoot();
 
@@ -38,6 +39,8 @@ public class ServerRoot extends Observable {
     }
 
     private void _addGame(Game game){
+        game.setId(gameId);
+        gameId++;
         _games.add(game);
     }
 
