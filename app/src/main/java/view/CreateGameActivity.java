@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
@@ -156,7 +157,8 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
 
                 if (!GameName.equals("")){
                     //create the game
-                    _gameSelectionPresenter.createGame(PlayerColor,GameName,NumberOfPlayers);
+                    String message = _gameSelectionPresenter.createGame(PlayerColor,GameName,NumberOfPlayers);
+                    _displayMessage(message);
 
                 }
             }
@@ -167,6 +169,13 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
                 finish();
             }
         });
+    }
+
+    private void _displayMessage(String message){
+        //Just pop up a toast letting the user know what happened
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), message, duration);
+        toast.show();
     }
 
     private void _initializGuiElements(){

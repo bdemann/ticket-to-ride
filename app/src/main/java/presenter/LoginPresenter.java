@@ -29,12 +29,15 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     @Override
     public void update(Observable obs, Object o) {
 
-        System.out.println("Update called\n");
+        System.out.println("Login Presenter Update called\n");
 
         if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
             Intent intent = new Intent(_context, GameSelectionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(intent);
+        }
+        else{
+            System.out.println("Didn't do anything in the Login Presenter");
         }
     }
 

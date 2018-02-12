@@ -32,39 +32,29 @@ public class CreateGameGuiFacade {
 
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
         CommandResult commandResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,color,gameName);
+        return _processResults(commandResult);
+    }
 
-
-
-
-        int x = 0;
-
-
-        Player player = _clientRoot.getClientPlayer();
-
-        _clientRoot.getClientPlayer().setColor(color);
-
-        if(player == null){
-
-            return "Can't create a game without registering first";
+    private static String _processResults(CommandResult results)
+    {
+        if(results == null){
+            return "Server couldn't create the game";
         }
 
-        //commandResult = gssp.createGame(player, numberPlayer, color, gameName);
-
-        if(commandResult.getCommandSuccess()){
-            if(commandResult.getResult() == null){
+        if(results.getCommandSuccess()){
+            if(results.getResult() == null){
 
                 return "Couldn't add game to ClientRoot";
             }
-            _addGame((Game) commandResult.getResult());
+
+            //add the game to the root.
+            _addGame((Game) results.getResult());
         }
 
-        return commandResult.getUserMessage();
+        return results.getUserMessage();
     }
-
 
     private static void _addGame(Game game){
         _clientRoot.setListGames(game);
-
-        //System.out.println("Game: " + _clientRoot.getClientGame().getId() + "\n");
     }
 }

@@ -2,12 +2,14 @@ package presenter;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import guifacade.CreateGameGuiFacade;
 import guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
+import shared.model.Game;
 import view.IGameSelection;
 
 /**
@@ -27,20 +29,23 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     @Override
     public void update(Observable obs, Object o) {
 
-        System.out.println("Update called\n");
+        System.out.println("Game Selection Update called\n");
+
 
 //        if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
 //            Intent intent = new Intent(_context, GameSelectionActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            _context.startActivity(intent);
 //        }
+        if(_clientRoot.getClientGame()!= null){
+            Game game = _clientRoot.getClientGame();
+            System.out.println("Here's the Game ID: " + game.getId());
+        }
     }
 
     @Override
-    public void createGame(int creatorColor, String gameName, int numberOfPlayers){
-
-        CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
-
+    public String createGame(int creatorColor, String gameName, int numberOfPlayers){
+        return CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
     }
 
     @Override
