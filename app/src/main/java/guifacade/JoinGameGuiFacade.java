@@ -14,22 +14,22 @@ import shared.model.Player;
 public class JoinGameGuiFacade {
     private static ClientRoot _clientRoot = ClientRoot.instance();
 
-    public static CommandResult joinGame(Game game) {
+    public static String joinGame(int gameId) {
         GameSelectionServerProxy gssp = new GameSelectionServerProxy();
         Player player = _clientRoot.getClientPlayer();
 
         if(player == null){
 
-            return new CommandResult(false,"Could not find player");
+            return "Could not find player";
         }
 
-        CommandResult commandResult = gssp.joinGame(game, player);
+        CommandResult commandResult = gssp.joinGame(gameId, player);
 
         if(commandResult.getCommandSuccess()){
-            _addGame(game);
+            _addGame((Game) commandResult.getResult());
         }
 
-        return commandResult;
+        return commandResult.getUserMessage();
     }
 
     private static void _addGame(Game game){

@@ -7,20 +7,20 @@ import java.util.Observer;
 
 import guifacade.CreateGameGuiFacade;
 import model.ClientRoot;
+import view.IGameSelection;
 
 /**
+ *
  * Created by mikeporet on 2/11/18.
  */
 
-public class CreateGamePresenter implements ICreateGamePresenter, Observer {
+public class GameSelectionPresenter implements IGameSelectionPresenter, Observer {
 
     private ClientRoot _clientRoot;
-    private Context _context;
 
-    public CreateGamePresenter(){
-//        this._clientRoot = clientRoot;
-//        this._context = appContext;
 
+    public GameSelectionPresenter(ClientRoot clientRoot){
+        this._clientRoot = clientRoot;
     }
 
     @Override
@@ -36,8 +36,7 @@ public class CreateGamePresenter implements ICreateGamePresenter, Observer {
     }
 
     @Override
-    public void createGame(int numberPlayer){
-        CreateGameGuiFacade.createGame(numberPlayer);
+    public void createGame(){
 
     }
 
