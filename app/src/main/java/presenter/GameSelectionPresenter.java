@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import guifacade.CreateGameGuiFacade;
+import guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
 import view.IGameSelection;
 
@@ -36,9 +37,20 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     }
 
     @Override
-    public void createGame(){
+    public void createGame(int creatorColor, String gameName, int numberOfPlayers){
+
+        CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
 
     }
 
+    @Override
+    public boolean joinGame(int gameID) {
+        String result = JoinGameGuiFacade.joinGame(gameID);
+        if (result.equals("join successful")){
+            return true;
+        }
+        else
+            return false;
+    }
 }
 

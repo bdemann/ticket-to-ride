@@ -9,6 +9,7 @@ import shared.facades.ILobbyServerFacade;
 
 /**
  * Created by Ben on 2/7/2018.
+ *
  */
 
 public class LobbyServerProxy implements ILobbyServerFacade {

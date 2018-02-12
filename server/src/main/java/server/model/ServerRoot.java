@@ -69,4 +69,7 @@ public class ServerRoot extends Observable {
     public static List<IGame> getGames() {
         return _instance._games;
     }
+    public static List<Game> getGames(){
+        return _instance._games;
+    }
 }
