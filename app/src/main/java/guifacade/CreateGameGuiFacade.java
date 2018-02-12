@@ -10,6 +10,7 @@ import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
 import shared.model.Player;
+import tasks.CreateGameTask;
 
 /**
  *
@@ -28,8 +29,14 @@ public class CreateGameGuiFacade {
     }
 
     public static String createGame(int numberPlayer, int color, String gameName) {
-        GameSelectionServerProxy gssp = new GameSelectionServerProxy();
-        CommandResult commandResult = new CommandResult(null,null);
+
+        GameSelectionServerProxy proxy = new GameSelectionServerProxy();
+        CommandResult commandResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,color,gameName);
+
+
+        int x = 0;
+
+
         Player player = _clientRoot.getClientPlayer();
 
         player.setColor(color);
@@ -39,7 +46,7 @@ public class CreateGameGuiFacade {
             return "Can't create a game without registering first";
         }
 
-        commandResult = gssp.createGame(player, numberPlayer, color, gameName);
+        //commandResult = gssp.createGame(player, numberPlayer, color, gameName);
 
         if(commandResult.getCommandSuccess()){
             if(commandResult.getResult() == null){

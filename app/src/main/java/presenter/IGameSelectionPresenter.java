@@ -5,5 +5,5 @@ package presenter;
  */
 public interface IGameSelectionPresenter {
 
-    void createGame(int gameId, int creatorColor, String gameName, int numberOfPlayers);
+    void createGame(int creatorColor, String gameName, int numberOfPlayers);
 }

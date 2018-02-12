@@ -158,7 +158,7 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
             public void onClick(View view) {
                 if (!GameName.equals("")){
                     //create the game
-                    _gameSelectionPresenter.createGame();
+                    _gameSelectionPresenter.createGame(PlayerColor,GameName,NumberOfPlayers);
 
                 }
             }
