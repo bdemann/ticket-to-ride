@@ -19,7 +19,7 @@ import shared.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(Player creator, int numberPlayer, int color) {
+    public CommandResult createGame(Player creator, int numberPlayer, int color, String gameName) {
         Player player = ServerRoot.getPlayer(creator.getUsername());
 
         player.setColor(color);
@@ -65,9 +65,12 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
+        CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, "createGameSuccessfull");
+        createGameCommandResult.setResult(ServerRoot.getGame(currentGame.getId()));
+
         _createJoinCommand(joiner, currentGame);
 
-        return new JoinGameCommandResult(true, ServerRoot.getCommandList(joiner.getUsername()));
+        return new JoinGameCommandResult(true, "join successful");
     }
 
     private void _createJoinCommand(Player player, Game game){
