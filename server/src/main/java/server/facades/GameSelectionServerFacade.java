@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import server.model.ServerRoot;
+import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.commandResults.CreateGameCommandResult;
 import shared.commandResults.JoinGameCommandResult;
@@ -41,6 +42,8 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, "createGameSuccessfull");
         createGameCommandResult.setResult(game);
 
+        _createGameCommand(game);
+
         return createGameCommandResult;
     }
 
@@ -56,7 +59,24 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         game.addPlayer(joiner);
 
+        _createJoinCommand(joiner, game);
+
         return new JoinGameCommandResult(true, ServerRoot.getCommandList());
+    }
+
+    private void _createJoinCommand(Player player, Game game){
+        Class<?>[] parmTypes = {Player.class,Game.class};
+        Object[] parm = {player,game};
+
+        Command command = new Command("app.facade.GameSelectionClientFacade", "joinGame", parmTypes, parm);
+    }
+
+    private void _createGameCommand(Game game){
+        Class<?>[] parmTypes = {Game.class};
+        Game[] parm = {game};
+
+        Command command = new Command("app.facade.GameSelectionClientFacade", "createGame", parmTypes, parm);
+
     }
 
 }
