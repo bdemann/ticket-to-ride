@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import server.model.ServerRoot;
 import shared.Command;
 import shared.CommandEncoder;
 import shared.commandResults.CommandResult;
@@ -20,9 +21,14 @@ public class TestHandler  implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
 
-        Class<?>[] parmTypes = {String.class, String.class};
-        Object[] parmValues = {"bdemann", "password"};
-        Command command = new Command("server.facades.LoginServerFacade", "register", parmTypes, parmValues);
+        Class<?>[] parmTypes1 = {String.class, String.class};
+        Object[] parmValues1 = {"bdemann", "password"};
+        Command command1 = new Command("server.facades.LoginServerFacade", "register", parmTypes1, parmValues1);
+
+        Class<?>[] parmTypes = {String.class};
+        Object[] parmValues = {"bdemann"};
+        ServerRoot.addCommand("bdemann", command1);
+        Command command = new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues);
         CommandResult result;
         try {
             result = command.execute();

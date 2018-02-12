@@ -93,4 +93,16 @@ public class ServerRoot extends Observable {
         _instance._commands.put(username, new ArrayList<Command>());
         return commands;
     }
+
+    //TODO get rid of this function as soon we have the commands actually added. or maybe just adapt it...
+    public static void addCommand(String username, Command command) {
+        List<Command> commands;
+        if(_instance._commands.containsKey(username)) {
+            commands = _instance._commands.get(username);
+        } else {
+            commands = new ArrayList<>();
+        }
+        commands.add(command);
+        _instance._commands.put(username, commands);
+    }
 }

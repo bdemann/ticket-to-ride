@@ -34,6 +34,15 @@ public class CommandResult implements Serializable {
         this.exceptionMessage = exceptionMessage;
     }
 
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Success: " + commandSuccess);
+        for (Command command : clientCommands){
+            sb.append(command.toString());
+        }
+        return sb.toString();
+    }
+
     public void setResult(Object o){
         this.result = o;
     }
