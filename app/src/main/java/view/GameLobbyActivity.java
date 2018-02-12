@@ -56,6 +56,9 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
     @Override
     public void UpdatePlayerList(String players) {
+
+        //This gets called by the presenter. It is called with a string listing the players
+        //separated by commas "Player One, Player Two, Player Three...."
         _playerList.setText(players);
     }
 }
