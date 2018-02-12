@@ -36,10 +36,8 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     }
 
     @Override
-    public void createGame(int creatorColor, String gameName, int numberOfPlayers){
-
-        CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
-
+    public String createGame(int creatorColor, String gameName, int numberOfPlayers){
+        return CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
     }
 
 }
