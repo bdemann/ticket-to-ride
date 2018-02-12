@@ -4,6 +4,8 @@ package model;
 import shared.model.Game;
 import shared.model.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -16,6 +18,7 @@ public class ClientRoot extends Observable {
 
     private Player _clientPlayer;
     private Game _clientGame;
+    private List<Game> _listGames;
     private static ClientRoot _instance;
 
     public static ClientRoot instance() {
@@ -28,6 +31,7 @@ public class ClientRoot extends Observable {
     private ClientRoot(){
         this._clientPlayer = null;
         this._clientGame = null;
+        this._listGames = new ArrayList<>();
     }
 
     //Getters and Setters
@@ -37,6 +41,10 @@ public class ClientRoot extends Observable {
 
     public Game getClientGame() {
         return _clientGame;
+    }
+
+    public List<Game> getListGames() {
+        return _listGames;
     }
 
     public void setClientPlayer(Player player) {
@@ -51,5 +59,9 @@ public class ClientRoot extends Observable {
         this._clientGame = clientGame;
         setChanged();
         notifyObservers();
+    }
+
+    public void setListGames(Game game){
+        this._listGames.add(game);
     }
 }
