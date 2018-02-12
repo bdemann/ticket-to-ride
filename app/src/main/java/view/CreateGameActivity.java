@@ -10,8 +10,10 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
+import guifacade.CreateGameGuiFacade;
 import model.ClientRoot;
 import presenter.GameSelectionPresenter;
+import shared.model.Game;
 
 public class CreateGameActivity extends AppCompatActivity implements IGameSelection{
 
@@ -42,11 +44,6 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
         _enableAllButtons();
         _onClickListenerSetup();
         _setUpObserver();
-
-
-
-
-
 
     }
 
@@ -155,8 +152,11 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
         CreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GameName = GameNameField.getText().toString();
+
                 if (!GameName.equals("")){
                     //create the game
+                    _gameSelectionPresenter.createGame(PlayerColor,GameName,NumberOfPlayers);
 
                 }
             }
@@ -188,6 +188,8 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
 
         CreateGameButton = (Button) findViewById(R.id.create_game_button);
         CancelButton = (Button) findViewById(R.id.cancel_button);
+
+        GameNameField = (EditText) findViewById(R.id.game_name);
 
 
         //Disable selected buttons
