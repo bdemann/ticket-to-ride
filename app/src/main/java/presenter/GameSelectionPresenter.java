@@ -31,6 +31,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
         System.out.println("Game Selection Update called\n");
 
+
 //        if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
 //            Intent intent = new Intent(_context, GameSelectionActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
