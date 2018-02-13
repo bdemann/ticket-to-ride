@@ -1,10 +1,13 @@
 package presenter;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import guifacade.LobbyGuiFacade;
 import model.ClientRoot;
+import shared.model.IGame;
+import shared.model.IPlayer;
 import view.GameLobbyActivity;
 
 /**
@@ -14,25 +17,51 @@ import view.GameLobbyActivity;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     private GameLobbyActivity _activity;
-    private ClientRoot clientRoot;
+    private ClientRoot _clientRoot;
 
     public GameLobbyPresenter(GameLobbyActivity activity, ClientRoot clientRoot) {
         _activity = activity;
-        this.clientRoot = clientRoot;
+        this._clientRoot = clientRoot;
     }
 
     @Override
     public void update(Observable observable, Object o) {
         //if we have left the game
-        if(clientRoot.getClientGame() == null){
+        if(_clientRoot.getClientGame() == null){
             _activity.finish();
+        }
+
+        //Get the list of players
+        else{
+            ArrayList<IPlayer> players = new ArrayList<>(clientRoot.getClientGame().getPlayers());
+
+            StringBuilder playerList = new StringBuilder();
+
+            for (int i = 0; i < players.size(); i++){
+                playerList.append(players.get(i).getUsername());
+                if (i != (players.size()-1)){
+                    playerList.append(", ");
+                }
+            }
+
+            //Update the list of players on the lobby activity
+            _activity.updatePlayerList(playerList.toString());
         }
     }
 
     @Override
-    public void leaveGame() {
-        LobbyGuiFacade.leaveGame();
+    public String leaveGame() {
+        return LobbyGuiFacade.leaveGame(_clientRoot.getClientPlayer().getUsername());
     }
 
-
+    @Override
+    public boolean checkNumPlayers() {
+        IGame game = clientRoot.getClientGame();
+        int numPlayers = game.getNumberPlayer();
+        int maxPlayers = game.getMaxNumberPlayer();
+        if (numPlayers==maxPlayers)
+            return true;
+        else
+            return false;
+    }
 }

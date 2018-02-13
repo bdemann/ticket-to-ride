@@ -6,5 +6,6 @@ package presenter;
 
 public interface IGameLobbyPresenter {
 
-    void leaveGame();
+    String leaveGame();
+    boolean checkNumPlayers();
 }

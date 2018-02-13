@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
@@ -47,8 +48,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
         _makeOnClickListeners();
 
-        //Put Game name in title bar
-        setTitle("Game: " + getIntent().getStringExtra("GameName"));
+
     }
 
     @Override
@@ -56,14 +56,20 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         _startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), GameActivity.class);
-            startActivity(intent);
+                if (presenter.checkNumPlayers()) {
+                    Intent intent = new Intent(view.getContext(), GameActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast toast = Toast.makeText(view.getContext(), "Not enough players!", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
     }
 
     @Override
-    public void UpdatePlayerList(String players) {
+    public void updatePlayerList(String players) {
 
         //This gets called by the presenter. It is called with a string listing the players
         //separated by commas "Player One, Player Two, Player Three...."
@@ -72,7 +78,15 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
     @Override
     public void onBackPressed(){
-        presenter.leaveGame();
+        String message = presenter.leaveGame();
+        _displayMessage(message);
+    }
+
+    private void _displayMessage(String message) {
+        //Just pop up a toast letting the user know what happened
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), message, duration);
+        toast.show();
     }
 
 }
