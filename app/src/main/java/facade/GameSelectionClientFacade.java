@@ -15,7 +15,7 @@ public class GameSelectionClientFacade implements IGameSelectionClient{
 
     @Override
     public void createGame(IGame game) {
-        _clientRoot.setListGames(game);
+        _clientRoot.addToGameList(game);
     }
 
     @Override

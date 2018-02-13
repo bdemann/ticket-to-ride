@@ -39,25 +39,8 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
             _gameSelectionActivity.goToGameLobby();
         }
 
+        listGames();
 
-
-        //Update game list
-        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
-        ArrayList<String> gameNames = new ArrayList<>();
-        ArrayList<String> gameNumPlayers = new ArrayList<>();
-        ArrayList<Integer> gameIDs = new ArrayList<>();
-        for(int i = 0; i < gamesList.size(); i++){
-            IGame game = gamesList.get(i);
-            gameNames.add(game.getGameName());
-            StringBuilder numPlayers = new StringBuilder();
-            numPlayers.append(game.getNumberPlayer());
-            numPlayers.append("/");
-            numPlayers.append(game.getMaxNumberPlayer());
-            gameNumPlayers.add(numPlayers.toString());
-            gameIDs.add(game.getId());
-
-        }
-        _gameSelectionActivity.updateGameList(gameNames,gameIDs,gameNumPlayers);
     }
 
     @Override
@@ -107,5 +90,26 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
         }
         return gameNumPlayers;
     }
+
+    public void listGames(){
+        //Update game list
+        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<String> gameNames = new ArrayList<>();
+        ArrayList<String> gameNumPlayers = new ArrayList<>();
+        ArrayList<Integer> gameIDs = new ArrayList<>();
+        for(int i = 0; i < gamesList.size(); i++){
+            IGame game = gamesList.get(i);
+            gameNames.add(game.getGameName());
+            StringBuilder numPlayers = new StringBuilder();
+            numPlayers.append(game.getNumberPlayer());
+            numPlayers.append("/");
+            numPlayers.append(game.getMaxNumberPlayer());
+            gameNumPlayers.add(numPlayers.toString());
+            gameIDs.add(game.getId());
+
+        }
+        _gameSelectionActivity.updateGameList(gameNames,gameIDs,gameNumPlayers);
+    }
+
 
 }

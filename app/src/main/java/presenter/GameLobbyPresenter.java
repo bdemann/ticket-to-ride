@@ -30,22 +30,9 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         if(_clientRoot.getClientGame() == null){
             _activity.finish();
         }
-
         //Get the list of players
         else{
-            ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
-
-            StringBuilder playerList = new StringBuilder();
-
-            for (int i = 0; i < players.size(); i++){
-                playerList.append(players.get(i).getUsername());
-                if (i != (players.size()-1)){
-                    playerList.append(", ");
-                }
-            }
-
-            //Update the list of players on the lobby activity
-            _activity.updatePlayerList(playerList.toString());
+            listPlayers();
         }
     }
 
@@ -63,5 +50,21 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             return true;
         else
             return false;
+    }
+
+    public void listPlayers(){
+        ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
+
+        StringBuilder playerList = new StringBuilder();
+
+        for (int i = 0; i < players.size(); i++){
+            playerList.append(players.get(i).getUsername());
+            if (i != (players.size()-1)){
+                playerList.append(", ");
+            }
+        }
+
+        //Update the list of players on the lobby activity
+        _activity.updatePlayerList(playerList.toString());
     }
 }
