@@ -14,13 +14,12 @@ public class Game implements IGame {
     private int _numberPlayer;
     private String _gameName;
 
-    public Game(List<IPlayer> players, int numberPlayer){
+    public Game(String gameName, List<IPlayer> players, int numberPlayer){
         this._players = players;
         this._maxNumberPlayer = numberPlayer;
         this._numberPlayer = 1;
+        this._gameName = gameName;
     }
-
-    public Game() {}
 
     public void setId(int id){
         this._id = id;

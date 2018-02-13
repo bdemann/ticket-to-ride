@@ -25,14 +25,13 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 
+        //Create a list of players for the game.
         List<IPlayer> playerList = new ArrayList<>();
         playerList.add(player);
 
-        IGame game = new Game(playerList, numberPlayer);
+        //Add game to server
+        IGame game = new Game(gameName, playerList, numberPlayer);
         ServerRoot.addGame(game);
-        ServerRoot.getGame(game.getId()).setGameName(gameName);
-
-        //System.out.println("PLAYER ID: " + player.getGameId()) ;
 
         try {
             //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
@@ -47,13 +46,17 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player does not exist");
         }
 
-        CreateGameCommandResult createGameCommandResult = new CreateGameCommandResult(true, ClientCommands.getCommandList(creator.getUsername()), "createGameSuccessfull");
+        CreateGameCommandResult createGameCommandResult = new CreateGameCommandResult(true, ClientCommands.getCommandList(creator.getUsername()));
+        //TODO probably not so important right now but I think that we could make the game part of the contructor for the CreateGameCommandResults class. Otherwise there is no point having it if we aren't going to take advantage of some of the things.
+        //TODO we could also rename our command results. This would do two things. 1) it would make them shorter and perhaps a little easier to read. Secondly if you think about it its not really a command result at all. The server facade doesn't know that we are using the command pattern. Its just returning results and that is all it knows.
         createGameCommandResult.setResult(game);
 
         //System.out.println("GAME: " + ((Game) createGameCommandResult.getResult()).getId());
 
+        //TODO Move this function to the client proxy.
         _createGameCommand(game);
 
+        //Tell the clients that there is an update to the game list.
         new GameSelectionClientProxy().updateGameList();
 
         return createGameCommandResult;
@@ -66,20 +69,18 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
-            return new JoinGameCommandResult(false, ClientCommands.getCommandList(joiner.getUsername()),"Could not find game");
+            return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Could not find game");
         }
         else if(currentGame.getNumberPlayer() >= currentGame.getMaxNumberPlayer()){
-            return new JoinGameCommandResult(false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
+            return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
         }
 
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
-        CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, ClientCommands.getCommandList(joiner.getUsername()), "createGameSuccessfull");
-        createGameCommandResult.setResult(ServerRoot.getGame(currentGame.getId()));
-
+        //TODO Move this function to the client proxy.
         _createJoinCommand(joiner, currentGame);
 
-        return new JoinGameCommandResult(true, ClientCommands.getCommandList(joiner.getUsername()));
+        return new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()));
     }
 
     @Override

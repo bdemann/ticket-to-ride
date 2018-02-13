@@ -10,7 +10,7 @@ import shared.ICommand;
 
 public class CreateGameCommandResult extends CommandResult {
     public CreateGameCommandResult(boolean success, List<ICommand> clientCommands) {
-        super(success, clientCommands);
+        super(success, clientCommands, "createGameSuccessfull");
     }
 
     public CreateGameCommandResult(boolean success, List<ICommand> clientCommands, String userMessage){
