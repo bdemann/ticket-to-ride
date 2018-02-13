@@ -12,6 +12,9 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 
+import model.ClientRoot;
+import presenter.GameSelectionPresenter;
+
 public class GameSelectionActivity extends AppCompatActivity implements IGameSelection{
 
     private ArrayList<String> _gameNameList;
@@ -20,11 +23,14 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
     private RecyclerView _recyclerView;
     private Button _createGameButton;
     private Button _joinGameButton;
+    private GameSelectionPresenter _gameSelectionPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
+
+        _setUpObserver();
 
         _gameNameList = new ArrayList<>();
         _gameIDList = new ArrayList<>();
@@ -48,5 +54,12 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
         });
 
         setTitle("Select a Game");
+    }
+
+    private void _setUpObserver(){
+        ClientRoot root = ClientRoot.instance();
+        _gameSelectionPresenter = new GameSelectionPresenter(root, this);
+        root.addObserver(_gameSelectionPresenter);
+
     }
 }
