@@ -9,7 +9,6 @@ import proxy.serverproxies.GameSelectionServerProxy;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
-import shared.model.IPlayer;
 import shared.model.Player;
 import tasks.CreateGameTask;
 
@@ -30,33 +29,71 @@ public class CreateGameGuiFacade {
     }
 
     public static String createGame(int numberPlayer, int color, String gameName) {
-        IPlayer player = _clientRoot.getClientPlayer();
-        player.setColor(color);
+
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
-        CommandResult commandResult = proxy.createGame(player,numberPlayer,gameName);
-        return _processResults(commandResult);
+        CommandResult createGameResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,color,gameName);
+        boolean isGameCreated = _processResults(createGameResult);
+
+        if(isGameCreated){
+            //Get the player and gameID for the player to join
+            Player player = _clientRoot.getClientPlayer();
+            Game game = (Game) createGameResult.getResult();
+            int gameId = game.getId();
+
+            //Join the game
+            CommandResult joinResults = proxy.joinGame(gameId,player);
+            return _processJoinResults(joinResults, createGameResult.getUserMessage());
+        }
+        else{
+            return "Failed to create game";
+        }
     }
 
-    private static String _processResults(CommandResult results)
+    private static boolean _processResults(CommandResult results)
     {
         if(results == null){
-            return "Server couldn't create the game";
+            return false;
         }
 
         if(results.getCommandSuccess()){
-            if(results.getResult() == null){
 
-                return "Couldn't add game to ClientRoot";
+            if(results.getResult() == null){
+                return false;
             }
 
             //add the game to the root.
             _addGame((Game) results.getResult());
         }
+        else{
+            return false;
+        }
 
-        return results.getUserMessage();
+        return true;
     }
+
+    private static String _processJoinResults(CommandResult joinResults, String gameCreatedMessage){
+        if(joinResults == null){
+            return "Created game but failed to join it";
+        }
+        if(joinResults.getCommandSuccess()){
+            if(joinResults.getResult() == null){
+                return "Join result is null for some reason";
+            }
+            //game joined
+            _setJoinedGame((Game) joinResults.getResult());
+        }
+        else{
+            return "Created game but failed to join it";
+        }
+        return gameCreatedMessage;
+    }
+
 
     private static void _addGame(Game game){
         _clientRoot.setListGames(game);
+    }
+
+    private static void _setJoinedGame(Game game){
+        _clientRoot.setClientGame(game);
     }
 }

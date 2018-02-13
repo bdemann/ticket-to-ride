@@ -5,6 +5,8 @@ import server.proxies.ClientCommands;
 import shared.commandResults.CommandResult;
 import shared.commandResults.LoginCommandResult;
 import shared.commandResults.RegisterCommandResult;
+import shared.logging.Level;
+import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.model.Player;
 import shared.facades.ILoginServerFacade;
@@ -22,15 +24,18 @@ public class LoginServerFacade implements ILoginServerFacade {
 
     @Override
     public CommandResult signin(String username, String password) {
-
+        Logger.log("Logging in user: " + username, Level.FINE);
 
         IPlayer player = ServerRoot.getPlayer(username);
         if(player == null){
+            Logger.log("User " + username + " does not exist.", Level.FINNEST);
             return new LoginCommandResult(false, ClientCommands.getCommandList(username), "Player does not exists");
         }
         if(player.getPassword().equals(password)){
+            Logger.log("Login Successful", Level.FINE);
             return new LoginCommandResult(true, ClientCommands.getCommandList(username), "Login successful");
         }
+        Logger.log("Login failed", Level.FINE);
         return new LoginCommandResult(false, ClientCommands.getCommandList(username), "Wrong password");
 
     }

@@ -1,12 +1,13 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * Created by BenNelson on 2/2/18.
  */
-public class Game implements IGame {
+public class Game implements IGame, Serializable {
 
     private List<IPlayer> _players;
     private int _id;
