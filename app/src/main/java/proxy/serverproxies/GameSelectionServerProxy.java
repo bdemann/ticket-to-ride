@@ -5,8 +5,9 @@ import java.util.concurrent.ExecutionException;
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
-import shared.model.Game;
-import shared.model.Player;
+import shared.commandResults.GameListResult;
+import shared.logging.Logger;
+import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
 import tasks.CreateGameTask;
 import tasks.JoinGameTask;
@@ -18,9 +19,9 @@ import tasks.JoinGameTask;
 
 public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(Player creator, int numberPlayer, int color, String gameName) {
-        Class<?>[] parmTypes = {Player.class, int.class, int.class, String.class};
-        Object[] parmValues = {creator, numberPlayer, color, gameName};
+    public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
+        Class<?>[] parmTypes = {IPlayer.class, int.class, String.class};
+        Object[] parmValues = {creator, numberPlayer, gameName};
         Command createGameCommand = new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues);
 
         CreateGameTask task = new CreateGameTask();
@@ -29,6 +30,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         CommandResult results = null;
         try {
             results = task.get();
+            Logger.log("Here we are" + results.toString());
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -37,8 +39,8 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     }
 
     @Override
-    public CommandResult joinGame(int gameId, Player joiner) {
-        Class<?>[] parmTypes = {int.class, Player.class};
+    public CommandResult joinGame(int gameId, IPlayer joiner) {
+        Class<?>[] parmTypes = {int.class, IPlayer.class};
         Object[] parmValues = {gameId, joiner};
 
         Command joinGameCommand = new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues);
@@ -55,5 +57,14 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         }
 
         return results;
+    }
+
+    @Override
+    public CommandResult getGamesList(String username) {
+        Class<?>[] parmTypes = {String.class};
+        Object[] parmValues = {username};
+        CommandResult result = ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "getGamesList", parmTypes, parmValues));
+        System.out.println(result.toString());
+        return result;
     }
 }

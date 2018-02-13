@@ -1,8 +1,8 @@
 package model;
 
 
-import shared.model.Game;
-import shared.model.Player;
+import shared.model.IGame;
+import shared.model.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.Observable;
 
 public class ClientRoot extends Observable {
 
-    private Player _clientPlayer;
-    private Game _clientGame;
-    private List<Game> _listGames;
+    private IPlayer _clientPlayer;
+    private IGame _clientGame;
+    private List<IGame> _listGames;
     private static ClientRoot _instance;
 
     public static ClientRoot instance() {
@@ -35,19 +35,19 @@ public class ClientRoot extends Observable {
     }
 
     //Getters and Setters
-    public Player getClientPlayer(){
+    public IPlayer getClientPlayer(){
         return _clientPlayer;
     }
 
-    public Game getClientGame() {
+    public IGame getClientGame() {
         return _clientGame;
     }
 
-    public List<Game> getListGames() {
+    public List<IGame> getListGames() {
         return _listGames;
     }
 
-    public void setClientPlayer(Player player) {
+    public void setClientPlayer(IPlayer player) {
         this._clientPlayer = player;
         setChanged();
         //The notify observers method can be overloaded with an object, will then be Object o param
@@ -55,13 +55,13 @@ public class ClientRoot extends Observable {
         notifyObservers();
     }
 
-    public void setClientGame(Game clientGame) {
+    public void setClientGame(IGame clientGame) {
         this._clientGame = clientGame;
         setChanged();
         notifyObservers();
     }
 
-    public void setListGames(Game game){
+    public void setListGames(IGame game){
         this._listGames.add(game);
         setChanged();
         notifyObservers();

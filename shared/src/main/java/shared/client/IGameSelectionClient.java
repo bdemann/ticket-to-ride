@@ -1,5 +1,10 @@
 package shared.client;
 
+import java.util.List;
+
+import shared.model.IGame;
+import shared.model.IPlayer;
+
 /**
  * This is an interface that will be shared by the CLIENT PROXY CLASSES on the server, and the
  * CLIENT FACADE CLASSES on the client.
@@ -9,7 +14,8 @@ package shared.client;
 
 public interface IGameSelectionClient {
 
-    void createGame();
-    void joinGame();
+    void createGame(IGame game);
+    void joinGame(IPlayer player, IGame game);
+    void updateGameList();
 
 }

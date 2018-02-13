@@ -13,7 +13,7 @@ public interface IGame {
     void setCardsFaceUp(List<TrainCard> cardsFaceUp);
     void setOpenRoutes(List<Route> openRoutes);
     void setClaimedRoutes(List<Route> claimedRoutes);
-    void setPlayers(List<Player> Players);
+    void setPlayers(List<IPlayer> players);
     void generateScoreSummary();
     void setGameMap(TTRMap gameMap);
     String getPlayerWithLongestRoute();
@@ -22,9 +22,17 @@ public interface IGame {
     List<TrainCard> getCardsFaceUp();
     List<Route> getOpenRoutes();
     List<Route> getClaimedRoutes();
-    List<Player> getPlayers();
+    List<IPlayer> getPlayers();
     String getScoreSummary();
     TTRMap getGameMap();
 
-    public void addPlayer(Player joiner);
+    void addPlayer(IPlayer joiner);
+    void setId(int gameId);
+    int getId();
+
+    int getNumberPlayer();
+
+    int getMaxNumberPlayer();
+
+    void setGameName(String gameName);
 }

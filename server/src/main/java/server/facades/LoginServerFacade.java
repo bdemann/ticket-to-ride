@@ -1,9 +1,13 @@
 package server.facades;
 
 import server.model.ServerRoot;
+import server.proxies.ClientCommands;
 import shared.commandResults.CommandResult;
 import shared.commandResults.LoginCommandResult;
 import shared.commandResults.RegisterCommandResult;
+import shared.logging.Level;
+import shared.logging.Logger;
+import shared.model.IPlayer;
 import shared.model.Player;
 import shared.facades.ILoginServerFacade;
 
@@ -20,27 +24,30 @@ public class LoginServerFacade implements ILoginServerFacade {
 
     @Override
     public CommandResult signin(String username, String password) {
+        Logger.log("Logging in user: " + username, Level.FINE);
 
-
-        Player player = ServerRoot.getPlayer(username);
+        IPlayer player = ServerRoot.getPlayer(username);
         if(player == null){
-            return new LoginCommandResult(false, "Player does not exists");
+            Logger.log("User " + username + " does not exist.", Level.FINNEST);
+            return new LoginCommandResult(false, ClientCommands.getCommandList(username), "Player does not exists");
         }
         if(player.getPassword().equals(password)){
-            return new LoginCommandResult(true, "Login successful");
+            Logger.log("Login Successful", Level.FINE);
+            return new LoginCommandResult(true, ClientCommands.getCommandList(username), "Login successful");
         }
-        return new LoginCommandResult(false, "Wrong password");
+        Logger.log("Login failed", Level.FINE);
+        return new LoginCommandResult(false, ClientCommands.getCommandList(username), "Wrong password");
 
     }
 
     @Override
     public CommandResult register(String username, String password) {
-        Player player = ServerRoot.getPlayer(username);
+        IPlayer player = ServerRoot.getPlayer(username);
         if(player != null){
             // Player already exists
-            return new RegisterCommandResult(false, "Player already exists");
+            return new RegisterCommandResult(false, ClientCommands.getCommandList(username), "Player already exists");
         }
         ServerRoot.addPlayer(new Player(username, password));
-        return new RegisterCommandResult(true, "Register successful");
+        return new RegisterCommandResult(true, ClientCommands.getCommandList(username),"Register successful");
     }
 }

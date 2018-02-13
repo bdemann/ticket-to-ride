@@ -1,26 +1,26 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * Created by BenNelson on 2/2/18.
  */
-public class Game implements IGame {
+public class Game implements IGame, Serializable {
 
-    private List<Player> _players;
+    private List<IPlayer> _players;
     private int _id;
     private int _maxNumberPlayer;
     private int _numberPlayer;
     private String _gameName;
 
-    public Game(List<Player> players, int numberPlayer){
+    public Game(String gameName, List<IPlayer> players, int numberPlayer){
         this._players = players;
         this._maxNumberPlayer = numberPlayer;
         this._numberPlayer = 1;
+        this._gameName = gameName;
     }
-
-    public Game() {}
 
     public void setId(int id){
         this._id = id;
@@ -56,7 +56,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(List<IPlayer> players) {
         this._players = players;
 
     }
@@ -106,7 +106,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public List<Player> getPlayers() {
+    public List<IPlayer> getPlayers() {
         return this._players;
     }
 
@@ -121,7 +121,7 @@ public class Game implements IGame {
     }
 
     @Override
-    public void addPlayer(Player joiner) {
+    public void addPlayer(IPlayer joiner) {
         _players.add(joiner);
         _numberPlayer ++;
     }
