@@ -15,7 +15,7 @@ public class Player implements IPlayer, Serializable {
     private String username;
     private String password;
     private int color;
-    private int gameId = 0;
+    private int gameId = -1;
 
     public Player(String username, String password, int color)
     {
