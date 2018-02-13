@@ -32,6 +32,7 @@ public class CreateGameGuiFacade {
     public static String createGame(int numberPlayer, int color, String gameName) {
 
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
+        _clientRoot.getClientPlayer().setColor(color);
         CommandResult createGameResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,gameName);
         boolean isGameCreated = _processResults(createGameResult);
 
@@ -61,7 +62,6 @@ public class CreateGameGuiFacade {
             if(results.getResult() == null){
                 return false;
             }
-
             //add the game to the root.
             _addGame((Game) results.getResult());
         }
