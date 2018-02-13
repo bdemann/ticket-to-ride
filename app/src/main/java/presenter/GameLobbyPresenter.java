@@ -14,24 +14,24 @@ import view.GameLobbyActivity;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     private GameLobbyActivity _activity;
-    private ClientRoot clientRoot;
+    private ClientRoot _clientRoot;
 
     public GameLobbyPresenter(GameLobbyActivity activity, ClientRoot clientRoot) {
         _activity = activity;
-        this.clientRoot = clientRoot;
+        this._clientRoot = clientRoot;
     }
 
     @Override
     public void update(Observable observable, Object o) {
         //if we have left the game
-        if(clientRoot.getClientGame() == null){
+        if(_clientRoot.getClientGame() == null){
             _activity.finish();
         }
     }
 
     @Override
-    public void leaveGame() {
-        LobbyGuiFacade.leaveGame();
+    public String leaveGame() {
+        return LobbyGuiFacade.leaveGame(_clientRoot.getClientPlayer().getUsername());
     }
 
 

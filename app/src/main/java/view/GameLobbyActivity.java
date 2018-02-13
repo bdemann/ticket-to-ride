@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
@@ -72,7 +73,15 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
     @Override
     public void onBackPressed(){
-        presenter.leaveGame();
+        String message = presenter.leaveGame();
+        _displayMessage(message);
+    }
+
+    private void _displayMessage(String message) {
+        //Just pop up a toast letting the user know what happened
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), message, duration);
+        toast.show();
     }
 
 }
