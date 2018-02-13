@@ -11,10 +11,8 @@ import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
-import guifacade.CreateGameGuiFacade;
 import model.ClientRoot;
-import presenter.GameSelectionPresenter;
-import shared.model.Game;
+import presenter.CreateJoinPresenter;
 
 public class CreateGameActivity extends AppCompatActivity implements IGameSelection{
 
@@ -33,7 +31,7 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
     private String GameName;
     private int PlayerColor;
     private int NumberOfPlayers;
-    private GameSelectionPresenter _gameSelectionPresenter;
+    private CreateJoinPresenter _createJoinPresenter;
 
 
     @Override
@@ -50,8 +48,8 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
 
     private void _setUpObserver(){
             ClientRoot root = ClientRoot.instance();
-            _gameSelectionPresenter = new GameSelectionPresenter(root);
-            root.addObserver(_gameSelectionPresenter);
+            _createJoinPresenter = new CreateJoinPresenter(root);
+            root.addObserver(_createJoinPresenter);
 
     }
 
@@ -157,7 +155,7 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
 
                 if (!GameName.equals("")){
                     //create the game
-                    String message = _gameSelectionPresenter.createGame(PlayerColor,GameName,NumberOfPlayers);
+                    String message = _createJoinPresenter.createGame(PlayerColor,GameName,NumberOfPlayers);
                     _displayMessage(message);
 
                 }

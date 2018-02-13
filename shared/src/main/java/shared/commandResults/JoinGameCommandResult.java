@@ -10,11 +10,22 @@ import shared.model.IGame;
  */
 
 public class JoinGameCommandResult extends CommandResult {
+
+    private IGame game;
+
     public JoinGameCommandResult(IGame joinedGame, boolean success, List<ICommand> clientCommands) {
         super(success, clientCommands);
+        this.game = joinedGame;
+        this.result = joinedGame;
     }
 
     public JoinGameCommandResult(IGame joinedGame, boolean success, List<ICommand> clientCommands, String userMessage){
         super(success, clientCommands, userMessage);
+        this.game = joinedGame;
+        this.result = joinedGame;
+    }
+
+    public IGame getGame() {
+        return game;
     }
 }

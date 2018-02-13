@@ -9,8 +9,7 @@ import proxy.serverproxies.GameSelectionServerProxy;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
-import shared.model.Player;
-import tasks.CreateGameTask;
+import shared.model.IPlayer;
 
 /**
  *
@@ -31,12 +30,12 @@ public class CreateGameGuiFacade {
     public static String createGame(int numberPlayer, int color, String gameName) {
 
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
-        CommandResult createGameResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,color,gameName);
+        CommandResult createGameResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,gameName);
         boolean isGameCreated = _processResults(createGameResult);
 
         if(isGameCreated){
             //Get the player and gameID for the player to join
-            Player player = _clientRoot.getClientPlayer();
+            IPlayer player = _clientRoot.getClientPlayer();
             Game game = (Game) createGameResult.getResult();
             int gameId = game.getId();
 
