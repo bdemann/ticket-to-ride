@@ -45,18 +45,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         IGame game = new Game(gameName, playerList, numberPlayer);
         ServerRoot.addGame(game);
 
-        try {
-            //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
-            if (player.getGameId() != -1) {
-                return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
-            }
-
-            //System.out.println("GameID: " + game.getId());
-
-            player.setGameId(game.getId());
-        } catch (NullPointerException e) {
-            return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player does not exist");
-        }
+        player.setGameId(game.getId());
 
         CreateGameCommandResult createGameCommandResult = new CreateGameCommandResult(true, ClientCommands.getCommandList(creator.getUsername()));
         //TODO probably not so important right now but I think that we could make the game part of the contructor for the CreateGameCommandResults class. Otherwise there is no point having it if we aren't going to take advantage of some of the things.
@@ -84,18 +73,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
         }
 
-        try {
-            //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
-            if (joiner.getGameId() != -1) {
-                return new JoinGameCommandResult(null, false,ClientCommands.getCommandList(joiner.getUsername()));
-            }
-
-            //System.out.println("GameID: " + game.getId());
-
-            joiner.setGameId(currentGame.getId());
-        } catch (NullPointerException e) {
-            return new JoinGameCommandResult(null, false,ClientCommands.getCommandList(joiner.getUsername()));
-        }
+        joiner.setGameId(currentGame.getId());
 
         //check color
         _assignColor(currentGame.getId(), joiner);
