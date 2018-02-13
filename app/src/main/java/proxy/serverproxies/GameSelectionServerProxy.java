@@ -9,6 +9,7 @@ import shared.model.Game;
 import shared.model.Player;
 import shared.facades.IGameSelectionServerFacade;
 import tasks.CreateGameTask;
+import tasks.JoinGameTask;
 
 /**
  *
@@ -39,6 +40,20 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     public CommandResult joinGame(int gameId, Player joiner) {
         Class<?>[] parmTypes = {int.class, Player.class};
         Object[] parmValues = {gameId, joiner};
-        return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues));
+
+        Command joinGameCommand = new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues);
+
+        JoinGameTask joinTask = new JoinGameTask();
+        joinTask.execute(joinGameCommand);
+
+        CommandResult results = null;
+        try {
+            results = joinTask.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 }

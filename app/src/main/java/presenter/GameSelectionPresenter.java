@@ -31,15 +31,12 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
         System.out.println("Game Selection Update called\n");
 
-
-//        if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
-//            Intent intent = new Intent(_context, GameSelectionActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            _context.startActivity(intent);
-//        }
         if(_clientRoot.getClientGame()!= null){
             Game game = _clientRoot.getClientGame();
             System.out.println("Here's the Game ID: " + game.getId());
+
+            //Switch to the game lobby
+            System.out.println("I WANT TO GO TO THE GAME LOBBY!!! PLEASE HELP");
         }
     }
 
@@ -54,7 +51,6 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
         if (result.equals("join successful")){
             return true;
         }
-        else
             return false;
     }
 }
