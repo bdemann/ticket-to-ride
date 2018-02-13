@@ -138,6 +138,7 @@ public class Game implements IGame, Serializable {
         return _numberPlayer;
     }
 
+    @Override
     public String getGameName(){
         return _gameName;
     }

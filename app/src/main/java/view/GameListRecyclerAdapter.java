@@ -46,7 +46,7 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
             //Send request to join game
             int ChosenGameID =  getAdapterPosition();
             String ChosenGameName = GameName.getText().toString();
-            CreateJoinPresenter gameSelectionPresenter = new CreateJoinPresenter(ClientRoot.instance());
+           /* CreateJoinPresenter gameSelectionPresenter = new CreateJoinPresenter(ClientRoot.instance());
 
             if (gameSelectionPresenter.joinGame(ChosenGameID)) {
                 Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
@@ -58,6 +58,7 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
                 Toast toast = Toast.makeText(v.getContext(), "Join Game Failed", Toast.LENGTH_LONG);
                 toast.show();
             }
+            */
         }
     }
 
