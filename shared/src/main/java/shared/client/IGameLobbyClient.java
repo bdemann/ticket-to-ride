@@ -11,4 +11,5 @@ public interface IGameLobbyClient {
 
     void sendChat();
     void startGame();
+    void leaveGame(String username);
 }

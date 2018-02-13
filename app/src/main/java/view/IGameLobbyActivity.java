@@ -7,5 +7,5 @@ package view;
 public interface IGameLobbyActivity {
 
     void _makeOnClickListeners();
-    void UpdatePlayerList(String players);
+    void updatePlayerList(String players);
 }

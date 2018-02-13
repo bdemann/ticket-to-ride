@@ -36,4 +36,6 @@ public interface IGame {
 
     void setGameName(String gameName);
     String getGameName();
+
+    void removePlayer(IPlayer player);
 }
