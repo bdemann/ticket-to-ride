@@ -53,10 +53,7 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
 //            CreateJoinPresenter gameSelectionPresenter = new CreateJoinPresenter(ClientRoot.instance());
 
             if (presenter.joinGame(ChosenGameID)) {
-                Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);
-                intent.putExtra("GameID", ChosenGameID);
-                intent.putExtra("GameName", ChosenGameName);
-                v.getContext().startActivity(intent);
+
             }
             else{
                 Toast toast = Toast.makeText(v.getContext(), "Join Game Failed", Toast.LENGTH_LONG);

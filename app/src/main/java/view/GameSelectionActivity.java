@@ -67,4 +67,9 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
     public void updateGameList(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList){
         adapter.updateGameList(_gameList,_gameIDList,_gameNumPlayersList);
     }
+
+    public void goToGameLobby(){
+        Intent intent = new Intent(this, GameLobbyActivity.class);
+        startActivity(intent);
+    }
 }

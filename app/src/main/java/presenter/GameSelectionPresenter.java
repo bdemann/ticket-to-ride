@@ -30,15 +30,32 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     @Override
     public void update(Observable observable, Object o) {
         System.out.println("Game Selection Update called\n");
+        //If a game has been joined
+        if (_clientRoot.getClientGame() != null){
+            _gameSelectionActivity.goToGameLobby();
+        }
+
+
+
+
+
+        //Update game list
         ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
         ArrayList<String> gameNames = new ArrayList<>();
         ArrayList<String> gameNumPlayers = new ArrayList<>();
-        ArrayList<String> gameIDs = new ArrayList<>();
+        ArrayList<Integer> gameIDs = new ArrayList<>();
         for(int i = 0; i < gamesList.size(); i++){
-//            IGame game = gamesList.get(i).getN
+            IGame game = gamesList.get(i);
+            gameNames.add(game.getGameName());
+            StringBuilder numPlayers = new StringBuilder();
+            numPlayers.append(game.getNumberPlayer());
+            numPlayers.append("/");
+            numPlayers.append(game.getMaxNumberPlayer());
+            gameNumPlayers.add(numPlayers.toString());
+            gameIDs.add(game.getId());
 
         }
-        _gameSelectionActivity.updateGameList(gamesList);
+        _gameSelectionActivity.updateGameList(gameNames,gameIDs,gameNumPlayers);
     }
 
     @Override

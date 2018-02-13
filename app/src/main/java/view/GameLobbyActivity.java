@@ -47,8 +47,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
         _makeOnClickListeners();
 
-        //Put Game name in title bar
-        setTitle("Game: " + getIntent().getStringExtra("GameName"));
+
     }
 
     @Override
