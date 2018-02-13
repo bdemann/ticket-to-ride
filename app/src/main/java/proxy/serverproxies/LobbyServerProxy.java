@@ -33,7 +33,7 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
     @Override
     public CommandResult leaveGame(String username) {
-        Class<?>[] parmTypes = {Game.class};
+        Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
         Command leaveCommand = new Command("server.facades.LobbyServerFacade", "leaveGame", parmTypes, parmValues);
 

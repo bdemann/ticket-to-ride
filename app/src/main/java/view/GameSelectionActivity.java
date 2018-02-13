@@ -34,9 +34,9 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
 
         _setUpObserver();
 
-        _gameNameList = new ArrayList<>();
-        _gameIDList = new ArrayList<>();
-        _gameNumPlayersList = new ArrayList<>();
+        _gameNameList = _gameSelectionPresenter.getGameNames();
+        _gameIDList = _gameSelectionPresenter.getGameIDs();
+        _gameNumPlayersList = _gameSelectionPresenter.getGameNumPlayers();
 
         _recyclerView = (RecyclerView) findViewById(R.id.GameRecycler);
         _createGameButton = (Button) findViewById(R.id.create_new_game_button);
@@ -44,6 +44,7 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
         adapter = new GameListRecyclerAdapter(_gameNameList, _gameIDList, _gameNumPlayersList, _gameSelectionPresenter);
         _recyclerView.setAdapter(adapter);
         _recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
 
         _createGameButton.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +66,9 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
     }
 
     public void updateGameList(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList){
+        _recyclerView.invalidate();
         adapter.updateGameList(_gameList,_gameIDList,_gameNumPlayersList);
+        adapter.notifyDataSetChanged();
     }
 
     public void goToGameLobby(){

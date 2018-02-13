@@ -1,11 +1,13 @@
 package presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
+import proxy.serverproxies.GameSelectionServerProxy;
 import shared.model.Game;
 import shared.model.IGame;
 import view.GameSelectionActivity;
@@ -19,6 +21,8 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     private ClientRoot _clientRoot;
     private GameSelectionActivity _gameSelectionActivity;
+
+
 
 
     public GameSelectionPresenter(ClientRoot clientRoot, GameSelectionActivity gameSelectionActivity){
@@ -65,5 +69,43 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
         return false;
     }
 
+    @Override
+    public ArrayList<String> getGameNames() {
+        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<String> gameNames = new ArrayList<>();
+        for(int i = 0; i < gamesList.size(); i++){
+            IGame game = gamesList.get(i);
+            gameNames.add(game.getGameName());
+        }
+        return gameNames;
+    }
+
+    @Override
+    public ArrayList<Integer> getGameIDs() {
+        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<Integer> gameIDs = new ArrayList<>();
+        for(int i = 0; i < gamesList.size(); i++){
+            IGame game = gamesList.get(i);
+            gameIDs.add(game.getId());
+        }
+        return gameIDs;
+    }
+
+    @Override
+    public ArrayList<String> getGameNumPlayers() {
+        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<String> gameNumPlayers = new ArrayList<>();
+        for(int i = 0; i < gamesList.size(); i++){
+            IGame game = gamesList.get(i);
+
+            StringBuilder numPlayers = new StringBuilder();
+            numPlayers.append(game.getNumberPlayer());
+            numPlayers.append("/");
+            numPlayers.append(game.getMaxNumberPlayer());
+            gameNumPlayers.add(numPlayers.toString());
+
+        }
+        return gameNumPlayers;
+    }
 
 }
