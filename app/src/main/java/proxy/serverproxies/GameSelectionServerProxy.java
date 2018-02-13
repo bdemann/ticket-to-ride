@@ -5,10 +5,8 @@ import java.util.concurrent.ExecutionException;
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
-import shared.commandResults.GameListCommandResult;
-import shared.model.Game;
+import shared.commandResults.GameListResult;
 import shared.model.IPlayer;
-import shared.model.Player;
 import shared.facades.IGameSelectionServerFacade;
 import tasks.CreateGameTask;
 
@@ -45,7 +43,11 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     }
 
     @Override
-    public GameListCommandResult getGamesList(String username) {
-        return null;
+    public CommandResult getGamesList(String username) {
+        Class<?>[] parmTypes = {String.class};
+        Object[] parmValues = {username};
+        CommandResult result = ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "getGamesList", parmTypes, parmValues));
+        System.out.println(result.toString());
+        return result;
     }
 }

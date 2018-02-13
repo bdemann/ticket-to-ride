@@ -9,10 +9,10 @@ import shared.model.IGame;
  * Created by bdemann on 2/12/18.
  */
 
-public class GameListCommandResult extends CommandResult {
+public class GameListResult extends CommandResult {
     private final List<IGame> _games;
 
-    public GameListCommandResult(boolean success, List<IGame> games, List<ICommand> clientCommands) {
+    public GameListResult(boolean success, List<IGame> games, List<ICommand> clientCommands) {
         super(success, clientCommands);
         this._games = games;
     }

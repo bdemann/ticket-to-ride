@@ -3,6 +3,7 @@ package shared.commandResults;
 import shared.ICommand;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,20 +20,24 @@ public class CommandResult implements Serializable {
     Object result;
 
     public CommandResult(boolean success, List<ICommand> clientCommands){
-        this.commandSuccess = success;
-        this.clientCommands = clientCommands;
+        this(success, clientCommands, "no message");
     }
 
     public CommandResult(boolean success, List<ICommand> clientCommands, String userMessage){
         this.commandSuccess = success;
         this.userMessage = userMessage;
         this.clientCommands = clientCommands;
+        if (clientCommands == null) {
+            System.out.println("The client commands were null");
+            this.clientCommands = new ArrayList<>();
+        }
     }
 
     public CommandResult(String exceptionType, String exceptionMessage){
         this.commandSuccess = false;
         this.exceptionType = exceptionType;
         this.exceptionMessage = exceptionMessage;
+        this.clientCommands = new ArrayList<>();
     }
 
     public String toString(){

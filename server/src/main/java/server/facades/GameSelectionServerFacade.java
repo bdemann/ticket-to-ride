@@ -9,7 +9,7 @@ import server.proxies.GameSelectionClientProxy;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.commandResults.CreateGameCommandResult;
-import shared.commandResults.GameListCommandResult;
+import shared.commandResults.GameListResult;
 import shared.commandResults.JoinGameCommandResult;
 import shared.model.Game;
 import shared.model.IGame;
@@ -84,8 +84,8 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     }
 
     @Override
-    public GameListCommandResult getGamesList(String username) {
-        return new GameListCommandResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
+    public CommandResult getGamesList(String username) {
+        return new GameListResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
     }
 
     private void _createJoinCommand(IPlayer player, IGame game){

@@ -1,7 +1,7 @@
 package shared.facades;
 
 import shared.commandResults.CommandResult;
-import shared.commandResults.GameListCommandResult;
+import shared.commandResults.GameListResult;
 import shared.model.IPlayer;
 
 /**
@@ -11,5 +11,5 @@ import shared.model.IPlayer;
 public interface IGameSelectionServerFacade {
     public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName);
     public CommandResult joinGame(int gameId, IPlayer joiner);
-    public GameListCommandResult getGamesList(String username);
+    public CommandResult getGamesList(String username);
 }
