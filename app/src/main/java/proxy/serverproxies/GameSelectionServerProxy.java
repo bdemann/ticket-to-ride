@@ -19,15 +19,9 @@ import tasks.CreateGameTask;
 
 public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     @Override
-<<<<<<< HEAD
-    public CommandResult createGame(IPlayer creator, int numberPlayer, int color) {
-        Class<?>[] parmTypes = {IPlayer.class, int.class, int.class};
-        Object[] parmValues = {creator, numberPlayer, color};
-        return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues));
-=======
-    public CommandResult createGame(Player creator, int numberPlayer, int color, String gameName) {
-        Class<?>[] parmTypes = {Player.class, int.class, int.class, String.class};
-        Object[] parmValues = {creator, numberPlayer, color, gameName};
+    public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
+        Class<?>[] parmTypes = {IPlayer.class, int.class, String.class};
+        Object[] parmValues = {creator, numberPlayer, gameName};
         Command createGameCommand = new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues);
 
         CreateGameTask task = new CreateGameTask();
@@ -41,7 +35,6 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
             e.printStackTrace();
         }
         return results;
->>>>>>> c3afba9fe4c386be6cdbf96940f6d54bed9db83a
     }
 
     @Override

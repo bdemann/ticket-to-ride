@@ -22,10 +22,8 @@ import shared.facades.IGameSelectionServerFacade;
 
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(IPlayer creator, int numberPlayer, int color, String gameName) {
+    public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
-
-        player.setColor(color);
 
         List<IPlayer> playerList = new ArrayList<>();
         playerList.add(player);
@@ -37,15 +35,10 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         //System.out.println("PLAYER ID: " + player.getGameId()) ;
 
         try {
-<<<<<<< HEAD
-            if (player.getGameId() != 0) {
-                return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
-            }
-=======
+            //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
 //            if (player.getGameId() != 0) {
-//                return new CreateGameCommandResult(false, "Player can only be part of one game");
+//                return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
 //            }
->>>>>>> c3afba9fe4c386be6cdbf96940f6d54bed9db83a
 
             //System.out.println("GameID: " + game.getId());
 
@@ -81,21 +74,17 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
-        CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, "createGameSuccessfull");
+        CreateGameCommandResult createGameCommandResult =  new CreateGameCommandResult(true, ClientCommands.getCommandList(joiner.getUsername()), "createGameSuccessfull");
         createGameCommandResult.setResult(ServerRoot.getGame(currentGame.getId()));
 
         _createJoinCommand(joiner, currentGame);
 
-<<<<<<< HEAD
         return new JoinGameCommandResult(true, ClientCommands.getCommandList(joiner.getUsername()));
     }
 
     @Override
     public GameListCommandResult getGamesList(String username) {
         return new GameListCommandResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
-=======
-        return new JoinGameCommandResult(true, "join successful");
->>>>>>> c3afba9fe4c386be6cdbf96940f6d54bed9db83a
     }
 
     private void _createJoinCommand(IPlayer player, IGame game){

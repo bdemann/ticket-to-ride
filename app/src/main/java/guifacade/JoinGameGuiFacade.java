@@ -4,6 +4,7 @@ import model.ClientRoot;
 import proxy.serverproxies.GameSelectionServerProxy;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
+import shared.model.IPlayer;
 import shared.model.Player;
 
 /**
@@ -16,7 +17,7 @@ public class JoinGameGuiFacade {
 
     public static String joinGame(int gameId) {
         GameSelectionServerProxy gssp = new GameSelectionServerProxy();
-        Player player = _clientRoot.getClientPlayer();
+        IPlayer player = _clientRoot.getClientPlayer();
 
         if(player == null){
 

@@ -9,6 +9,7 @@ import proxy.serverproxies.GameSelectionServerProxy;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
+import shared.model.IPlayer;
 import shared.model.Player;
 import tasks.CreateGameTask;
 
@@ -29,9 +30,10 @@ public class CreateGameGuiFacade {
     }
 
     public static String createGame(int numberPlayer, int color, String gameName) {
-
+        IPlayer player = _clientRoot.getClientPlayer();
+        player.setColor(color);
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
-        CommandResult commandResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,color,gameName);
+        CommandResult commandResult = proxy.createGame(player,numberPlayer,gameName);
         return _processResults(commandResult);
     }
 

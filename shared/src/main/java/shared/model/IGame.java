@@ -33,4 +33,6 @@ public interface IGame {
     int getNumberPlayer();
 
     int getMaxNumberPlayer();
+
+    void setGameName(String gameName);
 }

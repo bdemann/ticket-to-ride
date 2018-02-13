@@ -10,6 +10,7 @@ import guifacade.CreateGameGuiFacade;
 import guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
 import shared.model.Game;
+import shared.model.IGame;
 import view.IGameSelection;
 
 /**
@@ -38,7 +39,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 //            _context.startActivity(intent);
 //        }
         if(_clientRoot.getClientGame()!= null){
-            Game game = _clientRoot.getClientGame();
+            IGame game = _clientRoot.getClientGame();
             System.out.println("Here's the Game ID: " + game.getId());
         }
     }

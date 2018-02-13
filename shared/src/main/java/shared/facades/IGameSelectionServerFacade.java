@@ -9,7 +9,7 @@ import shared.model.IPlayer;
  */
 
 public interface IGameSelectionServerFacade {
-    public CommandResult createGame(IPlayer creator, int numberPlayer, int color, String gameName);
+    public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName);
     public CommandResult joinGame(int gameId, IPlayer joiner);
     public GameListCommandResult getGamesList(String username);
 }
