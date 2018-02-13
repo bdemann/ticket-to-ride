@@ -6,6 +6,7 @@ import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.commandResults.GameListResult;
+import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
 import tasks.CreateGameTask;
@@ -28,6 +29,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         CommandResult results = null;
         try {
             results = task.get();
+            Logger.log("Here we are" + results.toString());
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

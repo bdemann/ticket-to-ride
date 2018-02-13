@@ -42,7 +42,7 @@ public class CommandResult implements Serializable {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Success: ").append(commandSuccess);
+        sb.append("Success: ").append(commandSuccess).append("\n");
         for (ICommand command : clientCommands){
             sb.append(command.toString());
         }

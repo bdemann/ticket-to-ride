@@ -11,6 +11,8 @@ import shared.commandResults.CommandResult;
 import shared.commandResults.CreateGameCommandResult;
 import shared.commandResults.GameListResult;
 import shared.commandResults.JoinGameCommandResult;
+import shared.logging.Level;
+import shared.logging.Logger;
 import shared.model.Game;
 import shared.model.IGame;
 import shared.model.IPlayer;
@@ -23,7 +25,12 @@ import shared.facades.IGameSelectionServerFacade;
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
     public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
+        Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINE);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
+
+        if(player == null) {
+            Logger.log("player couldn't be found");
+        }
 
         //Create a list of players for the game.
         List<IPlayer> playerList = new ArrayList<>();
@@ -59,6 +66,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         //Tell the clients that there is an update to the game list.
         new GameSelectionClientProxy().updateGameList();
 
+        Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
         return createGameCommandResult;
         //TODO I think I have a different idea of what we need to be passing into these results... Lets talk about it. What is the message? Why don't we pass in this list of commands?
         // return new CreateGameCommandResult(true, ServerRoot.getCommandList(creator.getUsername()));
@@ -66,7 +74,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
     @Override
     public CommandResult joinGame(int gameId, IPlayer joiner) {
-
+        Logger.log("Joining game: " + gameId + "Joining player: " + joiner, Level.FINE);
         IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Could not find game");
@@ -80,11 +88,18 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         //TODO Move this function to the client proxy.
         _createJoinCommand(joiner, currentGame);
 
-        return new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()));
+        JoinGameCommandResult results = new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()));
+
+        Logger.log("Join Game successful " + results.toString());
+        return results;
     }
 
     @Override
     public CommandResult getGamesList(String username) {
+        Logger.log("Getting the games list", Level.FINE);
+        for (IGame game: ServerRoot.getGames()) {
+            Logger.log("Games: " + game.toString());
+        }
         return new GameListResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
     }
 

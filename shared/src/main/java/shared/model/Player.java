@@ -2,6 +2,7 @@ package shared.model;
 
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  *
  * Created by BenNelson on 2/2/18.
  */
-public class Player implements IPlayer {
+public class Player implements IPlayer, Serializable {
 
     private String username;
     private String password;
