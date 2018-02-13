@@ -42,8 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Chat? Who said the chat worked?" />
+                android:hint="Chat? Who said the chat worked?"
+                android:inputType="textPersonName" />
 
             <ImageButton
                 android:id="@+id/send_button"
