@@ -2,23 +2,25 @@ package facade;
 
 import model.ClientRoot;
 import shared.client.IGameSelectionClient;
-import shared.model.Game;
-import shared.model.Player;
+import shared.model.IGame;
+import shared.model.IPlayer;
 
 /**
  *
  * Created by BenNelson on 2/3/18.
  */
 
-public class GameSelectionClientFacade{
+public class GameSelectionClientFacade implements IGameSelectionClient{
     private static ClientRoot _clientRoot = ClientRoot.instance();
 
-    public void createGame(Game game) {
+    @Override
+    public void createGame(IGame game) {
         _clientRoot.setListGames(game);
 
     }
 
-    public void joinGame(Player player, Game game) {
+    @Override
+    public void joinGame(IPlayer player, IGame game) {
         _clientRoot.getListGames().get(game.getId()).addPlayer(player);
 
         if(_clientRoot.getClientGame() != null){
@@ -26,5 +28,10 @@ public class GameSelectionClientFacade{
                 _clientRoot.getClientGame().addPlayer(player);
             }
         }
+    }
+
+    @Override
+    public void updateGameList() {
+        //TODO we need to implement this guy
     }
 }

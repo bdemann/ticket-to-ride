@@ -3,6 +3,7 @@ package shared.client;
 import java.util.List;
 
 import shared.model.IGame;
+import shared.model.IPlayer;
 
 /**
  * This is an interface that will be shared by the CLIENT PROXY CLASSES on the server, and the
@@ -13,9 +14,8 @@ import shared.model.IGame;
 
 public interface IGameSelectionClient {
 
-    void createGame();
-    void joinGame();
-    List<IGame> getGames();
+    void createGame(IGame game);
+    void joinGame(IPlayer player, IGame game);
     void updateGameList();
 
 }
