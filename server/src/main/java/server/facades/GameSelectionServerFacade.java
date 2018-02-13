@@ -47,9 +47,9 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         try {
             //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
-//            if (player.getGameId() != 0) {
-//                return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
-//            }
+            if (player.getGameId() != -1) {
+                return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
+            }
 
             //System.out.println("GameID: " + game.getId());
 
@@ -82,6 +82,19 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         }
         else if(currentGame.getNumberPlayer() >= currentGame.getMaxNumberPlayer()){
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
+        }
+
+        try {
+            //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
+            if (joiner.getGameId() != -1) {
+                return new JoinGameCommandResult(null, false,ClientCommands.getCommandList(joiner.getUsername()));
+            }
+
+            //System.out.println("GameID: " + game.getId());
+
+            joiner.setGameId(currentGame.getId());
+        } catch (NullPointerException e) {
+            return new JoinGameCommandResult(null, false,ClientCommands.getCommandList(joiner.getUsername()));
         }
 
         //check color
