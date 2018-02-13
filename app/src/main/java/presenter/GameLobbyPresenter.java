@@ -24,11 +24,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void leaveGame() {
-        LobbyGuiFacade.leaveGame();
-    }
-
-    @Override
     public void update(Observable observable, Object o) {
         //if we have left the game
         if(clientRoot.getClientGame() == null){
@@ -52,4 +47,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             _activity.updatePlayerList(playerList.toString());
         }
     }
+
+    @Override
+    public void leaveGame() {
+        LobbyGuiFacade.leaveGame();
+    }
+
+
 }

@@ -26,4 +26,9 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         //TODO What exactly should happen when we start a game?
         return new CommandResult(true, ClientCommands.getCommandList(username));
     }
+
+    @Override
+    public CommandResult leaveGame(String username) {
+        return null;
+    }
 }
