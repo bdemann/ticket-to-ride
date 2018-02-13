@@ -1,10 +1,13 @@
 package presenter;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import guifacade.LobbyGuiFacade;
 import model.ClientRoot;
+import shared.model.IGame;
+import shared.model.IPlayer;
 import view.GameLobbyActivity;
 
 /**
@@ -22,15 +25,43 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void leaveGame() {
-        LobbyGuiFacade.leaveGame();
-    }
-
-    @Override
     public void update(Observable observable, Object o) {
         //if we have left the game
         if(clientRoot.getClientGame() == null){
             _activity.finish();
         }
+
+        //Get the list of players
+        else{
+            ArrayList<IPlayer> players = new ArrayList<>(clientRoot.getClientGame().getPlayers());
+
+            StringBuilder playerList = new StringBuilder();
+
+            for (int i = 0; i < players.size(); i++){
+                playerList.append(players.get(i).getUsername());
+                if (i != (players.size()-1)){
+                    playerList.append(", ");
+                }
+            }
+
+            //Update the list of players on the lobby activity
+            _activity.updatePlayerList(playerList.toString());
+        }
+    }
+
+    @Override
+    public void leaveGame() {
+        LobbyGuiFacade.leaveGame();
+    }
+
+    @Override
+    public boolean checkNumPlayers() {
+        IGame game = clientRoot.getClientGame();
+        int numPlayers = game.getNumberPlayer();
+        int maxPlayers = game.getMaxNumberPlayer();
+        if (numPlayers==maxPlayers)
+            return true;
+        else
+            return false;
     }
 }

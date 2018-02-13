@@ -24,6 +24,9 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
     private Button _createGameButton;
     private GameSelectionPresenter _gameSelectionPresenter;
 
+    //Adapter
+    private GameListRecyclerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
         _recyclerView = (RecyclerView) findViewById(R.id.GameRecycler);
         _createGameButton = (Button) findViewById(R.id.create_new_game_button);
 
-        GameListRecyclerAdapter adapter = new GameListRecyclerAdapter(_gameNameList, _gameIDList, _gameNumPlayersList);
+        adapter = new GameListRecyclerAdapter(_gameNameList, _gameIDList, _gameNumPlayersList, _gameSelectionPresenter);
         _recyclerView.setAdapter(adapter);
         _recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,5 +62,14 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
         _gameSelectionPresenter = new GameSelectionPresenter(root, this);
         root.addObserver(_gameSelectionPresenter);
 
+    }
+
+    public void updateGameList(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList){
+        adapter.updateGameList(_gameList,_gameIDList,_gameNumPlayersList);
+    }
+
+    public void goToGameLobby(){
+        Intent intent = new Intent(this, GameLobbyActivity.class);
+        startActivity(intent);
     }
 }
