@@ -14,7 +14,7 @@ import com.a340team.tickettoride.R;
 import java.util.ArrayList;
 
 import model.ClientRoot;
-import presenter.GameSelectionPresenter;
+import presenter.CreateJoinPresenter;
 
 /**
  * Created by mikeporet on 2/8/18.
@@ -46,7 +46,7 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
             //Send request to join game
             int ChosenGameID =  getAdapterPosition();
             String ChosenGameName = GameName.getText().toString();
-            GameSelectionPresenter gameSelectionPresenter = new GameSelectionPresenter(ClientRoot.instance());
+            CreateJoinPresenter gameSelectionPresenter = new CreateJoinPresenter(ClientRoot.instance());
 
             if (gameSelectionPresenter.joinGame(ChosenGameID)) {
                 Intent intent = new Intent(v.getContext(), GameLobbyActivity.class);

@@ -1,58 +1,32 @@
 package presenter;
 
-import android.content.Context;
-
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import guifacade.CreateGameGuiFacade;
-import guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
-import shared.model.Game;
-import shared.model.IGame;
-import view.IGameSelection;
+import view.GameSelectionActivity;
 
 /**
  *
- * Created by mikeporet on 2/11/18.
+ * Created by BenNelson on 2/12/18.
  */
 
-public class GameSelectionPresenter implements IGameSelectionPresenter, Observer {
+public class GameSelectionPresenter implements Observer{
 
     private ClientRoot _clientRoot;
+    private GameSelectionActivity _gameSelectionActivity;
 
 
-    public GameSelectionPresenter(ClientRoot clientRoot){
+    public GameSelectionPresenter(ClientRoot clientRoot, GameSelectionActivity gameSelectionActivity){
+
         this._clientRoot = clientRoot;
+        this._gameSelectionActivity = gameSelectionActivity;
     }
 
     @Override
-    public void update(Observable obs, Object o) {
-
+    public void update(Observable observable, Object o) {
         System.out.println("Game Selection Update called\n");
-
-        if(_clientRoot.getClientGame()!= null){
-            IGame game = _clientRoot.getClientGame();
-            System.out.println("Here's the Game ID: " + game.getId());
-
-            //Switch to the game lobby
-            System.out.println("I WANT TO GO TO THE GAME LOBBY!!! PLEASE HELP");
-        }
     }
 
-    @Override
-    public String createGame(int creatorColor, String gameName, int numberOfPlayers){
-        return CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
-    }
 
-    @Override
-    public boolean joinGame(int gameID) {
-        String result = JoinGameGuiFacade.joinGame(gameID);
-        if (result.equals("join successful")){
-            return true;
-        }
-            return false;
-    }
 }
-

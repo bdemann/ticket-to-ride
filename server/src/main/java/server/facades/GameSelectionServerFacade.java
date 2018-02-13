@@ -18,6 +18,7 @@ import shared.model.Game;
 import shared.model.IGame;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
+import shared.model.Player;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -28,6 +29,9 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINE);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
+
+        //set color to creator
+        ServerRoot.getPlayer(creator.getUsername()).setColor(creator.getColor());
 
         if(player == null) {
             Logger.log("player couldn't be found");
@@ -80,6 +84,9 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
         }
 
+        //check color
+        _assignColor(currentGame.getId(), joiner);
+
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
         ClientNotifications.playerJoinedGame(gameId, joiner.getUsername());
@@ -88,6 +95,22 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         Logger.log("Join Game successful " + results.toString());
         return results;
+    }
+
+    private void _assignColor(int gameId, IPlayer joiner){
+        List<IPlayer> players = ServerRoot.getGame(gameId).getPlayers();
+        for(int i = 0; i < ServerRoot.getColors().size(); i++){
+            int notSame = 0;
+            for(int j = 0; j < players.size(); j++){
+                if(ServerRoot.getColors().get(i) != players.get(j).getColor()){
+                    notSame++;
+                }
+            }
+            if(notSame == players.size()){
+                ServerRoot.getPlayer(joiner.getUsername()).setColor(ServerRoot.getColors().get(i));
+                break;
+            }
+        }
     }
 
     @Override

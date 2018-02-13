@@ -10,8 +10,6 @@ import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.model.Game;
 import shared.model.IPlayer;
-import shared.model.Player;
-import tasks.CreateGameTask;
 
 /**
  *
