@@ -33,7 +33,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         //Get the list of players
         else{
-            ArrayList<IPlayer> players = new ArrayList<>(clientRoot.getClientGame().getPlayers());
+            ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
 
             StringBuilder playerList = new StringBuilder();
 
@@ -56,7 +56,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public boolean checkNumPlayers() {
-        IGame game = clientRoot.getClientGame();
+        IGame game = _clientRoot.getClientGame();
         int numPlayers = game.getNumberPlayer();
         int maxPlayers = game.getMaxNumberPlayer();
         if (numPlayers==maxPlayers)
