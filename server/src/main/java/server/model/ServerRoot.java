@@ -11,6 +11,7 @@ import shared.ICommand;
 import shared.model.Chat;
 import shared.model.IGame;
 import shared.model.IPlayer;
+import sun.util.resources.cldr.en.CalendarData_en_US_POSIX;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -21,6 +22,7 @@ public class ServerRoot extends Observable {
     private List<IGame> _games;
     private List<List<Chat>> _chats;
     private int gameId = 0;
+    private List<Integer> _possibleColor;
 
     private static final ServerRoot _instance = new ServerRoot();
 
@@ -29,6 +31,14 @@ public class ServerRoot extends Observable {
         _players = new ArrayList<>();
         _games = new ArrayList<>();
         _chats = new ArrayList<>();
+        _possibleColor = new ArrayList<Integer>();
+        _possibleColor.add(-65536); //RED
+        _possibleColor.add(-16776961);  //BLUE
+        _possibleColor.add(-256);   //YELLOW
+        _possibleColor.add(-16711936);  //GREEN
+        _possibleColor.add(-16777216);  //BLACK
+
+
     }
 
     public static void addGame(IGame game) {
@@ -69,4 +79,7 @@ public class ServerRoot extends Observable {
     public static List<IGame> getGames() {
         return _instance._games;
     }
+
+    public static List<Integer> getColors() {
+        return _instance._possibleColor;}
 }
