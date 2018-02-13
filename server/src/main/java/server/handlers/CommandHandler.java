@@ -14,6 +14,7 @@ import shared.Command;
 import shared.CommandEncoder;
 import shared.ICommand;
 import shared.commandResults.CommandResult;
+import shared.logging.Level;
 import shared.logging.Logger;
 
 /**
@@ -23,8 +24,7 @@ import shared.logging.Logger;
 public class CommandHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Logger.log("We are starting the handler");
-        System.out.println("We are starting the handler");
+        Logger.log("We are starting the handler", Level.SANITY_CHECK);
         ICommand command = null;
         CommandResult results = null;
         try {
@@ -36,8 +36,7 @@ public class CommandHandler implements HttpHandler {
 
         try {
             results = command.execute();
-            Logger.log(results);
-            System.out.println(results.toString());
+            Logger.log(results, Level.FINE);
         } catch (Exception e){
             results = new CommandResult(e.getClass().toString(), e.getMessage());
             e.printStackTrace();
