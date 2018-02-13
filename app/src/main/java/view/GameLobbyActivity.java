@@ -14,6 +14,9 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 
+import model.ClientRoot;
+import presenter.GameLobbyPresenter;
+
 public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyActivity{
 
     private RecyclerView _recycler;
@@ -24,10 +27,15 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
     private String _gameID;
     ArrayList<String> player_names;
 
+    private GameLobbyPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_lobby);
+
+        //Setup presenter
+        presenter = new GameLobbyPresenter(this, ClientRoot.instance());
 
         _gameID = getIntent().getStringExtra("GameID");
 
@@ -61,4 +69,10 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         //separated by commas "Player One, Player Two, Player Three...."
         _playerList.setText(players);
     }
+
+    @Override
+    public void onBackPressed(){
+        presenter.leaveGame();
+    }
+
 }

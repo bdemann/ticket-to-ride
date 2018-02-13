@@ -5,5 +5,5 @@ package shared.logging;
  */
 
 public enum Level {
-    FINE, FINNER, FINNEST, ALL;
+    ALL, FINE, FINNER, FINNEST, SANITY_CHECK;
 }
