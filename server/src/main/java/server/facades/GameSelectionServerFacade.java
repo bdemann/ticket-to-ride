@@ -1,5 +1,7 @@
 package server.facades;
 
+import com.sun.corba.se.spi.activation.Server;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +59,9 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
+
+        System.out.println("NUMBER OF PLAYERS!!! " + game.getPlayers().size());
+
         return createGameCommandResult;
         //TODO I think I have a different idea of what we need to be passing into these results... Lets talk about it. What is the message? Why don't we pass in this list of commands?
         // return new CreateGameCommandResult(true, ServerRoot.getCommandList(creator.getUsername()));
@@ -78,7 +83,16 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         //check color
         _assignColor(currentGame.getId(), joiner);
 
-        ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
+        boolean playerExists =  false;
+        for(IPlayer player : ServerRoot.getGame(currentGame.getId()).getPlayers()){
+            if(player.getUsername().equals(joiner.getUsername())){
+                playerExists = true;
+            }
+        }
+        if(!playerExists){
+            ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
+        }
+
 
         ClientNotifications.playerJoinedGame(gameId, joiner.getUsername());
 
