@@ -10,6 +10,7 @@ import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
 import tasks.CreateGameTask;
+import tasks.JoinGameTask;
 
 /**
  *
@@ -41,7 +42,21 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     public CommandResult joinGame(int gameId, IPlayer joiner) {
         Class<?>[] parmTypes = {int.class, IPlayer.class};
         Object[] parmValues = {gameId, joiner};
-        return ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues));
+
+        Command joinGameCommand = new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues);
+
+        JoinGameTask joinTask = new JoinGameTask();
+        joinTask.execute(joinGameCommand);
+
+        CommandResult results = null;
+        try {
+            results = joinTask.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 
     @Override
