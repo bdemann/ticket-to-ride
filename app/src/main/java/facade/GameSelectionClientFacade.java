@@ -16,7 +16,6 @@ public class GameSelectionClientFacade implements IGameSelectionClient{
     @Override
     public void createGame(IGame game) {
         _clientRoot.setListGames(game);
-
     }
 
     @Override
@@ -31,7 +30,12 @@ public class GameSelectionClientFacade implements IGameSelectionClient{
     }
 
     @Override
-    public void updateGameList() {
+    public void updateGameList(String username) {
         //TODO we need to implement this guy
+    }
+
+    @Override
+    public void updatePlayerList(String username) {
+
     }
 }

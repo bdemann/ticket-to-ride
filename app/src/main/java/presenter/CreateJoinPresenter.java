@@ -1,6 +1,7 @@
 package presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -12,6 +13,7 @@ import model.ClientRoot;
 import shared.model.Game;
 import shared.model.IGame;
 import view.CreateGameActivity;
+import view.GameLobbyActivity;
 import view.IGameSelection;
 
 /**
@@ -19,14 +21,16 @@ import view.IGameSelection;
  * Created by mikeporet on 2/11/18.
  */
 
-public class CreateJoinPresenter implements IGameSelectionPresenter, Observer {
+public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
 
     private ClientRoot _clientRoot;
+    private CreateGameActivity _createGameActivity;
 
 
-    public CreateJoinPresenter(ClientRoot clientRoot){
+    public CreateJoinPresenter(ClientRoot clientRoot, CreateGameActivity createGameActivity){
 
         this._clientRoot = clientRoot;
+        this._createGameActivity = createGameActivity;
     }
 
     @Override
@@ -38,8 +42,12 @@ public class CreateJoinPresenter implements IGameSelectionPresenter, Observer {
             IGame game = _clientRoot.getClientGame();
             System.out.println("Here's the Game ID: " + game.getId());
 
-            //Switch to the game lobby
-            System.out.println("I WANT TO GO TO THE GAME LOBBY!!! PLEASE HELP");
+            //Transition to the game lobby
+            Intent intent = new Intent(_createGameActivity, GameLobbyActivity.class);
+            String gameID = Integer.toString(game.getId());
+            intent.putExtra("GameName", game.getGameName());
+            intent.putExtra("GameID", gameID);
+            _createGameActivity.startActivity(intent);
         }
 
 
@@ -51,13 +59,6 @@ public class CreateJoinPresenter implements IGameSelectionPresenter, Observer {
         return CreateGameGuiFacade.createGame(numberOfPlayers,creatorColor, gameName);
     }
 
-    @Override
-    public boolean joinGame(int gameID) {
-        String result = JoinGameGuiFacade.joinGame(gameID);
-        if (result.equals("join successful")){
-            return true;
-        }
-            return false;
-    }
+
 }
 

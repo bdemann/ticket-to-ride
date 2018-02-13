@@ -3,6 +3,7 @@ package server.facades;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.ClientNotifications;
 import server.model.ServerRoot;
 import server.proxies.ClientCommands;
 import server.proxies.GameSelectionClientProxy;
@@ -17,6 +18,7 @@ import shared.model.Game;
 import shared.model.IGame;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
+import shared.model.Player;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -27,6 +29,9 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINE);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
+
+        //set color to creator
+        ServerRoot.getPlayer(creator.getUsername()).setColor(creator.getColor());
 
         if(player == null) {
             Logger.log("player couldn't be found");
@@ -60,11 +65,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         //System.out.println("GAME: " + ((Game) createGameCommandResult.getResult()).getId());
 
-        //TODO Move this function to the client proxy.
-        _createGameCommand(game);
-
-        //Tell the clients that there is an update to the game list.
-        new GameSelectionClientProxy().updateGameList();
+        ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
         return createGameCommandResult;
@@ -83,15 +84,33 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
         }
 
+        //check color
+        _assignColor(currentGame.getId(), joiner);
+
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
-        //TODO Move this function to the client proxy.
-        _createJoinCommand(joiner, currentGame);
+        ClientNotifications.playerJoinedGame(gameId, joiner.getUsername());
 
         JoinGameCommandResult results = new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()));
 
         Logger.log("Join Game successful " + results.toString());
         return results;
+    }
+
+    private void _assignColor(int gameId, IPlayer joiner){
+        List<IPlayer> players = ServerRoot.getGame(gameId).getPlayers();
+        for(int i = 0; i < ServerRoot.getColors().size(); i++){
+            int notSame = 0;
+            for(int j = 0; j < players.size(); j++){
+                if(ServerRoot.getColors().get(i) != players.get(j).getColor()){
+                    notSame++;
+                }
+            }
+            if(notSame == players.size()){
+                ServerRoot.getPlayer(joiner.getUsername()).setColor(ServerRoot.getColors().get(i));
+                break;
+            }
+        }
     }
 
     @Override
@@ -101,21 +120,6 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             Logger.log("Games: " + game.toString());
         }
         return new GameListResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
-    }
-
-    private void _createJoinCommand(IPlayer player, IGame game){
-        Class<?>[] parmTypes = {IPlayer.class,IGame.class};
-        Object[] parm = {player,game};
-
-        Command command = new Command("app.facade.GameSelectionClientFacade", "joinGame", parmTypes, parm);
-    }
-
-    private void _createGameCommand(IGame game){
-        Class<?>[] parmTypes = {IGame.class};
-        IGame[] parm = {game};
-
-        Command command = new Command("app.facade.GameSelectionClientFacade", "createGame", parmTypes, parm);
-
     }
 
 }

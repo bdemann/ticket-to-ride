@@ -22,7 +22,6 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
     private ArrayList<String> _gameNumPlayersList;
     private RecyclerView _recyclerView;
     private Button _createGameButton;
-    private Button _joinGameButton;
     private GameSelectionPresenter _gameSelectionPresenter;
 
     //Adapter
@@ -41,7 +40,6 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
 
         _recyclerView = (RecyclerView) findViewById(R.id.GameRecycler);
         _createGameButton = (Button) findViewById(R.id.create_new_game_button);
-        _joinGameButton = (Button) findViewById(R.id.join_game_button);
 
         adapter = new GameListRecyclerAdapter(_gameNameList, _gameIDList, _gameNumPlayersList, _gameSelectionPresenter);
         _recyclerView.setAdapter(adapter);
