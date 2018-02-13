@@ -17,4 +17,9 @@ public class GameLobbyClientFacade implements IGameLobbyClient {
     public void startGame() {
 
     }
+
+    @Override
+    public void leaveGame(String username) {
+        //TODO we need to implement this TONIGHT
+    }
 }

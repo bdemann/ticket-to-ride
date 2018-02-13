@@ -142,4 +142,9 @@ public class Game implements IGame, Serializable {
     public String getGameName(){
         return _gameName;
     }
+
+    @Override
+    public void removePlayer(IPlayer player) {
+        _players.remove(player);
+    }
 }
