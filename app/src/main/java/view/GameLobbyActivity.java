@@ -27,6 +27,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
     private TextView _playerList;
     private String _gameID;
     ArrayList<String> player_names;
+    private ClientRoot _clientRoot;
 
     private GameLobbyPresenter presenter;
 
@@ -35,8 +36,10 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_lobby);
 
-        //Setup presenter
-        presenter = new GameLobbyPresenter(this, ClientRoot.instance());
+        //Setup presenter and observer
+        _clientRoot = ClientRoot.instance();
+        presenter = new GameLobbyPresenter(this, _clientRoot);
+        _clientRoot.addObserver(presenter);
 
         _gameID = getIntent().getStringExtra("GameID");
 
@@ -45,6 +48,8 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         _sendButton = (ImageButton) findViewById(R.id.send_button);
         _startGameButton = (Button) findViewById(R.id.start_game_button);
         _playerList = (TextView) findViewById(R.id.current_players);
+
+        presenter.listPlayers();
 
         _makeOnClickListeners();
 

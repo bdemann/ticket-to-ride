@@ -34,6 +34,7 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
 
         _setUpObserver();
 
+        _gameSelectionPresenter.listGames();
         _gameNameList = new ArrayList<>();
         _gameIDList = new ArrayList<>();
         _gameNumPlayersList = new ArrayList<>();

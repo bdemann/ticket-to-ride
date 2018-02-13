@@ -35,8 +35,20 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
             _gameSelectionActivity.goToGameLobby();
         }
 
+        listGames();
 
+    }
 
+    @Override
+    public boolean joinGame(int gameID) {
+        String result = JoinGameGuiFacade.joinGame(gameID);
+        if (result.equals("join successful")){
+            return true;
+        }
+        return false;
+    }
+
+    public void listGames(){
         //Update game list
         ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
         ArrayList<String> gameNames = new ArrayList<>();
@@ -55,15 +67,5 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
         }
         _gameSelectionActivity.updateGameList(gameNames,gameIDs,gameNumPlayers);
     }
-
-    @Override
-    public boolean joinGame(int gameID) {
-        String result = JoinGameGuiFacade.joinGame(gameID);
-        if (result.equals("join successful")){
-            return true;
-        }
-        return false;
-    }
-
 
 }

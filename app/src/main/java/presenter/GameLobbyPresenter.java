@@ -26,6 +26,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+
+        System.out.println("GAME LOBBY UPDATE CALLED");
         //if we have left the game
         if(_clientRoot.getClientGame() == null){
             _activity.finish();
@@ -33,19 +35,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         //Get the list of players
         else{
-            ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
-
-            StringBuilder playerList = new StringBuilder();
-
-            for (int i = 0; i < players.size(); i++){
-                playerList.append(players.get(i).getUsername());
-                if (i != (players.size()-1)){
-                    playerList.append(", ");
-                }
-            }
-
-            //Update the list of players on the lobby activity
-            _activity.updatePlayerList(playerList.toString());
+            listPlayers();
         }
     }
 
@@ -63,5 +53,21 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             return true;
         else
             return false;
+    }
+    public void listPlayers(){
+        ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
+
+        StringBuilder playerList = new StringBuilder();
+
+        for (int i = 0; i < players.size(); i++){
+            playerList.append("  ");//Tab essentially
+            playerList.append(players.get(i).getUsername());
+            if (i != (players.size()-1)){
+                playerList.append("\n");
+            }
+        }
+
+        //Update the list of players on the lobby activity
+        _activity.updatePlayerList(playerList.toString());
     }
 }

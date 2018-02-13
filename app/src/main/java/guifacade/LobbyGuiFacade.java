@@ -29,10 +29,6 @@ public class LobbyGuiFacade {
 
         if(results.getCommandSuccess()){
 
-            if(results.getResult() == null){
-                return "Leave Game had a result error";
-            }
-
             //take the game from the root.
             ClientRoot.instance().setClientGame(null);
 
