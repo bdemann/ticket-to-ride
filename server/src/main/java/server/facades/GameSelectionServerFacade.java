@@ -3,6 +3,7 @@ package server.facades;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.ClientNotifications;
 import server.model.ServerRoot;
 import server.proxies.ClientCommands;
 import server.proxies.GameSelectionClientProxy;
@@ -60,11 +61,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         //System.out.println("GAME: " + ((Game) createGameCommandResult.getResult()).getId());
 
-        //TODO Move this function to the client proxy.
-        _createGameCommand(game);
-
-        //Tell the clients that there is an update to the game list.
-        new GameSelectionClientProxy().updateGameList();
+        ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
         return createGameCommandResult;
@@ -85,8 +82,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
 
-        //TODO Move this function to the client proxy.
-        _createJoinCommand(joiner, currentGame);
+        ClientNotifications.playerJoinedGame(gameId, joiner.getUsername());
 
         JoinGameCommandResult results = new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()));
 
@@ -101,21 +97,6 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
             Logger.log("Games: " + game.toString());
         }
         return new GameListResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
-    }
-
-    private void _createJoinCommand(IPlayer player, IGame game){
-        Class<?>[] parmTypes = {IPlayer.class,IGame.class};
-        Object[] parm = {player,game};
-
-        Command command = new Command("app.facade.GameSelectionClientFacade", "joinGame", parmTypes, parm);
-    }
-
-    private void _createGameCommand(IGame game){
-        Class<?>[] parmTypes = {IGame.class};
-        IGame[] parm = {game};
-
-        Command command = new Command("app.facade.GameSelectionClientFacade", "createGame", parmTypes, parm);
-
     }
 
 }

@@ -16,6 +16,6 @@ public interface IGameSelectionClient {
 
     void createGame(IGame game);
     void joinGame(IPlayer player, IGame game);
-    void updateGameList();
-
+    void updateGameList(String username);
+    void updatePlayerList(String username);
 }
