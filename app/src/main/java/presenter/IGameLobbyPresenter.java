@@ -7,4 +7,5 @@ package presenter;
 public interface IGameLobbyPresenter {
 
     void leaveGame();
+    boolean checkNumPlayers();
 }

@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import guifacade.LobbyGuiFacade;
 import model.ClientRoot;
+import shared.model.IGame;
 import shared.model.IPlayer;
 import view.GameLobbyActivity;
 
@@ -53,5 +54,14 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         LobbyGuiFacade.leaveGame();
     }
 
-
+    @Override
+    public boolean checkNumPlayers() {
+        IGame game = clientRoot.getClientGame();
+        int numPlayers = game.getNumberPlayer();
+        int maxPlayers = game.getMaxNumberPlayer();
+        if (numPlayers==maxPlayers)
+            return true;
+        else
+            return false;
+    }
 }

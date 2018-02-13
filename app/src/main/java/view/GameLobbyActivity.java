@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
@@ -55,8 +56,14 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         _startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), GameActivity.class);
-            startActivity(intent);
+                if (presenter.checkNumPlayers()) {
+                    Intent intent = new Intent(view.getContext(), GameActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast toast = Toast.makeText(view.getContext(), "Not enough players!", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
     }

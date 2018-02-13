@@ -34,7 +34,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
         if (_clientRoot.getClientGame() != null){
             _gameSelectionActivity.goToGameLobby();
         }
-        
+
 
 
         //Update game list
