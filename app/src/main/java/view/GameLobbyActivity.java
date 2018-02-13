@@ -14,6 +14,7 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 
+import model.ClientRoot;
 import presenter.GameLobbyPresenter;
 
 public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyActivity{
@@ -34,7 +35,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         setContentView(R.layout.activity_game_lobby);
 
         //Setup presenter
-        presenter = new GameLobbyPresenter(this);
+        presenter = new GameLobbyPresenter(this, ClientRoot.instance());
 
         _gameID = getIntent().getStringExtra("GameID");
 
