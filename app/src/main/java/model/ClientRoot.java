@@ -35,41 +35,41 @@ public class ClientRoot extends Observable {
     }
 
     //Getters and Setters
-    public IPlayer getClientPlayer(){
-        return _clientPlayer;
+    public static IPlayer getClientPlayer(){
+        return _instance._clientPlayer;
     }
 
-    public IGame getClientGame() {
-        return _clientGame;
+    public static IGame getClientGame() {
+        return _instance._clientGame;
     }
 
-    public List<IGame> getListGames() {
-        return _listGames;
+    public static List<IGame> getListGames() {
+        return _instance._listGames;
     }
 
-    public void setClientPlayer(IPlayer player) {
-        this._clientPlayer = player;
-        setChanged();
+    public static void setClientPlayer(IPlayer player) {
+        _instance._clientPlayer = player;
+        _instance.setChanged();
         //The notify observers method can be overloaded with an object, will then be Object o param
         //for the update function.
-        notifyObservers();
+        _instance.notifyObservers();
     }
 
-    public void setClientGame(IGame clientGame) {
-        this._clientGame = clientGame;
-        setChanged();
-        notifyObservers();
+    public static void setClientGame(IGame clientGame) {
+        _instance._clientGame = clientGame;
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
-    public void setListGames(List<IGame> list){
-        this._listGames = list;
-        setChanged();
-        notifyObservers();
+    public static void setListGames(List<IGame> list){
+        _instance._listGames = list;
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
-    public void addToGameList(IGame game){
-        this._listGames.add(game);
-        setChanged();
-        notifyObservers();
+    public static void addToGameList(IGame game){
+        _instance._listGames.add(game);
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 }
