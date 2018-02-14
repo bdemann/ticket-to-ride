@@ -3,9 +3,9 @@ package guifacade;
 import model.ClientRoot;
 import proxy.serverproxies.GameSelectionServerProxy;
 import shared.commandResults.CommandResult;
+import shared.commandResults.JoinGameCommandResult;
 import shared.model.Game;
 import shared.model.IPlayer;
-import shared.model.Player;
 
 /**
  *
@@ -24,7 +24,7 @@ public class JoinGameGuiFacade {
             return "Could not find player";
         }
 
-        CommandResult commandResult = gssp.joinGame(gameId, player);
+        JoinGameCommandResult commandResult = (JoinGameCommandResult) gssp.joinGame(gameId, player);
 
         if(commandResult.getCommandSuccess()){
             _addGame((Game) commandResult.getResult());

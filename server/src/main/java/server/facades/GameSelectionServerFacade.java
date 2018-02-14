@@ -82,21 +82,12 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         //check color
         _assignColor(currentGame.getId(), joiner);
-
-        boolean playerExists =  false;
-        for(IPlayer player : ServerRoot.getGame(currentGame.getId()).getPlayers()){
-            if(player.getUsername().equals(joiner.getUsername())){
-                playerExists = true;
-            }
-        }
-        if(!playerExists){
-            ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
-        }
+        _updatePlayerList(currentGame, joiner);
 
 
         ClientNotifications.playerJoinedGame(gameId, joiner.getUsername());
 
-        JoinGameCommandResult results = new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()));
+        JoinGameCommandResult results = new JoinGameCommandResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()),"Join successful");
 
         Logger.log("Join Game successful " + results.toString());
         return results;
@@ -115,6 +106,18 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
                 ServerRoot.getPlayer(joiner.getUsername()).setColor(ServerRoot.getColors().get(i));
                 break;
             }
+        }
+    }
+
+    private void _updatePlayerList(IGame currentGame, IPlayer joiner){
+        boolean playerExists =  false;
+        for(IPlayer player : ServerRoot.getGame(currentGame.getId()).getPlayers()){
+            if(player.getUsername().equals(joiner.getUsername())){
+                playerExists = true;
+            }
+        }
+        if(!playerExists){
+            ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
         }
     }
 

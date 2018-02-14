@@ -46,7 +46,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     @Override
     public boolean joinGame(int gameID) {
         String result = JoinGameGuiFacade.joinGame(gameID);
-        if (result.equals("join successful")){
+        if (result.equals("Join successful")){
             return true;
         }
         return false;
