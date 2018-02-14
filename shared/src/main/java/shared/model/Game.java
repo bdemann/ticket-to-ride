@@ -22,6 +22,11 @@ public class Game implements IGame, Serializable {
         this._gameName = gameName;
     }
 
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        return sb.append("Game: ").append(_gameName).append(". Game id: ").append(_id).append("\n").toString();
+    }
+
     public void setId(int id){
         this._id = id;
     }
@@ -146,5 +151,15 @@ public class Game implements IGame, Serializable {
     @Override
     public void removePlayer(IPlayer player) {
         _players.remove(player);
+    }
+
+    @Override
+    public IPlayer getPlayer(String username) {
+        for(IPlayer player : _players) {
+            if (player.getUsername().equals(username)){
+                return player;
+            }
+        }
+        return null;
     }
 }

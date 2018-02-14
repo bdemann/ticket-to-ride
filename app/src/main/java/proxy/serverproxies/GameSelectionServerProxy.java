@@ -1,11 +1,14 @@
 package proxy.serverproxies;
 
+import android.util.Log;
+
 import java.util.concurrent.ExecutionException;
 
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.commandResults.GameListResult;
+import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;

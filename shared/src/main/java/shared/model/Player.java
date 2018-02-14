@@ -30,7 +30,11 @@ public class Player implements IPlayer, Serializable {
         this.color = 0;
     }
 
-    public Player() {}
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Player: ").append(this.username).append(". Color: ").append(this.color);
+        return sb.toString();
+    }
 
     @Override
     public void setUsername(String username) {

@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
+import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.Game;
 import shared.facades.ILobbyServerFacade;
@@ -26,6 +27,7 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
     @Override
     public CommandResult startGame(Game game, String username) {
+        Logger.log("We are starting the game.");
         Class<?>[] parmTypes = {Game.class};
         Object[] parmValues = {game};
         return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
@@ -33,9 +35,12 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
     @Override
     public CommandResult leaveGame(String username) {
+        Logger.log("We are leaving the game");
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
         Command leaveCommand = new Command("server.facades.LobbyServerFacade", "leaveGame", parmTypes, parmValues);
+
+        Logger.log("This is the leave command: " + leaveCommand);
 
         LeaveGameTask leaveGameTask = new LeaveGameTask();
         leaveGameTask.execute(leaveCommand);
