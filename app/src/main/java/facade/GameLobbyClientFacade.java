@@ -1,6 +1,8 @@
 package facade;
 
+import model.ClientRoot;
 import shared.client.IGameLobbyClient;
+import shared.model.IPlayer;
 
 /**
  *
@@ -20,6 +22,7 @@ public class GameLobbyClientFacade implements IGameLobbyClient {
 
     @Override
     public void leaveGame(String username) {
-        //TODO we need to implement this TONIGHT
+        IPlayer player = ClientRoot.instance().getClientGame().getPlayer(username);
+        ClientRoot.instance().getClientGame().removePlayer(player);
     }
 }

@@ -18,11 +18,15 @@ public class Logger {
     }
 
     public static void log(String message, Level level){
-        System.out.println(message);
+        if (level.ordinal() <= _instance._level.ordinal()) {
+            System.out.println(message);
+        }
     }
 
     public static void log(Object message, Level level){
-        System.out.println(message.toString());
+        if (level.ordinal() <= _instance._level.ordinal()) {
+            System.out.println(message.toString());
+        }
     }
 
     public static void log(Object message){

@@ -25,17 +25,13 @@ public interface IGame {
     List<IPlayer> getPlayers();
     String getScoreSummary();
     TTRMap getGameMap();
-
     void addPlayer(IPlayer joiner);
     void setId(int gameId);
     int getId();
-
     int getNumberPlayer();
-
     int getMaxNumberPlayer();
-
     void setGameName(String gameName);
     String getGameName();
-
     void removePlayer(IPlayer player);
+    IPlayer getPlayer(String username);
 }

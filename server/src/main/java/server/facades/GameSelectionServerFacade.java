@@ -6,19 +6,16 @@ import java.util.List;
 import server.ClientNotifications;
 import server.model.ServerRoot;
 import server.proxies.ClientCommands;
-import server.proxies.GameSelectionClientProxy;
-import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.commandResults.CreateGameCommandResult;
 import shared.commandResults.GameListResult;
 import shared.commandResults.JoinGameCommandResult;
+import shared.facades.IGameSelectionServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.Game;
 import shared.model.IGame;
 import shared.model.IPlayer;
-import shared.facades.IGameSelectionServerFacade;
-import shared.model.Player;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -34,7 +31,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         ServerRoot.getPlayer(creator.getUsername()).setColor(creator.getColor());
 
         if(player == null) {
-            Logger.log("player couldn't be found");
+            Logger.log("player couldn't be found", Level.ALL);
         }
 
         //Create a list of players for the game.
@@ -48,6 +45,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         try {
             //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
             if (player.getGameId() != -1) {
+                Logger.log("The player was already in a game.", Level.ALL);
                 return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player can only be part of one game");
             }
 
@@ -55,6 +53,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
             player.setGameId(game.getId());
         } catch (NullPointerException e) {
+            Logger.log("There was a null pointer exception. I guess that means the player doesn't exist");
             return new CreateGameCommandResult(false, ClientCommands.getCommandList(creator.getUsername()),"Player does not exist");
         }
 
@@ -78,15 +77,17 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         Logger.log("Joining game: " + gameId + "Joining player: " + joiner, Level.FINE);
         IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
+            Logger.log("Couldn't find the current game", Level.ALL);
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Could not find game");
         }
         else if(currentGame.getNumberPlayer() >= currentGame.getMaxNumberPlayer()){
+            Logger.log("Already has the max number of players.", Level.ALL);
             return new JoinGameCommandResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");
         }
 
         try {
-            //TODO Is this supposed to be commented out? I think that's how it was before the merge so I'm going to do that.
             if (joiner.getGameId() != -1) {
+                Logger.log("The player, " + joiner.toString() + " was already in a game");
                 return new JoinGameCommandResult(null, false,ClientCommands.getCommandList(joiner.getUsername()));
             }
 
@@ -94,6 +95,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
             joiner.setGameId(currentGame.getId());
         } catch (NullPointerException e) {
+            Logger.log("There was a null pointer exception in join game.");
             return new JoinGameCommandResult(null, false,ClientCommands.getCommandList(joiner.getUsername()));
         }
 
@@ -132,6 +134,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         for (IGame game: ServerRoot.getGames()) {
             Logger.log("Games: " + game.toString());
         }
+        Logger.log("Finished getting the game list");
         return new GameListResult(true, ServerRoot.getGames(), ClientCommands.getCommandList(username));
     }
 
