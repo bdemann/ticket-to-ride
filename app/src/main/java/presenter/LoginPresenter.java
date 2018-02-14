@@ -32,6 +32,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
         System.out.println("Login Presenter Update called\n");
 
         if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
+            _getGamesList();
             Intent intent = new Intent(_context, GameSelectionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(intent);
@@ -62,6 +63,12 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     public String register(String username, String password) {
 
         return LoginGuiFacade.register(username,password);
+    }
+
+
+    private String _getGamesList(){
+
+        return LoginGuiFacade.getGamesList(_clientRoot.getClientPlayer().getUsername());
     }
 
 }

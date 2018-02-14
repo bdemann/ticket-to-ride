@@ -89,7 +89,7 @@ public class CreateGameGuiFacade {
 
 
     private static void _addGame(Game game){
-        _clientRoot.setListGames(game);
+        _clientRoot.addToGameList(game);
     }
 
     private static void _setJoinedGame(Game game){

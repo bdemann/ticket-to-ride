@@ -104,6 +104,6 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
         this._gameList = _gameList;
         this._gameIDList = _gameIDList;
         this._gameNumPlayersList = _gameNumPlayersList;
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
     }
 }

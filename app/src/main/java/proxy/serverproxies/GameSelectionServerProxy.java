@@ -14,6 +14,7 @@ import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
 import tasks.CreateGameTask;
 import tasks.JoinGameTask;
+import tasks.LoginTask;
 
 /**
  *
@@ -66,8 +67,20 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
     public CommandResult getGamesList(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
-        CommandResult result = ClientCommunicator.sendCommand(new Command("server.facades.GameSelectionServerFacade", "getGamesList", parmTypes, parmValues));
-        Logger.log("Command Result is " + result.toString(), Level.FINNEST);
-        return result;
+        Command getGamesCommand = new Command("server.facades.GameSelectionServerFacade", "getGamesList", parmTypes, parmValues);
+
+
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute(getGamesCommand);
+
+        CommandResult results = null;
+        try {
+            results = loginTask.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 }
