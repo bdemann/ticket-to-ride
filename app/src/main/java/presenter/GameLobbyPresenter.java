@@ -52,6 +52,12 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             return false;
     }
 
+    public void listGame(){
+        String name = _clientRoot.getClientGame().getGameName();
+        //update the name of the game in the lobby activity
+        _activity.updateGameName(name);
+    }
+
     public void listPlayers(){
         ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
 
