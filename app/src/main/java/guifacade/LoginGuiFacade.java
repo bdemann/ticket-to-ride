@@ -26,14 +26,11 @@ import view.LoginActivity;
 
 public class LoginGuiFacade {
 
-    private static ClientRoot _clientRoot = ClientRoot.instance();
-
     public static String signIn(String username, String password) {
         //This GuiFacade will send the username and password on to the server.
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult result = lsp.signin(username,password);
-        Poller.start();
         return _processResults(username,password,result, true);
     }
 
@@ -52,6 +49,7 @@ public class LoginGuiFacade {
         //send username and password to root
         if(commandResults.getCommandSuccess() && isSignIn){
             _updatePlayer(username, password);
+            Poller.start();
         }
         else{
             //check for exception
@@ -89,7 +87,7 @@ public class LoginGuiFacade {
         //send username and password to root
         if(commandResults.getCommandSuccess()){
             GameListResult gameListResult = (GameListResult) commandResults;
-            _clientRoot.setListGames(gameListResult.getGameList());
+            ClientRoot.setListGames(gameListResult.getGameList());
         }
         else{
             //check for exception

@@ -61,8 +61,8 @@ public class ClientRoot extends Observable {
         _instance.notifyObservers();
     }
 
-    public void setListGames(List<IGame> list) {
-        if (_incomingListIsDifferent(list)) {
+    public static void setListGames(List<IGame> list) {
+        if (_instance._incomingListIsDifferent(list)) {
             _instance._gamesList = list;
             _instance.setChanged();
             _instance.notifyObservers();
