@@ -1,11 +1,16 @@
 package proxy.serverproxies;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import java.util.concurrent.ExecutionException;
 
+import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.facades.ILoginServerFacade;
-import tasks.CommandTask;
+import tasks.LoginTask;
+import view.LoginActivity;
 
 /**
  * Created by Ben on 2/7/2018.
@@ -17,13 +22,13 @@ public class LoginServerProxy implements ILoginServerFacade{
     @Override
     public CommandResult signin(String username, String password) {
 
-        CommandTask commandTask = new CommandTask();
-        commandTask.execute(generateLoginCommand("signin", username, password));
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute(generateLoginCommand("signin", username, password));
 
         CommandResult results = null;
 
         try {
-            results = commandTask.get();
+            results = loginTask.get();
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -34,13 +39,13 @@ public class LoginServerProxy implements ILoginServerFacade{
     @Override
     public CommandResult register(String username, String password) {
 
-        CommandTask commandTask = new CommandTask();
-        commandTask.execute(generateLoginCommand("register", username, password));
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute(generateLoginCommand("register", username, password));
 
         CommandResult results = null;
 
         try {
-            results = commandTask.get();
+            results = loginTask.get();
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

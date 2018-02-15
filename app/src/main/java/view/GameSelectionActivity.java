@@ -34,6 +34,7 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
 
         _setUpObserver();
 
+        //The list of games from the server needs to get updated.
         _gameNameList = _gameSelectionPresenter.getGameNames();
         _gameIDList = _gameSelectionPresenter.getGameIDs();
         _gameNumPlayersList = _gameSelectionPresenter.getGameNumPlayers();

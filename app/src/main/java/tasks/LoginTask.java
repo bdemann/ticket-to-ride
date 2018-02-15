@@ -13,10 +13,11 @@ import view.LoginActivity;
  *
  */
 
-public class CommandTask extends AsyncTask<Command,Void,CommandResult>{
+public class LoginTask extends AsyncTask<Command,Void,CommandResult>{
 
     @Override
     protected CommandResult doInBackground(Command... commands) {
+
         return ClientCommunicator.sendCommand(commands[0]);
     }
 }
