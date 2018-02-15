@@ -51,6 +51,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
         _makeOnClickListeners();
 
+        _gameLobbyPresenter.listGame();
         _gameLobbyPresenter.listPlayers();
 
 
@@ -71,6 +72,11 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
                 }
             }
         });
+    }
+
+    @Override
+    public void updateGameName(String name){
+        setTitle(name);
     }
 
     @Override
