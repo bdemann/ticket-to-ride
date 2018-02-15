@@ -1,6 +1,5 @@
 package view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -15,7 +14,6 @@ import com.a340team.tickettoride.R;
 
 import model.ClientRoot;
 import presenter.LoginPresenter;
-import tasks.LoginTask;
 
 /**
  * A signin screen that offers signin via _username/_password.

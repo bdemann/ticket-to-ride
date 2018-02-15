@@ -9,8 +9,7 @@ import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.Game;
 import shared.facades.ILobbyServerFacade;
-import tasks.JoinGameTask;
-import tasks.LeaveGameTask;
+import tasks.CommandTask;
 
 /**
  * Created by Ben on 2/7/2018.
@@ -42,7 +41,7 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
         Logger.log("This is the leave command: " + leaveCommand);
 
-        LeaveGameTask leaveGameTask = new LeaveGameTask();
+        CommandTask leaveGameTask = new CommandTask();
         leaveGameTask.execute(leaveCommand);
 
         CommandResult results = null;

@@ -1,16 +1,11 @@
 package proxy.serverproxies;
 
-import android.content.Context;
-import android.os.AsyncTask;
-
 import java.util.concurrent.ExecutionException;
 
-import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.facades.ILoginServerFacade;
-import tasks.LoginTask;
-import view.LoginActivity;
+import tasks.CommandTask;
 
 /**
  * Created by Ben on 2/7/2018.
@@ -22,7 +17,7 @@ public class LoginServerProxy implements ILoginServerFacade{
     @Override
     public CommandResult signin(String username, String password) {
 
-        LoginTask loginTask = new LoginTask();
+        CommandTask loginTask = new CommandTask();
         loginTask.execute(generateLoginCommand("signin", username, password));
 
         CommandResult results = null;
@@ -39,7 +34,7 @@ public class LoginServerProxy implements ILoginServerFacade{
     @Override
     public CommandResult register(String username, String password) {
 
-        LoginTask loginTask = new LoginTask();
+        CommandTask loginTask = new CommandTask();
         loginTask.execute(generateLoginCommand("register", username, password));
 
         CommandResult results = null;

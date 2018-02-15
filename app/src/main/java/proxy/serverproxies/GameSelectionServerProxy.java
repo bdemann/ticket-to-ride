@@ -1,20 +1,13 @@
 package proxy.serverproxies;
 
-import android.util.Log;
-
 import java.util.concurrent.ExecutionException;
 
-import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
-import shared.commandResults.GameListResult;
-import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
-import tasks.CreateGameTask;
-import tasks.JoinGameTask;
-import tasks.LoginTask;
+import tasks.CommandTask;
 
 /**
  *
@@ -28,7 +21,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         Object[] parmValues = {creator, numberPlayer, gameName};
         Command createGameCommand = new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues);
 
-        CreateGameTask task = new CreateGameTask();
+        CommandTask task = new CommandTask();
         task.execute(createGameCommand);
 
         CommandResult results = null;
@@ -49,7 +42,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
 
         Command joinGameCommand = new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues);
 
-        JoinGameTask joinTask = new JoinGameTask();
+        CommandTask joinTask = new CommandTask();
         joinTask.execute(joinGameCommand);
 
         CommandResult results = null;
@@ -70,7 +63,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         Command getGamesCommand = new Command("server.facades.GameSelectionServerFacade", "getGamesList", parmTypes, parmValues);
 
 
-        LoginTask loginTask = new LoginTask();
+        CommandTask loginTask = new CommandTask();
         loginTask.execute(getGamesCommand);
 
         CommandResult results = null;
