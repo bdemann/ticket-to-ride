@@ -7,7 +7,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import model.ClientRoot;
-import poller.Poller;
 import presenter.LoginPresenter;
 import proxy.LoginClientProxy;
 import proxy.serverproxies.GameSelectionServerProxy;
@@ -33,7 +32,6 @@ public class LoginGuiFacade {
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult result = lsp.signin(username,password);
-        Poller.start();
         return _processResults(username,password,result, true);
     }
 

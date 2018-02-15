@@ -1,13 +1,20 @@
 package proxy.serverproxies;
 
+import android.util.Log;
+
 import java.util.concurrent.ExecutionException;
 
+import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
+import shared.commandResults.GameListResult;
+import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.facades.IGameSelectionServerFacade;
-import tasks.CommandTask;
+import tasks.CreateGameTask;
+import tasks.JoinGameTask;
+import tasks.LoginTask;
 
 /**
  *
@@ -21,7 +28,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         Object[] parmValues = {creator, numberPlayer, gameName};
         Command createGameCommand = new Command("server.facades.GameSelectionServerFacade", "createGame", parmTypes, parmValues);
 
-        CommandTask task = new CommandTask();
+        CreateGameTask task = new CreateGameTask();
         task.execute(createGameCommand);
 
         CommandResult results = null;
@@ -42,7 +49,7 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
 
         Command joinGameCommand = new Command("server.facades.GameSelectionServerFacade", "joinGame", parmTypes, parmValues);
 
-        CommandTask joinTask = new CommandTask();
+        JoinGameTask joinTask = new JoinGameTask();
         joinTask.execute(joinGameCommand);
 
         CommandResult results = null;
@@ -63,12 +70,12 @@ public class GameSelectionServerProxy implements IGameSelectionServerFacade {
         Command getGamesCommand = new Command("server.facades.GameSelectionServerFacade", "getGamesList", parmTypes, parmValues);
 
 
-        CommandTask commandTask = new CommandTask();
-        commandTask.execute(getGamesCommand);
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute(getGamesCommand);
 
         CommandResult results = null;
         try {
-            results = commandTask.get();
+            results = loginTask.get();
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

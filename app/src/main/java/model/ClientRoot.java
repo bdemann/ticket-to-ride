@@ -35,55 +35,52 @@ public class ClientRoot extends Observable {
     }
 
     //Getters and Setters
-    public IPlayer getClientPlayer(){
-        return _clientPlayer;
+    public static IPlayer getClientPlayer(){
+        return _instance._clientPlayer;
     }
 
-    public IGame getClientGame() {
-        return _clientGame;
+    public static IGame getClientGame() {
+        return _instance._clientGame;
     }
 
-    public List<IGame> getListGames() {
-        return _gamesList;
+    public static List<IGame> getListGames() {
+        return _instance._gamesList;
     }
 
-    public void setClientPlayer(IPlayer player) {
-        this._clientPlayer = player;
-        setChanged();
+    public static void setClientPlayer(IPlayer player) {
+        _instance._clientPlayer = player;
+        _instance.setChanged();
         //The notify observers method can be overloaded with an object, will then be Object o param
         //for the update function.
-        notifyObservers();
+        _instance.notifyObservers();
     }
 
-    public void setClientGame(IGame clientGame) {
-        this._clientGame = clientGame;
-        setChanged();
-        notifyObservers();
+    public static void setClientGame(IGame clientGame) {
+        _instance._clientGame = clientGame;
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
-    public void setListGames(List<IGame> list){
-        if(_incomingListIsDifferent(list)) {
-
-            this._gamesList = list;
-            setChanged();
-            notifyObservers();
-        }
+    public static void setListGames(List<IGame> list){
+        _instance._gamesList = list;
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
 
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
 
 
-        if(incomingList == null && _gamesList != null){
+        if(incomingList == null && _instance._gamesList != null){
             return true;
         }
-        if(incomingList != null && _gamesList == null){
+        if(incomingList != null && _instance._gamesList == null){
             return true;
         }
-        if(incomingList == null && _gamesList == null){
+        if(incomingList == null && _instance._gamesList == null){
             return false;
         }
-        if(incomingList.size() != _gamesList.size())
+        if(incomingList.size() != _instance._gamesList.size())
         {
             return true;
         }
@@ -91,7 +88,7 @@ public class ClientRoot extends Observable {
         int count = incomingList.size();
         for (int i = 0; i < count; i++ ) {
 
-            if(incomingList.get(i).getId() != _gamesList.get(i).getId()){
+            if(incomingList.get(i).getId() != _instance._gamesList.get(i).getId()){
                 return true;
             }
         }
@@ -100,7 +97,7 @@ public class ClientRoot extends Observable {
     }
 
     public void addToGameList(IGame game){
-        this._gamesList.add(game);
+        _instance._gamesList.add(game);
         setChanged();
         notifyObservers();
     }
