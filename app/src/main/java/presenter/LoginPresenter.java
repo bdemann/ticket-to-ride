@@ -31,9 +31,8 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 
         System.out.println("Login Presenter Update called\n");
 
-        if(_clientRoot.getClientPlayer() != null && _clientRoot.getClientGame() == null){
-            //Signing In
-            _getGamesList(_clientRoot.getClientPlayer().getUsername());
+        if(ClientRoot.getClientPlayer() != null && ClientRoot.getClientGame() == null){
+            _getGamesList(ClientRoot.getClientPlayer().getUsername());
             Intent intent = new Intent(_context, GameSelectionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(intent);

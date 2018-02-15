@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import model.ClientRoot;
+import poller.Poller;
 import presenter.LoginPresenter;
 import proxy.LoginClientProxy;
 import proxy.serverproxies.GameSelectionServerProxy;
@@ -32,6 +33,7 @@ public class LoginGuiFacade {
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         CommandResult result = lsp.signin(username,password);
+        Poller.start();
         return _processResults(username,password,result, true);
     }
 
@@ -71,7 +73,7 @@ public class LoginGuiFacade {
 
     private static void _updatePlayer(String username, String password){
         Player player = new Player(username, password);
-        _clientRoot.setClientPlayer(player);
+        ClientRoot.setClientPlayer(player);
     }
     public static String getGamesList(String username) {
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
@@ -81,11 +83,9 @@ public class LoginGuiFacade {
 
     private static String _processGetGamesListResult(CommandResult commandResults){
 
-
         if(commandResults == null){
             return "Server Down";
         }
-
         //send username and password to root
         if(commandResults.getCommandSuccess()){
             GameListResult gameListResult = (GameListResult) commandResults;

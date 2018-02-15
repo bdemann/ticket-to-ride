@@ -61,34 +61,45 @@ public class ClientRoot extends Observable {
         _instance.notifyObservers();
     }
 
-    public static void setListGames(List<IGame> list){
-        _instance._gamesList = list;
+    public void setListGames(List<IGame> list) {
+        if (_incomingListIsDifferent(list)) {
+            _instance._gamesList = list;
+            _instance.setChanged();
+            _instance.notifyObservers();
+        }
+    }
+
+
+
+    public static void addToGameList(IGame game){
+        _instance._gamesList.add(game);
         _instance.setChanged();
         _instance.notifyObservers();
     }
 
 
+
+
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
 
 
-        if(incomingList == null && _instance._gamesList != null){
+        if (incomingList == null && _instance._gamesList != null) {
             return true;
         }
-        if(incomingList != null && _instance._gamesList == null){
+        if (incomingList != null && _instance._gamesList == null) {
             return true;
         }
-        if(incomingList == null && _instance._gamesList == null){
+        if (incomingList == null) {
             return false;
         }
-        if(incomingList.size() != _instance._gamesList.size())
-        {
+        if (incomingList.size() != _instance._gamesList.size()) {
             return true;
         }
 
         int count = incomingList.size();
-        for (int i = 0; i < count; i++ ) {
+        for (int i = 0; i < count; i++) {
 
-            if(incomingList.get(i).getId() != _instance._gamesList.get(i).getId()){
+            if (incomingList.get(i).getId() != _instance._gamesList.get(i).getId()) {
                 return true;
             }
         }
@@ -96,9 +107,4 @@ public class ClientRoot extends Observable {
         return false;
     }
 
-    public void addToGameList(IGame game){
-        _instance._gamesList.add(game);
-        setChanged();
-        notifyObservers();
-    }
 }

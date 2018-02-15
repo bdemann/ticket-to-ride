@@ -63,6 +63,7 @@ public class ClientCommunicator {
                         "doPost failed: " + urlPath + " (http code " + connection.getResponseCode() + ")");
             }
         } catch (IOException e) {
+            System.out.println("Throwing exception");
             throw e;
         }
     }
