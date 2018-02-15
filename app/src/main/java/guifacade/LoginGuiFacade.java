@@ -13,6 +13,7 @@ import proxy.serverproxies.GameSelectionServerProxy;
 import proxy.serverproxies.LoginServerProxy;
 import shared.Command;
 import shared.commandResults.CommandResult;
+import shared.commandResults.GameListResult;
 import shared.model.IGame;
 import shared.model.Player;
 import view.LoginActivity;
@@ -75,18 +76,20 @@ public class LoginGuiFacade {
     public static String getGamesList(String username) {
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
         CommandResult result = proxy.getGamesList(username);
-        return null;
+        return _processGetGamesListResult(result);
     }
 
-    private String _processGetGamesListResult(CommandResult commandResults){
+    private static String _processGetGamesListResult(CommandResult commandResults){
+
 
         if(commandResults == null){
             return "Server Down";
         }
+
         //send username and password to root
         if(commandResults.getCommandSuccess()){
-            List<IGame> list = (List<IGame>)commandResults.getResult();
-            _clientRoot.setListGames(list);
+            GameListResult gameListResult = (GameListResult) commandResults;
+            _clientRoot.setListGames(gameListResult.getGameList());
         }
         else{
             //check for exception
