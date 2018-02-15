@@ -18,7 +18,7 @@ public class ClientRoot extends Observable {
 
     private IPlayer _clientPlayer;
     private IGame _clientGame;
-    private List<IGame> _listGames;
+    private List<IGame> _gamesList;
     private static ClientRoot _instance;
 
     public static ClientRoot instance() {
@@ -31,7 +31,7 @@ public class ClientRoot extends Observable {
     private ClientRoot(){
         this._clientPlayer = null;
         this._clientGame = null;
-        this._listGames = new ArrayList<>();
+        this._gamesList = new ArrayList<>();
     }
 
     //Getters and Setters
@@ -44,7 +44,7 @@ public class ClientRoot extends Observable {
     }
 
     public static List<IGame> getListGames() {
-        return _instance._listGames;
+        return _instance._gamesList;
     }
 
     public static void setClientPlayer(IPlayer player) {
@@ -61,15 +61,50 @@ public class ClientRoot extends Observable {
         _instance.notifyObservers();
     }
 
-    public static void setListGames(List<IGame> list){
-        _instance._listGames = list;
+    public void setListGames(List<IGame> list) {
+        if (_incomingListIsDifferent(list)) {
+            _instance._gamesList = list;
+            _instance.setChanged();
+            _instance.notifyObservers();
+        }
+    }
+
+
+
+    public static void addToGameList(IGame game){
+        _instance._gamesList.add(game);
         _instance.setChanged();
         _instance.notifyObservers();
     }
 
-    public static void addToGameList(IGame game){
-        _instance._listGames.add(game);
-        _instance.setChanged();
-        _instance.notifyObservers();
+
+
+
+    private boolean _incomingListIsDifferent(List<IGame> incomingList) {
+
+
+        if (incomingList == null && _instance._gamesList != null) {
+            return true;
+        }
+        if (incomingList != null && _instance._gamesList == null) {
+            return true;
+        }
+        if (incomingList == null) {
+            return false;
+        }
+        if (incomingList.size() != _instance._gamesList.size()) {
+            return true;
+        }
+
+        int count = incomingList.size();
+        for (int i = 0; i < count; i++) {
+
+            if (incomingList.get(i).getId() != _instance._gamesList.get(i).getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
+
 }

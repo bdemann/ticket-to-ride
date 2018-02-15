@@ -10,6 +10,7 @@ import shared.ICommand;
 import shared.commandResults.CommandResult;
 
 /**
+ *
  * Created by bdemann on 2/14/18.
  */
 
@@ -23,6 +24,7 @@ public class Poller {
         final Handler handler = new Handler();
         final int delay = 2000; //milliseconds
 
+        /*
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -38,5 +40,6 @@ public class Poller {
                 handler.postDelayed(this, delay);
             }
         }, delay);
+        */
     }
 }
