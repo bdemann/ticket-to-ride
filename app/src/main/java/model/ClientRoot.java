@@ -1,6 +1,7 @@
 package model;
 
 
+import shared.model.Game;
 import shared.model.IGame;
 import shared.model.IPlayer;
 
@@ -12,7 +13,6 @@ import java.util.Observable;
  * Created by BenNelson on 2/2/18.
  *
  */
-
 
 public class ClientRoot extends Observable {
 
@@ -69,15 +69,20 @@ public class ClientRoot extends Observable {
         }
     }
 
-
-
     public static void addToGameList(IGame game){
         _instance._gamesList.add(game);
         _instance.setChanged();
         _instance.notifyObservers();
     }
 
-
+    public static IGame getGame(int gameId){
+        for(IGame game : _instance._gamesList){
+            if(game.getId() == gameId){
+                return game;
+            }
+        }
+        return null;
+    }
 
 
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
