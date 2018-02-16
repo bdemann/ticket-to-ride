@@ -1,6 +1,7 @@
 package shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,9 +16,9 @@ public class Game implements IGame, Serializable {
     private int _numberPlayer;
     private String _gameName;
 
-    public Game(String gameName, List<IPlayer> players, int numberPlayer){
+    public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
-        this._maxNumberPlayer = numberPlayer;
+        this._maxNumberPlayer = maxNumberPlayer;
         this._numberPlayer = 1;
         this._gameName = gameName;
     }
@@ -150,7 +151,17 @@ public class Game implements IGame, Serializable {
 
     @Override
     public void removePlayer(IPlayer player) {
-        _players.remove(player);
+        boolean removed = false;
+        for(IPlayer listPlayer : new ArrayList<>(_players)){
+            if(listPlayer.getUsername().equals(player.getUsername())){
+                _players.remove(listPlayer);
+                removed = true;
+            }
+        }
+        if(removed) {
+            _numberPlayer--;
+        }
+
     }
 
     @Override
