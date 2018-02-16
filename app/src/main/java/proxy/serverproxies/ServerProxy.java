@@ -16,8 +16,8 @@ import tasks.CommandTask;
 public class ServerProxy implements IServerFacade {
     @Override
     public CommandResult getCommands(String username) {
-        Class<?>[] parmTypes = {};
-        Object[] parmValues = {};
+        Class<?>[] parmTypes = {String.class};
+        Object[] parmValues = {username};
         Command getCommandsCommand = new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues);
 
         CommandTask getCommandsTask = new CommandTask();
