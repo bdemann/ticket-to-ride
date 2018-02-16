@@ -30,6 +30,7 @@ public class LobbyClientProxy implements IGameLobbyClient {
         for(IPlayer user : game.getPlayers()){
             ClientCommands.addCommand(user.getUsername(), _createLeaveGameCommand(username));
         }
+        ServerRoot.getPlayer(username).setGameId(-1);
     }
 
     private ICommand _createLeaveGameCommand(String username) {
