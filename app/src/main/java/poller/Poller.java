@@ -8,6 +8,7 @@ import model.ClientRoot;
 import proxy.serverproxies.ServerProxy;
 import shared.ICommand;
 import shared.commandResults.CommandResult;
+import shared.logging.Logger;
 
 /**
  *
@@ -24,22 +25,23 @@ public class Poller {
         final Handler handler = new Handler();
         final int delay = 2000; //milliseconds
 
-        /*
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 CommandResult result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
-                List<ICommand> commandList = result.getClientCommands();
-                for(ICommand command: commandList) {
-                    try {
-                        command.execute();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+                Logger.log("We are polling");
+//                List<ICommand> commandList = result.getClientCommands();
+//                for(ICommand command: commandList) {
+//                    try {
+//                        command.execute();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 handler.postDelayed(this, delay);
             }
         }, delay);
-        */
+
     }
 }
