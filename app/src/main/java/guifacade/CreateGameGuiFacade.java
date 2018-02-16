@@ -27,10 +27,12 @@ public class CreateGameGuiFacade {
         System.out.println("createGame: " + createGameResult + "\n");
     }
 
-    public static String createGame(int numberPlayer, int color, String gameName) {
+
+    public static String createGame(int maxNumberPlayer, int color, String gameName) {
 
         GameSelectionServerProxy proxy = new GameSelectionServerProxy();
-        CommandResult createGameResult = proxy.createGame(_clientRoot.getClientPlayer(),numberPlayer,gameName);
+        _clientRoot.getClientPlayer().setColor(color);
+        CommandResult createGameResult = proxy.createGame(_clientRoot.getClientPlayer(),maxNumberPlayer,gameName);
         boolean isGameCreated = _processResults(createGameResult);
 
         if(isGameCreated){
@@ -80,12 +82,24 @@ public class CreateGameGuiFacade {
             }
             //game joined
             _setJoinedGame((Game) joinResults.getResult());
+
+            //
+            _setPlayersGameId((Game) joinResults.getResult());
+            //
+
         }
         else{
             return "Created game but failed to join it";
         }
         return gameCreatedMessage;
     }
+
+
+    //
+    private static void _setPlayersGameId(Game game){
+        _clientRoot.getClientPlayer().setGameId(game.getId());
+    }
+    //
 
 
     private static void _addGame(Game game){

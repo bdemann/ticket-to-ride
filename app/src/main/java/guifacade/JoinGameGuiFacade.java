@@ -28,10 +28,22 @@ public class JoinGameGuiFacade {
 
         if(commandResult.getCommandSuccess()){
             _addGame((Game) commandResult.getResult());
+            _addPlayer((Game) commandResult.getResult(), player);
+            _setPlayersGameId((Game) commandResult.getResult());
         }
 
         return commandResult.getUserMessage();
     }
+
+
+    private static void _addPlayer(Game game, IPlayer player){
+        _clientRoot.getGame(game.getId()).addPlayer(player);
+    }
+
+    private static void _setPlayersGameId(Game game){
+        _clientRoot.getClientPlayer().setGameId(game.getId());
+    }
+
 
     private static void _addGame(Game game){
         _clientRoot.setClientGame(game);

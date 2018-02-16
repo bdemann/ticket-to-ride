@@ -1,8 +1,11 @@
 package guifacade;
 
+import java.util.concurrent.ConcurrentLinkedDeque;
+
 import model.ClientRoot;
 import proxy.serverproxies.LobbyServerProxy;
 import shared.commandResults.CommandResult;
+import shared.model.IPlayer;
 
 /**
  *
@@ -29,6 +32,8 @@ public class LobbyGuiFacade {
 
         if(results.getCommandSuccess()){
 
+            IPlayer player = ClientRoot.instance().getClientPlayer();
+            ClientRoot.instance().getGame(player.getGameId()).removePlayer(player);
 
             //take the game from the root.
             ClientRoot.instance().setClientGame(null);
