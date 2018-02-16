@@ -25,7 +25,7 @@ import shared.model.IPlayer;
 
 public class GameSelectionServerFacade implements IGameSelectionServerFacade {
     @Override
-    public CommandResult createGame(IPlayer creator, int numberPlayer, String gameName) {
+    public CommandResult createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINE);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 
@@ -41,23 +41,18 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         playerList.add(player);
 
         //Add game to server
-        IGame game = new Game(gameName, playerList, numberPlayer);
+        IGame game = new Game(gameName, playerList, maxNumberPlayer);
         ServerRoot.addGame(game);
 
-        player.setGameId(game.getId());
 
         CreateGameCommandResult createGameCommandResult = new CreateGameCommandResult(true, ClientCommands.getCommandList(creator.getUsername()));
         //TODO probably not so important right now but I think that we could make the game part of the contructor for the CreateGameCommandResults class. Otherwise there is no point having it if we aren't going to take advantage of some of the things.
         //TODO we could also rename our command results. This would do two things. 1) it would make them shorter and perhaps a little easier to read. Secondly if you think about it its not really a command result at all. The server facade doesn't know that we are using the command pattern. Its just returning results and that is all it knows.
         createGameCommandResult.setResult(game);
 
-        //System.out.println("GAME: " + ((Game) createGameCommandResult.getResult()).getId());
-
         ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
-
-        System.out.println("NUMBER OF PLAYERS!!! " + game.getPlayers().size());
 
         return createGameCommandResult;
         //TODO I think I have a different idea of what we need to be passing into these results... Lets talk about it. What is the message? Why don't we pass in this list of commands?
@@ -81,6 +76,7 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
 
         //check color
         _assignColor(currentGame.getId(), joiner);
+        //add the player if not already in
         _updatePlayerList(currentGame, joiner);
 
 
@@ -117,6 +113,11 @@ public class GameSelectionServerFacade implements IGameSelectionServerFacade {
         }
         if(!playerExists){
             ServerRoot.getGame(currentGame.getId()).addPlayer(joiner);
+            ServerRoot.getPlayer(joiner.getUsername()).setGameId(currentGame.getId());
+        }
+        else{
+            ServerRoot.getGame(currentGame.getId()).getPlayer(joiner.getUsername()).setGameId(currentGame.getId());
+            ServerRoot.getPlayer(joiner.getUsername()).setGameId(currentGame.getId());
         }
     }
 
