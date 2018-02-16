@@ -17,7 +17,6 @@ public class CommandTask extends AsyncTask<Command,Void,CommandResult>{
 
     @Override
     protected CommandResult doInBackground(Command... commands) {
-
         return ClientCommunicator.sendCommand(commands[0]);
     }
 }

@@ -1,9 +1,12 @@
 package proxy.serverproxies;
 
+import java.util.concurrent.ExecutionException;
+
 import proxy.ClientCommunicator;
 import shared.Command;
 import shared.commandResults.CommandResult;
 import shared.facades.IServerFacade;
+import tasks.CommandTask;
 
 /**
  *
@@ -15,6 +18,18 @@ public class ServerProxy implements IServerFacade {
     public CommandResult getCommands(String username) {
         Class<?>[] parmTypes = {};
         Object[] parmValues = {};
-        return ClientCommunicator.sendCommand(new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues));
+        Command getCommandsCommand = new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues);
+
+        CommandTask getCommandsTask = new CommandTask();
+        getCommandsTask.execute(getCommandsCommand);
+
+        CommandResult results = null;
+        try {
+            results = getCommandsTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 }
