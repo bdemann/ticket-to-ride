@@ -31,14 +31,14 @@ public class Poller {
             public void run() {
                 CommandResult result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
                 Logger.log("We are polling");
-//                List<ICommand> commandList = result.getClientCommands();
-//                for(ICommand command: commandList) {
-//                    try {
-//                        command.execute();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                List<ICommand> commandList = result.getClientCommands();
+                for(ICommand command: commandList) {
+                    try {
+                        command.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 handler.postDelayed(this, delay);
             }
         }, delay);
