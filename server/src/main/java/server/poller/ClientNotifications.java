@@ -2,6 +2,10 @@ package server.poller;
 
 import server.model.ServerRoot;
 import server.proxies.GameMenuClientProxy;
+import server.proxies.LobbyClientFacadeProxy;
+import shared.model.Chat;
+import shared.model.Game;
+import shared.model.IGame;
 
 /**
  * Created by bdemann on 2/12/18.
@@ -17,5 +21,17 @@ public class ClientNotifications {
 
     public static void gameCreated(int gameId, String username) {
         new GameMenuClientProxy().createGame(ServerRoot.getGame(gameId));
+    }
+
+    public static void playerLeftGame(String username) {
+        new LobbyClientFacadeProxy().leaveGame(username);
+    }
+
+    public static void gameStarted(Game game) {
+        //TODO make it so that the players in this game are informed that it started
+    }
+
+    public static void messageSent(Chat message, IGame currentGame) {
+        //TODO make sure that all players in the current game get the message
     }
 }

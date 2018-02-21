@@ -45,13 +45,10 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
         CreateGameResult createGameCommandResult = new CreateGameResult(game, true, ClientCommands.getCommandList(creator.getUsername()));
 
         ClientNotifications.gameCreated(game.getId(), player.getUsername());
-        //TODO make sure that all Facades update the clients
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
 
         return createGameCommandResult;
-        //TODO I think I have a different idea of what we need to be passing into these results... Lets talk about it. What is the message? Why don't we pass in this list of commands?
-        // return new CreateGameResult(true, ServerRoot.getCommandList(creator.getUsername()));
     }
 
     @Override

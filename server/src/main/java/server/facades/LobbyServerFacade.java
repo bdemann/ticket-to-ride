@@ -2,6 +2,7 @@ package server.facades;
 
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
+import server.poller.ClientNotifications;
 import server.proxies.LobbyClientFacadeProxy;
 import shared.results.ChatResult;
 import shared.results.Result;
@@ -21,12 +22,14 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     public Result sendChat(Chat message) {
         IGame currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
         ServerRoot.addChat(currentGame, message);
+        ClientNotifications.messageSent(message, currentGame);
         return new ChatResult(message, true, ClientCommands.getCommandList(message.getSpeaker().getUsername()), "Chat sent");
     }
 
     @Override
     public Result startGame(Game game, String username) {
         //TODO What exactly should happen when we start a game?
+        ClientNotifications.gameStarted(game);
         return new Result(true, ClientCommands.getCommandList(username), "Game Started");
     }
 
@@ -38,7 +41,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
 
         ServerRoot.getGame(player.getGameId()).removePlayer(player);
         //Inform the client of the change
-        new LobbyClientFacadeProxy().leaveGame(username);
+        ClientNotifications.playerLeftGame(username);
 
         return new Result(true, ClientCommands.getCommandList(username), "you done left the game");
     }
