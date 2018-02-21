@@ -30,24 +30,28 @@ public class GameSelectionClientProxy implements IGameSelectionClient {
 
     @Override
     public void updateGameList(String username) {
-        Command command = new Command("app.facade.GameLobbyClientFacade", "updateGameList");
+        Class<?>[] parmTypes = {String.class};
+        Object[] parm = {username};
+        Command command = new Command("facade.GameSelectionClientFacade", "updateGameList", parmTypes, parm);
         ClientCommands.addCommand(username, command);
     }
 
     @Override
     public void updatePlayerList(String username) {
-        Command command = new Command("app.facade.GameLobbyClientFacade", "updatePlayerList");
+        Class<?>[] parmTypes = {String.class};
+        Object[] parm = {username};
+        Command command = new Command("facade.GameLobbyClientFacade", "updatePlayerList", parmTypes, parm);
     }
 
     private static ICommand _createJoinCommand(IPlayer player, IGame game){
         Class<?>[] parmTypes = {IPlayer.class,IGame.class};
         Object[] parm = {player,game};
-        return new Command("app.facade.GameSelectionClientFacade", "joinGame", parmTypes, parm);
+        return new Command("facade.GameSelectionClientFacade", "joinGame", parmTypes, parm);
     }
 
     private static ICommand _createGameCommand(IGame game){
         Class<?>[] parmTypes = {IGame.class};
         IGame[] parm = {game};
-        return new Command("app.facade.GameSelectionClientFacade", "createGame", parmTypes, parm);
+        return new Command("facade.GameSelectionClientFacade", "createGame", parmTypes, parm);
     }
 }
