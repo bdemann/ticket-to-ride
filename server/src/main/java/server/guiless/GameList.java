@@ -1,6 +1,6 @@
 package server.guiless;
 
-import server.facades.GameSelectionServerFacade;
+import server.facades.GameMenuServerFacade;
 import server.facades.LoginServerFacade;
 import shared.model.Player;
 
@@ -10,7 +10,7 @@ import shared.model.Player;
 
 public class GameList {
     public static void main(String[] args) {
-        GameSelectionServerFacade gssf = new GameSelectionServerFacade();
+        GameMenuServerFacade gssf = new GameMenuServerFacade();
         new LoginServerFacade().register("bdemann", "a");
         gssf.createGame(new Player("bdemann", "a"),5, "hello Wold");
         System.out.println(gssf.getGamesList("bdemann"));

@@ -1,14 +1,11 @@
 package presenter;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import guifacade.JoinGameGuiFacade;
+import facade.guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
-import proxy.serverproxies.GameSelectionServerProxy;
-import shared.model.Game;
 import shared.model.IGame;
 import view.GameSelectionActivity;
 

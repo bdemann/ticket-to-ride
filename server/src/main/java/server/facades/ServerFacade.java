@@ -1,7 +1,7 @@
 package server.facades;
 
-import server.proxies.ClientCommands;
-import shared.commandResults.CommandResult;
+import server.poller.ClientCommands;
+import shared.results.Result;
 import shared.facades.IServerFacade;
 import shared.logging.Logger;
 
@@ -11,8 +11,8 @@ import shared.logging.Logger;
 
 public class ServerFacade implements IServerFacade {
     @Override
-    public CommandResult getCommands(String username) {
-        CommandResult result = new CommandResult(true, ClientCommands.getCommandList(username));
+    public Result getCommands(String username) {
+        Result result = new Result(true, ClientCommands.getCommandList(username), "Got Command List");
         Logger.log("Here is the get commands result");
         Logger.log(result);
         return result;

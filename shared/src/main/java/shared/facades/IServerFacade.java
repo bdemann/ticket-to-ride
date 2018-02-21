@@ -1,11 +1,11 @@
 package shared.facades;
 
-import shared.commandResults.CommandResult;
+import shared.results.Result;
 
 /**
  * Created by bdemann on 2/10/18.
  */
 
 public interface IServerFacade {
-    public CommandResult getCommands(String username);
+    public Result getCommands(String username);
 }

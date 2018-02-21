@@ -1,13 +1,13 @@
 package facade;
 
-import shared.client.ILoginClient;
+import shared.client.ILoginClientFacade;
 
 /**
  *
  * Created by BenNelson on 2/3/18.
  */
 
-public class LoginClientFacade implements ILoginClient {
+public class LoginClientFacade implements ILoginClientFacade {
 
     @Override
     public void signIn() {

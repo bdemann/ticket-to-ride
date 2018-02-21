@@ -1,20 +1,15 @@
 package presenter;
 
-import android.content.Context;
 import android.content.Intent;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import guifacade.CreateGameGuiFacade;
-import guifacade.JoinGameGuiFacade;
+import facade.guifacade.CreateGameGuiFacade;
 import model.ClientRoot;
-import shared.model.Game;
 import shared.model.IGame;
 import view.CreateGameActivity;
 import view.GameLobbyActivity;
-import view.IGameSelection;
 
 /**
  *

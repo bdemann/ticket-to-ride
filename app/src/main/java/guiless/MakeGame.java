@@ -1,8 +1,12 @@
 package guiless;
 
-import proxy.serverproxies.GameSelectionServerProxy;
-import proxy.serverproxies.LoginServerProxy;
-import shared.commandResults.CommandResult;
+import proxies.GameMenuServerProxy;
+import proxies.LoginServerProxy;
+import proxies.syncProxy.GameMenuServerProxySync;
+import proxies.syncProxy.LoginServerProxySync;
+import shared.facades.IGameMenuServerFacade;
+import shared.facades.ILoginServerFacade;
+import shared.results.Result;
 import shared.model.Player;
 
 /**
@@ -12,10 +16,10 @@ import shared.model.Player;
 public class MakeGame {
     public static void main(String[] args) {
         System.out.println("We can run this to quickly make sure the client complies");
-        LoginServerProxy lsp = new LoginServerProxy();
-        lsp.register("bdemann", "password");
-        GameSelectionServerProxy gssp = new GameSelectionServerProxy();
-        CommandResult result = gssp.createGame(new Player("bdemann", "password"), 3, "The Game");
+        ILoginServerFacade loginServerFacade = new LoginServerProxySync();
+        System.out.println(loginServerFacade.register("bdemann", "password"));
+        IGameMenuServerFacade menuServerFacade = new GameMenuServerProxySync();
+        Result result = menuServerFacade.createGame(new Player("bdemann", "password"), 3, "The Game");
         System.out.println(result.toString());
     }
 }

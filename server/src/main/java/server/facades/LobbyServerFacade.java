@@ -1,18 +1,16 @@
 package server.facades;
 
 import server.model.ServerRoot;
-import server.proxies.ClientCommands;
-import server.proxies.LobbyClientProxy;
-import shared.client.IGameLobbyClient;
-import shared.commandResults.ChatCommandResult;
-import shared.commandResults.CommandResult;
+import server.poller.ClientCommands;
+import server.proxies.LobbyClientFacadeProxy;
+import shared.results.ChatResult;
+import shared.results.Result;
 import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.Game;
 import shared.facades.ILobbyServerFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
-import shared.model.Player;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -20,28 +18,28 @@ import shared.model.Player;
 
 public class LobbyServerFacade implements ILobbyServerFacade {
     @Override
-    public CommandResult sendChat(Chat message) {
+    public Result sendChat(Chat message) {
         IGame currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
         ServerRoot.addChat(currentGame, message);
-        return new ChatCommandResult(true, ClientCommands.getCommandList(message.getSpeaker().getUsername()));
+        return new ChatResult(message, true, ClientCommands.getCommandList(message.getSpeaker().getUsername()), "Chat sent");
     }
 
     @Override
-    public CommandResult startGame(Game game, String username) {
+    public Result startGame(Game game, String username) {
         //TODO What exactly should happen when we start a game?
-        return new CommandResult(true, ClientCommands.getCommandList(username));
+        return new Result(true, ClientCommands.getCommandList(username), "Game Started");
     }
 
     @Override
-    public CommandResult leaveGame(String username) {
+    public Result leaveGame(String username) {
         //Find the game with this user.
         IPlayer player = ServerRoot.getPlayer(username);
         Logger.log("PLAYER GAMEID: " + player.getGameId());
 
         ServerRoot.getGame(player.getGameId()).removePlayer(player);
         //Inform the client of the change
-        new LobbyClientProxy().leaveGame(username);
+        new LobbyClientFacadeProxy().leaveGame(username);
 
-        return new CommandResult(true, ClientCommands.getCommandList(username), "you done left the game");
+        return new Result(true, ClientCommands.getCommandList(username), "you done left the game");
     }
 }

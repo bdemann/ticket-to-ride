@@ -6,7 +6,7 @@ import android.content.Intent;
 import java.util.Observable;
 import java.util.Observer;
 
-import guifacade.LoginGuiFacade;
+import facade.guifacade.LoginGuiFacade;
 import model.ClientRoot;
 import view.GameSelectionActivity;
 

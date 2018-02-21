@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import guifacade.LobbyGuiFacade;
+import facade.guifacade.LobbyGuiFacade;
 import model.ClientRoot;
 import shared.model.IGame;
 import shared.model.IPlayer;

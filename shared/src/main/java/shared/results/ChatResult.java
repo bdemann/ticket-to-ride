@@ -1,0 +1,32 @@
+package shared.results;
+
+import java.util.List;
+
+import shared.command.ICommand;
+import shared.model.Chat;
+
+/**
+ * Created by Ben on 2/6/2018.
+ */
+
+public class ChatResult extends Result {
+    private Chat _message;
+
+    public ChatResult(Chat sentMessage, boolean success, List<ICommand> clientCommands, String userMessage) {
+        super(success, clientCommands, userMessage);
+        this._message = sentMessage;
+    }
+
+    public Chat getMessage(){
+        return _message;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Chat Result - ");
+        sb.append("Success: " + _success);
+        sb.append(" | ");
+        sb.append("Message Sent: " + _message);
+        return sb.toString();
+    }
+}

@@ -1,7 +1,6 @@
 package shared.model;
 
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,52 +11,58 @@ import java.util.ArrayList;
  */
 public class Player implements IPlayer, Serializable {
 
-    private String username;
-    private String password;
-    private int color;
-    private int gameId = -1;
+    private String _username;
+    private String _password;
+    private int _color;
+    private int _gameId = -1;
 
     public Player(String username, String password, int color)
     {
-        this.username = username;
-        this.password = password;
-        this.color = color;
+        this._username = username;
+        this._password = password;
+        this._color = color;
     }
 
     public Player(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.color = 0;
+        this._username = username;
+        this._password = password;
+        this._color = 0;
+    }
+
+    public Player(String username) {
+        this._username = username;
+        this._password = "";
+        this._color = 0;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Player: ").append(this.username).append(". Color: ").append(this.color);
+        sb.append("Player: ").append(this._username).append(". Color: ").append(this._color);
         return sb.toString();
     }
 
     @Override
     public void setUsername(String username) {
-        this.username = username;
+        this._username = username;
     }
 
     @Override
     public void setPassword(String password) {
-        this.password = password;
+        this._password = password;
     }
 
     public void setGameId(int id){
-        this.gameId = id;
+        this._gameId = id;
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this._username;
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this._password;
     }
 
     @Override
@@ -97,7 +102,7 @@ public class Player implements IPlayer, Serializable {
 
     @Override
     public void setColor(int color) {
-        this.color = color;
+        this._color = color;
 
     }
 
@@ -123,7 +128,7 @@ public class Player implements IPlayer, Serializable {
 
     @Override
     public int getColor() {
-        return this.color;
+        return this._color;
     }
 
     @Override
@@ -147,6 +152,6 @@ public class Player implements IPlayer, Serializable {
     }
 
     public int getGameId(){
-        return gameId;
+        return _gameId;
     }
 }

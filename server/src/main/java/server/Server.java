@@ -1,5 +1,8 @@
 package server;
 
+import server.comm.ServerCommunicator;
+import server.facades.LoginServerFacade;
+import shared.facades.ILoginServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
 
@@ -17,6 +20,14 @@ public class Server {
             serverPortNumber = Integer.parseInt(args[0]);
         }
         new ServerCommunicator(serverPortNumber).run();
+        ILoginServerFacade loginServerFacade = new LoginServerFacade();
+        loginServerFacade.register("z", "z");
+        loginServerFacade.register("x", "x");
+        loginServerFacade.register("c", "c");
+        loginServerFacade.register("v", "v");
+        loginServerFacade.register("b", "b");
+        loginServerFacade.register("n", "n");
+        loginServerFacade.register("m", "m");
         Logger.log("Server Started on localhost:" + serverPortNumber + "/", Level.FINE);
     }
 }

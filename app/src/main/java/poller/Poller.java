@@ -5,9 +5,9 @@ import android.os.Handler;
 import java.util.List;
 
 import model.ClientRoot;
-import proxy.serverproxies.ServerProxy;
-import shared.ICommand;
-import shared.commandResults.CommandResult;
+import proxies.ServerProxy;
+import shared.command.ICommand;
+import shared.results.Result;
 import shared.logging.Logger;
 
 /**
@@ -29,16 +29,16 @@ public class Poller {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                CommandResult result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
+                Result result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
                 Logger.log("We are polling");
-//                List<ICommand> commandList = result.getClientCommands();
-//                for(ICommand command: commandList) {
-//                    try {
-//                        command.execute();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                List<ICommand> commandList = result.getClientCommands();
+                for(ICommand command: commandList) {
+                    try {
+                        command.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 handler.postDelayed(this, delay);
             }
         }, delay);
