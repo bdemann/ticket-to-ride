@@ -42,11 +42,15 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
         IGame game = new Game(gameName, playerList, maxNumberPlayer);
         ServerRoot.addGame(game);
 
+        Logger.log("Game: " + game);
+
         CreateGameResult createGameCommandResult = new CreateGameResult(game, true, ClientCommands.getCommandList(creator.getUsername()));
 
         ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
+
+        Logger.log("CommandResult: " + createGameCommandResult.getGame());
 
         return createGameCommandResult;
     }
