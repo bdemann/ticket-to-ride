@@ -3,6 +3,7 @@ package shared.results;
 import java.util.List;
 
 import shared.command.ICommand;
+import shared.logging.Logger;
 import shared.model.IGame;
 
 /**
@@ -14,11 +15,13 @@ public class CreateGameResult extends Result {
     private IGame _newGame;
 
     public CreateGameResult(IGame game, boolean success, List<ICommand> clientCommands) {
-        super(success, clientCommands, "createGameSuccessfull");
+        this(game, success, clientCommands, "createGameSuccessfull");
     }
 
     public CreateGameResult(IGame game, boolean success, List<ICommand> clientCommands, String userMessage){
         super(success, clientCommands, userMessage);
+        this._newGame = game;
+        Logger.log("CreateGameResult constructor game: " + _newGame);
     }
 
     public IGame getGame() {
