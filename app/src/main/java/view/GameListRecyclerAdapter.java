@@ -90,8 +90,8 @@ class GameListRecyclerAdapter extends RecyclerView.Adapter<GameListRecyclerAdapt
         TextView ID = holder.GameID;
         ID.setText(Integer.toString(_gameIDList.get(position)));
 
-        TextView NumPlalyers = holder.GameID;
-        NumPlalyers.setText(_gameNumPlayersList.get(position));
+        TextView NumPlayers = holder.NumberPlayers;
+        NumPlayers.setText(_gameNumPlayersList.get(position));
 
     }
 
