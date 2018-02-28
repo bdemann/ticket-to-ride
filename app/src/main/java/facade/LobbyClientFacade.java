@@ -2,6 +2,7 @@ package facade;
 
 import model.ClientRoot;
 import shared.client.IGameLobbyClientFacade;
+import shared.model.IGame;
 import shared.model.IPlayer;
 
 /**
@@ -16,8 +17,9 @@ public class LobbyClientFacade implements IGameLobbyClientFacade {
     }
 
     @Override
-    public void startGame() {
-
+    public void startGame(IGame game) {
+        //Set the initialized game.
+        ClientRoot.setClientGame(game);
     }
 
     @Override

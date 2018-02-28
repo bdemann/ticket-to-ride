@@ -15,6 +15,7 @@ public class Game implements IGame, Serializable {
     private int _maxNumberPlayer;
     private int _numberPlayer;
     private String _gameName;
+    private boolean _gameIsStarted = false;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
@@ -172,5 +173,15 @@ public class Game implements IGame, Serializable {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean isGameStarted() {
+        return _gameIsStarted;
+    }
+
+    @Override
+    public void startGame() {
+        _gameIsStarted = true;
     }
 }

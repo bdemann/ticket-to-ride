@@ -28,7 +28,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
 
     @Override
     public Result startGame(Game game, String username) {
-        //TODO What exactly should happen when we start a game?
+        //TODO What exactly should happen when we start a game? - I think initialize the game and let all know
         ClientNotifications.gameStarted(game);
         return new Result(true, ClientCommands.getCommandList(username), "Game Started");
     }

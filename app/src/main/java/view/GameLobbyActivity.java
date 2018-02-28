@@ -63,8 +63,10 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
             @Override
             public void onClick(View view) {
                 if (_gameLobbyPresenter.checkNumPlayers()) {
-                    Intent intent = new Intent(view.getContext(), GameActivity.class);
-                    startActivity(intent);
+                    //Alert others that the game will begin.
+                    _gameLobbyPresenter.startGame();
+
+                   startGame();
                 }
                 else{
                     Toast toast = Toast.makeText(view.getContext(), "Not enough players!", Toast.LENGTH_LONG);
@@ -100,4 +102,9 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         toast.show();
     }
 
+    @Override
+    public void startGame() {
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
 }

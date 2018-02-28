@@ -27,8 +27,8 @@ public class ClientNotifications {
         new LobbyClientFacadeProxy().leaveGame(username);
     }
 
-    public static void gameStarted(Game game) {
-        //TODO make it so that the players in this game are informed that it started
+    public static void gameStarted(IGame game) {
+        new LobbyClientFacadeProxy().startGame(game);
     }
 
     public static void messageSent(Chat message, IGame currentGame) {

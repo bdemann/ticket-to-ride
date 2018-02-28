@@ -27,11 +27,26 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
     @Override
     public Result startGame(Game game, String username) {
-        //TODO this needs to be an async task
+
         Logger.log("We are starting the game.");
         Class<?>[] parmTypes = {Game.class};
         Object[] parmValues = {game};
-        return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
+        Command startGameCommand = new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues);
+
+        Logger.log("This is the startGame command: " + startGameCommand);
+
+        CommandTask startGameTask = new CommandTask();
+        startGameTask.execute(startGameCommand);
+
+        Result results = null;
+        try {
+            results = startGameTask.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 
     @Override
