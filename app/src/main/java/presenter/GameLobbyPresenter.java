@@ -30,6 +30,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         if(_clientRoot.getClientGame() == null){
             _activity.finish();
         }
+        else if(_clientRoot.getClientGame() != null && _clientRoot.getClientGame().isGameStarted()){
+
+            //We need to start the game.
+
+        }
         //Get the list of players
         else{
             listPlayers();
@@ -39,6 +44,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public String leaveGame() {
         return LobbyGuiFacade.leaveGame(_clientRoot.getClientPlayer().getUsername());
+    }
+
+    @Override
+    public void startGame() {
+        LobbyGuiFacade.startGame(_clientRoot.getClientGame(),_clientRoot.getClientPlayer().getUsername());
     }
 
     @Override

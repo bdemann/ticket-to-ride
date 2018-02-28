@@ -1,5 +1,7 @@
 package shared.client;
 
+import shared.model.IGame;
+
 /**
  * This is an interface that will be shared by the CLIENT PROXY CLASSES on the server, and the
  * CLIENT FACADE CLASSES on the client.
@@ -10,6 +12,6 @@ package shared.client;
 public interface IGameLobbyClientFacade {
 
     void sendChat();
-    void startGame();
+    void startGame(IGame game);
     void leaveGame(String username);
 }

@@ -63,6 +63,9 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
             @Override
             public void onClick(View view) {
                 if (_gameLobbyPresenter.checkNumPlayers()) {
+                    //Alert others that the game will begin.
+                    _gameLobbyPresenter.startGame();
+
                     Intent intent = new Intent(view.getContext(), GameActivity.class);
                     startActivity(intent);
                 }

@@ -19,8 +19,13 @@ public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
     }
 
     @Override
-    public void startGame() {
+    public void startGame(IGame game) {
 
+        for(IPlayer user : game.getPlayers()) {
+            ClientCommands.addCommand(user.getUsername(), _createStartGameCommand(user.getUsername()));
+        }
+        game.startGame();
+        //TODO we need to initialize the game here I think. Or make an initialize game command?
     }
 
     @Override
@@ -37,5 +42,11 @@ public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
         Class<?>[] parmTypes = {String.class};
         Object[] parms = {username};
         return new Command("app.client.facades.LobbyClientFacade", "leaveGame", parmTypes, parms);
+    }
+
+    private ICommand _createStartGameCommand(String username) {
+        Class<?>[] parmTypes = {String.class};
+        Object[] parms = {username};
+        return new Command("app.client.facades.LobbyClientFacade", "startGame", parmTypes, parms);
     }
 }

@@ -34,4 +34,7 @@ public interface IGame {
     String getGameName();
     void removePlayer(IPlayer player);
     IPlayer getPlayer(String username);
+    boolean isGameStarted();
+    void startGame();
+
 }

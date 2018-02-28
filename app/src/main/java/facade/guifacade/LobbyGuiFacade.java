@@ -2,6 +2,8 @@ package facade.guifacade;
 
 import model.ClientRoot;
 import proxies.LobbyServerProxy;
+import shared.model.Game;
+import shared.model.IGame;
 import shared.results.Result;
 import shared.model.IPlayer;
 
@@ -20,6 +22,12 @@ public class LobbyGuiFacade {
         LobbyServerProxy proxy = new LobbyServerProxy();
         Result results = proxy.leaveGame(username);
         return _processResults(results);
+    }
+
+    public static void startGame(IGame game, String username){
+        LobbyServerProxy proxy = new LobbyServerProxy();
+        Result results = proxy.startGame((Game) game, username);
+
     }
 
     private static String _processResults(Result results) {
