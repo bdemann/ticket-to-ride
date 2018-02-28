@@ -66,12 +66,12 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
-    public void addDestCard(DestinationCard card) {
+    public void addDestCard(DestCard card) {
 
     }
 
     @Override
-    public void discardDestCard(DestinationCard card) {
+    public void discardDestCard(DestCard card) {
 
     }
 
