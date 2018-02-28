@@ -33,6 +33,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         else if(_clientRoot.getClientGame() != null && _clientRoot.getClientGame().isGameStarted()){
 
             //We need to start the game.
+            _activity.startGame();
+
 
         }
         //Get the list of players
