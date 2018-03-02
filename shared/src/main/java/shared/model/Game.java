@@ -43,7 +43,7 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public void setDestCardDeck(List<DestinationCard> destCardDeck) {
+    public void setDestCardDeck(List<DestCard> destCardDeck) {
 
     }
 
@@ -93,7 +93,7 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public List<DestinationCard> getDestCardDeck() {
+    public List<DestCard> getDestCardDeck() {
         return null;
     }
 

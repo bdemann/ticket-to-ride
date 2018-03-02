@@ -1,7 +1,6 @@
 package shared.model;
 
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -40,14 +39,14 @@ public interface IPlayer {
      * @param card
      * return nothing.
      */
-    void addDestCard(DestinationCard card);
+    void addDestCard(DestCard card);
 
     /**
      * Discards a destination card
      * @param card
      * return nothing
      */
-    void discardDestCard(DestinationCard card);
+    void discardDestCard(DestCard card);
 
     /**
      * This method adds a train card to the player's current traincard hand.
