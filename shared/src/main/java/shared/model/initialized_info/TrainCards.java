@@ -28,6 +28,10 @@ public class TrainCards {
 
     private List<TrainCard> _trainCards;
 
+    public List<TrainCard> get_trainCards(){
+        return _trainCards;
+    }
+
 
     private void set_trainCards(){
         TrainCard _1 = new TrainCard("rainbow", 2);
