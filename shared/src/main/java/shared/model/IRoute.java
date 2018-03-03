@@ -11,15 +11,15 @@ public interface IRoute {
 
     void setLength(int length);
 
-    void setStart(String start);
+    void setStart(City start);
 
-    void setEnd(String end);
+    void setEnd(City end);
 
     List<Edge> getEdges();
 
     int getLength();
 
-    String getStart();
+    City getStart();
 
-    String getEnd();
+    City getEnd();
 }

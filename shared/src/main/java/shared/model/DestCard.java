@@ -1,6 +1,6 @@
 package shared.model;
 
-import shared.cards.DestinationCards;
+import shared.model.initialized_info.DestinationCards;
 
 /**
  * Created by BenNelson on 2/2/18.

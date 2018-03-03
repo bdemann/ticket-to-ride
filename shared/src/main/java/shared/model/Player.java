@@ -3,6 +3,7 @@ package shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class implements the player class for ticket to ride.
@@ -15,6 +16,9 @@ public class Player implements IPlayer, Serializable {
     private String _password;
     private int _color;
     private int _gameId = -1;
+    private int points = 0;
+    private List<Edge> playersEdges;
+    private List<Route> playersRoutes;
 
     public Player(String username, String password, int color)
     {

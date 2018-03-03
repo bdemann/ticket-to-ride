@@ -1,8 +1,5 @@
 package shared.model;
 
-import java.util.List;
-import java.util.concurrent.BlockingDeque;
-
 /**
  * Created by paulinecausse on 2/28/18.
  */
@@ -10,21 +7,21 @@ import java.util.concurrent.BlockingDeque;
 public interface IEdge {
     void setLength(int length);
 
-    void setStart(String start);
+    void setStart(City start);
 
-    void setEnd(String end);
+    void setEnd(City end);
 
-    void setBlocks(List<Block> blocks);
+//    void setBlocks(List<Block> blocks);
 
     void setColor(String color);
 
     int getLength();
 
-    String getStart();
+    City getStart();
 
-    String getEnd();
+    City getEnd();
 
-    List<Block> getBlocks();
+//    List<Block> getBlocks();
 
     String getColor();
 }

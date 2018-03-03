@@ -1,9 +1,7 @@
-package shared.cards;
+package shared.model.initialized_info;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.soap.Detail;
 
 import shared.model.DestCard;
 

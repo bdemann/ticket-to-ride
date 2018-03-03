@@ -8,8 +8,8 @@ import java.util.List;
 public class Route implements IRoute{
     private List<Edge> _edges;
     private int _length;
-    private String _start;
-    private String end;
+    private City _start;
+    private City end;
 
     public Route(){}
 
@@ -20,10 +20,10 @@ public class Route implements IRoute{
     public void setLength(int length){ this._length = length; }
 
     @Override
-    public void setStart(String start){this._start = start; }
+    public void setStart(City start){this._start = start; }
 
     @Override
-    public void setEnd(String end){this.end = end; }
+    public void setEnd(City end){this.end = end; }
 
     @Override
     public List<Edge> getEdges(){ return _edges; }
@@ -32,8 +32,8 @@ public class Route implements IRoute{
     public int getLength(){ return _length; }
 
     @Override
-    public String getStart(){ return _start; }
+    public City getStart(){ return _start; }
 
     @Override
-    public String getEnd(){ return end; }
+    public City getEnd(){ return end; }
 }
