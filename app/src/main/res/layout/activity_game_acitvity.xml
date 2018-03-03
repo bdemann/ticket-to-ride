@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mapBackground"
     android:orientation="vertical"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context="view.GameActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/ticket_to_ride_map" />
+        android:id="@+id/map_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@mipmap/ticket_to_ride_map_scaled" />
 
     <Button
         android:id="@+id/draw_trains"
@@ -55,5 +55,23 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:text="Chats/Stats" />
+
+    <Button
+        android:id="@+id/miami"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/map_image"
+        android:layout_alignEnd="@+id/map_image"
+        android:layout_marginBottom="34dp"
+        android:layout_marginEnd="175dp" />
+
+    <Button
+        android:id="@+id/portland"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="81dp" />
 
 </RelativeLayout>
