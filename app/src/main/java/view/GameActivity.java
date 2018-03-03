@@ -23,6 +23,23 @@ public class GameActivity extends AppCompatActivity {
         portland = (Button) findViewById(R.id.portland);
         miami = (Button) findViewById(R.id.miami);
 
+
+
+    }
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        // MotionEvent object holds X-Y values
+//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+//            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
+//            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+//        }
+//
+//        return super.onTouchEvent(event);
+//    }
+
+
+    private void createOnClickListeners(){
         portland.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,17 +57,5 @@ public class GameActivity extends AppCompatActivity {
                 toast.show();
             }
         });
-
     }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        // MotionEvent object holds X-Y values
-//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-//            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
-//            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-//        }
-//
-//        return super.onTouchEvent(event);
-//    }
 }
