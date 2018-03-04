@@ -162,4 +162,6 @@ public interface IPlayer {
     void setDestCards(List<DestCard> destCards);
 
     void addDestCards(List<DestCard> newDestCards);
+
+    Hand<TrainCard> getTrainCardHand();
 }

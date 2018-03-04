@@ -36,5 +36,6 @@ public interface IGame {
     IPlayer getPlayer(String username);
     boolean isGameStarted();
     void startGame();
+    IGameInfo getGameInfo();
 
 }

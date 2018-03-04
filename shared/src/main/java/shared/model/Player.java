@@ -84,6 +84,11 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public Hand<TrainCard> getTrainCardHand() {
+        return _trainCards;
+    }
+
+    @Override
     public String getUsername() {
         return this._username;
     }

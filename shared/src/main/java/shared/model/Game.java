@@ -2,7 +2,9 @@ package shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -194,5 +196,21 @@ public class Game implements IGame, Serializable {
     @Override
     public void startGame() {
         _gameIsStarted = true;
+    }
+
+    @Override
+    public IGameInfo getGameInfo() {
+        List<String> players = new ArrayList<>();
+        Map<String, Integer> playerColors = new HashMap<>();
+        Map<String, Integer> playerHandSizes = new HashMap<>();
+        Map<String, Integer> playerPoints = new HashMap<>();
+        for(IPlayer player : _players) {
+            String username = player.getUsername();
+            players.add(username);
+            playerColors.put(username, player.getColor());
+            playerHandSizes.put(username, player.getTrainCardHand().size());
+            playerPoints.put(username, player.getScore());
+        }
+        return new GameInfo(_playerWithLongestRoute, _faceUpCards, _id, _gameName, players, playerColors, playerPoints, playerHandSizes, getClaimedRoutes());
     }
 }

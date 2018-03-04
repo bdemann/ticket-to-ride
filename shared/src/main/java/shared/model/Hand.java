@@ -55,4 +55,8 @@ public class Hand<T> {
             addCard(card);
         }
     }
+
+    public int size() {
+        return _cards.size();
+    }
 }
