@@ -5,8 +5,10 @@ import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.client.IGameLobbyClientFacade;
+import shared.logging.Logger;
 import shared.model.IGame;
 import shared.model.IPlayer;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by bdemann on 2/12/18.
@@ -41,12 +43,12 @@ public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
     private ICommand _createLeaveGameCommand(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parms = {username};
-        return new Command("app.client.facades.LobbyClientFacade", "leaveGame", parmTypes, parms);
+        return new Command("facade.LobbyClientFacade", "leaveGame", parmTypes, parms);
     }
 
     private ICommand _createStartGameCommand(IGame game, String username) {
         Class<?>[] parmTypes = {IGame.class ,String.class};
         Object[] parms = {game, username};
-        return new Command("app.facade.LobbyClientFacade", "startGame", parmTypes, parms);
+        return new Command("facade.LobbyClientFacade", "startGame", parmTypes, parms);
     }
 }
