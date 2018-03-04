@@ -16,12 +16,18 @@ public class Game implements IGame, Serializable {
     private int _numberPlayer;
     private String _gameName;
     private boolean _gameIsStarted = false;
+    private String _playerWithLongestRoute; //If no one has it it will be empty string.
+    private TrainDeck _trainDeck;
+    private DestinationDeck _destinationDeck;
+    private List<TrainCard> _faceUpCards;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
         this._maxNumberPlayer = maxNumberPlayer;
         this._numberPlayer = 1;
         this._gameName = gameName;
+        this._playerWithLongestRoute = "";
+        this._trainDeck = new TrainDeck();
     }
 
     public String toString(){
@@ -35,31 +41,32 @@ public class Game implements IGame, Serializable {
 
     @Override
     public void setPlayerWithLongestRoute(String playerName) {
+        _playerWithLongestRoute = playerName;
     }
 
     @Override
     public void setTrainCardDeck(TrainDeck trainCardDeck) {
-        //TODO implement method
+        _trainDeck = trainCardDeck;
     }
 
     @Override
     public void setDestCardDeck(DestinationDeck destCardDeck) {
-        //TODO implement method
+        _destinationDeck = destCardDeck;
     }
 
     @Override
     public void setCardsFaceUp(List<TrainCard> cardsFaceUp) {
-
+        _faceUpCards = cardsFaceUp;
     }
 
     @Override
     public void setOpenRoutes(List<Route> openRoutes) {
-
+        //TODO implement this method
     }
 
     @Override
     public void setClaimedRoutes(List<Route> claimedRoutes) {
-
+        //TODO implement this method
     }
 
     @Override
@@ -70,12 +77,12 @@ public class Game implements IGame, Serializable {
 
     @Override
     public void generateScoreSummary() {
-
+        //TODO implement this method
     }
 
     @Override
     public void setGameMap(TTRMap gameMap) {
-
+        //TODO implement this method
     }
 
     public void setGameName(String gameName){
@@ -84,33 +91,33 @@ public class Game implements IGame, Serializable {
 
     @Override
     public String getPlayerWithLongestRoute() {
-        return null;
+        return _playerWithLongestRoute;
     }
 
     @Override
     public TrainDeck getTrainCardDeck() {
-        //TODO implement method
-        return null;
+        return _trainDeck;
     }
 
     @Override
     public DestinationDeck getDestCardDeck() {
-        //TODO implement method
-        return null;
+        return _destinationDeck;
     }
 
     @Override
     public List<TrainCard> getCardsFaceUp() {
-        return null;
+        return _faceUpCards;
     }
 
     @Override
     public List<Route> getOpenRoutes() {
+        //TODO implement this method
         return null;
     }
 
     @Override
     public List<Route> getClaimedRoutes() {
+        //TODO implement this method
         return null;
     }
 
@@ -121,11 +128,13 @@ public class Game implements IGame, Serializable {
 
     @Override
     public String getScoreSummary() {
+        //TODO implement this method
         return null;
     }
 
     @Override
     public TTRMap getGameMap() {
+        //TODO implement this method
         return null;
     }
 

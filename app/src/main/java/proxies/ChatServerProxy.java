@@ -2,7 +2,6 @@ package proxies;
 
 import java.util.concurrent.ExecutionException;
 
-import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.logging.Logger;

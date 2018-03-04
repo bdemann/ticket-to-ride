@@ -12,6 +12,7 @@ import shared.model.TrainCard;
 
 public class CardShuffler {
     public static void shuffleList(List<TrainCard> trainCards) {
+        //TODO I think we could put this into the deck class. and I think that we could just replace it with Collections.shuffle()
         int size = trainCards.size();
         Random random = new Random();
         random.nextInt();

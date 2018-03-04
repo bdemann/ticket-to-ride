@@ -50,7 +50,7 @@ public interface IPlayer {
 
     /**
      * This method adds a train card to the player's current traincard hand.
-     * There is no limit of train cards a player can have.
+     * There is no limit of train _cards a player can have.
      *
      * @param card
      * return nothing
@@ -150,4 +150,16 @@ public interface IPlayer {
     int getGameId();
 
     void setGameId(int id);
+
+    void setTrainCards(List<TrainCard> startingHand);
+
+    /**
+     * This is where the destination cards live while the player is picking which ones to keep and which ones to get rid of.
+     * @param startingTickets
+     */
+    void setUnresolvedDestCards(List<DestCard> startingTickets);
+
+    void setDestCards(List<DestCard> destCards);
+
+    void addDestCards(List<DestCard> newDestCards);
 }
