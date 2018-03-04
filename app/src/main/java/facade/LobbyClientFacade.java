@@ -17,7 +17,7 @@ public class LobbyClientFacade implements IGameLobbyClientFacade {
     }
 
     @Override
-    public void startGame(IGame game) {
+    public void startGame(IGame game, String username) {
         //Set the initialized game.
         ClientRoot.setClientGame(game);
     }

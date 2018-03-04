@@ -12,6 +12,6 @@ import shared.model.IGame;
 public interface IGameLobbyClientFacade {
 
     void sendChat();
-    void startGame(IGame game);
+    void startGame(IGame game, String username);
     void leaveGame(String username);
 }

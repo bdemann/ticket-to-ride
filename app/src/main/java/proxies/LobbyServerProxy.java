@@ -29,8 +29,8 @@ public class LobbyServerProxy implements ILobbyServerFacade {
     public Result startGame(Game game, String username) {
 
         Logger.log("We are starting the game.");
-        Class<?>[] parmTypes = {Game.class};
-        Object[] parmValues = {game};
+        Class<?>[] parmTypes = {Game.class, String.class};
+        Object[] parmValues = {game, username};
         Command startGameCommand = new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues);
 
         Logger.log("This is the startGame command: " + startGameCommand);

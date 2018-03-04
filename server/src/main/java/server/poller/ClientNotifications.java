@@ -28,7 +28,7 @@ public class ClientNotifications {
     }
 
     public static void gameStarted(IGame game) {
-        new LobbyClientFacadeProxy().startGame(game);
+        new LobbyClientFacadeProxy().startGame(game, null);
     }
 
     public static void messageSent(Chat message, IGame currentGame) {
