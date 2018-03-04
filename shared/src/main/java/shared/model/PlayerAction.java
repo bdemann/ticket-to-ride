@@ -7,12 +7,12 @@ package shared.model;
  *
  * They are as follows:
  *
- * 1 - Draw 2 train cards
- *     -to draw train cards, a player may draw from: the face up pile, the traincard pile or one of each
- *     -the locomotive cards count as 2 train cards, unless the locomotive card is drawn from the traincard pile
+ * 1 - Draw 2 train _cards
+ *     -to draw train _cards, a player may draw from: the face up pile, the traincard pile or one of each
+ *     -the locomotive _cards count as 2 train _cards, unless the locomotive card is drawn from the traincard pile
  *
  * 2 - Claim a route
- * 3 - Draw Destination cards
+ * 3 - Draw Destination _cards
  *
  */
 public class PlayerAction {

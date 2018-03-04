@@ -20,6 +20,9 @@ public class Player implements IPlayer, Serializable {
     private List<Edge> playersEdges;
     private List<Route> playersRoutes;
     private List<Train> _trains;
+    private Hand<TrainCard> _trainCards;
+    private Hand<DestCard> _destCards;
+    private List<DestCard> _unresolvedDestCards;
 
     public Player(String username, String password, int color)
     {
@@ -61,6 +64,26 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public void setTrainCards(List<TrainCard> startingHand) {
+        _trainCards = new Hand<>(startingHand);
+    }
+
+    @Override
+    public void setUnresolvedDestCards(List<DestCard> unresolvedDestCards) {
+        _unresolvedDestCards = unresolvedDestCards;
+    }
+
+    @Override
+    public void setDestCards(List<DestCard> destCards) {
+        this._destCards = new Hand<>(destCards);
+    }
+
+    @Override
+    public void addDestCards(List<DestCard> newDestCards) {
+        this._destCards.addCards(newDestCards);
+    }
+
+    @Override
     public String getUsername() {
         return this._username;
     }
@@ -82,12 +105,13 @@ public class Player implements IPlayer, Serializable {
 
     @Override
     public void addTrainCard(TrainCard card) {
-
+        _trainCards.addCard(card);
     }
 
     @Override
     public void discardTrainCard(TrainCard card) {
-
+        _trainCards.useCard(card);
+        //TODO this will get it out of the players hand but it won't put it into the discard pile... maybe we need to return the discarded card so that some other class can take care of that?
     }
 
     @Override

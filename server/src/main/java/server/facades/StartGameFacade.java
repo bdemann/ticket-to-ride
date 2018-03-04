@@ -3,9 +3,13 @@ package server.facades;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.model.DestCard;
+import shared.model.DestinationDeck;
 import shared.model.IGame;
 import shared.model.IPlayer;
 import shared.model.Train;
+import shared.model.TrainCard;
+import shared.model.TrainDeck;
 
 /**
  * Created by bdemann on 3/3/18.
@@ -27,31 +31,42 @@ public class StartGameFacade {
         game = initTrains(game);
         game = initScore(game);
         game = shuffleDecks(game);
-        game = dealStartingTrainCards(game);
+        game = dealStartingTrainCards(game, 4);
         game = initDrawPile(game);
         game = initLongestPath(game);
-        game = dealStartingTickets(game);
+        game = dealStartingTickets(game, 3);
         return game;
     }
 
-    private static IGame dealStartingTickets(IGame game) {
-        //TODO implement method
-        return null;
+    private static IGame dealStartingTickets(IGame game, int startingTicketCount) {
+        DestinationDeck destinationDeck = game.getDestCardDeck();
+        for(IPlayer player : game.getPlayers()) {
+            List<DestCard> startingTickets = destinationDeck.draw(3);
+            player.setUnresolvedDestCards(startingTickets);
+        }
+        return game;
     }
 
     private static IGame initLongestPath(IGame game) {
-        //TODO implement method
-        return null;
+        game.setPlayerWithLongestRoute("");
+        return game;
     }
 
     private static IGame initDrawPile(IGame game) {
-        //TODO implement method
-        return null;
+        game.setCardsFaceUp(game.getTrainCardDeck().draw(5));
+        return game;
     }
 
-    private static IGame dealStartingTrainCards(IGame game) {
-        //TODO implement method
-        return null;
+    private static IGame dealStartingTrainCards(IGame game, int startingHandSize) {
+        //For each player
+        //  draw 4 cards from the deck
+        //  put those cards into the player's hand
+        TrainDeck trainDeck = game.getTrainCardDeck();
+        for(IPlayer player : game.getPlayers()){
+            List<TrainCard> startingHand = trainDeck.draw(startingHandSize);
+            player.setTrainCards(startingHand);
+        }
+        return game;
     }
 
     private static IGame shuffleDecks(IGame game) {
