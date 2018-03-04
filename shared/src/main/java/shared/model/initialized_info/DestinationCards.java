@@ -24,6 +24,10 @@ public class DestinationCards {
         set_destCards();
     }
 
+    public static List<DestCard> getDestinationCards() {
+        return instance()._destCards;
+    }
+
     private List<DestCard> _destCards;
 
     private void set_destCards(){

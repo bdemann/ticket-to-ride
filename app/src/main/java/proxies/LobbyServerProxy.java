@@ -8,7 +8,7 @@ import shared.results.Result;
 import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.Game;
-import shared.facades.ILobbyServerFacade;
+import shared.serverfacades.ILobbyServerFacade;
 import tasks.CommandTask;
 
 /**
@@ -17,13 +17,6 @@ import tasks.CommandTask;
  */
 
 public class LobbyServerProxy implements ILobbyServerFacade {
-    @Override
-    public Result sendChat(Chat message) {
-        //TODO this needs to be an async task
-        Class<?>[] parmTypes = {Chat.class};
-        Object[] parmValues = {message};
-        return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "sendChat", parmTypes, parmValues));
-    }
 
     @Override
     public Result startGame(Game game, String username) {

@@ -8,8 +8,8 @@ import java.util.List;
  */
 public interface IGame {
     void setPlayerWithLongestRoute(String playerName);
-    void setTrainCardDeck(List<TrainCard> trainCardDeck);
-    void setDestCardDeck(List<DestCard> destCardDeck);
+    void setTrainCardDeck(TrainDeck trainCardDeck);
+    void setDestCardDeck(DestinationDeck destCardDeck);
     void setCardsFaceUp(List<TrainCard> cardsFaceUp);
     void setOpenRoutes(List<Route> openRoutes);
     void setClaimedRoutes(List<Route> claimedRoutes);
@@ -17,8 +17,8 @@ public interface IGame {
     void generateScoreSummary();
     void setGameMap(TTRMap gameMap);
     String getPlayerWithLongestRoute();
-    List<TrainCard> getTrainCardDeck();
-    List<DestCard> getDestCardDeck();
+    TrainDeck getTrainCardDeck();
+    DestinationDeck getDestCardDeck();
     List<TrainCard> getCardsFaceUp();
     List<Route> getOpenRoutes();
     List<Route> getClaimedRoutes();

@@ -1,8 +1,7 @@
 package guiless;
 
-import proxies.GameMenuServerProxy;
 import proxies.syncProxy.GameMenuServerProxySync;
-import shared.facades.IGameMenuServerFacade;
+import shared.serverfacades.IGameMenuServerFacade;
 import shared.results.Result;
 
 /**

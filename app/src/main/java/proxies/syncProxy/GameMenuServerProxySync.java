@@ -1,13 +1,10 @@
 package proxies.syncProxy;
 
-import java.util.concurrent.ExecutionException;
-
 import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.results.Result;
-import shared.facades.IGameMenuServerFacade;
+import shared.serverfacades.IGameMenuServerFacade;
 import shared.model.IPlayer;
-import tasks.CommandTask;
 
 /**
  *

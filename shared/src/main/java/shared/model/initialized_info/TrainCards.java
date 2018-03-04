@@ -1,8 +1,11 @@
 package shared.model.initialized_info;
 
+import org.omg.IOP.TAG_INTERNET_IOP;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.model.Train;
 import shared.model.TrainCard;
 
 /**
@@ -19,6 +22,10 @@ public class TrainCards {
         if (_instance == null)
             _instance = new TrainCards();
         return _instance;
+    }
+
+    public static List<TrainCard> getTrainCards(){
+        return _instance._trainCards;
     }
 
     private TrainCards(){

@@ -3,7 +3,7 @@ package proxies.syncProxy;
 import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.results.Result;
-import shared.facades.ILobbyServerFacade;
+import shared.serverfacades.ILobbyServerFacade;
 import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.Game;
@@ -14,12 +14,6 @@ import shared.model.Game;
  */
 
 public class LobbyServerProxySync implements ILobbyServerFacade {
-    @Override
-    public Result sendChat(Chat message) {
-        Class<?>[] parmTypes = {Chat.class};
-        Object[] parmValues = {message};
-        return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "sendChat", parmTypes, parmValues));
-    }
 
     @Override
     public Result startGame(Game game, String username) {

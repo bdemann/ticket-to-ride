@@ -1,7 +1,7 @@
 package shared.model;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the interface for a player in ticket to ride
@@ -84,7 +84,7 @@ public interface IPlayer {
      * @param trains
      * return nothing
      */
-    void setTrains(ArrayList<Train> trains);
+    void setTrains(List<Train> trains);
 
     /**
      * Set the color of the player
@@ -114,7 +114,7 @@ public interface IPlayer {
      * Players have trains
      * @return list of trains
      */
-    ArrayList<Train> getTrains();
+    List<Train> getTrains();
 
     /**
      * Each player has a color

@@ -2,7 +2,7 @@ package server;
 
 import server.comm.ServerCommunicator;
 import server.facades.LoginServerFacade;
-import shared.facades.ILoginServerFacade;
+import shared.serverfacades.ILoginServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
 

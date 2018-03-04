@@ -3,13 +3,12 @@ package server.facades;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
-import server.proxies.LobbyClientFacadeProxy;
 import shared.results.ChatResult;
 import shared.results.Result;
 import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.Game;
-import shared.facades.ILobbyServerFacade;
+import shared.serverfacades.ILobbyServerFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
 
@@ -18,13 +17,6 @@ import shared.model.IPlayer;
  */
 
 public class LobbyServerFacade implements ILobbyServerFacade {
-    @Override
-    public Result sendChat(Chat message) {
-        IGame currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
-        ServerRoot.addChat(currentGame, message);
-        ClientNotifications.messageSent(message, currentGame);
-        return new ChatResult(message, true, ClientCommands.getCommandList(message.getSpeaker().getUsername()), "Chat sent");
-    }
 
     @Override
     public Result startGame(Game game, String username) {

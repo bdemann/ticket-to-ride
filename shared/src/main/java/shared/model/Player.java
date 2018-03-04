@@ -19,6 +19,7 @@ public class Player implements IPlayer, Serializable {
     private int points = 0;
     private List<Edge> playersEdges;
     private List<Route> playersRoutes;
+    private List<Train> _trains;
 
     public Player(String username, String password, int color)
     {
@@ -100,8 +101,8 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
-    public void setTrains(ArrayList<Train> trains) {
-
+    public void setTrains(List<Train> trains) {
+        this._trains = trains;
     }
 
     @Override
@@ -126,8 +127,8 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
-    public ArrayList<Train> getTrains() {
-        return null;
+    public List<Train> getTrains() {
+        return _trains;
     }
 
     @Override

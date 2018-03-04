@@ -7,7 +7,7 @@ import shared.command.ICommand;
 import shared.results.Result;
 import shared.logging.Logger;
 import shared.model.IPlayer;
-import shared.facades.IGameMenuServerFacade;
+import shared.serverfacades.IGameMenuServerFacade;
 import tasks.CommandTask;
 
 /**

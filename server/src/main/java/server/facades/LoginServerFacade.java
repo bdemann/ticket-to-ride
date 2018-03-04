@@ -9,7 +9,7 @@ import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.IPlayer;
 import shared.model.Player;
-import shared.facades.ILoginServerFacade;
+import shared.serverfacades.ILoginServerFacade;
 
 /**
  *

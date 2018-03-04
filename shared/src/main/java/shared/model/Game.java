@@ -38,13 +38,13 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public void setTrainCardDeck(List<TrainCard> trainCardDeck) {
-
+    public void setTrainCardDeck(TrainDeck trainCardDeck) {
+        //TODO implement method
     }
 
     @Override
-    public void setDestCardDeck(List<DestCard> destCardDeck) {
-
+    public void setDestCardDeck(DestinationDeck destCardDeck) {
+        //TODO implement method
     }
 
     @Override
@@ -88,12 +88,14 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public List<TrainCard> getTrainCardDeck() {
+    public TrainDeck getTrainCardDeck() {
+        //TODO implement method
         return null;
     }
 
     @Override
-    public List<DestCard> getDestCardDeck() {
+    public DestinationDeck getDestCardDeck() {
+        //TODO implement method
         return null;
     }
 

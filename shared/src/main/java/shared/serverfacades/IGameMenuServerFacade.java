@@ -1,4 +1,4 @@
-package shared.facades;
+package shared.serverfacades;
 
 import shared.results.Result;
 import shared.model.IPlayer;

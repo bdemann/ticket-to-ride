@@ -1,4 +1,4 @@
-package shared.facades;
+package shared.serverfacades;
 
 import shared.results.Result;
 import shared.model.Chat;
@@ -9,7 +9,6 @@ import shared.model.Game;
  */
 
 public interface ILobbyServerFacade {
-    public Result sendChat(Chat message);
     public Result startGame(Game game, String username);
     public Result leaveGame(String username);
 }

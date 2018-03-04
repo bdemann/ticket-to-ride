@@ -3,7 +3,7 @@ package facade.guifacade;
 import model.ClientRoot;
 import proxies.GameMenuServerProxy;
 import shared.results.JoinGameResult;
-import shared.facades.IGameMenuServerFacade;
+import shared.serverfacades.IGameMenuServerFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
 import shared.results.Result;
