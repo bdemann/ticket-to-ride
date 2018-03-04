@@ -2,8 +2,7 @@ package shared.facades.server;
 
 import java.util.List;
 
-import shared.model.IEdge;
-import shared.model.IRoute;
+import shared.model.interfaces.IEdge;
 import shared.model.TrainCard;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;

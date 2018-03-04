@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.command.ICommand;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 
 /**
  * Created by bdemann on 2/12/18.

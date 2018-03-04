@@ -1,9 +1,8 @@
 package model;
 
 
-import shared.model.Game;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;

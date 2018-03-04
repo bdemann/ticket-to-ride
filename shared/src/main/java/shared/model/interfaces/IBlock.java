@@ -1,4 +1,4 @@
-package shared.model;
+package shared.model.interfaces;
 
 import java.awt.Point;
 

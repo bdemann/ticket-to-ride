@@ -1,7 +1,14 @@
-package shared.model;
+package shared.model.interfaces;
 
 
 import java.util.List;
+
+import shared.model.DestCard;
+import shared.model.Hand;
+import shared.model.PlayerAction;
+import shared.model.Route;
+import shared.model.Train;
+import shared.model.TrainCard;
 
 /**
  * This is the interface for a player in ticket to ride

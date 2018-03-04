@@ -4,7 +4,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.model.Chat;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 import shared.results.ChatResult;
 import shared.facades.server.IChatServerFacade;
 

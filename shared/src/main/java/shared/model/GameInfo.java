@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
+import shared.model.interfaces.IGameInfo;
 
 /**
  * Created by bdemann on 3/4/18.

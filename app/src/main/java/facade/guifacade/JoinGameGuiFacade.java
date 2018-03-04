@@ -4,8 +4,8 @@ import model.ClientRoot;
 import proxies.GameMenuServerProxy;
 import shared.results.JoinGameResult;
 import shared.facades.server.IGameMenuServerFacade;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 import shared.results.Result;
 
 /**

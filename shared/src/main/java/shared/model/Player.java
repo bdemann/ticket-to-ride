@@ -2,8 +2,9 @@ package shared.model;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+
+import shared.model.interfaces.IPlayer;
 
 /**
  * This class implements the player class for ticket to ride.

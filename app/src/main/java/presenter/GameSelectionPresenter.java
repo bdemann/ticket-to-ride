@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import facade.guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 import view.GameSelectionActivity;
 
 /**

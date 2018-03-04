@@ -5,8 +5,8 @@ import proxies.GameMenuServerProxy;
 import shared.results.CreateGameResult;
 import shared.results.JoinGameResult;
 import shared.results.Result;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 /**
  *

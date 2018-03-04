@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IGameInfo;
+import shared.model.interfaces.IPlayer;
 
 /**
  *

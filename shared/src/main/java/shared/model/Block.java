@@ -2,6 +2,8 @@ package shared.model;
 
 import java.awt.Point;
 
+import shared.model.interfaces.IBlock;
+
 /**
  * Created by paulinecausse on 2/28/18.
  */

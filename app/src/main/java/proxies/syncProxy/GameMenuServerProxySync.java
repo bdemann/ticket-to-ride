@@ -4,7 +4,7 @@ import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.results.Result;
 import shared.facades.server.IGameMenuServerFacade;
-import shared.model.IPlayer;
+import shared.model.interfaces.IPlayer;
 
 /**
  *

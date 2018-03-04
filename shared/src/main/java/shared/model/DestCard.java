@@ -1,6 +1,6 @@
 package shared.model;
 
-import shared.model.initialized_info.DestinationCards;
+import shared.model.interfaces.IDestCard;
 
 /**
  * Created by BenNelson on 2/2/18.
@@ -12,7 +12,7 @@ import shared.model.initialized_info.DestinationCards;
  * The card also has a point amount.
  */
 
-public class DestCard implements IDestCard{
+public class DestCard implements IDestCard {
     private String _destination;
     private String _startingPoint;
     private boolean _completed;

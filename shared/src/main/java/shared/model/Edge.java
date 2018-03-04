@@ -1,5 +1,7 @@
 package shared.model;
 
+import shared.model.interfaces.IEdge;
+
 /**
  * Created by paulinecausse on 2/28/18.
  */

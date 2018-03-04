@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import facade.guifacade.CreateGameGuiFacade;
 import model.ClientRoot;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 import view.CreateGameActivity;
 import view.GameLobbyActivity;
 

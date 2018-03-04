@@ -7,7 +7,7 @@ import shared.results.RegisterResult;
 import shared.results.Result;
 import shared.logging.Level;
 import shared.logging.Logger;
-import shared.model.IPlayer;
+import shared.model.interfaces.IPlayer;
 import shared.model.Player;
 import shared.facades.server.ILoginServerFacade;
 

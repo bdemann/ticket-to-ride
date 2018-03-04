@@ -11,7 +11,7 @@ import shared.command.Command;
 import shared.comm.CommandEncoder;
 import shared.results.Result;
 import shared.logging.Logger;
-import shared.model.IPlayer;
+import shared.model.interfaces.IPlayer;
 import shared.model.Player;
 
 /**

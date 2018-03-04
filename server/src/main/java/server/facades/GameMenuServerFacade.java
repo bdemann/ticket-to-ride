@@ -15,8 +15,8 @@ import shared.facades.server.IGameMenuServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.Game;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 /**
  * Created by Ben on 2/6/2018.

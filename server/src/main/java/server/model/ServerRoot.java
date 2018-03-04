@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Observable;
 
 import shared.model.Chat;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 /**
  * Created by Ben on 2/6/2018.

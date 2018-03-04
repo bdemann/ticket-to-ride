@@ -4,12 +4,11 @@ import java.util.List;
 
 import model.ClientRoot;
 import proxies.LobbyServerProxy;
-import shared.command.Command;
 import shared.command.ICommand;
 import shared.model.Game;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 import shared.results.Result;
-import shared.model.IPlayer;
+import shared.model.interfaces.IPlayer;
 
 /**
  *

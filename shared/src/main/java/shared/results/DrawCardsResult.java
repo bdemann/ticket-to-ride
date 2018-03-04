@@ -3,7 +3,7 @@ package shared.results;
 import java.util.List;
 
 import shared.command.ICommand;
-import shared.model.Card;
+import shared.model.interfaces.Card;
 
 /**
  * Created by bdemann on 3/3/18.

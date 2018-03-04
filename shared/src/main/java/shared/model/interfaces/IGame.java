@@ -1,6 +1,11 @@
-package shared.model;
+package shared.model.interfaces;
 import java.util.List;
 
+import shared.model.DestinationDeck;
+import shared.model.Route;
+import shared.model.TTRMap;
+import shared.model.TrainCard;
+import shared.model.TrainDeck;
 import shared.model.history.GameHistory;
 
 /**

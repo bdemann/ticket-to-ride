@@ -1,7 +1,7 @@
 package shared.facades.client;
 
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 /**
  * This is an interface that will be shared by the CLIENT PROXY CLASSES on the server, and the

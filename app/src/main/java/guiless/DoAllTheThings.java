@@ -3,7 +3,7 @@ package guiless;
 import proxies.syncProxy.GameMenuServerProxySync;
 import proxies.syncProxy.LobbyServerProxySync;
 import proxies.syncProxy.LoginServerProxySync;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 import shared.model.Player;
 import shared.results.CreateGameResult;
 import shared.results.Result;

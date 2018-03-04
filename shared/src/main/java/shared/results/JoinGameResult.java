@@ -3,7 +3,7 @@ package shared.results;
 import java.util.List;
 
 import shared.command.ICommand;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 
 /**
  * Created by Ben on 2/6/2018.

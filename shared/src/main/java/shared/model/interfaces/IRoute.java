@@ -1,6 +1,9 @@
-package shared.model;
+package shared.model.interfaces;
 
 import java.util.List;
+
+import shared.model.City;
+import shared.model.Edge;
 
 /**
  * Created by paulinecausse on 2/28/18.

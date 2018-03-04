@@ -1,7 +1,7 @@
 package shared.facades.server;
 
 import shared.results.Result;
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 
 /**
  * Created by Ben on 2/6/2018.

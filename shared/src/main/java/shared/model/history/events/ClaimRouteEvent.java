@@ -1,7 +1,6 @@
 package shared.model.history.events;
 
-import shared.model.IEdge;
-import shared.model.IRoute;
+import shared.model.interfaces.IEdge;
 
 /**
  * Created by bdemann on 3/4/18.

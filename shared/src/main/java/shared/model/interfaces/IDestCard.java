@@ -1,10 +1,12 @@
-package shared.model;
+package shared.model.interfaces;
+
+import shared.model.interfaces.Card;
 
 /**
  * Created by paulinecausse on 2/28/18.
  */
 
-public interface IDestCard extends Card{
+public interface IDestCard extends Card {
     boolean isCompleted();
 
     void setCompleted(boolean completed);

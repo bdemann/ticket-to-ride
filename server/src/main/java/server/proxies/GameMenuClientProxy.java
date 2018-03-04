@@ -4,8 +4,8 @@ import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.client.IGameMenuClientFacade;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 /**
  * Created by bdemann on 2/12/18.

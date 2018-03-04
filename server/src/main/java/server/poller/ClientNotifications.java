@@ -4,10 +4,8 @@ import server.model.ServerRoot;
 import server.proxies.GameMenuClientProxy;
 import server.proxies.LobbyClientFacadeProxy;
 import shared.model.Chat;
-import shared.model.Game;
-import shared.model.IEdge;
-import shared.model.IGame;
-import shared.model.IRoute;
+import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IGame;
 
 /**
  * Created by bdemann on 2/12/18.

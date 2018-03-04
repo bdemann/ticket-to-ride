@@ -2,10 +2,12 @@ package shared.model;
 
 import java.util.List;
 
+import shared.model.interfaces.IRoute;
+
 /**
  * Created by BenNelson on 2/2/18.
  */
-public class Route implements IRoute{
+public class Route implements IRoute {
     private List<Edge> _edges;
     private int _length;
     private City _start;

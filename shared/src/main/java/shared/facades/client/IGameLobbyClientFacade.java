@@ -1,6 +1,6 @@
 package shared.facades.client;
 
-import shared.model.IGame;
+import shared.model.interfaces.IGame;
 
 /**
  * This is an interface that will be shared by the CLIENT PROXY CLASSES on the server, and the

@@ -1,5 +1,7 @@
 package shared.model;
 
+import shared.model.interfaces.IPlayer;
+
 /**
  * Created by Ben on 2/6/2018.
  */

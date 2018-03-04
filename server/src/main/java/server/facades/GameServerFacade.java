@@ -8,12 +8,12 @@ import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
 import shared.model.Color;
 import shared.model.DestCard;
-import shared.model.IEdge;
+import shared.model.interfaces.IEdge;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
 import shared.model.history.events.GameEvent;
-import shared.model.IGame;
-import shared.model.IPlayer;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
 
