@@ -4,10 +4,9 @@ import java.util.concurrent.ExecutionException;
 
 import shared.command.Command;
 import shared.command.ICommand;
-import shared.logging.Logger;
 import shared.model.Chat;
 import shared.results.Result;
-import shared.serverfacades.IChatServerFacade;
+import shared.facades.server.IChatServerFacade;
 import tasks.CommandTask;
 
 /**

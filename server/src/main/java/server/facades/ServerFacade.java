@@ -2,7 +2,7 @@ package server.facades;
 
 import server.poller.ClientCommands;
 import shared.results.Result;
-import shared.serverfacades.IServerFacade;
+import shared.facades.server.IServerFacade;
 import shared.logging.Logger;
 
 /**

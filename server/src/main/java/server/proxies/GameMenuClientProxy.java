@@ -3,7 +3,7 @@ package server.proxies;
 import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
-import shared.client.IGameMenuClientFacade;
+import shared.facades.client.IGameMenuClientFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
 

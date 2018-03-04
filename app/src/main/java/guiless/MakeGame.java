@@ -2,8 +2,8 @@ package guiless;
 
 import proxies.syncProxy.GameMenuServerProxySync;
 import proxies.syncProxy.LoginServerProxySync;
-import shared.serverfacades.IGameMenuServerFacade;
-import shared.serverfacades.ILoginServerFacade;
+import shared.facades.server.IGameMenuServerFacade;
+import shared.facades.server.ILoginServerFacade;
 import shared.results.Result;
 import shared.model.Player;
 

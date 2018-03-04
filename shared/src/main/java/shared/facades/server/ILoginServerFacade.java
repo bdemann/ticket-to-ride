@@ -1,4 +1,4 @@
-package shared.serverfacades;
+package shared.facades.server;
 
 import shared.results.Result;
 

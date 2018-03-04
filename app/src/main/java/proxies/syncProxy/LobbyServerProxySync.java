@@ -3,9 +3,8 @@ package proxies.syncProxy;
 import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.results.Result;
-import shared.serverfacades.ILobbyServerFacade;
+import shared.facades.server.ILobbyServerFacade;
 import shared.logging.Logger;
-import shared.model.Chat;
 import shared.model.Game;
 
 /**

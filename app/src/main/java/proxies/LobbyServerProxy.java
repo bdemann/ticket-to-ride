@@ -2,13 +2,11 @@ package proxies;
 
 import java.util.concurrent.ExecutionException;
 
-import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.results.Result;
 import shared.logging.Logger;
-import shared.model.Chat;
 import shared.model.Game;
-import shared.serverfacades.ILobbyServerFacade;
+import shared.facades.server.ILobbyServerFacade;
 import tasks.CommandTask;
 
 /**

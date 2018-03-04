@@ -6,8 +6,7 @@ import server.poller.ClientNotifications;
 import shared.model.Chat;
 import shared.model.IGame;
 import shared.results.ChatResult;
-import shared.results.Result;
-import shared.serverfacades.IChatServerFacade;
+import shared.facades.server.IChatServerFacade;
 
 /**
  * Created by bdemann on 3/3/18.

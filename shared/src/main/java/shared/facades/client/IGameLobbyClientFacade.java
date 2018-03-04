@@ -1,4 +1,4 @@
-package shared.client;
+package shared.facades.client;
 
 import shared.model.IGame;
 

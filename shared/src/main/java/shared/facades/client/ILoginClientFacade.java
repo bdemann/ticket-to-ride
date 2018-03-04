@@ -1,4 +1,4 @@
-package shared.client;
+package shared.facades.client;
 
 /**
  * This is an interface that will be shared by the CLIENT PROXY CLASSES on the server, and the

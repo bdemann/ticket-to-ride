@@ -11,7 +11,7 @@ import shared.results.CreateGameResult;
 import shared.results.JoinGameResult;
 import shared.results.Result;
 import shared.results.GameListResult;
-import shared.serverfacades.IGameMenuServerFacade;
+import shared.facades.server.IGameMenuServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.Game;

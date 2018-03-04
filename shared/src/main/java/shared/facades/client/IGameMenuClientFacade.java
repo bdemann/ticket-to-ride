@@ -1,6 +1,4 @@
-package shared.client;
-
-import java.util.List;
+package shared.facades.client;
 
 import shared.model.IGame;
 import shared.model.IPlayer;

@@ -1,6 +1,5 @@
-package shared.serverfacades;
+package shared.facades.server;
 
-import shared.model.IPlayer;
 import shared.model.IRoute;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardResult;

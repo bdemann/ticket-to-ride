@@ -1,6 +1,6 @@
 package facade;
 
-import shared.client.ILoginClientFacade;
+import shared.facades.client.ILoginClientFacade;
 
 /**
  *

@@ -7,7 +7,7 @@ import shared.logging.Level;
 import shared.model.GameEvent;
 import shared.results.Result;
 import shared.logging.Logger;
-import shared.serverfacades.ILobbyServerFacade;
+import shared.facades.server.ILobbyServerFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
 

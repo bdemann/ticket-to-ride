@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutionException;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.results.Result;
-import shared.serverfacades.ILoginServerFacade;
+import shared.facades.server.ILoginServerFacade;
 import tasks.CommandTask;
 
 /**

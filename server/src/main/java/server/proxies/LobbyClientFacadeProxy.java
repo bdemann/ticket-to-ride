@@ -4,11 +4,9 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
-import shared.client.IGameLobbyClientFacade;
-import shared.logging.Logger;
+import shared.facades.client.IGameLobbyClientFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
-import sun.rmi.runtime.Log;
 
 /**
  * Created by bdemann on 2/12/18.

@@ -4,7 +4,7 @@ import comm.ClientCommunicator;
 import shared.command.Command;
 import shared.model.Chat;
 import shared.results.ChatResult;
-import shared.serverfacades.IChatServerFacade;
+import shared.facades.server.IChatServerFacade;
 
 /**
  * Created by bdemann on 3/3/18.

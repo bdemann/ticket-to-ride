@@ -1,7 +1,7 @@
 package facade;
 
 import model.ClientRoot;
-import shared.client.IGameMenuClientFacade;
+import shared.facades.client.IGameMenuClientFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
 

@@ -5,9 +5,8 @@ import java.util.concurrent.ExecutionException;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.results.Result;
-import shared.logging.Logger;
 import shared.model.IPlayer;
-import shared.serverfacades.IGameMenuServerFacade;
+import shared.facades.server.IGameMenuServerFacade;
 import tasks.CommandTask;
 
 /**
