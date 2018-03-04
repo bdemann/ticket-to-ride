@@ -1,4 +1,4 @@
-package server.facades;
+package server.facades.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
