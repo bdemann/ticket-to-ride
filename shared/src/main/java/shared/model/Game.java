@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import shared.model.history.GameHistory;
+
 /**
  *
  * Created by BenNelson on 2/2/18.

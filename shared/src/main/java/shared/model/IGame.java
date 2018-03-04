@@ -1,6 +1,8 @@
 package shared.model;
 import java.util.List;
 
+import shared.model.history.GameHistory;
+
 /**
  * Interface for a single Game in the ticket to ride game yay!
  *

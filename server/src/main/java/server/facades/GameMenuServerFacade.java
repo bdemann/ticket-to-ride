@@ -6,7 +6,7 @@ import java.util.List;
 import server.poller.ClientNotifications;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
-import shared.model.GameEvent;
+import shared.model.history.events.GameEvent;
 import shared.results.CreateGameResult;
 import shared.results.JoinGameResult;
 import shared.results.Result;

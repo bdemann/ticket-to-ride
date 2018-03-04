@@ -3,6 +3,8 @@ package shared.model;
 import java.util.List;
 import java.util.Map;
 
+import shared.model.history.GameHistory;
+
 /**
  * Created by bdemann on 3/4/18.
  */

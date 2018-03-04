@@ -1,7 +1,9 @@
-package shared.model;
+package shared.model.history;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import shared.model.history.events.GameEvent;
 
 /**
  * Created by bdemann on 2/28/18.

@@ -5,7 +5,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.logging.Level;
-import shared.model.GameEvent;
+import shared.model.history.events.GameEvent;
 import shared.results.Result;
 import shared.logging.Logger;
 import shared.facades.server.ILobbyServerFacade;
