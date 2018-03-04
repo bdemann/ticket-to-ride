@@ -1,8 +1,11 @@
 package shared.facades.server;
 
+import java.util.List;
+
 import shared.model.IRoute;
+import shared.model.TrainCard;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardResult;
+import shared.results.DrawCardsResult;
 
 /**
  * Created by bdemann on 2/28/18.
@@ -10,8 +13,8 @@ import shared.results.DrawCardResult;
 
 public interface IGameServerFacade {
 
-    public ClaimRouteResult claimRoute(IRoute route, String username);
-    public DrawCardResult drawTrainCard(String username);
-    public DrawCardResult drawTicketCard(String username);
+    public ClaimRouteResult claimRoute(IRoute route, List<TrainCard> cards, String username);
+    public DrawCardsResult drawTrainCard(String username);
+    public DrawCardsResult drawTicketCards(String username);
 
 }

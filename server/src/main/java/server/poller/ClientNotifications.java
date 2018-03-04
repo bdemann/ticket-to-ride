@@ -6,6 +6,7 @@ import server.proxies.LobbyClientFacadeProxy;
 import shared.model.Chat;
 import shared.model.Game;
 import shared.model.IGame;
+import shared.model.IRoute;
 
 /**
  * Created by bdemann on 2/12/18.
@@ -33,5 +34,17 @@ public class ClientNotifications {
 
     public static void messageSent(Chat message, IGame currentGame) {
         //TODO make sure that all players in the current game get the message
+    }
+
+    public static void playerClaimedRoute(String username, IRoute route) {
+        //TODO send notification about a claimed route
+    }
+
+    public static void playerDrewTrainCards(String username) {
+        //TODO send notification about drawing cards.
+    }
+
+    public static void playerDrewDestinationCards(String username) {
+        //TODO send notification about drawing destination cards.
     }
 }
