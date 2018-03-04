@@ -28,7 +28,6 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         Result results = null;
         try {
             results = task.get();
-            Logger.log("Here we are" + results.toString());
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
