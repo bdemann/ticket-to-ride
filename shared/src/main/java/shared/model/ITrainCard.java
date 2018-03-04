@@ -5,11 +5,11 @@ package shared.model;
  */
 
 public interface ITrainCard extends Card {
-    void setColor(String color);
-
-    String getColor();
+    void setColor(Color color);
 
     void setActionWeight(int actionWeight);
 
     int getActionWeight();
+
+    Color getColor();
 }

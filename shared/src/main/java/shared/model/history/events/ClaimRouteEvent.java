@@ -1,5 +1,6 @@
 package shared.model.history.events;
 
+import shared.model.IEdge;
 import shared.model.IRoute;
 
 /**
@@ -7,7 +8,7 @@ import shared.model.IRoute;
  */
 
 public class ClaimRouteEvent extends GameEvent {
-    public ClaimRouteEvent(String username, IRoute claimedRoute) {
+    public ClaimRouteEvent(String username, IEdge claimedRoute) {
         super(username, "claimed " + claimedRoute.toString());
     }
 }

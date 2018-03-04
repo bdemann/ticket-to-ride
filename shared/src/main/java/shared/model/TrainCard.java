@@ -3,10 +3,10 @@ package shared.model;
  * Created by BenNelson on 2/2/18.
  */
 public class TrainCard implements ITrainCard{
-    private String _color;
+    private Color _color;
     private int _actionWeight;
 
-    public TrainCard(String color,int actionWeight) {
+    public TrainCard(Color color,int actionWeight) {
         this._color = color;
         this._actionWeight = actionWeight;
     }
@@ -16,12 +16,12 @@ public class TrainCard implements ITrainCard{
     }
 
     @Override
-    public void setColor(String color){
+    public void setColor(Color color){
         this._color = color;
     }
 
     @Override
-    public String getColor(){
+    public Color getColor(){
         return _color;
     }
 

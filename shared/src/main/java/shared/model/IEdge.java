@@ -13,7 +13,7 @@ public interface IEdge {
 
 //    void setBlocks(List<Block> blocks);
 
-    void setColor(String color);
+    void setColor(Color color);
 
     int getLength();
 
@@ -23,5 +23,5 @@ public interface IEdge {
 
 //    List<Block> getBlocks();
 
-    String getColor();
+    Color getColor();
 }

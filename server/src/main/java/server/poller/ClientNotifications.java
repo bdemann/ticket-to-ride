@@ -5,6 +5,7 @@ import server.proxies.GameMenuClientProxy;
 import server.proxies.LobbyClientFacadeProxy;
 import shared.model.Chat;
 import shared.model.Game;
+import shared.model.IEdge;
 import shared.model.IGame;
 import shared.model.IRoute;
 
@@ -36,7 +37,7 @@ public class ClientNotifications {
         //TODO make sure that all players in the current game get the message
     }
 
-    public static void playerClaimedRoute(String username, IRoute route) {
+    public static void playerClaimedRoute(String username, IEdge route) {
         //TODO send notification about a claimed route
     }
 

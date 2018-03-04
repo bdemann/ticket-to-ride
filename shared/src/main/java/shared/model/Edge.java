@@ -9,10 +9,10 @@ public class Edge implements IEdge {
     private City _start;
     private City _end;
 //    private List<Block> _blocks;
-    private String _color;
+    private Color _color;
     private boolean _claimed;
 
-    public Edge(int length, City start, City end, String color, boolean claimed){
+    public Edge(int length, City start, City end, Color color, boolean claimed){
         this._color = color;
         this._start = start;
         this._end = end;
@@ -31,7 +31,7 @@ public class Edge implements IEdge {
 
 //    public void setBlocks(List<Block> blocks){ this._blocks = blocks; }
 
-    public void setColor(String color){ this._color = color; }
+    public void setColor(Color color){ this._color = color; }
 
     public int getLength(){ return _length; }
 
@@ -41,5 +41,5 @@ public class Edge implements IEdge {
 
 //    public List<Block> getBlocks(){ return _blocks; }
 
-    public String getColor(){ return _color; }
+    public Color getColor(){ return _color; }
 }
