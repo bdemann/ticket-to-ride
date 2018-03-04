@@ -1,14 +1,13 @@
 package shared.serverfacades;
 
 import shared.results.Result;
-import shared.model.Chat;
-import shared.model.Game;
+import shared.model.IGame;
 
 /**
  * Created by Ben on 2/6/2018.
  */
 
 public interface ILobbyServerFacade {
-    public Result startGame(Game game, String username);
-    public Result leaveGame(String username);
+    Result startGame(IGame game, String username);
+    Result leaveGame(String username);
 }

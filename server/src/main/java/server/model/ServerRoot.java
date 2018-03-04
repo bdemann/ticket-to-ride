@@ -76,5 +76,7 @@ public class ServerRoot extends Observable {
     }
 
     public static List<Integer> getColors() {
-        return _instance._possibleColor;}
+        return _instance._possibleColor;
+    }
+
 }

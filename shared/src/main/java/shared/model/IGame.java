@@ -38,4 +38,5 @@ public interface IGame {
     void startGame();
     IGameInfo getGameInfo();
 
+    GameHistory getGameHistory();
 }

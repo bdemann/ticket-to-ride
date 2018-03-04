@@ -3,11 +3,9 @@ package server.facades;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
-import shared.results.ChatResult;
+import shared.model.GameEvent;
 import shared.results.Result;
 import shared.logging.Logger;
-import shared.model.Chat;
-import shared.model.Game;
 import shared.serverfacades.ILobbyServerFacade;
 import shared.model.IGame;
 import shared.model.IPlayer;
@@ -19,8 +17,10 @@ import shared.model.IPlayer;
 public class LobbyServerFacade implements ILobbyServerFacade {
 
     @Override
-    public Result startGame(Game game, String username) {
-        //TODO What exactly should happen when we start a game? - I think initialize the game and let all know
+    public Result startGame(IGame game, String username) {
+        game = ServerRoot.getGame(game.getId());
+        StartGameFacade.setUpGame(game);
+        game.getGameHistory().addEvent(new GameEvent(username, "started game"));
         ClientNotifications.gameStarted(game);
         return new Result(true, ClientCommands.getCommandList(username), "Game Started");
     }
@@ -31,7 +31,9 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         IPlayer player = ServerRoot.getPlayer(username);
         Logger.log("PLAYER GAMEID: " + player.getGameId());
 
-        ServerRoot.getGame(player.getGameId()).removePlayer(player);
+        IGame game = ServerRoot.getGame(player.getGameId());
+        game.removePlayer(player);
+        game.getGameHistory().addEvent(new GameEvent(username, "left the game"));
         //Inform the client of the change
         ClientNotifications.playerLeftGame(username);
 

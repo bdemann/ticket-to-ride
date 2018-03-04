@@ -22,6 +22,7 @@ public class Game implements IGame, Serializable {
     private TrainDeck _trainDeck;
     private DestinationDeck _destinationDeck;
     private List<TrainCard> _faceUpCards;
+    private GameHistory _gameHistory;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
@@ -30,6 +31,7 @@ public class Game implements IGame, Serializable {
         this._gameName = gameName;
         this._playerWithLongestRoute = "";
         this._trainDeck = new TrainDeck();
+        this._gameHistory = new GameHistory();
     }
 
     public String toString(){
@@ -159,6 +161,11 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
+    public GameHistory getGameHistory() {
+        return _gameHistory;
+    }
+
+    @Override
     public String getGameName(){
         return _gameName;
     }
@@ -211,6 +218,6 @@ public class Game implements IGame, Serializable {
             playerHandSizes.put(username, player.getTrainCardHand().size());
             playerPoints.put(username, player.getScore());
         }
-        return new GameInfo(_playerWithLongestRoute, _faceUpCards, _id, _gameName, players, playerColors, playerPoints, playerHandSizes, getClaimedRoutes());
+        return new GameInfo(_id, _gameName, _gameHistory, _playerWithLongestRoute, _faceUpCards, players, playerColors, playerPoints, playerHandSizes, getClaimedRoutes());
     }
 }

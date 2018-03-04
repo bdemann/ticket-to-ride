@@ -23,7 +23,7 @@ public class GameInfo implements IGameInfo {
     private Map<String, Integer> _playerHandSizes;
     private List<Route> _claimedRoutes;
 
-    public GameInfo(String playerWithLongestRoute, List<TrainCard> faceUpCards, int gameId, String gameName, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, List<Route> claimedRoutes) {
+    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, List<Route> claimedRoutes) {
         this._playerWithLongestRoute = playerWithLongestRoute;
         this._faceUpCards = faceUpCards;
         this._gameId = gameId;
