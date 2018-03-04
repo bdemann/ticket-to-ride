@@ -33,7 +33,14 @@ public class GameServerFacade implements IGameServerFacade {
             return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
         }
 
+
         //TODO implement claiming a route
+        //Claim the route
+        //Add cards to discard pile
+        //Adjust the players score
+        //Adjust the number of remaining trains player has.
+
+        //TODO change whose turn it is
 
         game.getGameHistory().addEvent(new ClaimRouteEvent(username, route));
         ClientNotifications.playerClaimedRoute(username, route);
@@ -45,7 +52,7 @@ public class GameServerFacade implements IGameServerFacade {
             if(route.getColor().equals(Color.GRAY)) {
                 return true;
             } else {
-                Color cardColor = getCardColor(cards);
+                Color cardColor = _getCardColor(cards);
                 //TODO can you claim a route with all wilds? I am assuming so but we will have to change this if not.
                 return cardColor.equals(route.getColor()) || cardColor.equals(Color.RAINBOW);
             }
@@ -68,7 +75,7 @@ public class GameServerFacade implements IGameServerFacade {
         return true;
     }
 
-    private Color getCardColor(List<TrainCard> cards) {
+    private Color _getCardColor(List<TrainCard> cards) {
         for( TrainCard card : cards) {
             if (card.getColor().equals(Color.RAINBOW)) {
                 continue;
@@ -85,6 +92,8 @@ public class GameServerFacade implements IGameServerFacade {
 
         List<TrainCard> cards = game.getTrainCardDeck().draw(1);
 
+        //TODO change whose turn it is
+
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card"));
         ClientNotifications.playerDrewTrainCards(username);
 
@@ -97,6 +106,8 @@ public class GameServerFacade implements IGameServerFacade {
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
         List<DestCard> cards = game.getDestCardDeck().draw(3);
+
+        //TODO change whose turn it is
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card"));
         ClientNotifications.playerDrewDestinationCards(username);
