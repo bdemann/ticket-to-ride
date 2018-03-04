@@ -6,6 +6,7 @@ import java.util.List;
 import server.poller.ClientNotifications;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
+import shared.model.GameEvent;
 import shared.results.CreateGameResult;
 import shared.results.JoinGameResult;
 import shared.results.Result;
@@ -46,6 +47,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
 
         CreateGameResult createGameCommandResult = new CreateGameResult(game, true, ClientCommands.getCommandList(creator.getUsername()));
 
+        game.getGameHistory().addEvent(new GameEvent(creator.getUsername(), "created the game"));
         ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
@@ -75,6 +77,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
         //add the player if not already in
         _updatePlayerList(currentGame, joiner);
 
+        currentGame.getGameHistory().addEvent(new GameEvent(joiner.getUsername(), "joined the game"));
         ClientNotifications.playerJoinedGame(gameId, joiner.getUsername());
 
         JoinGameResult results = new JoinGameResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()),"Join successful");

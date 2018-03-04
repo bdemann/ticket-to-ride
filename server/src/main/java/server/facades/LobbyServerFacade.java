@@ -3,6 +3,7 @@ package server.facades;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
+import shared.logging.Level;
 import shared.model.GameEvent;
 import shared.results.Result;
 import shared.logging.Logger;
@@ -20,8 +21,9 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     public Result startGame(IGame game, String username) {
         game = ServerRoot.getGame(game.getId());
         StartGameFacade.setUpGame(game);
-        game.getGameHistory().addEvent(new GameEvent(username, "started game"));
+        game.getGameHistory().addEvent(new GameEvent(username, "started the game"));
         ClientNotifications.gameStarted(game);
+        Logger.log(game.toString() + " started", Level.FINE);
         return new Result(true, ClientCommands.getCommandList(username), "Game Started");
     }
 
