@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutionException;
 import shared.command.Command;
 import shared.results.Result;
 import shared.logging.Logger;
-import shared.model.Game;
+import shared.model.interfaces.IGame;
 import shared.facades.server.ILobbyServerFacade;
 import tasks.CommandTask;
 
@@ -17,10 +17,10 @@ import tasks.CommandTask;
 public class LobbyServerProxy implements ILobbyServerFacade {
 
     @Override
-    public Result startGame(Game game, String username) {
+    public Result startGame(IGame game, String username) {
 
         Logger.log("We are starting the game.");
-        Class<?>[] parmTypes = {Game.class, String.class};
+        Class<?>[] parmTypes = {IGame.class, String.class};
         Object[] parmValues = {game, username};
         Command startGameCommand = new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues);
 

@@ -5,7 +5,7 @@ import shared.command.Command;
 import shared.results.Result;
 import shared.facades.server.ILobbyServerFacade;
 import shared.logging.Logger;
-import shared.model.Game;
+import shared.model.interfaces.IGame;
 
 /**
  * Created by Ben on 2/7/2018.
@@ -15,9 +15,9 @@ import shared.model.Game;
 public class LobbyServerProxySync implements ILobbyServerFacade {
 
     @Override
-    public Result startGame(Game game, String username) {
+    public Result startGame(IGame game, String username) {
         Logger.log("We are starting the game.");
-        Class<?>[] parmTypes = {Game.class};
+        Class<?>[] parmTypes = {IGame.class};
         Object[] parmValues = {game};
         return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
     }
