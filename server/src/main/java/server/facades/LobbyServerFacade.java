@@ -11,6 +11,7 @@ import shared.logging.Logger;
 import shared.facades.server.ILobbyServerFacade;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
+import shared.results.StartGameResult;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -25,7 +26,8 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "started the game"));
         ClientNotifications.gameStarted(game);
         Logger.log(game.toString() + " started", Level.FINE);
-        return new Result(true, ClientCommands.getCommandList(username), "Game Started");
+        IPlayer player = game.getPlayer(username);
+        return new StartGameResult(player, game.getGameInfo(), true, ClientCommands.getCommandList(username), "Game Started");
     }
 
     @Override
