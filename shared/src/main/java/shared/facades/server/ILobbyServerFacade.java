@@ -9,6 +9,6 @@ import shared.results.StartGameResult;
  */
 
 public interface ILobbyServerFacade {
-    StartGameResult startGame(IGame game, String username);
+    Result startGame(IGame game, String username);
     Result leaveGame(String username);
 }

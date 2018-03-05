@@ -20,7 +20,7 @@ import shared.results.StartGameResult;
 public class LobbyServerFacade implements ILobbyServerFacade {
 
     @Override
-    public StartGameResult startGame(IGame game, String username) {
+    public Result startGame(IGame game, String username) {
         game = ServerRoot.getGame(game.getId());
         StartGameFacade.setUpGame(game);
         game.getGameHistory().addEvent(new GameEvent(username, "started the game"));
