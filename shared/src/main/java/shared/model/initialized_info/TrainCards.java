@@ -26,6 +26,10 @@ public class TrainCards {
     }
 
     public static List<TrainCard> getTrainCards(){
+        //Create train cards if none exist.
+        if(_instance == null) {
+            instance();
+        }
         return _instance._trainCards;
     }
 
