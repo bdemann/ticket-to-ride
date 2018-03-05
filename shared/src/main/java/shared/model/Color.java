@@ -1,10 +1,12 @@
 package shared.model;
 
+import java.io.Serializable;
+
 /**
  * Created by bdemann on 3/4/18.
  */
 
-public class Color {
+public class Color implements Serializable{
 
     //I think I accidentally made an enum.... but maybe if we decide to actually colors on these guys we will be glad to have the option...
 

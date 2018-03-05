@@ -1,5 +1,6 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by bdemann on 3/4/18.
  */
 
-public class Hand<T> {
+public class Hand<T> implements Serializable {
     List<T> _cards;
 
     public Hand(List<T> cards) {

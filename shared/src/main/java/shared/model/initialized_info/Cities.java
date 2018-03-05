@@ -1,6 +1,7 @@
 package shared.model.initialized_info;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import shared.model.City;
@@ -10,7 +11,7 @@ import shared.model.Edge;
  * Created by paulinecausse on 3/3/18.
  */
 
-public class Cities {
+public class Cities implements Serializable {
     private static Cities _instance;
 
     public static Cities instance() {

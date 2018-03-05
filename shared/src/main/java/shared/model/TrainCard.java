@@ -1,11 +1,13 @@
 package shared.model;
 
+import java.io.Serializable;
+
 import shared.model.interfaces.ITrainCard;
 
 /**
  * Created by BenNelson on 2/2/18.
  */
-public class TrainCard implements ITrainCard {
+public class TrainCard implements ITrainCard, Serializable {
     private Color _color;
     private int _actionWeight;
 

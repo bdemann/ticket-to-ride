@@ -1,5 +1,7 @@
 package shared.model;
 
+import java.io.Serializable;
+
 import shared.model.interfaces.IDestCard;
 
 /**
@@ -12,7 +14,7 @@ import shared.model.interfaces.IDestCard;
  * The card also has a point amount.
  */
 
-public class DestCard implements IDestCard {
+public class DestCard implements IDestCard, Serializable {
     private String _destination;
     private String _startingPoint;
     private boolean _completed;

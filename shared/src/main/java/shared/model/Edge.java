@@ -1,12 +1,14 @@
 package shared.model;
 
+import java.io.Serializable;
+
 import shared.model.interfaces.IEdge;
 
 /**
  * Created by paulinecausse on 2/28/18.
  */
 
-public class Edge implements IEdge {
+public class Edge implements IEdge, Serializable{
     private int _length;
     private City _start;
     private City _end;

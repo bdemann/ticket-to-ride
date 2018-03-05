@@ -36,6 +36,7 @@ public class ClientCommunicator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("DO POST FAILED");
         return null;
     }
 
@@ -48,6 +49,7 @@ public class ClientCommunicator {
             connection.connect();
             CommandEncoder.encodeCommand(postData, connection.getOutputStream());
             connection.getOutputStream().close();
+
 
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 return CommandEncoder.decodeCommandResults(connection.getInputStream());

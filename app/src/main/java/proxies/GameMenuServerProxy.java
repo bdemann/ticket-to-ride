@@ -1,9 +1,13 @@
 package proxies;
 
+import android.util.Log;
+
 import java.util.concurrent.ExecutionException;
 
 import shared.command.Command;
 import shared.command.ICommand;
+import shared.logging.Logger;
+import shared.results.CreateGameResult;
 import shared.results.Result;
 import shared.model.interfaces.IPlayer;
 import shared.facades.server.IGameMenuServerFacade;
@@ -27,6 +31,13 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         Result results = null;
         try {
             results = task.get();
+            try{
+                CreateGameResult c = (CreateGameResult) results;
+                Logger.log(c);
+            }
+            catch(Exception e){
+
+            }
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

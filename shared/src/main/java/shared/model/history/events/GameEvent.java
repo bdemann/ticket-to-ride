@@ -1,10 +1,12 @@
 package shared.model.history.events;
 
+import java.io.Serializable;
+
 /**
  * Created by bdemann on 3/4/18.
  */
 
-public class GameEvent {
+public class GameEvent implements Serializable{
     private String username;
     private String event;
 

@@ -2,6 +2,7 @@ package shared.model.initialized_info;
 
 import org.omg.IOP.TAG_INTERNET_IOP;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import shared.model.TrainCard;
 
 // 12 of each except for the locomotive (14)
 
-public class TrainCards {
+public class TrainCards implements Serializable{
     private static TrainCards _instance;
 
     public static TrainCards instance() {

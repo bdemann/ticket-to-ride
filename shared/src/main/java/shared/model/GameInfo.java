@@ -1,5 +1,6 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import shared.model.interfaces.IGameInfo;
  * Created by bdemann on 3/4/18.
  */
 
-public class GameInfo implements IGameInfo {
+public class GameInfo implements IGameInfo, Serializable {
     private String _playerWithLongestRoute;
     private List<TrainCard> _faceUpCards;
     private int _gameId;

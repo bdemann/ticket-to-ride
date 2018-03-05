@@ -1,6 +1,7 @@
 package shared.model.initialized_info;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import shared.model.Edge;
  * Created by paulinecausse on 3/2/18.
  */
 
-public class Edges {
+public class Edges implements Serializable {
     private static Edges _instance;
 
     public static Edges instance() {

@@ -1,5 +1,6 @@
 package shared.model.initialized_info;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import shared.model.DestCard;
  * Created by paulinecausse on 2/27/18.
  */
 
-public class DestinationCards {
+public class DestinationCards implements Serializable {
     private static DestinationCards _instance;
 
     public static DestinationCards instance() {

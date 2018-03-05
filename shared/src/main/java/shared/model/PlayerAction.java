@@ -1,5 +1,7 @@
 package shared.model;
 
+import java.io.Serializable;
+
 /**
  * Created by BenNelson on 2/3/18.
  *
@@ -15,5 +17,5 @@ package shared.model;
  * 3 - Draw Destination _cards
  *
  */
-public class PlayerAction {
+public class PlayerAction implements Serializable {
 }

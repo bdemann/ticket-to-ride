@@ -1,5 +1,6 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import shared.model.interfaces.IRoute;
@@ -7,7 +8,7 @@ import shared.model.interfaces.IRoute;
 /**
  * Created by BenNelson on 2/2/18.
  */
-public class Route implements IRoute {
+public class Route implements IRoute, Serializable {
     private List<Edge> _edges;
     private int _length;
     private City _start;
