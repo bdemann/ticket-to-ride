@@ -11,7 +11,7 @@ import shared.model.DestCard;
  */
 
 public class DestinationCards implements Serializable {
-    private static DestinationCards _instance;
+    private static DestinationCards _instance = new DestinationCards();
 
     public static DestinationCards instance() {
 

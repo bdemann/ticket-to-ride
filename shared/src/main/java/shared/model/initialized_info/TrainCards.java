@@ -17,7 +17,7 @@ import shared.model.TrainCard;
 // 12 of each except for the locomotive (14)
 
 public class TrainCards implements Serializable{
-    private static TrainCards _instance;
+    private static TrainCards _instance = new TrainCards();
 
     public static TrainCards instance() {
 
@@ -27,10 +27,6 @@ public class TrainCards implements Serializable{
     }
 
     public static List<TrainCard> getTrainCards(){
-        //Create train cards if none exist.
-        if(_instance == null) {
-            instance();
-        }
         return _instance._trainCards;
     }
 
