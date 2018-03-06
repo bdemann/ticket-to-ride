@@ -42,6 +42,7 @@ public class GameServerFacade implements IGameServerFacade {
         //Adjust the players score
         player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
+        player.decrementTrains(route.getLength());
 
         game.incrementTurnIndex();
 
