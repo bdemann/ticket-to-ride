@@ -7,6 +7,7 @@ import shared.command.ICommand;
 import shared.results.Result;
 import shared.facades.server.ILoginServerFacade;
 import tasks.CommandTask;
+import tasks.TaskExecutor;
 
 /**
  * Created by Ben on 2/7/2018.
@@ -17,36 +18,12 @@ public class LoginServerProxy implements ILoginServerFacade{
     public LoginServerProxy(){}
     @Override
     public Result signin(String username, String password) {
-
-        CommandTask loginTask = new CommandTask();
-        loginTask.execute(generateLoginCommand("signin", username, password));
-
-        Result results = null;
-
-        try {
-            results = loginTask.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return results;
+        return TaskExecutor.runTask(generateLoginCommand("signin", username, password));
     }
 
     @Override
     public Result register(String username, String password) {
-
-        CommandTask loginTask = new CommandTask();
-        loginTask.execute(generateLoginCommand("register", username, password));
-
-        Result results = null;
-
-        try {
-            results = loginTask.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return results;
+        return TaskExecutor.runTask(generateLoginCommand("register", username, password));
     }
 
     private ICommand generateLoginCommand(String methodName, String username, String password){

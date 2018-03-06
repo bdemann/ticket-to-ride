@@ -14,11 +14,10 @@ import shared.results.Result;
  */
 
 public class JoinGameGuiFacade {
-    private static ClientRoot _clientRoot = ClientRoot.instance();
 
     public static String joinGame(int gameId) {
         IGameMenuServerFacade menuServerFacade = new GameMenuServerProxy();
-        IPlayer player = _clientRoot.getClientPlayer();
+        IPlayer player = ClientRoot.getClientPlayer();
 
         if(player == null){
 
@@ -39,15 +38,15 @@ public class JoinGameGuiFacade {
 
 
     private static void _addPlayer(IGame game, IPlayer player){
-        _clientRoot.getGame(game.getId()).addPlayer(player);
+        ClientRoot.getGame(game.getId()).addPlayer(player);
     }
 
     private static void _setPlayersGameId(IGame game){
-        _clientRoot.getClientPlayer().setGameId(game.getId());
+        ClientRoot.getClientPlayer().setGameId(game.getId());
     }
 
 
     private static void _addGame(IGame game){
-        _clientRoot.setClientGame(game);
+        ClientRoot.setClientGame(game);
     }
 }

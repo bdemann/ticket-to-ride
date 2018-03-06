@@ -12,4 +12,8 @@ public class ClaimRouteResult extends Result {
     public ClaimRouteResult(boolean success, List<ICommand> clientCommands, String userMessage) {
         super(success, clientCommands, userMessage);
     }
+
+    public ClaimRouteResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
 }

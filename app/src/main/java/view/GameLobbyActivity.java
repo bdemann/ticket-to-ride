@@ -29,7 +29,6 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
     ArrayList<String> player_names;
 
     private GameLobbyPresenter _gameLobbyPresenter;
-    private ClientRoot _clientRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +36,8 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         setContentView(R.layout.activity_game_lobby);
 
         //Setup _gameLobbyPresenter
-        _clientRoot = ClientRoot.instance();
-        _gameLobbyPresenter = new GameLobbyPresenter(this, _clientRoot);
-        _clientRoot.addObserver(_gameLobbyPresenter);
+        _gameLobbyPresenter = new GameLobbyPresenter(this);
+        ClientRoot.addClientRootObserver(_gameLobbyPresenter);
 
         _gameID = getIntent().getStringExtra("GameID");
 

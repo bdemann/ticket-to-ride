@@ -14,19 +14,18 @@ import shared.model.interfaces.IPlayer;
  */
 
 public class CreateGameGuiFacade {
-    private static ClientRoot _clientRoot = ClientRoot.instance();
 
     public static String createGame(int maxNumberPlayer, int color, String gameName) {
 
         GameMenuServerProxy proxy = new GameMenuServerProxy();
-        _clientRoot.getClientPlayer().setColor(color);
-        Result result = proxy.createGame(_clientRoot.getClientPlayer(),maxNumberPlayer,gameName);
+        ClientRoot.getClientPlayer().setColor(color);
+        Result result = proxy.createGame(ClientRoot.getClientPlayer(),maxNumberPlayer,gameName);
         IGame newGame = _processResults(result);
 
         if(newGame != null){
             CreateGameResult createGameResult = (CreateGameResult) result;
             //Get the player and gameID for the player to join
-            IPlayer player = _clientRoot.getClientPlayer();
+            IPlayer player = ClientRoot.getClientPlayer();
             int gameId = newGame.getId();
 
             //Join the game
@@ -84,16 +83,16 @@ public class CreateGameGuiFacade {
 
     //
     private static void _setPlayersGameId(IGame game){
-        _clientRoot.getClientPlayer().setGameId(game.getId());
+        ClientRoot.getClientPlayer().setGameId(game.getId());
     }
     //
 
 
     private static void _addGame(IGame game){
-        _clientRoot.addToGameList(game);
+        ClientRoot.addToGameList(game);
     }
 
     private static void _setJoinedGame(IGame game){
-        _clientRoot.setClientGame(game);
+        ClientRoot.setClientGame(game);
     }
 }

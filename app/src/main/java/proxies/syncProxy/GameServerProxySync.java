@@ -1,9 +1,7 @@
 package proxies.syncProxy;
 
-import java.util.List;
-
 import shared.facades.server.IGameServerFacade;
-import shared.model.TrainCard;
+import shared.model.TrainCardSet;
 import shared.model.interfaces.IEdge;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
@@ -14,7 +12,7 @@ import shared.results.DrawCardsResult;
 
 public class GameServerProxySync implements IGameServerFacade {
     @Override
-    public ClaimRouteResult claimRoute(IEdge route, List<TrainCard> cards, String username) {
+    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username) {
         return null;
     }
 

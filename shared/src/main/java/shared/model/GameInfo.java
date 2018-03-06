@@ -26,6 +26,7 @@ public class GameInfo implements IGameInfo, Serializable {
     // and the order in which the players take turns
     private Map<String, Integer> _playerHandSizes;
     private List<Route> _claimedRoutes;
+    private GameHistory _gameHistory;
 
     public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, List<Route> claimedRoutes) {
         this._playerWithLongestRoute = playerWithLongestRoute;
@@ -39,39 +40,53 @@ public class GameInfo implements IGameInfo, Serializable {
         this._claimedRoutes = claimedRoutes;
     }
 
+    @Override
     public String getPlayerWithLongestRoute() {
         return _playerWithLongestRoute;
     }
 
+    @Override
     public List<TrainCard> getFaceUpCards() {
         return _faceUpCards;
     }
 
+    @Override
     public int getGameId() {
         return _gameId;
     }
 
+    @Override
     public String getGameName() {
         return _gameName;
     }
 
+    @Override
     public List<String> getPlayers() {
         return _players;
     }
 
+    @Override
     public Map<String, Integer> getPlayerColors() {
         return _playerColors;
     }
 
+    @Override
     public Map<String, Integer> getPlayerPoints() {
         return _playerPoints;
     }
 
+    @Override
     public Map<String, Integer> getPlayerHandSizes() {
         return _playerHandSizes;
     }
 
+    @Override
     public List<Route> getClaimedRoutes() {
         return _claimedRoutes;
+    }
+
+    @Override
+    public GameHistory getGameHistory() {
+        return _gameHistory;
     }
 }

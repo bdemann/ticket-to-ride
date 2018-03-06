@@ -60,11 +60,11 @@ public class LobbyGuiFacade {
 
         if(results.getCommandSuccess()){
 
-            IPlayer player = ClientRoot.instance().getClientPlayer();
-            ClientRoot.instance().getGame(player.getGameId()).removePlayer(player);
+            IPlayer player = ClientRoot.getClientPlayer();
+            ClientRoot.getGame(player.getGameId()).removePlayer(player);
 
             //take the game from the root.
-            ClientRoot.instance().setClientGame(null);
+            ClientRoot.setClientGame(null);
 
         }
 

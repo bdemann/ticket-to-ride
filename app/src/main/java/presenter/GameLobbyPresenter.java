@@ -17,20 +17,18 @@ import view.GameLobbyActivity;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     private GameLobbyActivity _activity;
-    private ClientRoot _clientRoot;
 
-    public GameLobbyPresenter(GameLobbyActivity activity, ClientRoot clientRoot) {
+    public GameLobbyPresenter(GameLobbyActivity activity) {
         _activity = activity;
-        this._clientRoot = clientRoot;
     }
 
     @Override
     public void update(Observable observable, Object o) {
         //if we have left the game
-        if(_clientRoot.getClientGame() == null){
+        if(ClientRoot.getClientGame() == null){
             _activity.finish();
         }
-        else if(_clientRoot.getClientGame() != null && _clientRoot.getClientGame().isGameStarted()){
+        else if(ClientRoot.getClientGame() != null && ClientRoot.getClientGame().isGameStarted()){
 
             //We need to start the game.
             _activity.startGame();
@@ -45,17 +43,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public String leaveGame() {
-        return LobbyGuiFacade.leaveGame(_clientRoot.getClientPlayer().getUsername());
+        return LobbyGuiFacade.leaveGame(ClientRoot.getClientPlayer().getUsername());
     }
 
     @Override
     public void startGame() {
-        LobbyGuiFacade.startGame(_clientRoot.getClientGame(),_clientRoot.getClientPlayer().getUsername());
+        LobbyGuiFacade.startGame(ClientRoot.getClientGame(),ClientRoot.getClientPlayer().getUsername());
     }
 
     @Override
     public boolean checkNumPlayers() {
-        IGame game = _clientRoot.getClientGame();
+        IGame game = ClientRoot.getClientGame();
         int numPlayers = game.getNumberPlayer();
         int maxPlayers = game.getMaxNumberPlayer();
         if (numPlayers==maxPlayers)
@@ -65,13 +63,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     public void listGame(){
-        String name = _clientRoot.getClientGame().getGameName();
+        String name = ClientRoot.getClientGame().getGameName();
         //update the name of the game in the lobby activity
         _activity.updateGameName(name);
     }
 
     public void listPlayers(){
-        ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
+        ArrayList<IPlayer> players = new ArrayList<>(ClientRoot.getClientGame().getPlayers());
 
         StringBuilder playerList = new StringBuilder();
 

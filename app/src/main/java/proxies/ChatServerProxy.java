@@ -8,6 +8,7 @@ import shared.model.Chat;
 import shared.results.Result;
 import shared.facades.server.IChatServerFacade;
 import tasks.CommandTask;
+import tasks.TaskExecutor;
 
 /**
  * Created by bdemann on 3/3/18.
@@ -20,17 +21,6 @@ public class ChatServerProxy implements IChatServerFacade{
         Object[] parmValues = {message};
         ICommand sendChatCommand = new Command("server.facades.LobbyServerFacade", "sendChat", parmTypes, parmValues);
 
-        CommandTask task = new CommandTask();
-        task.execute(sendChatCommand);
-
-        Result result = null;
-        try {
-            result = task.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return result;
+        return TaskExecutor.runTask(sendChatCommand);
     }
 }

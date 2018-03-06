@@ -18,6 +18,10 @@ public class DrawCardsResult extends Result {
         this._cards = cards;
     }
 
+    public DrawCardsResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public List<? extends Card> getCards() {
         return _cards;
     }

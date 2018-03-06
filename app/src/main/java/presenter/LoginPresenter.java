@@ -17,11 +17,9 @@ import view.GameSelectionActivity;
 
 public class LoginPresenter implements ILoginPresenter, Observer {
 
-    private ClientRoot _clientRoot;
     private Context _context;
 
-    public LoginPresenter(ClientRoot clientRoot, Context appContext){
-        this._clientRoot = clientRoot;
+    public LoginPresenter(Context appContext){
         this._context = appContext;
 
     }

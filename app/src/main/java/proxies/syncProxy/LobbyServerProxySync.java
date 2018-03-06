@@ -16,11 +16,16 @@ import shared.results.StartGameResult;
 public class LobbyServerProxySync implements ILobbyServerFacade {
 
     @Override
-    public Result startGame(IGame game, String username) {
+    public StartGameResult startGame(IGame game, String username) {
         Logger.log("We are starting the game.");
         Class<?>[] parmTypes = {IGame.class};
         Object[] parmValues = {game};
-        return ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
+
+        Result result = ClientCommunicator.sendCommand(new Command("server.facades.LobbyServerFacade", "startGame", parmTypes, parmValues));
+        if(result.getCommandSuccess()) {
+            return (StartGameResult) result;
+        }
+        return new StartGameResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     @Override
