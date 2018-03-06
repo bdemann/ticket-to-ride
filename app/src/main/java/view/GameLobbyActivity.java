@@ -63,7 +63,6 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
                 if (_gameLobbyPresenter.checkNumPlayers()) {
                     //Alert others that the game will begin.
                     _gameLobbyPresenter.startGame();
-
                    startGame();
                 }
                 else{
@@ -102,8 +101,9 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
     @Override
     public void startGame() {
-        _gameLobbyPresenter.startGame();
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
+        String message = _gameLobbyPresenter.startGame();
+        _displayMessage(message);
+        //Intent intent = new Intent(this, GameActivity.class);
+        //startActivity(intent);
     }
 }

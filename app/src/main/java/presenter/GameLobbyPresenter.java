@@ -24,6 +24,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+
         //if we have left the game
         if(ClientRoot.getClientGame() == null){
             _activity.finish();
@@ -47,8 +48,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void startGame() {
-        LobbyGuiFacade.startGame(ClientRoot.getClientGame(),ClientRoot.getClientPlayer().getUsername());
+    public String startGame() {
+        return LobbyGuiFacade.startGame(ClientRoot.getClientGame(),ClientRoot.getClientPlayer().getUsername());
     }
 
     @Override
