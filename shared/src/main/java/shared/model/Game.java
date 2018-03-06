@@ -36,6 +36,8 @@ public class Game implements IGame, Serializable {
         this._gameName = gameName;
         this._playerWithLongestRoute = "";
         this._trainDeck = new TrainDeck();
+        this._destinationDeck = new DestinationDeck();
+        this._faceUpCards = new ArrayList<>();
         this._gameHistory = new GameHistory();
     }
 
