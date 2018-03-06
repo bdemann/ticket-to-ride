@@ -12,10 +12,6 @@ import shared.model.interfaces.IPlayer;
  */
 
 public class LobbyClientFacade implements IGameLobbyClientFacade {
-    @Override
-    public void sendChat() {
-
-    }
 
     @Override
     public void startGame(IGameInfo gameInfo, IPlayer player) {

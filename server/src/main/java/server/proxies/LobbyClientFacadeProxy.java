@@ -14,13 +14,10 @@ import shared.model.interfaces.IPlayer;
  */
 
 public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
-    @Override
-    public void sendChat() {
-
-    }
 
     @Override
     public void startGame(IGameInfo gameInfo, IPlayer player) {
+        //TODO do we need to not send this notification to the player that triggered it?
         IGame game = ServerRoot.getGame(gameInfo.getGameId());
         for(IPlayer user : game.getPlayers()) {
             ClientCommands.addCommand(user.getUsername(), _createStartGameCommand(gameInfo, user));
@@ -50,4 +47,5 @@ public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
         Object[] parmValues = {game, player};
         return new Command(CLASS, "startGame", parmTypes, parmValues);
     }
+    
 }

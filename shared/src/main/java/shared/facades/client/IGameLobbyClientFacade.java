@@ -12,8 +12,6 @@ import shared.model.interfaces.IPlayer;
  */
 
 public interface IGameLobbyClientFacade {
-
-    void sendChat();
     void startGame(IGameInfo gameInfo, IPlayer player);
     void leaveGame(String username);
 }
