@@ -6,6 +6,7 @@ import java.util.Map;
 
 import shared.model.history.GameHistory;
 import shared.model.interfaces.IGameInfo;
+import shared.model.interfaces.IPlayer;
 
 /**
  * Created by bdemann on 3/4/18.
@@ -27,8 +28,9 @@ public class GameInfo implements IGameInfo, Serializable {
     private Map<String, Integer> _playerHandSizes;
     private List<Route> _claimedRoutes;
     private GameHistory _gameHistory;
+    private int _turnIndex;
 
-    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, List<Route> claimedRoutes) {
+    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, List<Route> claimedRoutes, GameHistory gameHistory, int turnIndex) {
         this._playerWithLongestRoute = playerWithLongestRoute;
         this._faceUpCards = faceUpCards;
         this._gameId = gameId;
@@ -38,6 +40,8 @@ public class GameInfo implements IGameInfo, Serializable {
         this._playerPoints = playerPoints;
         this._playerHandSizes = playerHandSizes;
         this._claimedRoutes = claimedRoutes;
+        this._gameHistory = gameHistory;
+        this._turnIndex = turnIndex;
     }
 
     @Override
@@ -88,5 +92,15 @@ public class GameInfo implements IGameInfo, Serializable {
     @Override
     public GameHistory getGameHistory() {
         return _gameHistory;
+    }
+
+    @Override
+    public int getTurnIndex() {
+        return _turnIndex;
+    }
+
+    @Override
+    public String activePlayer() {
+        return _players.get(_turnIndex);
     }
 }
