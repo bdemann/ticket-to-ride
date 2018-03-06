@@ -61,8 +61,6 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
             @Override
             public void onClick(View view) {
                 if (_gameLobbyPresenter.checkNumPlayers()) {
-                    //Alert others that the game will begin.
-                    _gameLobbyPresenter.startGame();
                    startGame();
                 }
                 else{
@@ -92,18 +90,21 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         _displayMessage(message);
     }
 
+    @Override
+    public void startGame() {
+        String message = _gameLobbyPresenter.startGame();
+        _displayMessage(message);
+    }
+
+    public void goToGameActivity(){
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
     private void _displayMessage(String message) {
         //Just pop up a toast letting the user know what happened
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), message, duration);
         toast.show();
-    }
-
-    @Override
-    public void startGame() {
-        String message = _gameLobbyPresenter.startGame();
-        _displayMessage(message);
-        //Intent intent = new Intent(this, GameActivity.class);
-        //startActivity(intent);
     }
 }

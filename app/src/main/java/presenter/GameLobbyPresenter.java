@@ -1,5 +1,7 @@
 package presenter;
 
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -8,6 +10,7 @@ import facade.guifacade.LobbyGuiFacade;
 import model.ClientRoot;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
+import view.GameActivity;
 import view.GameLobbyActivity;
 
 /**
@@ -25,19 +28,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
 
-        //if we have left the game
+
         if(ClientRoot.getClientGame() == null){
+            //if we have left the game
             _activity.finish();
         }
-        else if(ClientRoot.getClientGame() != null && ClientRoot.getClientGame().isGameStarted()){
-
-            //We need to start the game.
-            _activity.startGame();
-
-
+        else if(ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo() != null){
+            //switch to the game activity
+            _activity.goToGameActivity();
         }
-        //Get the list of players
         else{
+            //Get the list of players
             listPlayers();
         }
     }
