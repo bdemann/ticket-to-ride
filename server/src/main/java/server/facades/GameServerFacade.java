@@ -8,6 +8,7 @@ import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
 import shared.model.Color;
 import shared.model.DestCard;
+import shared.model.TrainCardSet;
 import shared.model.interfaces.IEdge;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
@@ -23,7 +24,7 @@ import shared.results.DrawCardsResult;
 
 public class GameServerFacade implements IGameServerFacade {
     @Override
-    public ClaimRouteResult claimRoute(IEdge route, List<TrainCard> cards, String username) {
+    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
@@ -47,42 +48,17 @@ public class GameServerFacade implements IGameServerFacade {
         return null;
     }
 
-    private boolean _colorsMatch(List<TrainCard> cards, IEdge route) {
-        if (_colorsMatch(cards)) {
+    private boolean _colorsMatch(TrainCardSet cards, IEdge route) {
+        if (cards.colorsMatch()) {
             if(route.getColor().equals(Color.GRAY)) {
                 return true;
             } else {
-                Color cardColor = _getCardColor(cards);
+                Color cardColor = cards.getSetColor();
                 //TODO can you claim a route with all wilds? I am assuming so but we will have to change this if not.
                 return cardColor.equals(route.getColor()) || cardColor.equals(Color.RAINBOW);
             }
         }
         return false;
-    }
-
-    private boolean _colorsMatch(List<TrainCard> cards) {
-        Color currColor = null;
-        for( TrainCard card : cards) {
-            if (card.getColor().equals(Color.RAINBOW)) {
-                continue;
-            }
-            if (currColor == null){
-                currColor = card.getColor();
-            }else if (!currColor.equals(card.getColor())){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private Color _getCardColor(List<TrainCard> cards) {
-        for( TrainCard card : cards) {
-            if (card.getColor().equals(Color.RAINBOW)) {
-                continue;
-            }
-            return card.getColor();
-        }
-        return Color.RAINBOW;
     }
 
     @Override
