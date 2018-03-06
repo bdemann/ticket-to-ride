@@ -1,6 +1,7 @@
 package model;
 
 
+import shared.model.Chat;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
@@ -22,6 +23,7 @@ public class ClientRoot extends Observable {
     private List<IGame> _gamesList;
     private static ClientRoot _instance = new ClientRoot();
     private IGameInfo _gameInfo;
+    private List<Chat> messages;
 
     private ClientRoot(){
         this._clientPlayer = null;
@@ -47,15 +49,6 @@ public class ClientRoot extends Observable {
         return _instance._gamesList;
     }
 
-    public static IGame getGame(int gameId){
-        for(IGame game : _instance._gamesList){
-            if(game.getId() == gameId){
-                return game;
-            }
-        }
-        return null;
-    }
-
     public static void setClientPlayer(IPlayer player) {
         _instance._clientPlayer = player;
         _instance.setChanged();
@@ -76,16 +69,19 @@ public class ClientRoot extends Observable {
         }
     }
 
-    public static void setClientGameInfo(IGameInfo gameInfo) {
-        _instance._gameInfo = gameInfo;
-        _instance.setChanged();
-        _instance.notifyObservers();
-    }
-
     public static void addToGameList(IGame game){
         _instance._gamesList.add(game);
         _instance.setChanged();
         _instance.notifyObservers();
+    }
+
+    public static IGame getGame(int gameId){
+        for(IGame game : _instance._gamesList){
+            if(game.getId() == gameId){
+                return game;
+            }
+        }
+        return null;
     }
 
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
@@ -115,6 +111,9 @@ public class ClientRoot extends Observable {
         return false;
     }
 
+    public static void setClientGameInfo(IGameInfo gameInfo) {
+        _instance._gameInfo = gameInfo;
+    }
 
     public static void addClientRootObserver(Observer o){
         _instance.addObserver(o);
@@ -126,5 +125,9 @@ public class ClientRoot extends Observable {
 
     public static void removeAllObservers() {
         _instance.deleteObservers();
+    }
+
+    public static void addChatMessage(Chat message) {
+        _instance.messages.add(message);
     }
 }

@@ -32,7 +32,6 @@ public class ClientCommands {
         return commands;
     }
 
-    //TODO get rid of this function as soon we have the commands actually added. or maybe just adapt it...
     public static void addCommand(String username, ICommand command) {
         List<ICommand> commands;
         if(_instance._commands.containsKey(username)) {

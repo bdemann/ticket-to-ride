@@ -1,5 +1,6 @@
 package facade;
 
+import model.ClientRoot;
 import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGameInfo;
 
@@ -10,7 +11,7 @@ import shared.model.interfaces.IGameInfo;
 public class GameClientFacade {
 
     void updateGameInfo(IGameInfo gameInfo){
-        //TODO if I give you updated gameInfo every time something happens in the game can you update everything?
+        ClientRoot.setClientGameInfo(gameInfo);
     }
 
 }
