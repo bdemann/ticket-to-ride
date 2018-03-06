@@ -21,6 +21,10 @@ public class StartGameResult extends Result {
         this.gameInfo = gameInfo;
     }
 
+    public StartGameResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public IPlayer getPlayer() {
         return player;
     }

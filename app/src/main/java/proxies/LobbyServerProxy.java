@@ -19,7 +19,7 @@ import tasks.TaskExecutor;
 public class LobbyServerProxy implements ILobbyServerFacade {
 
     @Override
-    public Result startGame(IGame game, String username) {
+    public StartGameResult startGame(IGame game, String username) {
 
         Logger.log("We are starting the game.");
         Class<?>[] parmTypes = {IGame.class, String.class};
@@ -28,7 +28,12 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
         Logger.log("This is the startGame command: " + startGameCommand);
 
-        return TaskExecutor.runTask(startGameCommand);
+        Result result = TaskExecutor.runTask(startGameCommand);
+        if(result.getCommandSuccess()){
+            return (StartGameResult) result;
+        }
+
+        return new StartGameResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     @Override
