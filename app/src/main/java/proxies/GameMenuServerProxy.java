@@ -12,6 +12,7 @@ import shared.results.Result;
 import shared.model.interfaces.IPlayer;
 import shared.facades.server.IGameMenuServerFacade;
 import tasks.CommandTask;
+import tasks.TaskExecutor;
 
 /**
  *
@@ -25,24 +26,7 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         Object[] parmValues = {creator, numberPlayer, gameName};
         ICommand createGameCommand = new Command("server.facades.GameMenuServerFacade", "createGame", parmTypes, parmValues);
 
-        CommandTask task = new CommandTask();
-        task.execute(createGameCommand);
-
-        Result results = null;
-        try {
-            results = task.get();
-            try{
-                CreateGameResult c = (CreateGameResult) results;
-                Logger.log(c);
-            }
-            catch(Exception e){
-
-            }
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return results;
+        return TaskExecutor.runTask(createGameCommand);
     }
 
     @Override
@@ -52,18 +36,7 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
 
         ICommand joinGameCommand = new Command("server.facades.GameMenuServerFacade", "joinGame", parmTypes, parmValues);
 
-        CommandTask joinTask = new CommandTask();
-        joinTask.execute(joinGameCommand);
-
-        Result results = null;
-        try {
-            results = joinTask.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return results;
+        return TaskExecutor.runTask(joinGameCommand);
     }
 
     @Override
@@ -72,18 +45,6 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         Object[] parmValues = {username};
         ICommand getGamesCommand = new Command("server.facades.GameMenuServerFacade", "getGamesList", parmTypes, parmValues);
 
-
-        CommandTask loginTask = new CommandTask();
-        loginTask.execute(getGamesCommand);
-
-        Result results = null;
-        try {
-            results = loginTask.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return results;
+        return TaskExecutor.runTask(getGamesCommand);
     }
 }

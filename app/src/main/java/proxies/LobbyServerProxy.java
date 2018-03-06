@@ -9,6 +9,7 @@ import shared.model.interfaces.IGame;
 import shared.facades.server.ILobbyServerFacade;
 import shared.results.StartGameResult;
 import tasks.CommandTask;
+import tasks.TaskExecutor;
 
 /**
  * Created by Ben on 2/7/2018.
@@ -27,18 +28,7 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
         Logger.log("This is the startGame command: " + startGameCommand);
 
-        CommandTask startGameTask = new CommandTask();
-        startGameTask.execute(startGameCommand);
-
-        Result results = null;
-        try {
-            results = startGameTask.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return results;
+        return TaskExecutor.runTask(startGameCommand);
     }
 
     @Override
@@ -50,17 +40,6 @@ public class LobbyServerProxy implements ILobbyServerFacade {
 
         Logger.log("This is the leave command: " + leaveCommand);
 
-        CommandTask leaveGameTask = new CommandTask();
-        leaveGameTask.execute(leaveCommand);
-
-        Result results = null;
-        try {
-            results = leaveGameTask.get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return results;
+        return TaskExecutor.runTask(leaveCommand);
     }
 }
