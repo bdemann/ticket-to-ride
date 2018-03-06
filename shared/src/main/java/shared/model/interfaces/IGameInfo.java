@@ -5,6 +5,7 @@ import java.util.Map;
 
 import shared.model.Route;
 import shared.model.TrainCard;
+import shared.model.history.GameHistory;
 
 /**
  * Created by bdemann on 3/4/18.
@@ -20,4 +21,5 @@ public interface IGameInfo {
     Map<String, Integer> getPlayerPoints();
     Map<String, Integer> getPlayerHandSizes();
     List<Route> getClaimedRoutes();
+    GameHistory getGameHistory();
 }
