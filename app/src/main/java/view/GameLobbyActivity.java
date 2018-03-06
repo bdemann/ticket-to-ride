@@ -104,7 +104,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
     @Override
     public void startGame() {
-        //_gameLobbyPresenter.startGame();
+        _gameLobbyPresenter.startGame();
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
