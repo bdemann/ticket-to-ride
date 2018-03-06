@@ -119,6 +119,10 @@ public class ClientRoot extends Observable {
         _instance.addObserver(o);
     }
 
+    public static void addChatMessage(Chat message) {
+        _instance.messages.add(message);
+    }
+
     public static void removeClientRootObserver(Observer o){
         _instance.deleteObserver(o);
     }
@@ -127,7 +131,4 @@ public class ClientRoot extends Observable {
         _instance.deleteObservers();
     }
 
-    public static void addChatMessage(Chat message) {
-        _instance.messages.add(message);
-    }
 }
