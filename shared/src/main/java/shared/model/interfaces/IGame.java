@@ -1,10 +1,12 @@
 package shared.model.interfaces;
 import java.util.List;
 
+import shared.model.DestCard;
 import shared.model.DestinationDeck;
 import shared.model.Route;
 import shared.model.TTRMap;
 import shared.model.TrainCard;
+import shared.model.TrainCardSet;
 import shared.model.TrainDeck;
 import shared.model.history.GameHistory;
 
@@ -49,4 +51,7 @@ public interface IGame {
     int getTurnIndex();
     IPlayer getActivePlayer();
     int incrementTurnIndex();
+
+    void discardTrainCards(TrainCardSet cards);
+    void discardDestCards(List<DestCard> cards);
 }

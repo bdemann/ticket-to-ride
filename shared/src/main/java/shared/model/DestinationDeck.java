@@ -18,4 +18,8 @@ public class DestinationDeck extends Deck implements Serializable {
         super(DestinationCards.getDestinationCards());
     }
 
+    @Override
+    public void discard(List cards) {
+        super.addCardsToBottom(cards);
+    }
 }

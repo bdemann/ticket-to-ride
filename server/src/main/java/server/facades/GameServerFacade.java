@@ -38,6 +38,7 @@ public class GameServerFacade implements IGameServerFacade {
         //TODO implement claiming a route
         //Claim the route
         //Add cards to discard pile
+        game.discardTrainCards(cards);
         //Adjust the players score
         //Adjust the number of remaining trains player has.
 

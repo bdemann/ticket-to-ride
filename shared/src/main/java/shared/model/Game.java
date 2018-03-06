@@ -196,6 +196,16 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
+    public void discardTrainCards(TrainCardSet cards) {
+        _trainDeck.discard(cards.getTrainCards());
+    }
+
+    @Override
+    public void discardDestCards(List<DestCard> cards) {
+        _destinationDeck.discard(cards);
+    }
+
+    @Override
     public String getGameName(){
         return _gameName;
     }

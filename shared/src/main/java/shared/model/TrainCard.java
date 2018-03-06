@@ -39,4 +39,9 @@ public class TrainCard implements ITrainCard, Serializable {
     public int getActionWeight(){
         return _actionWeight;
     }
+
+    @Override
+    public String toString() {
+        return _color.toString();
+    }
 }
