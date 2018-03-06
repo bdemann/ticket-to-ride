@@ -162,6 +162,13 @@ public class GameActivity extends AppCompatActivity {
 //    }
 
 
+    @Override
+    public void onBackPressed() {
+        //We don't want them to leave the game.
+        ViewUtilities.displayMessage("You Can't Leave The Game.\n " +
+                "Never Give Up.", this);
+    }
+
     private void _createOnClickListeners(List<Button> _cityButtons){
 
         final MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.atlanta);

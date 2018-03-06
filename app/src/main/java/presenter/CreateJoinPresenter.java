@@ -31,7 +31,7 @@ public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
 
         System.out.println("Create Join Update called\n");
 
-        if(ClientRoot.getClientGame()!= null){
+        if(ClientRoot.getClientGame()!= null && ClientRoot.getClientGameInfo() == null){
             IGame game = ClientRoot.getClientGame();
             System.out.println("Here's the Game ID: " + game.getId());
 
@@ -41,6 +41,9 @@ public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
             intent.putExtra("GameName", game.getGameName());
             intent.putExtra("GameID", gameID);
             _createGameActivity.startActivity(intent);
+        }
+        if(ClientRoot.getClientGameInfo() != null){
+            ClientRoot.removeClientRootObserver(this);
         }
 
 

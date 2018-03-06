@@ -27,9 +27,12 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     @Override
     public void update(Observable obs, Object o) {
 
-        System.out.println("Login Presenter Update called\n");
-
+        //Logging in
         if(ClientRoot.getClientPlayer() != null && ClientRoot.getClientGame() == null){
+
+            //Remove the login as a presenter
+            ClientRoot.removeClientRootObserver(this);
+
             _getGamesList(ClientRoot.getClientPlayer().getUsername());
             Intent intent = new Intent(_context, GameSelectionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

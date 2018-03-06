@@ -61,11 +61,12 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
             @Override
             public void onClick(View view) {
                 if (_gameLobbyPresenter.checkNumPlayers()) {
+
                    startGame();
                 }
                 else{
-                    Toast toast = Toast.makeText(view.getContext(), "Not enough players!", Toast.LENGTH_LONG);
-                    toast.show();
+
+                    ViewUtilities.displayMessage("Not Enough Players.", view.getContext());
                 }
             }
         });
@@ -78,7 +79,6 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
     @Override
     public void updatePlayerList(String players) {
-
         //This gets called by the _gameLobbyPresenter. It is called with a string listing the players
         //separated by commas "Player One, Player Two, Player Three...."
         _playerList.setText(players);
@@ -87,24 +87,17 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
     @Override
     public void onBackPressed(){
         String message = _gameLobbyPresenter.leaveGame();
-        _displayMessage(message);
+        ViewUtilities.displayMessage(message,this);
     }
 
     @Override
     public void startGame() {
         String message = _gameLobbyPresenter.startGame();
-        _displayMessage(message);
+        ViewUtilities.displayMessage(message,this);
     }
 
     public void goToGameActivity(){
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
-    }
-
-    private void _displayMessage(String message) {
-        //Just pop up a toast letting the user know what happened
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), message, duration);
-        toast.show();
     }
 }

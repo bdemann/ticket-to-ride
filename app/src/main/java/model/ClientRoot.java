@@ -47,11 +47,18 @@ public class ClientRoot extends Observable {
         return _instance._gamesList;
     }
 
+    public static IGame getGame(int gameId){
+        for(IGame game : _instance._gamesList){
+            if(game.getId() == gameId){
+                return game;
+            }
+        }
+        return null;
+    }
+
     public static void setClientPlayer(IPlayer player) {
         _instance._clientPlayer = player;
         _instance.setChanged();
-        //The notify observers method can be overloaded with an object, will then be Object o param
-        //for the update function.
         _instance.notifyObservers();
     }
 
@@ -69,19 +76,16 @@ public class ClientRoot extends Observable {
         }
     }
 
-    public static void addToGameList(IGame game){
-        _instance._gamesList.add(game);
+    public static void setClientGameInfo(IGameInfo gameInfo) {
+        _instance._gameInfo = gameInfo;
         _instance.setChanged();
         _instance.notifyObservers();
     }
 
-    public static IGame getGame(int gameId){
-        for(IGame game : _instance._gamesList){
-            if(game.getId() == gameId){
-                return game;
-            }
-        }
-        return null;
+    public static void addToGameList(IGame game){
+        _instance._gamesList.add(game);
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
@@ -111,11 +115,16 @@ public class ClientRoot extends Observable {
         return false;
     }
 
-    public static void setClientGameInfo(IGameInfo gameInfo) {
-        _instance._gameInfo = gameInfo;
-    }
 
     public static void addClientRootObserver(Observer o){
         _instance.addObserver(o);
+    }
+
+    public static void removeClientRootObserver(Observer o){
+        _instance.deleteObserver(o);
+    }
+
+    public static void removeAllObservers() {
+        _instance.deleteObservers();
     }
 }

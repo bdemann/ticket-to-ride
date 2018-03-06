@@ -41,17 +41,10 @@ public class LobbyGuiFacade {
         }
 
         StartGameResult startGameResult = (StartGameResult) results;
-        IGameInfo x = startGameResult.getGameInfo();
 
         if(results.getCommandSuccess()){
-            List<ICommand> commands = results.getClientCommands();
-            for (ICommand command: commands) {
-                try {
-                    command.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            ClientRoot.setClientGameInfo(startGameResult.getGameInfo());
+            ClientRoot.setClientPlayer(startGameResult.getPlayer());
         }
 
         return results.getUserMessage();

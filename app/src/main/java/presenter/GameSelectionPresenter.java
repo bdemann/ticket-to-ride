@@ -18,23 +18,25 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     private GameSelectionActivity _gameSelectionActivity;
 
-
-
-
     public GameSelectionPresenter(GameSelectionActivity gameSelectionActivity){
-
         this._gameSelectionActivity = gameSelectionActivity;
     }
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("Game Selection Update called\n");
         //If a game has been joined
-        if (ClientRoot.getClientGame() != null){
+        if (ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo() == null){
             _gameSelectionActivity.goToGameLobby();
         }
 
-        listGames();
+        if(ClientRoot.getClientGameInfo() != null){
+            //Remove the game selection as an observer
+            ClientRoot.removeClientRootObserver(this);
+            _gameSelectionActivity.finish();
+        }
+        else {
+            listGames();
+        }
 
     }
 

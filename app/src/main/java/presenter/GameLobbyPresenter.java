@@ -35,6 +35,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         }
         else if(ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo() != null){
             //switch to the game activity
+            ClientRoot.removeAllObservers();
             _activity.goToGameActivity();
         }
         else{
