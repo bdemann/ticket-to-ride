@@ -60,9 +60,8 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
     }
 
     private void _setUpObserver(){
-        ClientRoot root = ClientRoot.instance();
-        _gameSelectionPresenter = new GameSelectionPresenter(root, this);
-        root.addObserver(_gameSelectionPresenter);
+        _gameSelectionPresenter = new GameSelectionPresenter(this);
+        ClientRoot.addClientRootObserver(_gameSelectionPresenter);
 
     }
 

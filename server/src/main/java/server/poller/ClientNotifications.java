@@ -6,6 +6,7 @@ import server.proxies.LobbyClientFacadeProxy;
 import shared.model.Chat;
 import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 /**
  * Created by bdemann on 2/12/18.
@@ -27,8 +28,8 @@ public class ClientNotifications {
         new LobbyClientFacadeProxy().leaveGame(username);
     }
 
-    public static void gameStarted(IGame game) {
-        new LobbyClientFacadeProxy().startGame(game, null);
+    public static void gameStarted(IGame game, IPlayer player) {
+        new LobbyClientFacadeProxy().startGame(game.getGameInfo(), player);
     }
 
     public static void messageSent(Chat message, IGame currentGame) {

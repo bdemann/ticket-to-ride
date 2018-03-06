@@ -18,13 +18,11 @@ import view.GameLobbyActivity;
 
 public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
 
-    private ClientRoot _clientRoot;
     private CreateGameActivity _createGameActivity;
 
 
-    public CreateJoinPresenter(ClientRoot clientRoot, CreateGameActivity createGameActivity){
+    public CreateJoinPresenter(CreateGameActivity createGameActivity){
 
-        this._clientRoot = clientRoot;
         this._createGameActivity = createGameActivity;
     }
 
@@ -33,8 +31,8 @@ public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
 
         System.out.println("Create Join Update called\n");
 
-        if(_clientRoot.getClientGame()!= null){
-            IGame game = _clientRoot.getClientGame();
+        if(ClientRoot.getClientGame()!= null){
+            IGame game = ClientRoot.getClientGame();
             System.out.println("Here's the Game ID: " + game.getId());
 
             //Transition to the game lobby

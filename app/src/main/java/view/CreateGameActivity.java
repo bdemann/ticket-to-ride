@@ -47,9 +47,8 @@ public class CreateGameActivity extends AppCompatActivity implements IGameSelect
     }
 
     private void _setUpObserver(){
-            ClientRoot root = ClientRoot.instance();
-            _createJoinPresenter = new CreateJoinPresenter(root, this);
-            root.addObserver(_createJoinPresenter);
+            _createJoinPresenter = new CreateJoinPresenter(this);
+            ClientRoot.addClientRootObserver(_createJoinPresenter);
 
     }
 

@@ -16,15 +16,13 @@ import view.GameSelectionActivity;
 
 public class GameSelectionPresenter implements IGameSelectionPresenter, Observer{
 
-    private ClientRoot _clientRoot;
     private GameSelectionActivity _gameSelectionActivity;
 
 
 
 
-    public GameSelectionPresenter(ClientRoot clientRoot, GameSelectionActivity gameSelectionActivity){
+    public GameSelectionPresenter(GameSelectionActivity gameSelectionActivity){
 
-        this._clientRoot = clientRoot;
         this._gameSelectionActivity = gameSelectionActivity;
     }
 
@@ -32,7 +30,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     public void update(Observable observable, Object o) {
         System.out.println("Game Selection Update called\n");
         //If a game has been joined
-        if (_clientRoot.getClientGame() != null){
+        if (ClientRoot.getClientGame() != null){
             _gameSelectionActivity.goToGameLobby();
         }
 
@@ -51,7 +49,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     @Override
     public ArrayList<String> getGameNames() {
-        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<IGame> gamesList = new ArrayList<>(ClientRoot.getListGames());
         ArrayList<String> gameNames = new ArrayList<>();
         for(int i = 0; i < gamesList.size(); i++){
             IGame game = gamesList.get(i);
@@ -62,7 +60,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     @Override
     public ArrayList<Integer> getGameIDs() {
-        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<IGame> gamesList = new ArrayList<>(ClientRoot.getListGames());
         ArrayList<Integer> gameIDs = new ArrayList<>();
         for(int i = 0; i < gamesList.size(); i++){
             IGame game = gamesList.get(i);
@@ -73,7 +71,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     @Override
     public ArrayList<String> getGameNumPlayers() {
-        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<IGame> gamesList = new ArrayList<>(ClientRoot.getListGames());
         ArrayList<String> gameNumPlayers = new ArrayList<>();
         for(int i = 0; i < gamesList.size(); i++){
             IGame game = gamesList.get(i);
@@ -90,7 +88,7 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     public void listGames(){
         //Update game list
-        ArrayList<IGame> gamesList = new ArrayList<>(_clientRoot.getListGames());
+        ArrayList<IGame> gamesList = new ArrayList<>(ClientRoot.getListGames());
         ArrayList<String> gameNames = new ArrayList<>();
         ArrayList<String> gameNumPlayers = new ArrayList<>();
         ArrayList<Integer> gameIDs = new ArrayList<>();

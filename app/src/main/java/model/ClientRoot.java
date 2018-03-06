@@ -8,6 +8,7 @@ import shared.model.interfaces.IPlayer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by BenNelson on 2/2/18.
@@ -112,5 +113,9 @@ public class ClientRoot extends Observable {
 
     public static void setClientGameInfo(IGameInfo gameInfo) {
         _instance._gameInfo = gameInfo;
+    }
+
+    public static void addClientRootObserver(Observer o){
+        _instance.addObserver(o);
     }
 }
