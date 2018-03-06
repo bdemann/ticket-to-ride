@@ -27,4 +27,6 @@ public interface IEdge {
 //    List<Block> getBlocks();
 
     Color getColor();
+
+    int getValue();
 }

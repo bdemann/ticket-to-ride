@@ -171,4 +171,6 @@ public interface IPlayer {
     void addDestCards(List<DestCard> newDestCards);
 
     Hand<TrainCard> getTrainCardHand();
+
+    void incrementScore(int score);
 }

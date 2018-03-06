@@ -24,9 +24,6 @@ public class Edge implements IEdge, Serializable{
         this._claimed = claimed;
     }
 
-
-
-
     public void setLength(int length){ this._length = length; }
 
     public void setStart(City start){ this._start = start; }
@@ -46,4 +43,23 @@ public class Edge implements IEdge, Serializable{
 //    public List<Block> getBlocks(){ return _blocks; }
 
     public Color getColor(){ return _color; }
+
+    @Override
+    public int getValue() {
+        switch (_length){
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 4;
+            case 4:
+                return 7;
+            case 5:
+                return 10;
+            case 6:
+                return 15;
+        }
+        return 0;
+    }
 }

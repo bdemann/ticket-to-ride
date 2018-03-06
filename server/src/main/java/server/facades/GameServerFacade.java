@@ -40,6 +40,7 @@ public class GameServerFacade implements IGameServerFacade {
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
+        player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
 
         game.incrementTurnIndex();
