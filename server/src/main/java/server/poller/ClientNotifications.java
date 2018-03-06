@@ -36,7 +36,6 @@ public class ClientNotifications {
 
     public static void messageSent(Chat message, IGame currentGame) {
         new ChatClientProxy().updateChat(message);
-        //TODO make sure that all players in the current game get the message
     }
 
     private static void _updateGame(String username){

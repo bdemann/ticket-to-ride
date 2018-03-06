@@ -22,4 +22,6 @@ public interface IGameInfo {
     Map<String, Integer> getPlayerHandSizes();
     List<Route> getClaimedRoutes();
     GameHistory getGameHistory();
+    int getTurnIndex();
+    String activePlayer();
 }

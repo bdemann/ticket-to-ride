@@ -46,4 +46,7 @@ public interface IGame {
     IGameInfo getGameInfo();
 
     GameHistory getGameHistory();
+    int getTurnIndex();
+    IPlayer getActivePlayer();
+    int incrementTurnIndex();
 }

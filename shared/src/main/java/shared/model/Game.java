@@ -28,6 +28,7 @@ public class Game implements IGame, Serializable {
     private DestinationDeck _destinationDeck;
     private List<TrainCard> _faceUpCards;
     private GameHistory _gameHistory;
+    private int turnIndex;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;

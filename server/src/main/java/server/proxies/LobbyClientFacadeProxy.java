@@ -17,7 +17,7 @@ public class LobbyClientFacadeProxy implements ILobbyClientFacade {
 
     @Override
     public void startGame(IGameInfo gameInfo, IPlayer player) {
-        //TODO do we need to not send this notification to the player that triggered it?
+        //TODO do we need to not send this notification to the player that triggered it? Do we need to do that for all players? Or do we just want to let the client figure out which commands he is going to execute?
         IGame game = ServerRoot.getGame(gameInfo.getGameId());
         for(IPlayer user : game.getPlayers()) {
             ClientCommands.addCommand(user.getUsername(), _createStartGameCommand(gameInfo, user));
