@@ -11,7 +11,7 @@ import shared.model.interfaces.IPlayer;
  * Created by BenNelson on 2/3/18.
  */
 
-public interface IGameLobbyClientFacade {
+public interface ILobbyClientFacade {
     void startGame(IGameInfo gameInfo, IPlayer player);
     void leaveGame(String username);
 }

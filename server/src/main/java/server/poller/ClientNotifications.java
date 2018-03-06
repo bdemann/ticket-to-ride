@@ -1,6 +1,8 @@
 package server.poller;
 
 import server.model.ServerRoot;
+import server.proxies.ChatClientProxy;
+import server.proxies.GameClientProxy;
 import server.proxies.GameMenuClientProxy;
 import server.proxies.LobbyClientFacadeProxy;
 import shared.model.Chat;
@@ -33,18 +35,25 @@ public class ClientNotifications {
     }
 
     public static void messageSent(Chat message, IGame currentGame) {
+        new ChatClientProxy().updateChat(message);
         //TODO make sure that all players in the current game get the message
     }
 
+    private static void _updateGame(String username){
+        IPlayer player = ServerRoot.getPlayer(username);
+        IGame game = ServerRoot.getGame(player.getGameId());
+        new GameClientProxy().updateGameInfo(game.getGameInfo());
+    }
+
     public static void playerClaimedRoute(String username, IEdge route) {
-        //TODO send notification about a claimed route
+        _updateGame(username);
     }
 
     public static void playerDrewTrainCards(String username) {
-        //TODO send notification about drawing cards.
+        _updateGame(username);
     }
 
     public static void playerDrewDestinationCards(String username) {
-        //TODO send notification about drawing destination cards.
+        _updateGame(username);
     }
 }
