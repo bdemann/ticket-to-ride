@@ -2,6 +2,7 @@ package model;
 
 
 import shared.model.interfaces.IGame;
+import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
 import java.util.ArrayList;
@@ -18,14 +19,8 @@ public class ClientRoot extends Observable {
     private IPlayer _clientPlayer;
     private IGame _clientGame;
     private List<IGame> _gamesList;
-    private static ClientRoot _instance;
-
-    public static ClientRoot instance() {
-
-        if (_instance == null)
-            _instance = new ClientRoot();
-        return _instance;
-    }
+    private static ClientRoot _instance = new ClientRoot();
+    private IGameInfo _gameInfo;
 
     private ClientRoot(){
         this._clientPlayer = null;
@@ -40,6 +35,10 @@ public class ClientRoot extends Observable {
 
     public static IGame getClientGame() {
         return _instance._clientGame;
+    }
+
+    public static IGameInfo getClientGameInfo() {
+        return _instance._gameInfo;
     }
 
     public static List<IGame> getListGames() {
@@ -111,4 +110,7 @@ public class ClientRoot extends Observable {
         return false;
     }
 
+    public static void setClientGameInfo(IGameInfo gameInfo) {
+        _instance._gameInfo = gameInfo;
+    }
 }
