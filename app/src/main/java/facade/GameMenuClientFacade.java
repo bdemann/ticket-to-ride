@@ -31,6 +31,7 @@ public class GameMenuClientFacade implements IGameMenuClientFacade {
     @Override
     public void updateGameList(String username) {
         //TODO we need to implement this guy
+        //TODO wait how are we updating the game list if this isn't being called????
     }
 
     @Override
