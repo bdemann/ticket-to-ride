@@ -7,8 +7,10 @@ import proxies.LobbyServerProxy;
 import shared.command.ICommand;
 import shared.model.Game;
 import shared.model.interfaces.IGame;
+import shared.model.interfaces.IGameInfo;
 import shared.results.Result;
 import shared.model.interfaces.IPlayer;
+import shared.results.StartGameResult;
 
 /**
  *
@@ -27,17 +29,20 @@ public class LobbyGuiFacade {
         return _processResults(results);
     }
 
-    public static void startGame(IGame game, String username){
+    public static String startGame(IGame game, String username){
         LobbyServerProxy proxy = new LobbyServerProxy();
         Result results = proxy.startGame((Game) game, username);
-        _processStartGameResults(results);
-
+        return _processStartGameResults(results);
     }
 
     private static String _processStartGameResults(Result results) {
         if(results == null){
             return "Start Game Result is Null";
         }
+
+        StartGameResult startGameResult = (StartGameResult) results;
+        IGameInfo x = startGameResult.getGameInfo();
+
         if(results.getCommandSuccess()){
             List<ICommand> commands = results.getClientCommands();
             for (ICommand command: commands) {

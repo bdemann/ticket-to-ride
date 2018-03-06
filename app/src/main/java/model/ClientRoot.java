@@ -26,6 +26,7 @@ public class ClientRoot extends Observable {
     private ClientRoot(){
         this._clientPlayer = null;
         this._clientGame = null;
+        this._gameInfo = null;
         this._gamesList = new ArrayList<>();
     }
 
@@ -82,7 +83,6 @@ public class ClientRoot extends Observable {
         }
         return null;
     }
-
 
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
 

@@ -8,5 +8,5 @@ public interface IGameLobbyPresenter {
 
     boolean checkNumPlayers();
     String leaveGame();
-    void startGame();
+    String startGame();
 }
