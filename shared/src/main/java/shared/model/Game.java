@@ -28,7 +28,7 @@ public class Game implements IGame, Serializable {
     private DestinationDeck _destinationDeck;
     private List<TrainCard> _faceUpCards;
     private GameHistory _gameHistory;
-    private int turnIndex;
+    private int _turnIndex;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
@@ -174,6 +174,28 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
+    public int getTurnIndex() {
+        return _turnIndex;
+    }
+
+    @Override
+    public IPlayer getActivePlayer() {
+        return _players.get(_turnIndex);
+    }
+
+    @Override
+    public int incrementTurnIndex() {
+        //If not every player has had a turn
+        if(_turnIndex < _players.size()){
+            // Move turn to the next player
+            return ++_turnIndex;
+        }
+        // Otherwise start the turns over again.
+        _turnIndex = 0;
+        return _turnIndex;
+    }
+
+    @Override
     public String getGameName(){
         return _gameName;
     }
@@ -226,6 +248,6 @@ public class Game implements IGame, Serializable {
             playerHandSizes.put(username, player.getTrainCardHand().size());
             playerPoints.put(username, player.getScore());
         }
-        return new GameInfo(_id, _gameName, _gameHistory, _playerWithLongestRoute, _faceUpCards, players, playerColors, playerPoints, playerHandSizes, getClaimedRoutes());
+        return new GameInfo(_id, _gameName, _gameHistory, _playerWithLongestRoute, _faceUpCards, players, playerColors, playerPoints, playerHandSizes, getClaimedRoutes(), getGameHistory(), _turnIndex);
     }
 }
