@@ -14,6 +14,5 @@ public interface IGameMenuClientFacade {
 
     void createGame(IGame game);
     void joinGame(IPlayer player, IGame game);
-    void updateGameList(String username);
-    void updatePlayerList(String username);
+
 }

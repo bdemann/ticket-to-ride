@@ -26,21 +26,6 @@ public class GameMenuClientProxy implements IGameMenuClientFacade {
         }
     }
 
-    @Override
-    public void updateGameList(String username) {
-        Class<?>[] parmTypes = {String.class};
-        Object[] parm = {username};
-        Command command = new Command("facade.GameMenuClientFacade", "updateGameList", parmTypes, parm);
-        ClientCommands.addCommand(username, command);
-    }
-
-    @Override
-    public void updatePlayerList(String username) {
-        Class<?>[] parmTypes = {String.class};
-        Object[] parm = {username};
-        Command command = new Command("facade.LobbyClientFacade", "updatePlayerList", parmTypes, parm);
-    }
-
     private static ICommand _createJoinCommand(IPlayer player, IGame game){
         Class<?>[] parmTypes = {IPlayer.class,IGame.class};
         Object[] parm = {player,game};
