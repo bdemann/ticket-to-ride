@@ -41,7 +41,7 @@ public class GameServerFacade implements IGameServerFacade {
         //Adjust the players score
         //Adjust the number of remaining trains player has.
 
-        //TODO change whose turn it is
+        game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new ClaimRouteEvent(username, route));
         ClientNotifications.playerClaimedRoute(username, route);
@@ -68,7 +68,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         List<TrainCard> cards = game.getTrainCardDeck().draw(1);
 
-        //TODO change whose turn it is
+        game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card"));
         ClientNotifications.playerDrewTrainCards(username);
@@ -83,7 +83,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         List<DestCard> cards = game.getDestCardDeck().draw(3);
 
-        //TODO change whose turn it is
+        game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card"));
         ClientNotifications.playerDrewDestinationCards(username);
