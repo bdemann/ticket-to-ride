@@ -4,7 +4,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
-import shared.facades.client.IGameLobbyClientFacade;
+import shared.facades.client.ILobbyClientFacade;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
@@ -13,7 +13,7 @@ import shared.model.interfaces.IPlayer;
  * Created by bdemann on 2/12/18.
  */
 
-public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
+public class LobbyClientFacadeProxy implements ILobbyClientFacade {
 
     @Override
     public void startGame(IGameInfo gameInfo, IPlayer player) {

@@ -1,8 +1,7 @@
 package facade;
 
 import model.ClientRoot;
-import shared.facades.client.IGameLobbyClientFacade;
-import shared.model.interfaces.IGame;
+import shared.facades.client.ILobbyClientFacade;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
@@ -11,7 +10,7 @@ import shared.model.interfaces.IPlayer;
  * Created by BenNelson on 2/3/18.
  */
 
-public class LobbyClientFacade implements IGameLobbyClientFacade {
+public class LobbyClientFacade implements ILobbyClientFacade {
 
     @Override
     public void startGame(IGameInfo gameInfo, IPlayer player) {
