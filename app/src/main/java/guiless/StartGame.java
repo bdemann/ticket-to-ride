@@ -1,5 +1,6 @@
 package guiless;
 
+import model.ClientRoot;
 import proxies.syncProxy.GameMenuServerProxySync;
 import proxies.syncProxy.GameServerProxySync;
 import proxies.syncProxy.LobbyServerProxySync;
@@ -29,6 +30,7 @@ public class StartGame {
         result = new LobbyServerProxySync().startGame(game, "bdemann");
         System.out.println("Start Game Result:");
         System.out.println(result);
+        System.out.println(ClientRoot.getClientPlayer());
     }
 
 }
