@@ -51,7 +51,14 @@ class ViewUtilities {
 
     static ArrayList<Integer> createDestCardImagePaths(List<DestCard> destCards) {
         ArrayList<Integer> imagePathList = new ArrayList<>();
-
+        for (DestCard card : destCards) {
+            int path = _findImagePath(card.getStartingPoint(), card.getDestination());
+            imagePathList.add(path);
+        }
         return imagePathList;
+    }
+
+    private static int _findImagePath(String startingPoint, String destination) {
+        return 0;
     }
 }
