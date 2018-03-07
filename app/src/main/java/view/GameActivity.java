@@ -16,7 +16,7 @@ import com.a340team.tickettoride.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     //Map
     ImageView mapView;
@@ -91,7 +91,6 @@ public class GameActivity extends AppCompatActivity {
 //
 //        return super.onTouchEvent(event);
 //    }
-
 
     @Override
     public void onBackPressed() {
@@ -254,4 +253,28 @@ public class GameActivity extends AppCompatActivity {
         _cityButtons.add(montreal);
     }
 
+    @Override
+    public void drawTrainCards() {
+
+    }
+
+    @Override
+    public void claimRoute() {
+
+    }
+
+    @Override
+    public void drawDestinations() {
+
+    }
+
+    @Override
+    public void displayGame() {
+
+    }
+
+    @Override
+    public void displayChat() {
+
+    }
 }
