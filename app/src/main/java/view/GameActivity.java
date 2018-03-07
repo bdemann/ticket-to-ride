@@ -62,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     Button new_york;
     Button boston;
     Button montreal;
+    Button miami;
     //Button Array
     ArrayList<Button> _cityButtons;
 
@@ -213,6 +214,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         las_vegas = (Button) findViewById(R.id.las_vegas);
         phoenix = (Button) findViewById(R.id.phoenix);
         toronto = (Button) findViewById(R.id.toronto);
+        miami = (Button) findViewById(R.id.miami);
+
 
         //Add buttons to list
         _cityButtons = new ArrayList<>();
@@ -251,6 +254,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _cityButtons.add(new_york);
         _cityButtons.add(boston);
         _cityButtons.add(montreal);
+        _cityButtons.add(miami);
     }
 
     @Override
