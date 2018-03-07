@@ -57,138 +57,6 @@
         android:text="Chats/Stats" />
 
     <Button
-        android:id="@+id/portland"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="55dp"
-        android:alpha="0"
-        android:text="portland" />
-
-    <Button
-        android:id="@+id/seattle"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="30dp"
-        android:alpha="0"
-        android:text="seattle" />
-
-    <Button
-        android:id="@+id/vancouver"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="0dp"
-        android:alpha="0"
-        android:text="vancouver" />
-
-    <Button
-        android:id="@+id/san_francisco"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="255dp"
-        android:alpha="0"
-        android:text="san_francisco" />
-
-    <Button
-        android:id="@+id/los_angeles"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="355dp"
-        android:alpha="0"
-        android:text="los_angeles" />
-
-    <Button
-        android:id="@+id/calgary"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="225dp"
-        android:layout_marginTop="0dp"
-        android:alpha="0"
-        android:text="calgary" />
-
-    <Button
-        android:id="@+id/helena"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="120dp"
-        android:alpha="0"
-        android:text="helena" />
-
-    <Button
-        android:id="@+id/salt_lake_city"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="215dp"
-        android:layout_marginTop="215dp"
-        android:alpha="0"
-        android:text="salt_lake_city" />
-
-    <Button
-        android:id="@+id/las_vegas"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="310dp"
-        android:alpha="0"
-        android:text="las_vegas" />
-
-    <Button
-        android:id="@+id/phoenix"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="365dp"
-        android:alpha="0"
-        android:text="phoenix" />
-
-    <Button
-        android:id="@+id/santa_fe"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="338dp"
-        android:alpha="0"
-        android:text="santa_fe" />
-
-    <Button
-        android:id="@+id/el_paso"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="290dp"
-        android:layout_marginTop="415dp"
-        android:alpha="0"
-        android:text="el_paso" />
-
-    <Button
         android:id="@+id/denver"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -200,17 +68,6 @@
         android:text="denver" />
 
     <Button
-        android:id="@+id/winnipeg"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="450dp"
-        android:layout_marginTop="30dp"
-        android:alpha="0"
-        android:text="winnipeg" />
-
-    <Button
         android:id="@+id/duluth"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -220,193 +77,6 @@
         android:layout_marginTop="155dp"
         android:alpha="0"
         android:text="duluth" />
-
-    <Button
-        android:id="@+id/omaha"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="480dp"
-        android:layout_marginTop="213dp"
-        android:alpha="0"
-        android:text="omaha" />
-
-    <Button
-        android:id="@+id/kansas_city"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="485dp"
-        android:layout_marginTop="275dp"
-        android:alpha="0"
-        android:text="kansas_city" />
-
-    <Button
-        android:id="@+id/oklahoma_city"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="450dp"
-        android:layout_marginTop="330dp"
-        android:alpha="0"
-        android:text="oklahoma_city" />
-
-    <Button
-        android:id="@+id/dallas"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="485dp"
-        android:layout_marginTop="430dp"
-        android:alpha="0"
-        android:text="dallas" />
-
-    <Button
-        android:id="@+id/houston"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="500dp"
-        android:layout_marginTop="470dp"
-        android:alpha="0"
-        android:text="houston" />
-
-    <Button
-        android:id="@+id/new_orleans"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="580dp"
-        android:layout_marginTop="470dp"
-        android:alpha="0"
-        android:text="new_orleans" />
-
-    <Button
-        android:id="@+id/little_rock"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="532dp"
-        android:layout_marginTop="356dp"
-        android:alpha="0"
-        android:text="little_rock" />
-
-    <Button
-        android:id="@+id/st_louis"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="558dp"
-        android:layout_marginTop="280dp"
-        android:alpha="0"
-        android:text="st_louis" />
-
-    <Button
-        android:id="@+id/chicago"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="625dp"
-        android:layout_marginTop="223dp"
-        android:alpha="0"
-        android:text="chicago" />
-
-    <Button
-        android:id="@+id/saul_st_marie"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="643dp"
-        android:layout_marginTop="100dp"
-        android:alpha="0"
-        android:text="saul_st_marie" />
-
-    <Button
-        android:id="@+id/nashville"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="645dp"
-        android:layout_marginTop="325dp"
-        android:alpha="0"
-        android:text="nashville" />
-
-    <Button
-        android:id="@+id/atlanta"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="678dp"
-        android:layout_marginTop="368dp"
-        android:alpha="0"
-        android:text="atlanta" />
-
-    <Button
-        android:id="@+id/charleston"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="760dp"
-        android:layout_marginTop="385dp"
-        android:alpha="0"
-        android:text="charleston" />
-
-    <Button
-        android:id="@+id/raleigh"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="738dp"
-        android:layout_marginTop="320dp"
-        android:alpha="0"
-        android:text="raleigh" />
-
-    <Button
-        android:id="@+id/pittsburgh"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="738dp"
-        android:layout_marginTop="220dp"
-        android:alpha="0"
-        android:text="pittsburgh" />
-
-    <Button
-        android:id="@+id/toronto"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="738dp"
-        android:layout_marginTop="130dp"
-        android:alpha="0"
-        android:text="toronto" />
-
-    <Button
-        android:id="@+id/montreal"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="842dp"
-        android:layout_marginTop="50dp"
-        android:alpha="0"
-        android:text="montreal" />
 
     <Button
         android:id="@+id/boston"
@@ -431,25 +101,318 @@
         android:text="new_york" />
 
     <Button
+        android:id="@+id/vancouver"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:alpha="0"
+        android:text="vancouver"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/claim_route" />
+
+    <Button
+        android:id="@+id/seattle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="seattle"
+        android:layout_alignBottom="@+id/winnipeg"
+        android:layout_alignStart="@+id/portland"
+        android:layout_marginBottom="11dp" />
+
+    <Button
+        android:id="@+id/los_angeles"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="los_angeles"
+        android:layout_alignBaseline="@+id/denver"
+        android:layout_alignBottom="@+id/denver"
+        android:layout_alignStart="@+id/vancouver" />
+
+    <Button
+        android:id="@+id/las_vegas"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="las_vegas"
+        android:layout_alignBaseline="@+id/chicago"
+        android:layout_alignBottom="@+id/chicago"
+        android:layout_toEndOf="@+id/los_angeles" />
+
+    <Button
+        android:id="@+id/phoenix"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="19dp"
+        android:alpha="0"
+        android:text="phoenix"
+        android:layout_below="@+id/salt_lake_city"
+        android:layout_toEndOf="@+id/los_angeles" />
+
+    <Button
+        android:id="@+id/salt_lake_city"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:alpha="0"
+        android:text="salt_lake_city"
+        android:layout_alignBaseline="@+id/duluth"
+        android:layout_alignBottom="@+id/duluth"
+        android:layout_alignStart="@+id/phoenix" />
+
+    <Button
+        android:id="@+id/calgary"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="calgary"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/las_vegas" />
+
+    <Button
+        android:id="@+id/el_paso"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="el_paso"
+        android:layout_alignBaseline="@+id/dallas"
+        android:layout_alignBottom="@+id/dallas"
+        android:layout_toEndOf="@+id/salt_lake_city" />
+
+    <Button
+        android:id="@+id/santa_fe"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="santa_fe"
+        android:layout_below="@+id/new_york"
+        android:layout_toEndOf="@+id/calgary" />
+
+    <Button
+        android:id="@+id/dallas"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="dallas"
+        android:layout_below="@+id/santa_fe"
+        android:layout_alignEnd="@+id/draw_destinations" />
+
+    <Button
+        android:id="@+id/oklahoma_city"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="oklahoma_city"
+        android:layout_above="@+id/dallas"
+        android:layout_alignStart="@+id/denver" />
+
+    <Button
+        android:id="@+id/kansas_city"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="kansas_city"
+        android:layout_alignBaseline="@+id/new_york"
+        android:layout_alignBottom="@+id/new_york"
+        android:layout_alignStart="@+id/dallas" />
+
+    <Button
+        android:id="@+id/helena"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="helena"
+        android:layout_alignBaseline="@+id/portland"
+        android:layout_alignBottom="@+id/portland"
+        android:layout_toEndOf="@+id/salt_lake_city" />
+
+    <Button
+        android:id="@+id/winnipeg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0"
+        android:text="winnipeg"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/oklahoma_city" />
+
+    <Button
+        android:id="@+id/little_rock"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="11dp"
+        android:alpha="0"
+        android:text="little_rock"
+        android:layout_alignBaseline="@+id/denver"
+        android:layout_alignBottom="@+id/denver"
+        android:layout_toEndOf="@+id/denver" />
+
+    <Button
+        android:id="@+id/nashville"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="nashville"
+        android:layout_above="@+id/dallas"
+        android:layout_alignEnd="@+id/omaha"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:id="@+id/omaha"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="omaha"
+        android:layout_alignBaseline="@+id/duluth"
+        android:layout_alignBottom="@+id/duluth"
+        android:layout_alignStart="@+id/kansas_city" />
+
+    <Button
+        android:id="@+id/atlanta"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="atlanta"
+        android:layout_below="@+id/chicago"
+        android:layout_toStartOf="@+id/miami"
+        android:layout_marginEnd="17dp" />
+
+    <Button
+        android:id="@+id/st_louis"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:alpha="0"
+        android:text="st_louis"
+        android:layout_below="@+id/omaha"
+        android:layout_toEndOf="@+id/kansas_city" />
+
+    <Button
+        android:id="@+id/chicago"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="chicago"
+        android:layout_alignBaseline="@+id/duluth"
+        android:layout_alignBottom="@+id/duluth"
+        android:layout_toEndOf="@+id/st_louis" />
+
+    <Button
+        android:id="@+id/saul_st_marie"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:alpha="0"
+        android:text="saul_st_marie"
+        android:layout_below="@+id/winnipeg"
+        android:layout_alignStart="@+id/chicago" />
+
+    <Button
+        android:id="@+id/new_orleans"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="13dp"
+        android:alpha="0"
+        android:text="new_orleans"
+        android:layout_below="@+id/dallas"
+        android:layout_alignStart="@+id/st_louis" />
+
+    <Button
+        android:id="@+id/houston"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:alpha="0"
+        android:text="houston"
+        android:layout_below="@+id/dallas"
+        android:layout_alignStart="@+id/dallas" />
+
+    <Button
+        android:id="@+id/charleston"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="charleston"
+        android:layout_alignBaseline="@+id/washington"
+        android:layout_alignBottom="@+id/washington"
+        android:layout_alignStart="@+id/miami" />
+
+    <Button
         android:id="@+id/washington"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="785dp"
-        android:layout_marginTop="280dp"
         android:alpha="0"
-        android:text="washington" />
+        android:text="washington"
+        android:layout_alignBaseline="@+id/kansas_city"
+        android:layout_alignBottom="@+id/kansas_city"
+        android:layout_toEndOf="@+id/duluth" />
 
     <Button
         android:id="@+id/miami"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignBottom="@+id/map_image"
-        android:layout_alignEnd="@+id/map_image"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="178dp"
         android:alpha="0"
-        android:text="miami" />
+        android:text="miami"
+        android:layout_below="@+id/new_orleans"
+        android:layout_alignEnd="@+id/washington"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:id="@+id/raleigh"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="raleigh"
+        android:layout_below="@+id/san_francisco"
+        android:layout_toStartOf="@+id/washington" />
+
+    <Button
+        android:id="@+id/toronto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="toronto"
+        android:layout_alignBaseline="@+id/duluth"
+        android:layout_alignBottom="@+id/duluth"
+        android:layout_alignStart="@+id/pittsburgh" />
+
+    <Button
+        android:id="@+id/pittsburgh"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="pittsburgh"
+        android:layout_alignBaseline="@+id/duluth"
+        android:layout_alignBottom="@+id/duluth"
+        android:layout_toEndOf="@+id/atlanta" />
+
+    <Button
+        android:id="@+id/montreal"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="19dp"
+        android:alpha="0"
+        android:text="montreal"
+        android:layout_below="@+id/calgary"
+        android:layout_alignStart="@+id/new_york" />
+
+    <Button
+        android:id="@+id/portland"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="portland"
+        android:layout_below="@+id/seattle"
+        android:layout_alignStart="@+id/san_francisco"
+        android:layout_marginStart="19dp" />
+
+    <Button
+        android:id="@+id/san_francisco"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:text="san_francisco"
+        android:layout_below="@+id/boston"
+        android:layout_toStartOf="@+id/dallas" />
 
 </RelativeLayout>

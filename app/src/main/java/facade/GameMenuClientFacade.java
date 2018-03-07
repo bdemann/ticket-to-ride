@@ -11,31 +11,20 @@ import shared.model.interfaces.IPlayer;
  */
 
 public class GameMenuClientFacade implements IGameMenuClientFacade {
-    private static ClientRoot _clientRoot = ClientRoot.instance();
 
     @Override
     public void createGame(IGame game) {
-        _clientRoot.addToGameList(game);
+        ClientRoot.addToGameList(game);
     }
 
     @Override
     public void joinGame(IPlayer player, IGame game) {
-        _clientRoot.getListGames().get(game.getId()).addPlayer(player);
+        ClientRoot.getListGames().get(game.getId()).addPlayer(player);
 
-        if(_clientRoot.getClientGame() != null){
-            if(game.getId() == _clientRoot.getClientGame().getId()){
-                _clientRoot.getClientGame().addPlayer(player);
+        if(ClientRoot.getClientGame() != null){
+            if(game.getId() == ClientRoot.getClientGame().getId()){
+                ClientRoot.getClientGame().addPlayer(player);
             }
         }
-    }
-
-    @Override
-    public void updateGameList(String username) {
-        //TODO we need to implement this guy
-    }
-
-    @Override
-    public void updatePlayerList(String username) {
-
     }
 }

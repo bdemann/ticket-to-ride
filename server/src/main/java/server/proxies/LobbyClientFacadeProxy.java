@@ -4,28 +4,24 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
-import shared.facades.client.IGameLobbyClientFacade;
+import shared.facades.client.ILobbyClientFacade;
 import shared.model.interfaces.IGame;
+import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
 /**
  * Created by bdemann on 2/12/18.
  */
 
-public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
-    @Override
-    public void sendChat() {
-
-    }
+public class LobbyClientFacadeProxy implements ILobbyClientFacade {
 
     @Override
-    public void startGame(IGame game, String username) {
-
+    public void startGame(IGameInfo gameInfo, IPlayer player) {
+        //TODO do we need to not send this notification to the player that triggered it? Do we need to do that for all players? Or do we just want to let the client figure out which commands he is going to execute?
+        IGame game = ServerRoot.getGame(gameInfo.getGameId());
         for(IPlayer user : game.getPlayers()) {
-            ClientCommands.addCommand(user.getUsername(), _createStartGameCommand(game, user.getUsername()));
+            ClientCommands.addCommand(user.getUsername(), _createStartGameCommand(gameInfo, user));
         }
-        //game.startGame();
-        //TODO we need to initialize the game here I think. Or make an initialize game command?
     }
 
     @Override
@@ -38,15 +34,18 @@ public class LobbyClientFacadeProxy implements IGameLobbyClientFacade {
         ServerRoot.getPlayer(username).setGameId(-1);
     }
 
+    private static final String CLASS = "facade.LobbyClientFacade";
+
     private ICommand _createLeaveGameCommand(String username) {
         Class<?>[] parmTypes = {String.class};
-        Object[] parms = {username};
-        return new Command("facade.LobbyClientFacade", "leaveGame", parmTypes, parms);
+        Object[] parmValues = {username};
+        return new Command(CLASS, "leaveGame", parmTypes, parmValues);
     }
 
-    private ICommand _createStartGameCommand(IGame game, String username) {
-        Class<?>[] parmTypes = {IGame.class ,String.class};
-        Object[] parms = {game, username};
-        return new Command("facade.LobbyClientFacade", "startGame", parmTypes, parms);
+    private ICommand _createStartGameCommand(IGameInfo game, IPlayer player) {
+        Class<?>[] parmTypes = {IGameInfo.class, IPlayer.class};
+        Object[] parmValues = {game, player};
+        return new Command(CLASS, "startGame", parmTypes, parmValues);
     }
+    
 }

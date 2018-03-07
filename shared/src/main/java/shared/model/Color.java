@@ -27,11 +27,17 @@ public class Color implements Serializable{
         this._color = color;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof Color) {
             Color c = (Color) o;
             return _color.equals(c._color);
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return _color;
     }
 }

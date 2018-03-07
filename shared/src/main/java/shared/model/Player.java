@@ -17,7 +17,7 @@ public class Player implements IPlayer, Serializable {
     private String _password;
     private int _color;
     private int _gameId = -1;
-    private int points = 0;
+    private int _points = 0;
     private List<Edge> playersEdges;
     private List<Route> playersRoutes;
     private List<Train> _trains;
@@ -90,6 +90,11 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public void incrementScore(int score) {
+        this._points += score;
+    }
+
+    @Override
     public String getUsername() {
         return this._username;
     }
@@ -143,7 +148,7 @@ public class Player implements IPlayer, Serializable {
 
     @Override
     public void setScore(int score) {
-
+        _points = score;
     }
 
     @Override
@@ -168,7 +173,7 @@ public class Player implements IPlayer, Serializable {
 
     @Override
     public int getScore() {
-        return 0;
+        return _points;
     }
 
     @Override
@@ -178,7 +183,7 @@ public class Player implements IPlayer, Serializable {
 
     @Override
     public int getCurrentGame() {
-        return 0;
+        return _gameId;
     }
 
     @Override

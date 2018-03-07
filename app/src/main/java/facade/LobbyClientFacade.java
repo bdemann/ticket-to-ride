@@ -1,8 +1,8 @@
 package facade;
 
 import model.ClientRoot;
-import shared.facades.client.IGameLobbyClientFacade;
-import shared.model.interfaces.IGame;
+import shared.facades.client.ILobbyClientFacade;
+import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
 /**
@@ -10,21 +10,18 @@ import shared.model.interfaces.IPlayer;
  * Created by BenNelson on 2/3/18.
  */
 
-public class LobbyClientFacade implements IGameLobbyClientFacade {
-    @Override
-    public void sendChat() {
-
-    }
+public class LobbyClientFacade implements ILobbyClientFacade {
 
     @Override
-    public void startGame(IGame game, String username) {
-        //Set the initialized game.
-        ClientRoot.setClientGame(game);
+    public void startGame(IGameInfo gameInfo, IPlayer player) {
+        //Set the initialized gameInfo.
+        ClientRoot.setClientGameInfo(gameInfo);
+        ClientRoot.setClientPlayer(player);
     }
 
     @Override
     public void leaveGame(String username) {
-        IPlayer player = ClientRoot.instance().getClientGame().getPlayer(username);
-        ClientRoot.instance().getClientGame().removePlayer(player);
+        IPlayer player = ClientRoot.getClientGame().getPlayer(username);
+        ClientRoot.getClientGame().removePlayer(player);
     }
 }

@@ -1,5 +1,7 @@
 package presenter;
 
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -8,6 +10,7 @@ import facade.guifacade.LobbyGuiFacade;
 import model.ClientRoot;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
+import view.GameActivity;
 import view.GameLobbyActivity;
 
 /**
@@ -17,45 +20,43 @@ import view.GameLobbyActivity;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     private GameLobbyActivity _activity;
-    private ClientRoot _clientRoot;
 
-    public GameLobbyPresenter(GameLobbyActivity activity, ClientRoot clientRoot) {
+    public GameLobbyPresenter(GameLobbyActivity activity) {
         _activity = activity;
-        this._clientRoot = clientRoot;
     }
 
     @Override
     public void update(Observable observable, Object o) {
-        //if we have left the game
-        if(_clientRoot.getClientGame() == null){
+
+
+        if(ClientRoot.getClientGame() == null){
+            //if we have left the game
             _activity.finish();
         }
-        else if(_clientRoot.getClientGame() != null && _clientRoot.getClientGame().isGameStarted()){
-
-            //We need to start the game.
-            _activity.startGame();
-
-
+        else if(ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo() != null){
+            //switch to the game activity
+            ClientRoot.removeAllObservers();
+            _activity.goToGameActivity();
         }
-        //Get the list of players
         else{
+            //Get the list of players
             listPlayers();
         }
     }
 
     @Override
     public String leaveGame() {
-        return LobbyGuiFacade.leaveGame(_clientRoot.getClientPlayer().getUsername());
+        return LobbyGuiFacade.leaveGame(ClientRoot.getClientPlayer().getUsername());
     }
 
     @Override
-    public void startGame() {
-        LobbyGuiFacade.startGame(_clientRoot.getClientGame(),_clientRoot.getClientPlayer().getUsername());
+    public String startGame() {
+        return LobbyGuiFacade.startGame(ClientRoot.getClientGame(),ClientRoot.getClientPlayer().getUsername());
     }
 
     @Override
     public boolean checkNumPlayers() {
-        IGame game = _clientRoot.getClientGame();
+        IGame game = ClientRoot.getClientGame();
         int numPlayers = game.getNumberPlayer();
         int maxPlayers = game.getMaxNumberPlayer();
         if (numPlayers==maxPlayers)
@@ -65,24 +66,29 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     public void listGame(){
-        String name = _clientRoot.getClientGame().getGameName();
-        //update the name of the game in the lobby activity
-        _activity.updateGameName(name);
+        if(ClientRoot.getClientGame() != null) {
+            String name = ClientRoot.getClientGame().getGameName();
+            //update the name of the game in the lobby activity
+            _activity.updateGameName(name);
+        }
     }
 
     public void listPlayers(){
-        ArrayList<IPlayer> players = new ArrayList<>(_clientRoot.getClientGame().getPlayers());
+        if(ClientRoot.getClientGame() != null){
 
-        StringBuilder playerList = new StringBuilder();
+            ArrayList<IPlayer> players = new ArrayList<>(ClientRoot.getClientGame().getPlayers());
 
-        for (int i = 0; i < players.size(); i++){
-            playerList.append(players.get(i).getUsername());
-            if (i != (players.size()-1)){
-                playerList.append(", ");
+            StringBuilder playerList = new StringBuilder();
+
+            for (int i = 0; i < players.size(); i++){
+                playerList.append(players.get(i).getUsername());
+                if (i != (players.size()-1)){
+                    playerList.append(", ");
+                }
             }
-        }
 
-        //Update the list of players on the lobby activity
-        _activity.updatePlayerList(playerList.toString());
+            //Update the list of players on the lobby activity
+            _activity.updatePlayerList(playerList.toString());
+        }
     }
 }

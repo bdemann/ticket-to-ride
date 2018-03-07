@@ -14,9 +14,6 @@ public class DestinationCards implements Serializable {
     private static DestinationCards _instance = new DestinationCards();
 
     public static DestinationCards instance() {
-
-        if (_instance == null)
-            _instance = new DestinationCards();
         return _instance;
     }
 

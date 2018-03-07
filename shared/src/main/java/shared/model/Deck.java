@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import shared.model.interfaces.Card;
+
 /**
  * Created by bdemann on 3/3/18.
  */
 
-public class Deck<T> implements Serializable {
+public abstract class Deck<T> implements Serializable {
 
     List<T> _cards;
 
@@ -21,11 +23,17 @@ public class Deck<T> implements Serializable {
         Collections.shuffle(_cards);
     }
 
+    public abstract void discard(List<T> cards);
+
+    public void addCardsToBottom(List<T> cards) {
+        _cards.addAll(cards);
+    }
+
     public List<T> draw(int count){
         List<T> cards = new ArrayList<>();
         for(int i = 0; i < count; i++){
             cards.add(this._cards.get(0));
-            cards.remove(0);
+            _cards.remove(0);
         }
         return cards;
     }

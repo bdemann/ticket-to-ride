@@ -59,10 +59,15 @@ public class GameSelectionActivity extends AppCompatActivity implements IGameSel
         setTitle("Select a Game");
     }
 
+    @Override
+    public void onBackPressed(){
+        //This makes it so the back button should be disabled
+        ViewUtilities.displayMessage("You're signed in.\nYou can't go back.\n #sorrynotsorry", this);
+    }
+
     private void _setUpObserver(){
-        ClientRoot root = ClientRoot.instance();
-        _gameSelectionPresenter = new GameSelectionPresenter(root, this);
-        root.addObserver(_gameSelectionPresenter);
+        _gameSelectionPresenter = new GameSelectionPresenter(this);
+        ClientRoot.addClientRootObserver(_gameSelectionPresenter);
 
     }
 

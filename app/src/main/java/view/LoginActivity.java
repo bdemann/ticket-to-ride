@@ -152,9 +152,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     private void _setUpObserver(){
 
-        ClientRoot root = ClientRoot.instance();
-        _loginPresenter = new LoginPresenter(root, getApplicationContext());
-        root.addObserver(_loginPresenter);
+        _loginPresenter = new LoginPresenter(getApplicationContext());
+        ClientRoot.addClientRootObserver(_loginPresenter);
     }
 
     private void _initializeLoginElements(){

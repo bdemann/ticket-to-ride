@@ -1,12 +1,15 @@
 package model;
 
 
+import shared.model.Chat;
 import shared.model.interfaces.IGame;
+import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by BenNelson on 2/2/18.
@@ -18,18 +21,14 @@ public class ClientRoot extends Observable {
     private IPlayer _clientPlayer;
     private IGame _clientGame;
     private List<IGame> _gamesList;
-    private static ClientRoot _instance;
-
-    public static ClientRoot instance() {
-
-        if (_instance == null)
-            _instance = new ClientRoot();
-        return _instance;
-    }
+    private static ClientRoot _instance = new ClientRoot();
+    private IGameInfo _gameInfo;
+    private List<Chat> messages;
 
     private ClientRoot(){
         this._clientPlayer = null;
         this._clientGame = null;
+        this._gameInfo = null;
         this._gamesList = new ArrayList<>();
     }
 
@@ -42,6 +41,10 @@ public class ClientRoot extends Observable {
         return _instance._clientGame;
     }
 
+    public static IGameInfo getClientGameInfo() {
+        return _instance._gameInfo;
+    }
+
     public static List<IGame> getListGames() {
         return _instance._gamesList;
     }
@@ -49,8 +52,6 @@ public class ClientRoot extends Observable {
     public static void setClientPlayer(IPlayer player) {
         _instance._clientPlayer = player;
         _instance.setChanged();
-        //The notify observers method can be overloaded with an object, will then be Object o param
-        //for the update function.
         _instance.notifyObservers();
     }
 
@@ -83,7 +84,6 @@ public class ClientRoot extends Observable {
         return null;
     }
 
-
     private boolean _incomingListIsDifferent(List<IGame> incomingList) {
 
 
@@ -109,6 +109,26 @@ public class ClientRoot extends Observable {
         }
 
         return false;
+    }
+
+    public static void setClientGameInfo(IGameInfo gameInfo) {
+        _instance._gameInfo = gameInfo;
+    }
+
+    public static void addClientRootObserver(Observer o){
+        _instance.addObserver(o);
+    }
+
+    public static void addChatMessage(Chat message) {
+        _instance.messages.add(message);
+    }
+
+    public static void removeClientRootObserver(Observer o){
+        _instance.deleteObserver(o);
+    }
+
+    public static void removeAllObservers() {
+        _instance.deleteObservers();
     }
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +16,17 @@ import com.a340team.tickettoride.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements IGameActivity{
 
+    //Map
     ImageView mapView;
+    //Click Buttons
+    Button _drawTrains;
+    Button _claimRoute;
+    Button _drawDestinations;
+    Button _myGame;
+    Button _chatStats;
+    //Cities
     Button portland;
     Button vancouver;
     Button seattle;
@@ -53,7 +62,7 @@ public class GameActivity extends AppCompatActivity {
     Button new_york;
     Button boston;
     Button montreal;
-
+    //Button Array
     ArrayList<Button> _cityButtons;
 
     @Override
@@ -65,6 +74,105 @@ public class GameActivity extends AppCompatActivity {
 //        Matrix matrix = new Matrix();
 //        matrix.preScale(.5f,.5f);
 //        mapView.setImageMatrix(matrix);
+
+        _initializeButtons();
+        _createOnClickListeners(_cityButtons);
+        _createFunctionButtonListeners();
+        displayStartDestCards();
+
+    }
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        // MotionEvent object holds X-Y values
+//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+//            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
+//            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+//        }
+//
+//        return super.onTouchEvent(event);
+//    }
+
+    @Override
+    public void onBackPressed() {
+        //We don't want them to leave the game.
+        ViewUtilities.displayMessage("You Can't Leave The Game.\n " +
+                "Never Give Up.", this);
+    }
+
+    private void _createOnClickListeners(List<Button> _cityButtons){
+
+         final MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.atlanta);
+         View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Button button = (Button) view;
+                String text = button.getText().toString();
+
+                if(text.equals("atlanta")){
+                    text = "atlanta nanana";
+                    mediaPlayer.start();
+                }
+
+                ViewUtilities.displayMessage(text, view.getContext());
+            }
+        };
+
+        for (int i = 0; i < _cityButtons.size(); i++) {
+            _cityButtons.get(i).setOnClickListener(clickListener);
+        }
+    }
+
+    private void _createFunctionButtonListeners(){
+        _drawTrains.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawTrainCards();
+            }
+        });
+
+        _claimRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Do something please!
+                ViewUtilities.displayMessage("Claim Route\nShould Show", view.getContext());
+            }
+        });
+
+        _drawDestinations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawDestinations();
+            }
+        });
+
+        _myGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Do something please!
+                ViewUtilities.displayMessage("My Game\nShould Show", view.getContext());
+            }
+        });
+
+        _chatStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Do something please!
+                ViewUtilities.displayMessage("Chat and Stats\nShould Show", view.getContext());
+            }
+        });
+    }
+
+    private void _initializeButtons(){
+        //Click buttons
+        _drawTrains = (Button) findViewById(R.id.draw_trains);
+        _claimRoute = (Button) findViewById(R.id.claim_route);
+        _drawDestinations = (Button) findViewById(R.id.draw_destinations);
+        _myGame = (Button) findViewById(R.id.my_game);
+        _chatStats = (Button) findViewById(R.id.chats_stats);
 
         //find buttons
         portland = (Button) findViewById(R.id.portland);
@@ -105,8 +213,7 @@ public class GameActivity extends AppCompatActivity {
         toronto = (Button) findViewById(R.id.toronto);
 
         //Add buttons to list
-        _cityButtons = new ArrayList();
-
+        _cityButtons = new ArrayList<>();
         _cityButtons.add(portland);
         _cityButtons.add(vancouver);
         _cityButtons.add(seattle);
@@ -142,52 +249,41 @@ public class GameActivity extends AppCompatActivity {
         _cityButtons.add(new_york);
         _cityButtons.add(boston);
         _cityButtons.add(montreal);
-        
+    }
 
+    @Override
+    public void displayStartDestCards() {
+        Intent intent = new Intent(this, DrawDestinationsActivity.class);
+        intent.putExtra(ViewUtilities.GAME_START, true);
+        startActivity(intent);
+    }
 
-        _createOnClickListeners(_cityButtons);
+    @Override
+    public void drawTrainCards() {
+        Intent intent = new Intent(this, DrawTrainCardsActivity.class);
+        startActivity(intent);
+    }
 
+    @Override
+    public void claimRoute() {
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        // MotionEvent object holds X-Y values
-//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-//            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
-//            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-//        }
-//
-//        return super.onTouchEvent(event);
-//    }
-
-
-    private void _createOnClickListeners(List<Button> _cityButtons){
-
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.atlanta);
-         View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Button button = (Button) view;
-                String text = button.getText().toString();
-                if(text.equals("atlanta")){
-                    text = "atlanta nanana";
-
-                    mediaPlayer.start();
-                }
-
-                Toast toast = Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT);
-
-                toast.show();
-            }
-        };
-
-        for (int i = 0; i < _cityButtons.size(); i++)
-            _cityButtons.get(i).setOnClickListener(clickListener);
-
-//        portland.setOnClickListener(clickListener);
-//        new_york.setOnClickListener(clickListener);
+    @Override
+    public void drawDestinations() {
+        Intent intent = new Intent(this, DrawDestinationsActivity.class);
+        intent.putExtra(ViewUtilities.GAME_START, false);
+        startActivity(intent);
 
     }
 
+    @Override
+    public void displayGame() {
+
+    }
+
+    @Override
+    public void displayChat() {
+
+    }
 }

@@ -7,6 +7,7 @@ import shared.command.ICommand;
 import shared.results.Result;
 import shared.facades.server.IServerFacade;
 import tasks.CommandTask;
+import tasks.TaskExecutor;
 
 /**
  *
@@ -20,16 +21,6 @@ public class ServerProxy implements IServerFacade {
         Object[] parmValues = {username};
         ICommand getCommandsCommand = new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues);
 
-        CommandTask getCommandsTask = new CommandTask();
-        getCommandsTask.execute(getCommandsCommand);
-
-        Result results = null;
-        try {
-            results = getCommandsTask.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return results;
+        return TaskExecutor.runTask(getCommandsCommand);
     }
 }
