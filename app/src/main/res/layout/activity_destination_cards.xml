@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:padding="30dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/drawDestInstructions"
@@ -26,8 +26,8 @@
 
         <ImageButton
             android:id="@+id/destCard1"
-            android:layout_width="300dp"
-            android:layout_height="210dp"
+            android:layout_width="250dp"
+            android:layout_height="175dp"
             android:scaleType="fitCenter"
             android:layout_alignParentTop="true"
             android:layout_below="@id/drawDestInstructions"
@@ -36,8 +36,8 @@
 
         <ImageButton
             android:id="@+id/destCard2"
-            android:layout_width="300dp"
-            android:layout_height="210dp"
+            android:layout_width="250dp"
+            android:layout_height="175dp"
             android:scaleType="fitCenter"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/destCard1"
@@ -48,8 +48,8 @@
 
         <ImageButton
             android:id="@+id/destCard3"
-            android:layout_width="300dp"
-            android:layout_height="210dp"
+            android:layout_width="250dp"
+            android:layout_height="175dp"
             android:scaleType="fitCenter"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/destCard2"
