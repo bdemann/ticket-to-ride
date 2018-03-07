@@ -9,6 +9,12 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
+import model.ClientRoot;
+import shared.model.Color;
+import shared.model.TrainCard;
+import shared.model.TrainCardSet;
+import shared.model.interfaces.IGameInfo;
+
 /**
  *
  * Created by BenNelson on 3/6/18.
@@ -22,27 +28,37 @@ public class DrawTrainCardsActivity extends AppCompatActivity{
     private ImageButton _trainCardFour;
     private ImageButton _trainCardFive;
     private ImageButton _trainCardDeck;
-    private Button _done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_trains);
-
-        _initializeButtons();
+        _initializeImageButtons(ClientRoot.getClientGameInfo());
         _createOnClickListeners();
 
     }
 
-    private void _initializeButtons(){
+    private void _initializeImageButtons(IGameInfo gameInfo){
+
+
         _trainCardOne = (ImageButton) findViewById(R.id.train_card_one);
         _trainCardTwo = (ImageButton) findViewById(R.id.train_card_two);
         _trainCardThree = (ImageButton) findViewById(R.id.train_card_three);
         _trainCardFour = (ImageButton) findViewById(R.id.train_card_four);
         _trainCardFive = (ImageButton) findViewById(R.id.train_card_five);
         _trainCardDeck = (ImageButton) findViewById(R.id.train_card_deck);
-        _done = (Button) findViewById(R.id.train_cards_done_button);
 
+        TrainCard cardOne = gameInfo.getFaceUpCards().get(0);
+        TrainCard cardTwo = gameInfo.getFaceUpCards().get(1);
+        TrainCard cardThree = gameInfo.getFaceUpCards().get(2);
+        TrainCard cardFour = gameInfo.getFaceUpCards().get(3);
+        TrainCard cardFive = gameInfo.getFaceUpCards().get(4);
+
+        _trainCardOne.setImageResource(_getCardImage(cardOne));
+        _trainCardTwo.setImageResource(_getCardImage(cardTwo));
+        _trainCardThree.setImageResource(_getCardImage(cardThree));
+        _trainCardFour.setImageResource(_getCardImage(cardFour));
+        _trainCardFive.setImageResource(_getCardImage(cardFive));
     }
 
     private void _createOnClickListeners() {
@@ -87,13 +103,27 @@ public class DrawTrainCardsActivity extends AppCompatActivity{
 
             }
         });
-
-        _done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
+    private int _getCardImage(TrainCard trainCard) {
+        if (trainCard.getColor() == Color.BLACK) {
+            return R.drawable.black;
+        } else if (trainCard.getColor() == Color.BLUE) {
+            return R.drawable.blue;
+        } else if (trainCard.getColor() == Color.GREEN) {
+            return R.drawable.green;
+        } else if (trainCard.getColor() == Color.ORANGE) {
+            return R.drawable.orange;
+        } else if (trainCard.getColor() == Color.YELLOW) {
+            return R.drawable.yellow;
+        } else if (trainCard.getColor() == Color.WHITE) {
+            return R.drawable.white;
+        } else if (trainCard.getColor() == Color.RED) {
+            return R.drawable.red;
+        } else if (trainCard.getColor() == Color.PINK) {
+            return R.drawable.pink;
+        } else {//RAINBOW
+            return R.drawable.rainbow;
+        }
+    }
 }

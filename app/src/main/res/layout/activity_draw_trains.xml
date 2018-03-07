@@ -60,23 +60,14 @@
         android:layout_toEndOf="@+id/train_card_one" />
 
     <ImageButton
-        android:layout_width="220dp"
-        android:layout_height="150dp"
+        android:layout_width="300dp"
+        android:layout_height="210dp"
         app:srcCompat="@drawable/topdeck"
         android:id="@+id/train_card_deck"
         android:scaleType="fitCenter"
         tools:ignore="ContentDescription"
-        android:layout_marginEnd="29dp"
-        android:layout_alignBottom="@+id/train_card_four"
-        android:layout_alignEnd="@+id/train_card_five"
-        android:layout_marginBottom="28dp" />
+        android:layout_below="@+id/train_card_five"
+        android:layout_toEndOf="@+id/train_card_four" />
 
-    <Button
-        android:text="Done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/train_cards_done_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/train_card_deck" />
 
 </RelativeLayout>

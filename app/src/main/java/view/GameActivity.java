@@ -126,8 +126,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _drawTrains.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DrawTrainCardsActivity.class);
-                startActivity(intent);
+                drawTrainCards();
             }
         });
 
@@ -255,7 +254,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void drawTrainCards() {
-
+        Intent intent = new Intent(this, DrawTrainCardsActivity.class);
+        startActivity(intent);
     }
 
     @Override
