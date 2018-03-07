@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.a340team.tickettoride.R;
 
 import model.ClientRoot;
+import presenter.DrawDestinationsPresenter;
+import presenter.IDrawDestinationsPresenter;
 
 /**
  * activity for drawing dest cards
@@ -23,21 +25,29 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
     private ImageButton _destCardTwo;
     private ImageButton _destCardThree;
     private Button _confirm;
-    private TextView _instructions;
-
+    private IDrawDestinationsPresenter _destinationsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_destination_cards);
         boolean isStartOfGame = this.getIntent().getBooleanExtra(ViewUtilities.GAME_START, true);
-        if(isStartOfGame){
-            System.out.println("WAS THE START OF THE GAME");
-        }
+
+        _initializePresenter();
         _initializeButtons(isStartOfGame);
+        _initializeDestCards(isStartOfGame);
         _createListeners();
 
 
+    }
+
+    //This method will show the client what cards to choose from
+    private void _initializeDestCards(boolean isStartOfGame) {
+        if(isStartOfGame){
+            //We need to get the right cards from the presenter.
+
+
+        }
     }
 
     //Just make the buttons
@@ -46,11 +56,15 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
         _destCardTwo = (ImageButton) findViewById(R.id.destCard2);
         _destCardThree = (ImageButton) findViewById(R.id.destCard3);
         _confirm = (Button) findViewById(R.id.draw_destinations_confirm);
-        _instructions = (TextView) findViewById(R.id.drawDestInstructions);
 
         if(!isStartOfGame){
-            _instructions.setText(R.string.chooseAtLeastOneDestCard);
+            TextView instructions = (TextView) findViewById(R.id.drawDestInstructions);
+            instructions.setText(R.string.chooseAtLeastOneDestCard);
         }
+    }
+
+    private void _initializePresenter(){
+        _destinationsPresenter = new DrawDestinationsPresenter();
     }
 
     //Make the listeners for the image buttons
