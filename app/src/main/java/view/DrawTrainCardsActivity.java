@@ -126,4 +126,6 @@ public class DrawTrainCardsActivity extends AppCompatActivity{
             return R.drawable.rainbow;
         }
     }
+
+
 }
