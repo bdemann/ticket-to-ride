@@ -6,6 +6,6 @@ package view;
  */
 
 public interface IDrawTrainCardsView {
-    void drawFaceUpCard();
+    void drawFaceUpCard(int cardNum);
     void drawCardFromDeck();
 }

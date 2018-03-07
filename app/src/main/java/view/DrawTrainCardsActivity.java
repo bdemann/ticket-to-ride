@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import model.ClientRoot;
 import shared.model.Color;
 import shared.model.TrainCard;
@@ -65,35 +67,35 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         _trainCardOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceUpCard(1);
             }
         });
 
         _trainCardTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceUpCard(2);
             }
         });
 
         _trainCardThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceUpCard(3);
             }
         });
 
         _trainCardFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceUpCard(4);
             }
         });
 
         _trainCardFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceUpCard(5);
             }
         });
 
@@ -127,9 +129,56 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         }
     }
 
+    //DELETE THIS LATER...THIS IS JUST FOR PHASE 2 PASS OFF ANIMATION
+    private int _tempGetRandomDrawable() {
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int min = 1;
+        int max = 9;
+        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
 
+        if (randomNum == 1) {
+            return R.drawable.black;
+        } else if (randomNum == 2) {
+            return R.drawable.blue;
+        } else if (randomNum == 3) {
+            return R.drawable.green;
+        } else if (randomNum == 4) {
+            return R.drawable.orange;
+        } else if (randomNum == 5) {
+            return R.drawable.yellow;
+        } else if (randomNum == 6) {
+            return R.drawable.white;
+        } else if (randomNum == 7) {
+            return R.drawable.red;
+        } else if (randomNum == 8) {
+            return R.drawable.pink;
+        } else {//RAINBOW
+            return R.drawable.rainbow;
+        }
+    }
+
+
+    //EDIT THIS LATER...STRICTLY IMPLEMENTED FOR PHASE 2 PASS OFF
     @Override
-    public void drawFaceUpCard() {
+    public void drawFaceUpCard(int cardNum) {
+        //TEMPORARY FOR PASS OFF
+        if(cardNum == 1){
+            _trainCardOne.setImageResource(_tempGetRandomDrawable());
+        }
+        if(cardNum == 2){
+            _trainCardTwo.setImageResource(_tempGetRandomDrawable());
+        }
+        if(cardNum == 3){
+            _trainCardThree.setImageResource(_tempGetRandomDrawable());
+        }
+        if(cardNum == 4){
+            _trainCardFour.setImageResource(_tempGetRandomDrawable());
+        }
+        if(cardNum == 5){
+            _trainCardFive.setImageResource(_tempGetRandomDrawable());
+        }
+
 
     }
 
