@@ -246,9 +246,9 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_width="900dp"
-        android:layout_marginStart="33dp"
+        android:layout_marginStart="30dp"
         android:layout_height="1dp"
         android:background="@android:color/black"/>
 
