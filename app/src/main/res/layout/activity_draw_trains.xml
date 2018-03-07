@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="210dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/black"
+        android:id="@+id/train_card_two"
+        android:layout_marginTop="77dp"
+        android:layout_below="@+id/train_card_one"
+        android:layout_alignStart="@+id/train_card_one"
+        android:contentDescription=""
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="210dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/black"
+        android:id="@+id/train_card_three"
+        android:layout_marginStart="114dp"
+        android:layout_alignTop="@+id/train_card_one"
+        android:layout_toEndOf="@+id/train_card_one"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="210dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/black"
+        android:id="@+id/train_card_four"
+        android:layout_alignTop="@+id/train_card_two"
+        android:layout_alignStart="@+id/train_card_three"
+        android:contentDescription=""
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="210dp"
+        app:srcCompat="@drawable/topdeck"
+        android:id="@+id/train_card_deck"
+        android:scaleType="fitCenter"
+        android:layout_alignTop="@+id/train_card_four"
+        android:layout_alignStart="@+id/train_card_five"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="210dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/black"
+        android:id="@+id/train_card_one"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="96dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="210dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/black"
+        android:id="@+id/train_card_five"
+        tools:ignore="ContentDescription"
+        android:layout_alignTop="@+id/train_card_three"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="74dp" />
+
+    <Button
+        android:text="@string/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/train_card_deck"
+        android:layout_alignEnd="@+id/train_card_deck"
+        android:layout_marginEnd="98dp"
+        android:layout_marginTop="36dp"
+        android:id="@+id/button" />
+
+</RelativeLayout>
