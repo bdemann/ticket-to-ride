@@ -3,7 +3,6 @@ package shared.model.initialized_info;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import shared.model.DestCard;
 
 /**
@@ -29,7 +28,7 @@ public class DestinationCards implements Serializable {
     private List<DestCard> _destCards;
 
     private void set_destCards(){
-        DestCard _1 = new DestCard("New York", "Los Angeles", 21);
+        DestCard _1 = new DestCard("New York", "Los Angeles", 21 );
         DestCard _2 = new DestCard("Houston", "Duluth", 8);
         DestCard _3 = new DestCard("Nashville", "Sault St. Marie", 8);
         DestCard _4 = new DestCard("Atlanta", "New York", 6);

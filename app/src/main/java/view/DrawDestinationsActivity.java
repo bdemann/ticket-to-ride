@@ -10,9 +10,13 @@ import android.widget.TextView;
 
 import com.a340team.tickettoride.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.ClientRoot;
 import presenter.DrawDestinationsPresenter;
 import presenter.IDrawDestinationsPresenter;
+import shared.model.DestCard;
 
 /**
  * activity for drawing dest cards
@@ -45,8 +49,11 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
     private void _initializeDestCards(boolean isStartOfGame) {
         if(isStartOfGame){
             //We need to get the right cards from the presenter.
-
-
+            List<DestCard> destCards = _destinationsPresenter.getStarterDestinationCards();
+            ArrayList<Integer> imagePaths = ViewUtilities.createDestCardImagePaths(destCards);
+            _destCardOne.setImageResource(imagePaths.get(0));
+            _destCardOne.setImageResource(imagePaths.get(1));
+            _destCardOne.setImageResource(imagePaths.get(2));
         }
     }
 
