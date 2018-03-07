@@ -1,5 +1,6 @@
 package view;
 
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -127,8 +128,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Do something please!
-                ViewUtilities.displayMessage("Face Up Deck\nShould Show", view.getContext());
+                Intent intent = new Intent(view.getContext(), DrawTrainCardsActivity.class);
+                startActivity(intent);
             }
         });
 
