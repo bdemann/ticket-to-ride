@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 class ViewUtilities {
 
+    static String GAME_START = "gameStart";
     static boolean containsSpecialCharacters(String str){
 
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
