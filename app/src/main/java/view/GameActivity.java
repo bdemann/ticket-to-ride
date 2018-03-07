@@ -127,7 +127,6 @@ public class GameActivity extends AppCompatActivity {
         _drawTrains.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(view.getContext(), DrawTrainCardsActivity.class);
                 startActivity(intent);
             }
