@@ -6,4 +6,7 @@ package presenter;
  */
 
 public interface IDrawDestinationsPresenter {
+
+    void drawDestinationCards();
+    void getStarterDestinationCards();
 }

@@ -30,10 +30,13 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
     private ImageButton _trainCardFour;
     private ImageButton _trainCardFive;
     private ImageButton _trainCardDeck;
+    private int _trainCardsDrawn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Set the drawn cards to zero
+        _trainCardsDrawn = 0;
         setContentView(R.layout.activity_draw_trains);
         _initializeImageButtons(ClientRoot.getClientGameInfo());
         _createOnClickListeners();
@@ -163,23 +166,30 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
     @Override
     public void drawFaceUpCard(int cardNum) {
         //TEMPORARY FOR PASS OFF
-        if(cardNum == 1){
-            _trainCardOne.setImageResource(_tempGetRandomDrawable());
-        }
-        if(cardNum == 2){
-            _trainCardTwo.setImageResource(_tempGetRandomDrawable());
-        }
-        if(cardNum == 3){
-            _trainCardThree.setImageResource(_tempGetRandomDrawable());
-        }
-        if(cardNum == 4){
-            _trainCardFour.setImageResource(_tempGetRandomDrawable());
-        }
-        if(cardNum == 5){
-            _trainCardFive.setImageResource(_tempGetRandomDrawable());
-        }
+        if(!(_trainCardsDrawn > 2)) {
+            if (cardNum == 1) {
+                _trainCardOne.setImageResource(_tempGetRandomDrawable());
+            }
+            if (cardNum == 2) {
+                _trainCardTwo.setImageResource(_tempGetRandomDrawable());
+            }
+            if (cardNum == 3) {
+                _trainCardThree.setImageResource(_tempGetRandomDrawable());
+            }
+            if (cardNum == 4) {
+                _trainCardFour.setImageResource(_tempGetRandomDrawable());
+            }
+            if (cardNum == 5) {
+                _trainCardFive.setImageResource(_tempGetRandomDrawable());
+            }
 
-
+            //Alert the user they drew a card
+            _trainCardsDrawn++;
+            ViewUtilities.displayMessage(Integer.toString(_trainCardsDrawn) + " Cards Drawn.", this);
+        }
+        else {
+            ViewUtilities.displayMessage("You've drawn enough.", this);
+        }
     }
 
     @Override
