@@ -20,7 +20,7 @@ import shared.model.interfaces.IGameInfo;
  * Created by BenNelson on 3/6/18.
  */
 
-public class DrawTrainCardsActivity extends AppCompatActivity{
+public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTrainCardsView{
 
     private ImageButton _trainCardOne;
     private ImageButton _trainCardTwo;
@@ -128,4 +128,13 @@ public class DrawTrainCardsActivity extends AppCompatActivity{
     }
 
 
+    @Override
+    public void drawFaceUpCard() {
+
+    }
+
+    @Override
+    public void drawCardFromDeck() {
+
+    }
 }
