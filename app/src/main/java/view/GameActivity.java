@@ -65,6 +65,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     //Button Array
     ArrayList<Button> _cityButtons;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

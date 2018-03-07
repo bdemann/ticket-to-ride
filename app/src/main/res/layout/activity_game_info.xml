@@ -15,8 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="130dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="80dp"
             android:orientation="vertical">
 
             <ImageView
@@ -99,32 +99,156 @@
                 android:layout_marginEnd="10dp"
                 app:srcCompat="@drawable/rainbow" />
 
+            <TextView
+                android:id="@+id/red_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="46dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/white_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="230dp"
+                android:layout_marginTop="46dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/orange_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="363dp"
+                android:layout_marginTop="46dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/green_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="125dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/black_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="230dp"
+                android:layout_marginTop="125dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/blue_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="363dp"
+                android:layout_marginTop="125dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/yellow_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="210dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/rainbow_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="230dp"
+                android:layout_marginTop="210dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/pink_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="360dp"
+                android:layout_marginTop="210dp"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="23sp" />
+
         </RelativeLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+            android:layout_width="150dp"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
-            <ListView
+            android:orientation="vertical"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="20dp">
+
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/sampleListView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="80dp"
-                android:background="@android:color/transparent"
-                android:cacheColorHint="@android:color/transparent"
-                android:divider="#CCCCCC"
-                android:dividerHeight="1dp">
-            </ListView>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
+
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_width="900dp"
-        android:layout_marginStart="33dp"
+        android:layout_marginStart="30dp"
         android:layout_height="1dp"
         android:background="@android:color/black"/>
 
