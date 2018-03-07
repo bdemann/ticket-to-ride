@@ -7,6 +7,7 @@ package view;
 
 public interface IGameActivity {
 
+    void displayStartDestCards();
     void drawTrainCards();
     void claimRoute();
     void drawDestinations();

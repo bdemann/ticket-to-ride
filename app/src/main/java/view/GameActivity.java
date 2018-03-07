@@ -78,6 +78,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _initializeButtons();
         _createOnClickListeners(_cityButtons);
         _createFunctionButtonListeners();
+        displayStartDestCards();
 
     }
 
@@ -142,9 +143,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _drawDestinations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Do something please!
-                ViewUtilities.displayMessage("Draw Destinations\nShould Show", view.getContext());
+                drawDestinations();
             }
         });
 
@@ -253,6 +252,13 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     }
 
     @Override
+    public void displayStartDestCards() {
+        Intent intent = new Intent(this, DrawDestinationsActivity.class);
+        intent.putExtra(ViewUtilities.GAME_START, true);
+        startActivity(intent);
+    }
+
+    @Override
     public void drawTrainCards() {
         Intent intent = new Intent(this, DrawTrainCardsActivity.class);
         startActivity(intent);
@@ -265,6 +271,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void drawDestinations() {
+        Intent intent = new Intent(this, DrawDestinationsActivity.class);
+        intent.putExtra(ViewUtilities.GAME_START, false);
+        startActivity(intent);
 
     }
 
