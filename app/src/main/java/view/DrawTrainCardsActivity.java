@@ -106,21 +106,21 @@ public class DrawTrainCardsActivity extends AppCompatActivity{
     }
 
     private int _getCardImage(TrainCard trainCard) {
-        if (trainCard.getColor() == Color.BLACK) {
+        if (trainCard.getColor().equals(Color.BLACK)) {
             return R.drawable.black;
-        } else if (trainCard.getColor() == Color.BLUE) {
+        } else if (trainCard.getColor().equals(Color.BLUE)) {
             return R.drawable.blue;
-        } else if (trainCard.getColor() == Color.GREEN) {
+        } else if (trainCard.getColor().equals(Color.GREEN)) {
             return R.drawable.green;
-        } else if (trainCard.getColor() == Color.ORANGE) {
+        } else if (trainCard.getColor().equals(Color.ORANGE)) {
             return R.drawable.orange;
-        } else if (trainCard.getColor() == Color.YELLOW) {
+        } else if (trainCard.getColor().equals(Color.YELLOW)) {
             return R.drawable.yellow;
-        } else if (trainCard.getColor() == Color.WHITE) {
+        } else if (trainCard.getColor().equals(Color.WHITE)) {
             return R.drawable.white;
-        } else if (trainCard.getColor() == Color.RED) {
+        } else if (trainCard.getColor().equals(Color.RED)) {
             return R.drawable.red;
-        } else if (trainCard.getColor() == Color.PINK) {
+        } else if (trainCard.getColor().equals(Color.PINK)) {
             return R.drawable.pink;
         } else {//RAINBOW
             return R.drawable.rainbow;
