@@ -40,14 +40,12 @@ public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
             String gameID = Integer.toString(game.getId());
             intent.putExtra("GameName", game.getGameName());
             intent.putExtra("GameID", gameID);
+
             _createGameActivity.startActivity(intent);
         }
         if(ClientRoot.getClientGameInfo() != null){
             ClientRoot.removeClientRootObserver(this);
         }
-
-
-
     }
 
     @Override
