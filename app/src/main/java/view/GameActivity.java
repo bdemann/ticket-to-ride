@@ -153,9 +153,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _myGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                displayGame();
                 //Do something please!
-                ViewUtilities.displayMessage("My Game\nShould Show", view.getContext());
+//                ViewUtilities.displayMessage("My Game\nShould Show", view.getContext());
             }
         });
 
@@ -285,7 +285,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void displayGame() {
-
+        Intent intent = new Intent(this, GameInfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
