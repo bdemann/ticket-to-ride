@@ -1,5 +1,6 @@
 package view;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,10 +75,11 @@ public class GameInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
+        boolean isDemoDone = this.getIntent().getBooleanExtra("demo", true);
 
         _initializeGuiElements();
         _initializePresenter();
-        _initializeInfo();
+        _initializeInfo(isDemoDone);
         _initializePlayerHand();
         _setUpRecycler();
     }
@@ -142,11 +144,22 @@ public class GameInfoActivity extends AppCompatActivity {
         _player5Color = (TextView) findViewById(R.id.player5_color);
     }
 
-    private void _initializeInfo(){
+    private void _initializeInfo(boolean isDemoDone){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
         System.out.println("Size player list in Activity: " + gameInfo.getPlayers().size());
+        System.out.println("TURN INDEX: " + gameInfo.getTurnIndex());
         _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes(),
                 gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors());
+
+        if(!isDemoDone) {
+            _player1.setBackgroundColor(Color.argb(0,255,255,255));
+            _player2.setBackgroundColor(Color.argb(255,220,220,220));
+        }
+        else{
+            _player1.setBackgroundColor(Color.argb(255,220,220,220));
+            _player2.setBackgroundColor(Color.argb(0,255,255,255));
+        }
+
     }
 
     private void _initializePlayerHand(){
