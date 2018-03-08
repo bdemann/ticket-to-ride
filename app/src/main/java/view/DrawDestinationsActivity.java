@@ -16,7 +16,9 @@ import java.util.List;
 import model.ClientRoot;
 import presenter.DrawDestinationsPresenter;
 import presenter.IDrawDestinationsPresenter;
+import shared.model.CardSet;
 import shared.model.DestCard;
+
 
 /**
  * activity for drawing dest cards
@@ -129,6 +131,22 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                 //Send information to the server
                 if(_chosenCards.size() > 1){
                     //Send the chosen cards onto the player, and the discard to the server
+
+                    //TODO delete me, I was part of DEMO ---------------------------------|
+                    CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+                    List<DestCard> destList = s.cards;
+
+                    if(!_chosenCards.contains(FIRST_CARD)){
+                        destList.remove(0);
+                    }
+                    if(!_chosenCards.contains(SECOND_CARD)){
+                        destList.remove(1);
+                    }
+                    if(!_chosenCards.contains(THIRD_CARD)){
+                        destList.remove(2);
+                    }
+                    ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
+                    //END OF DELETE ME ---------------------------------------------------|
 
                     //Then finish the activity
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();

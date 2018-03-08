@@ -424,23 +424,32 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     //Delete after phase 2 **************//
     private void RUNDEMO(){
 
-        //DRAW TRAIN CARDS
+        //DRAW TRAIN CARDS----------------------------------------------------|
+        //Add cards
         Hand<TrainCard> list = ClientRoot.getClientPlayer().getTrainCardHand();
         List<TrainCard> trainList = list.get_cards();
-        for(int i = 0; i < 6; i++){
+        int cardAmt = 6;
+        for(int i = 0; i < cardAmt; i++){
             trainList.add(new TrainCard(shared.model.Color.GREEN, 1));
             trainList.add(new TrainCard(shared.model.Color.BLACK, 1));
         }
         ClientRoot.getClientPlayer().setTrainCards(trainList);
 
-        //For Player one
+        //For Player one, update the card count
         Map<String, Integer> trainCount = ClientRoot.getClientGameInfo().getPlayerHandSizes();
-        int count = trainCount.get(0);
+        if(trainCount.containsKey(ClientRoot.getClientPlayer().getUsername())){
+            int count = trainCount.get(ClientRoot.getClientPlayer().getUsername());
+            trainCount.put(ClientRoot.getClientPlayer().getUsername(), (Integer) count + (cardAmt*2));
+        }
+
+        //Show a toast
+        ViewUtilities.displayMessage("Drawing Train Cards...", this);
+        //END DRAW TRAIN CARDS -----------------------------------------------|
 
 
 
 
-        //Draw Destination Cards
+        //DRAW DESTINATION CARDS -----------------------------------------------|
         CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
         List<DestCard> destList = s.cards;
         DestCard _17 = new DestCard(CHICAGO, LOS_ANGELES, 16);
@@ -449,7 +458,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         destList.add(_18);
         ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
 
-        //Claim a route
+        //Show a toast
+        ViewUtilities.displayMessage("Drawing Destination Train Cards...", this);
+        //END DRAW DESTINATION CARDS -----------------------------------------------|
+
+        //CLAIMING A ROUTE -----------------------------------------------|
+
+
+
+
+        //END CLAIMING A ROUTE -----------------------------------------------|
         //Update the game history
         //Update the game info
         //Player's turn is over
