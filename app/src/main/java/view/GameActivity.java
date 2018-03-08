@@ -484,6 +484,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         //Update the game history
         //Update the game info
+
         //Player's turn is over
 
     }
