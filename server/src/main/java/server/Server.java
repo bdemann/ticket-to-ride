@@ -1,10 +1,13 @@
 package server;
 
 import server.comm.ServerCommunicator;
+import server.facades.GameMenuServerFacade;
 import server.facades.LoginServerFacade;
+import shared.facades.server.IGameMenuServerFacade;
 import shared.facades.server.ILoginServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
+import shared.model.Player;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -28,6 +31,8 @@ public class Server {
         loginServerFacade.register("b", "b");
         loginServerFacade.register("n", "n");
         loginServerFacade.register("m", "m");
+        IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
+        gameMenuServerFacade.createGame(new Player("bdemann", "password"), 2, "test game");
         Logger.log("Server Started on localhost:" + serverPortNumber + "/", Level.FINE);
     }
 }
