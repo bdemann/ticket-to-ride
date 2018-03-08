@@ -18,7 +18,7 @@ public class Player implements IPlayer, Serializable {
     private int _color;
     private int _gameId = -1;
     private int _points = 0;
-    private List<Edge> playersEdges;
+    private List<Edge> playersEdges; 
     private List<Route> playersRoutes;
     private List<Train> _trains;
     private Hand<TrainCard> _trainCards;
