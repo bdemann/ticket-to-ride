@@ -20,8 +20,10 @@ public interface IGameInfo {
     Map<String, Integer> getPlayerColors();
     Map<String, Integer> getPlayerPoints();
     Map<String, Integer> getPlayerHandSizes();
+    void setPlayerHandSizes(String username, Integer trainCardCount);
     Map<String, IEdge> getClaimedRoutes();
     Map<String, Integer> getRemainingTrains();
+    void setRemainingTrains(String username, Integer trainsCount);
     GameHistory getGameHistory();
     int getTurnIndex();
     String activePlayer();

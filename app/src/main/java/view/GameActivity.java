@@ -17,15 +17,25 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import model.ClientRoot;
+import shared.model.CardSet;
 import shared.model.City;
 import shared.model.CityPoint;
+import shared.model.DestCard;
+import shared.model.Hand;
 import shared.model.Route;
+import shared.model.Train;
+import shared.model.TrainCard;
+import shared.model.interfaces.Card;
 
 import static shared.model.initialized_info.DestCardId.*;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
+    //DEMO
+    Button _demoButton;
     //Map
     ImageView mapView;
     //Click Buttons
@@ -85,6 +95,19 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         setContentView(R.layout.activity_game_acitvity);
         //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
+
+        //TODO Delete me DEMO STUFF
+        //*****DEMO CRAP ******* DELETE AFTER PHASE 2//
+
+        _demoButton = (Button) findViewById(R.id.demo_button);
+        _demoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RUNDEMO();
+            }
+        });
+
+        //*****END OF DEMO CRAP ********//
 
         //Initialize Components
         _initializeButtons();
@@ -378,7 +401,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     }
 
-
     @Override
     public void drawDestinations() {
         Intent intent = new Intent(this, DrawDestinationsActivity.class);
@@ -397,4 +419,59 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     public void displayChat() {
 
     }
+
+    //TODO Delete me DEMO STUFF 2
+    //Delete after phase 2 **************//
+    private void RUNDEMO(){
+
+        //DRAW TRAIN CARDS----------------------------------------------------|
+        //Add cards
+        Hand<TrainCard> list = ClientRoot.getClientPlayer().getTrainCardHand();
+        List<TrainCard> trainList = list.get_cards();
+        int cardAmt = 6;
+        for(int i = 0; i < cardAmt; i++){
+            trainList.add(new TrainCard(shared.model.Color.GREEN, 1));
+            trainList.add(new TrainCard(shared.model.Color.BLACK, 1));
+        }
+        ClientRoot.getClientPlayer().setTrainCards(trainList);
+
+        //For Player one, update the card count
+        Map<String, Integer> trainCount = ClientRoot.getClientGameInfo().getPlayerHandSizes();
+        if(trainCount.containsKey(ClientRoot.getClientPlayer().getUsername())){
+            int count = trainCount.get(ClientRoot.getClientPlayer().getUsername());
+            trainCount.put(ClientRoot.getClientPlayer().getUsername(), (Integer) count + (cardAmt*2));
+        }
+
+        //Show a toast
+        ViewUtilities.displayMessage("Drawing Train Cards...", this);
+        //END DRAW TRAIN CARDS -----------------------------------------------|
+
+
+
+
+        //DRAW DESTINATION CARDS -----------------------------------------------|
+        CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+        List<DestCard> destList = s.cards;
+        DestCard _17 = new DestCard(CHICAGO, LOS_ANGELES, 16);
+        DestCard _18 = new DestCard(PITTSBURGH, DENVER, 11);
+        destList.add(_17);
+        destList.add(_18);
+        ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
+
+        //Show a toast
+        ViewUtilities.displayMessage("Drawing Destination Train Cards...", this);
+        //END DRAW DESTINATION CARDS -----------------------------------------------|
+
+        //CLAIMING A ROUTE -----------------------------------------------|
+
+
+
+
+        //END CLAIMING A ROUTE -----------------------------------------------|
+        //Update the game history
+        //Update the game info
+        //Player's turn is over
+
+    }
+    //**********************************//
 }
