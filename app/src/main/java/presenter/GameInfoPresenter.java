@@ -8,15 +8,15 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
+import shared.model.DestCard;
 import shared.model.Route;
 import shared.model.TrainCard;
 import shared.model.history.GameHistory;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
-import view.CreateGameActivity;
 import view.GameInfoActivity;
-import view.GameLobbyActivity;
 
 /**
  * Created by paulinecausse on 3/7/18.
@@ -44,6 +44,11 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
         }
     }
 
+    @Override
+    public IGameInfo getStarterGameInfo() {
+        return GameGuiFacade.getStarterGameInfo();
+    }
+
 
     public void _updateActivity(){
 
@@ -59,5 +64,19 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
         }
 
+    }
+
+    public ArrayList<DestCard> getDestinationCards(){
+
+        //Gets a list of the destination cards in a player's hand
+
+        return new ArrayList<DestCard>();
+    }
+
+    public ArrayList<Boolean> getCompleteDestinations(){
+
+        //Gets a list of the completion status of each destination card
+
+        return new ArrayList<Boolean>();
     }
 }

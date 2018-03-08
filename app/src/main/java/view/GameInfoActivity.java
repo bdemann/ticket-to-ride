@@ -2,9 +2,9 @@ package view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
@@ -12,9 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import model.ClientRoot;
-import presenter.CreateJoinPresenter;
 import presenter.GameInfoPresenter;
-import shared.model.Edge;
+import shared.model.interfaces.IGameInfo;
 
 public class GameInfoActivity extends AppCompatActivity {
 
@@ -50,6 +49,9 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private GameInfoPresenter _gameInfoPresenter;
 
+    private DestinationCardRecyclerAdapter _adapter;
+    private RecyclerView _destinationRecycler;
+
     //Todo: Destinatin Cards as a Recycler View!
 
 
@@ -58,12 +60,31 @@ public class GameInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
 
+        _initializePresenter();
+        _initializeInfo();
         _initializeGuiElements();
+        _setUpRecycler();
         _setUpObserver();
     }
 
-    private void _setUpObserver(){
+    private void _initializeInfo(){
+        IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
+        _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes());
+    }
+
+    private void _setUpRecycler(){
+        _destinationRecycler = (RecyclerView) findViewById(R.id.destination_recycler);
+        _adapter = new DestinationCardRecyclerAdapter(_gameInfoPresenter.getDestinationCards(),
+                _gameInfoPresenter.getCompleteDestinations());
+        _destinationRecycler.setAdapter(_adapter);
+        _destinationRecycler.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void _initializePresenter(){
         _gameInfoPresenter = new GameInfoPresenter(this);
+    }
+
+    private void _setUpObserver(){
         ClientRoot.addClientRootObserver(_gameInfoPresenter);
     }
 
@@ -99,6 +120,7 @@ public class GameInfoActivity extends AppCompatActivity {
         _player5Routes = (TextView) findViewById(R.id.player5_routes);
     }
 
+    //TODO: Add the player's routes and trains
     public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize){
         _player1.setText(players.get(0));
         String points = playerPoints.get(players.get(0)).toString();

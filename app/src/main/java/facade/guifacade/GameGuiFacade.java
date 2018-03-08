@@ -8,6 +8,7 @@ import proxies.GameServerProxy;
 import shared.model.CardSet;
 import shared.model.DestCard;
 import shared.model.interfaces.Card;
+import shared.model.interfaces.IGameInfo;
 import shared.results.DrawCardsResult;
 
 /**
@@ -21,6 +22,11 @@ public class GameGuiFacade {
         CardSet set = ClientRoot.getClientPlayer().getUnresolvedDestCards();
         return set.cards;
 
+    }
+
+    public static IGameInfo getStarterGameInfo(){
+        IGameInfo gameInfo = ClientRoot.getClientGameInfo();
+        return gameInfo;
     }
 
     public static List<DestCard> drawDestinationCards() {
