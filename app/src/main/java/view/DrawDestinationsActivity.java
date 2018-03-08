@@ -52,8 +52,8 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
             List<DestCard> destCards = _destinationsPresenter.getStarterDestinationCards();
             ArrayList<Integer> imagePaths = ViewUtilities.createDestCardImagePaths(destCards);
             _destCardOne.setImageResource(imagePaths.get(0));
-            _destCardOne.setImageResource(imagePaths.get(1));
-            _destCardOne.setImageResource(imagePaths.get(2));
+            _destCardTwo.setImageResource(imagePaths.get(1));
+            _destCardThree.setImageResource(imagePaths.get(2));
         }
     }
 
