@@ -470,12 +470,14 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _citiesSelected.add(HOUSTON);
         _citiesSelected.add(EL_PASO);
         claimRoute();
-        /*Map<String , IEdge> claimedRoutes = ClientRoot.getClientGameInfo().getClaimedRoutes();
+        Map<String , List<IEdge>> claimedRoutes = ClientRoot.getClientGameInfo().getClaimedRoutes();
         if(claimedRoutes.containsKey(ClientRoot.getClientPlayer().getUsername())){
 
+            List<IEdge> edgeList = new ArrayList<>();
             IEdge e = new Edge(6, new City(new CityPoint(0,0), HOUSTON),  new City(new CityPoint(0,0), HOUSTON), shared.model.Color.GREEN, true);
-            claimedRoutes.put(ClientRoot.getClientPlayer().getUsername(), e);
-        }*/
+            edgeList.add(e);
+            claimedRoutes.put(ClientRoot.getClientPlayer().getUsername(), edgeList);
+        }
 
         //Show a toast
         ViewUtilities.displayMessage("Claiming Route...", this);
