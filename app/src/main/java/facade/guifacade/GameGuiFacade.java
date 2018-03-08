@@ -16,13 +16,8 @@ import shared.model.interfaces.Card;
 public class GameGuiFacade {
 
     public static List<DestCard> getStarterDestinationCards(){
-        List<DestCard> list = new ArrayList<>();
-
         CardSet set = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-        for (Card card: set) {
-            DestCard destCard = (DestCard) card;
-            list.add(destCard);
-        }
-        return list;
+        return set.cards;
+
     }
 }
