@@ -39,11 +39,13 @@ public class GameServerFacade implements IGameServerFacade {
 
         //TODO implement claiming a route
         //Claim the route
+        //TODO where we we store all of the routes (and by routes I mean edges, but I mean routes)?
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
         player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
+        player.decrementTrains(route.getLength());
 
         game.incrementTurnIndex();
 

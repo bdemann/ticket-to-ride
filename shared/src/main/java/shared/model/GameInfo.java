@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
+import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
@@ -26,11 +27,12 @@ public class GameInfo implements IGameInfo, Serializable {
     private Map<String, Integer> _playerPoints;
     // and the order in which the players take turns
     private Map<String, Integer> _playerHandSizes;
-    private List<Route> _claimedRoutes;
+    private Map<String, IEdge> _claimedRoutes;
+    private Map<String, Integer> _playerRemainingTrains;
     private GameHistory _gameHistory;
     private int _turnIndex;
 
-    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, List<Route> claimedRoutes, GameHistory gameHistory, int turnIndex) {
+    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, Map<String, IEdge> claimedRoutes, Map<String, Integer> playerRemainingTrains, GameHistory gameHistory, int turnIndex) {
         this._playerWithLongestRoute = playerWithLongestRoute;
         this._faceUpCards = faceUpCards;
         this._gameId = gameId;
@@ -40,6 +42,7 @@ public class GameInfo implements IGameInfo, Serializable {
         this._playerPoints = playerPoints;
         this._playerHandSizes = playerHandSizes;
         this._claimedRoutes = claimedRoutes;
+        this._playerRemainingTrains = playerRemainingTrains;
         this._gameHistory = gameHistory;
         this._turnIndex = turnIndex;
     }
@@ -85,8 +88,13 @@ public class GameInfo implements IGameInfo, Serializable {
     }
 
     @Override
-    public List<Route> getClaimedRoutes() {
+    public Map<String, IEdge> getClaimedRoutes() {
         return _claimedRoutes;
+    }
+
+    @Override
+    public Map<String, Integer> getRemainingTrains() {
+        return _playerRemainingTrains;
     }
 
     @Override
