@@ -12,6 +12,6 @@ import shared.model.DestCard;
 
 public interface IDrawDestinationsPresenter {
 
-    void drawDestinationCards();
+    List<DestCard> drawDestinationCards();
     List<DestCard> getStarterDestinationCards();
 }

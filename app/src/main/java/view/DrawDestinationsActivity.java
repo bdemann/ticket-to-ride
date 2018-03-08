@@ -50,11 +50,21 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
         if(isStartOfGame){
             //We need to get the right cards from the presenter.
             List<DestCard> destCards = _destinationsPresenter.getStarterDestinationCards();
-            ArrayList<Integer> imagePaths = ViewUtilities.createDestCardImagePaths(destCards);
-            _destCardOne.setImageResource(imagePaths.get(0));
-            _destCardTwo.setImageResource(imagePaths.get(1));
-            _destCardThree.setImageResource(imagePaths.get(2));
+            _displayDestinationCards(destCards);
+
         }
+        //It's not the start of the game, so we need to draw
+        else{
+            List<DestCard> destCards = _destinationsPresenter.drawDestinationCards();
+            _displayDestinationCards(destCards);
+        }
+    }
+
+    private void _displayDestinationCards(List<DestCard> destCards) {
+        ArrayList<Integer> imagePaths = ViewUtilities.createDestCardImagePaths(destCards);
+        _destCardOne.setImageResource(imagePaths.get(0));
+        _destCardTwo.setImageResource(imagePaths.get(1));
+        _destCardThree.setImageResource(imagePaths.get(2));
     }
 
     //Just make the buttons

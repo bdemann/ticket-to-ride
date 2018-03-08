@@ -16,8 +16,8 @@ public class DrawDestinationsPresenter implements IDrawDestinationsPresenter {
 
 
     @Override
-    public void drawDestinationCards() {
-
+    public List<DestCard> drawDestinationCards() {
+        return null;
     }
 
     @Override
