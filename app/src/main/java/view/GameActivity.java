@@ -24,11 +24,13 @@ import shared.model.CardSet;
 import shared.model.City;
 import shared.model.CityPoint;
 import shared.model.DestCard;
+import shared.model.Edge;
 import shared.model.Hand;
 import shared.model.Route;
 import shared.model.Train;
 import shared.model.TrainCard;
 import shared.model.interfaces.Card;
+import shared.model.interfaces.IEdge;
 
 import static shared.model.initialized_info.DestCardId.*;
 
@@ -36,6 +38,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     //DEMO
     Button _demoButton;
+    boolean _gameInfoDemoIsDone = false;
     //Map
     ImageView mapView;
     //Click Buttons
@@ -412,6 +415,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     @Override
     public void displayGame() {
         Intent intent = new Intent(this, GameInfoActivity.class);
+        intent.putExtra("demo", _gameInfoDemoIsDone);
         startActivity(intent);
     }
 
@@ -463,11 +467,21 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         //END DRAW DESTINATION CARDS -----------------------------------------------|
 
         //CLAIMING A ROUTE -----------------------------------------------|
+        _citiesSelected.add(HOUSTON);
+        _citiesSelected.add(EL_PASO);
+        claimRoute();
+        Map<String , IEdge> claimedRoutes = ClientRoot.getClientGameInfo().getClaimedRoutes();
+        if(claimedRoutes.containsKey(ClientRoot.getClientPlayer().getUsername())){
 
+            IEdge e = new Edge(6, new City(new CityPoint(0,0), HOUSTON),  new City(new CityPoint(0,0), HOUSTON), shared.model.Color.GREEN, true);
+            claimedRoutes.put(ClientRoot.getClientPlayer().getUsername(), e);
+        }
 
-
-
+        //Show a toast
+        ViewUtilities.displayMessage("Claiming Route...", this);
         //END CLAIMING A ROUTE -----------------------------------------------|
+
+
         //Update the game history
         //Update the game info
         //Player's turn is over
