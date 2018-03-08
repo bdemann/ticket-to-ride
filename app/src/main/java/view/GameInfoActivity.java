@@ -222,7 +222,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
 
     public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize,
-                                Map<String, IEdge> claimedRoutes, Map<String, Integer> playerRemainingTrains,
+                                Map<String, List<IEdge>> claimedRoutes, Map<String, Integer> playerRemainingTrains,
                                 Map<String, Integer> playerColors){
 
         _player1.setText(players.get(0));
@@ -232,7 +232,8 @@ public class GameInfoActivity extends AppCompatActivity {
         _player1Cards.setText(handSize);
         String numTrains = playerRemainingTrains.get(players.get(0)).toString();
         _player1Trains.setText(numTrains);
-        _player1Routes.setText(numberOfRoutes(claimedRoutes, players.get(0)));
+        int numRoutes = claimedRoutes.get(players.get(0)).size();
+        _player1Routes.setText(Integer.toString(numRoutes));
         _player1Color.setBackgroundColor(playerColors.get(players.get(0)));
 
         _player2.setText(players.get(1));
@@ -242,7 +243,8 @@ public class GameInfoActivity extends AppCompatActivity {
         _player2Cards.setText(handSize);
         numTrains = playerRemainingTrains.get(players.get(1)).toString();
         _player2Trains.setText(numTrains);
-        _player2Routes.setText(numberOfRoutes(claimedRoutes, players.get(1)));
+        numRoutes = claimedRoutes.get(players.get(1)).size();
+        _player2Routes.setText(Integer.toString(numRoutes));
         _player2Color.setBackgroundColor(playerColors.get(players.get(1)));
 
         if(players.size() != 3){
@@ -261,8 +263,9 @@ public class GameInfoActivity extends AppCompatActivity {
             _player3Cards.setText(handSize);
             numTrains = playerRemainingTrains.get(players.get(2)).toString();
             _player3Trains.setText(numTrains);
-            _player3Routes.setText(numberOfRoutes(claimedRoutes, players.get(2)));
-            _player1Color.setBackgroundColor(playerColors.get(players.get(2)));
+            numRoutes = claimedRoutes.get(players.get(2)).size();
+            _player3Routes.setText(Integer.toString(numRoutes));
+            _player3Color.setBackgroundColor(playerColors.get(players.get(2)));
         }
 
         if(players.size() != 4){
@@ -281,8 +284,9 @@ public class GameInfoActivity extends AppCompatActivity {
             _player4Cards.setText(handSize);
             numTrains = playerRemainingTrains.get(players.get(3)).toString();
             _player4Trains.setText(numTrains);
-            _player4Routes.setText(numberOfRoutes(claimedRoutes, players.get(3)));
-            _player1Color.setBackgroundColor(playerColors.get(players.get(3)));
+            numRoutes = claimedRoutes.get(players.get(3)).size();
+            _player4Routes.setText(Integer.toString(numRoutes));
+            _player4Color.setBackgroundColor(playerColors.get(players.get(3)));
         }
 
         if(players.size() != 5){
@@ -301,8 +305,9 @@ public class GameInfoActivity extends AppCompatActivity {
             _player5Cards.setText(handSize);
             numTrains = playerRemainingTrains.get(players.get(4)).toString();
             _player5Trains.setText(numTrains);
-            _player5Routes.setText(numberOfRoutes(claimedRoutes, players.get(4)));
-            _player1Color.setBackgroundColor(playerColors.get(players.get(4)));
+            numRoutes = claimedRoutes.get(players.get(4)).size();
+            _player5Routes.setText(Integer.toString(numRoutes));
+            _player5Color.setBackgroundColor(playerColors.get(players.get(4)));
         }
     }
 }
