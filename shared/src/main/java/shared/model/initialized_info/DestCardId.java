@@ -1,13 +1,14 @@
 package shared.model.initialized_info;
 
 
+import java.io.Serializable;
 
 /**
  * This class with help contain information on the game destination cards.
  * Created by BenNelson on 3/7/18.
  */
 
-public class DestCardId {
+public class DestCardId implements Serializable{
 
     //These must be public!
     public static String NEW_YORK = "new_york";

@@ -1,20 +1,28 @@
 package view;
 
 import android.content.Intent;
-import android.graphics.Matrix;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.a340team.tickettoride.BuildConfig;
 import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import shared.model.City;
+import shared.model.CityPoint;
+import shared.model.Route;
+
+import static shared.model.initialized_info.DestCardId.*;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
@@ -65,6 +73,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     Button miami;
     //Button Array
     ArrayList<Button> _cityButtons;
+    ArrayList<String> _citiesSelected = new ArrayList<>();
+    private int _maxCitiesSelected = 2;
 
 
 
@@ -109,15 +119,39 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     }
 
     private void _cityListeners(View view, MediaPlayer mediaPlayer) {
-        Button button = (Button) view;
-        String text = button.getText().toString();
+        if(_citiesSelected.size() < _maxCitiesSelected) {
+            Button button = (Button) view;
+            String text = button.getText().toString();
 
-        if(text.equals("atlanta")){
-            text = "atlanta nanana";
-            mediaPlayer.start();
+            if (text.equals(ATLANTA)) {
+                text = "atlanta nanana";
+                mediaPlayer.start();
+            }
+            if (text.equals(HOUSTON)) {
+                _citiesSelected.add(HOUSTON);
+            }
+            if (text.equals(DALLAS)) {
+                _citiesSelected.add(DALLAS);
+
+            }
+            if (text.equals(OKLAHOMA_CITY)) {
+                _citiesSelected.add(OKLAHOMA_CITY);
+
+            }
+            if (text.equals(EL_PASO)) {
+                _citiesSelected.add(EL_PASO);
+
+            }
+            if (text.equals(SANTA_FE)) {
+                _citiesSelected.add(SANTA_FE);
+
+            }
+
+            ViewUtilities.displayMessage(text, view.getContext());
         }
-
-        ViewUtilities.displayMessage(text, view.getContext());
+        else{
+            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Route to End", view.getContext());
+        }
     }
 
     private void _createFunctionButtonListeners(){
@@ -308,7 +342,40 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     public void claimRoute() {
         _setCityButtons(true);
         _setDrawButtons(false);
+        int tint = Color.argb(50, 0, 0, 0);
+        mapView.setColorFilter(tint);
 
+        if(_citiesSelected.size() == 2) {
+
+            City houston = new City(new CityPoint(580, 540), HOUSTON);
+            City elPaso = new City(new CityPoint(345, 480), EL_PASO);
+            Route r = new Route();
+            r.setStart(houston);
+            r.setEnd(elPaso);
+            r.setLength(6);
+            List<Route> routes = new ArrayList<>();
+            routes.add(r);
+            _drawRoutes(routes);
+            ViewUtilities.displayMessage("You Claimed:\nStart: " + _citiesSelected.get(0) +"\nDest: " + _citiesSelected.get(1), this);
+            _setCityButtons(false);
+            _setDrawButtons(true);
+            tint = Color.argb(0, 0, 0, 0);
+            mapView.setColorFilter(tint);
+        }
+
+
+
+    }
+
+    private void _drawRoutes(List<Route> routes) {
+
+        /*
+        Drawer myDrawer = new Drawer(this);
+        Bitmap mapImg = BitmapFactory.decodeResource(getResources(), R.mipmap.ticket_to_ride_map_with_routes);
+        Canvas canvas = new Canvas(mapImg);
+        canvas.drawBitmap(mapImg, 0, 0, null);
+
+        myDrawer.drawRoute(canvas, routes);*/
 
     }
 
