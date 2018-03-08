@@ -7,8 +7,10 @@ import model.ClientRoot;
 import proxies.GameServerProxy;
 import shared.model.CardSet;
 import shared.model.DestCard;
+import shared.model.TrainCard;
 import shared.model.interfaces.Card;
 import shared.model.interfaces.IGameInfo;
+import shared.model.interfaces.ITrainCard;
 import shared.results.DrawCardsResult;
 
 /**
@@ -25,8 +27,11 @@ public class GameGuiFacade {
     }
 
     public static IGameInfo getStarterGameInfo(){
-        IGameInfo gameInfo = ClientRoot.getClientGameInfo();
-        return gameInfo;
+        return ClientRoot.getClientGameInfo();
+    }
+
+    public static List<TrainCard> getStarterPlayerHand(){
+        return ClientRoot.getClientPlayer().getTrainCardHand().get_cards();
     }
 
     public static List<DestCard> drawDestinationCards() {

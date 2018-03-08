@@ -1,20 +1,14 @@
 package presenter;
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
 import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
 import shared.model.DestCard;
-import shared.model.Route;
 import shared.model.TrainCard;
-import shared.model.history.GameHistory;
-import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import view.GameInfoActivity;
 
@@ -27,8 +21,8 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
 
     public GameInfoPresenter(GameInfoActivity gameInfoActivity){
-
         this._gameInfoActivity = gameInfoActivity;
+        ClientRoot.addClientRootObserver(this);
     }
 
     @Override
@@ -39,8 +33,8 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
         if(ClientRoot.getClientGameInfo() != null){
             _updateActivity();
         }
-        if(ClientRoot.getClientGameInfo() != null){
-            ClientRoot.removeClientRootObserver(this);
+        if(ClientRoot.getClientPlayer() != null){
+            _updateActivity();
         }
     }
 
@@ -51,10 +45,6 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
 
     public void _updateActivity(){
-
-//        Map<String, Integer> playerTrains;
-//        Map<String, String> claimesRoutes;
-
         IGameInfo gameInfo = ClientRoot.getClientGameInfo();
         if(gameInfo.getPlayers() == null || gameInfo.getPlayerHandSizes() == null || gameInfo.getPlayerPoints() == null
                 || gameInfo.getClaimedRoutes() == null || gameInfo.getRemainingTrains() == null){
@@ -66,7 +56,20 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
         }
 
+        List<TrainCard> playerHand = ClientRoot.getClientPlayer().getTrainCardHand().get_cards();
+        if(playerHand.size() == 0){
+            System.out.println("No cards!");
+        }
+        else{
+            _gameInfoActivity._updatePlayerHand(playerHand);
+        }
     }
+
+    @Override
+    public List<TrainCard> getStarterPlayerHand(){
+        return GameGuiFacade.getStarterPlayerHand();
+    }
+
 
     public ArrayList<DestCard> getDestinationCards(){
 

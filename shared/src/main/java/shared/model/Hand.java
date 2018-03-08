@@ -57,6 +57,10 @@ public class Hand<T> implements Serializable {
         }
     }
 
+    public List<T> get_cards(){
+        return _cards;
+    }
+
     public int size() {
         return _cards.size();
     }
