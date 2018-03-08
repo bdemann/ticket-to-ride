@@ -34,7 +34,7 @@ public class Server {
         IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
         loginServerFacade.register("bdemann", "password");
         loginServerFacade.signin("bdemann", "password");
-        gameMenuServerFacade.createGame(new Player("bdemann", "password"), 2, "test game");
+        gameMenuServerFacade.createGame(new Player("bdemann", "password", -65536), 2, "test game");
         Logger.log("Server Started on localhost:" + serverPortNumber + "/", Level.FINE);
     }
 }

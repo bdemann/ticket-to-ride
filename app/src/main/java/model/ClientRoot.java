@@ -113,6 +113,8 @@ public class ClientRoot extends Observable {
 
     public static void setClientGameInfo(IGameInfo gameInfo) {
         _instance._gameInfo = gameInfo;
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
     public static void addClientRootObserver(Observer o){

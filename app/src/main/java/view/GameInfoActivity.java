@@ -58,6 +58,11 @@ public class GameInfoActivity extends AppCompatActivity {
     private TextView _whiteNumber;
     private TextView _rainbowNumber;
 
+    private TextView _player1Color;
+    private TextView _player2Color;
+    private TextView _player3Color;
+    private TextView _player4Color;
+    private TextView _player5Color;
 
     private GameInfoPresenter _gameInfoPresenter;
 
@@ -131,13 +136,19 @@ public class GameInfoActivity extends AppCompatActivity {
         _blackNumber = (TextView) findViewById(R.id.black_number);
         _whiteNumber = (TextView) findViewById(R.id.white_number);
         _rainbowNumber = (TextView) findViewById(R.id.rainbow_number);
+
+        _player1Color = (TextView) findViewById(R.id.player1_color);
+        _player2Color = (TextView) findViewById(R.id.player2_color);
+        _player3Color = (TextView) findViewById(R.id.player3_color);
+        _player4Color = (TextView) findViewById(R.id.player4_color);
+        _player5Color = (TextView) findViewById(R.id.player5_color);
     }
 
     private void _initializeInfo(){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
         System.out.println("Size player list in Activity: " + gameInfo.getPlayers().size());
         _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes(),
-                gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains());
+                gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors());
     }
 
     private void _initializePlayerHand(){
@@ -200,7 +211,9 @@ public class GameInfoActivity extends AppCompatActivity {
 
 
     public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize,
-                                Map<String, IEdge> claimedRoutes, Map<String, Integer> playerRemainingTrains){
+                                Map<String, IEdge> claimedRoutes, Map<String, Integer> playerRemainingTrains,
+                                Map<String, Integer> playerColors){
+
         _player1.setText(players.get(0));
         String points = playerPoints.get(players.get(0)).toString();
         _player1Points.setText(points);
@@ -209,6 +222,7 @@ public class GameInfoActivity extends AppCompatActivity {
         String numTrains = playerRemainingTrains.get(players.get(0)).toString();
         _player1Trains.setText(numTrains);
         _player1Routes.setText(numberOfRoutes(claimedRoutes, players.get(0)));
+        _player1Color.setBackgroundColor(playerColors.get(players.get(0)));
 
         _player2.setText(players.get(1));
         points = playerPoints.get(players.get(1)).toString();
@@ -218,6 +232,7 @@ public class GameInfoActivity extends AppCompatActivity {
         numTrains = playerRemainingTrains.get(players.get(1)).toString();
         _player2Trains.setText(numTrains);
         _player2Routes.setText(numberOfRoutes(claimedRoutes, players.get(1)));
+        _player2Color.setBackgroundColor(playerColors.get(players.get(1)));
 
         if(players.size() != 3){
             _player3.setText("--");
@@ -225,6 +240,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player3Cards.setText("--");
             _player3Trains.setText("--");
             _player3Routes.setText("--");
+            _player3Color.setText("--");
         }
         else{
             _player3.setText(players.get(2));
@@ -235,6 +251,7 @@ public class GameInfoActivity extends AppCompatActivity {
             numTrains = playerRemainingTrains.get(players.get(2)).toString();
             _player3Trains.setText(numTrains);
             _player3Routes.setText(numberOfRoutes(claimedRoutes, players.get(2)));
+            _player1Color.setBackgroundColor(playerColors.get(players.get(2)));
         }
 
         if(players.size() != 4){
@@ -243,6 +260,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player4Cards.setText("--");
             _player4Trains.setText("--");
             _player4Routes.setText("--");
+            _player4Color.setText("--");
         }
         else{
             _player4.setText(players.get(3));
@@ -253,6 +271,7 @@ public class GameInfoActivity extends AppCompatActivity {
             numTrains = playerRemainingTrains.get(players.get(3)).toString();
             _player4Trains.setText(numTrains);
             _player4Routes.setText(numberOfRoutes(claimedRoutes, players.get(3)));
+            _player1Color.setBackgroundColor(playerColors.get(players.get(3)));
         }
 
         if(players.size() != 5){
@@ -261,6 +280,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player5Cards.setText("--");
             _player5Trains.setText("--");
             _player5Routes.setText("--");
+            _player5Color.setText("--");
         }
         else{
             _player5.setText(players.get(4));
@@ -271,6 +291,7 @@ public class GameInfoActivity extends AppCompatActivity {
             numTrains = playerRemainingTrains.get(players.get(4)).toString();
             _player5Trains.setText(numTrains);
             _player5Routes.setText(numberOfRoutes(claimedRoutes, players.get(4)));
+            _player1Color.setBackgroundColor(playerColors.get(players.get(4)));
         }
     }
 }

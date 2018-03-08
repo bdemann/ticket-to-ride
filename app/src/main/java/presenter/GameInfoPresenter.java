@@ -52,7 +52,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
         }
         else{
             _gameInfoActivity._updateGameInfo(gameInfo.getPlayers(),gameInfo.getPlayerPoints(),gameInfo.getPlayerHandSizes(),
-                    gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains());
+                    gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors());
 
         }
 
@@ -74,6 +74,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
     public ArrayList<DestCard> getDestinationCards(){
 
         //Gets a list of the destination cards in a player's hand
+        List<DestCard> playerDestCard = GameGuiFacade.getStarterDestinationCards();
 
         return new ArrayList<DestCard>();
     }
