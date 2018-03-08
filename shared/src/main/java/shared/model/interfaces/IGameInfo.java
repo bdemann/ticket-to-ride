@@ -21,7 +21,8 @@ public interface IGameInfo {
     Map<String, Integer> getPlayerPoints();
     Map<String, Integer> getPlayerHandSizes();
     void setPlayerHandSizes(String username, Integer trainCardCount);
-    Map<String, IEdge> getClaimedRoutes();
+    Map<String, List<IEdge>> getClaimedRoutes();
+    void setClaimedRoutes (Map<String, List<IEdge>> claimedRoutesMap);
     Map<String, Integer> getRemainingTrains();
     void setRemainingTrains(String username, Integer trainsCount);
     GameHistory getGameHistory();
