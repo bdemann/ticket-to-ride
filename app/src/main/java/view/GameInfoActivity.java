@@ -2,6 +2,8 @@ package view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,9 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private GameInfoPresenter _gameInfoPresenter;
 
+    private DestinationCardRecyclerAdapter _adapter;
+    private RecyclerView _destinationRecycler;
+
     //Todo: Destinatin Cards as a Recycler View!
 
 
@@ -59,7 +64,16 @@ public class GameInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_info);
 
         _initializeGuiElements();
+        _setUpRecycler();
         _setUpObserver();
+    }
+
+    private void _setUpRecycler(){
+        _destinationRecycler = (RecyclerView) findViewById(R.id.destination_recycler);
+        _adapter = new DestinationCardRecyclerAdapter(_gameInfoPresenter.getDestinationCards(),
+                _gameInfoPresenter.getCompleteDestinations());
+        _destinationRecycler.setAdapter(_adapter);
+        _destinationRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void _setUpObserver(){

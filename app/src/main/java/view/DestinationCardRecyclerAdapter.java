@@ -16,18 +16,19 @@ import java.util.ArrayList;
 
 import model.ClientRoot;
 import presenter.CreateJoinPresenter;
+import presenter.GameInfoPresenter;
 import presenter.GameSelectionPresenter;
+import shared.model.DestCard;
 
 /**
  * Created by mikeporet on 2/8/18.
  */
 
 class DestinationCardRecyclerAdapter extends RecyclerView.Adapter<DestinationCardRecyclerAdapter.ViewHolder>{
-    private ArrayList<String> _gameList;
-    private ArrayList<Integer> _gameIDList;
-    private ArrayList<String> _gameNumPlayersList;
+    private ArrayList<DestCard> _destinationCards;
+    private ArrayList<Integer> _destinationCardImages;
+    private ArrayList<Boolean> _complete;
 
-    private GameSelectionPresenter presenter;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -50,12 +51,13 @@ class DestinationCardRecyclerAdapter extends RecyclerView.Adapter<DestinationCar
         }
     }
 
-    public DestinationCardRecyclerAdapter(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList,
-                                   GameSelectionPresenter presenter) {
-        this._gameList = _gameList;
-        this._gameIDList = _gameIDList;
-        this._gameNumPlayersList = _gameNumPlayersList;
-        this.presenter = presenter;
+    public DestinationCardRecyclerAdapter(ArrayList<DestCard> _destCards, ArrayList<Boolean> _complete) {
+        this._destinationCards = _destCards;
+        this._complete = _complete;
+
+
+        //Get Images for the cards
+        _destinationCardImages = ViewUtilities.createDestCardImagePaths( _destinationCards);
     }
 
 
@@ -63,34 +65,30 @@ class DestinationCardRecyclerAdapter extends RecyclerView.Adapter<DestinationCar
     public DestinationCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.game_list_item, parent, false);
+        View contactView = inflater.inflate(R.layout.dest_card_list, parent, false);
         DestinationCardRecyclerAdapter.ViewHolder viewHolder = new DestinationCardRecyclerAdapter.ViewHolder(contactView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(DestinationCardRecyclerAdapter.ViewHolder holder, int position) {
-        //Setup text displays
-        TextView name = holder.GameName;
-        name.setText(_gameList.get(position));
+        //Setup Image displays
+        ImageView cardImage = holder.DestinationCardImage;
+        cardImage.setImageDrawable(cardImage.getContext().getDrawable(_destinationCardImages.get(position)));
 
-        TextView ID = holder.GameID;
-        ID.setText(Integer.toString(_gameIDList.get(position)));
-
-        TextView NumPlayers = holder.NumberPlayers;
-        NumPlayers.setText(_gameNumPlayersList.get(position));
+        //Display Complete if complete
+        TextView Complete = holder.Complete;
+        if(_complete.get(position)){
+            Complete.setAlpha(1.0f);
+        }
+        else{
+            Complete.setAlpha(0.0f);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return _gameList.size();
-    }
-
-    public void updateGameList(ArrayList<String> _gameList, ArrayList<Integer> _gameIDList, ArrayList<String> _gameNumPlayersList) {
-        this._gameList = _gameList;
-        this._gameIDList = _gameIDList;
-        this._gameNumPlayersList = _gameNumPlayersList;
-//        notifyDataSetChanged();
+        return _destinationCards.size();
     }
 }
