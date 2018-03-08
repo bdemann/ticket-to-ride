@@ -70,8 +70,6 @@ public class GameInfoActivity extends AppCompatActivity {
     private RecyclerView _destinationRecycler;
 
     //Todo: Destinatin Cards as a Recycler View!
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
