@@ -1,7 +1,12 @@
 package facade.guifacade;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
@@ -47,5 +52,15 @@ public class GameGuiFacade {
         else {
             return null;
         }
+    }
+
+    public static List<Boolean> getCompleteDestination(){
+        boolean isCompleted = false;
+        List<Boolean> completedDestination = new ArrayList<>();
+        for(DestCard destCard : ClientRoot.getClientPlayer().getUnresolvedDestCards()){
+            completedDestination.add(isCompleted);
+        }
+
+        return completedDestination;
     }
 }
