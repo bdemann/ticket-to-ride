@@ -253,7 +253,7 @@ public class Game implements IGame, Serializable {
         Map<String, Integer> playerHandSizes = new HashMap<>();
         Map<String, Integer> playerPoints = new HashMap<>();
         Map<String, Integer> trainsRemaining = new HashMap<>();
-        Map<String, IEdge> claimedRoutes = new HashMap<>();
+        Map<String, List<IEdge>> claimedRoutes = new HashMap<>();
         for(IPlayer player : _players) {
             String username = player.getUsername();
             players.add(username);
