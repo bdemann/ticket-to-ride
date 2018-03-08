@@ -39,6 +39,8 @@
         <activity
             android:name="view.DrawTrainCardsActivity"
             android:screenOrientation="landscape" />
+        <activity android:name="view.GameInfoActivity"
+            android:screenOrientation="landscape"/>
         <activity
             android:name="view.DrawDestinationsActivity"
             android:screenOrientation="landscape" />

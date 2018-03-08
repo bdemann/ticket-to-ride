@@ -8,15 +8,15 @@ import java.io.Serializable;
  */
 
 public class City implements Serializable {
-    private Point _coordinates;
+    private CityPoint _coordinates;
     private String _name;
 
-    public City(Point coordinates, String name){
+    public City(CityPoint coordinates, String name){
         this._coordinates = coordinates;
         this._name = name;
     }
 
-    public Point get_coordinates() {
+    public CityPoint get_coordinates() {
         return _coordinates;
     }
 

@@ -20,6 +20,10 @@ public class DestCard implements IDestCard, Serializable {
     private boolean _completed;
     private int _points;
 
+    public String toString(){
+        return "Route: " + _startingPoint + " to " + _destination;
+    }
+
 //    public DestCard(){
 //        DestinationCards.instance();
 //    }
@@ -69,4 +73,5 @@ public class DestCard implements IDestCard, Serializable {
     public void setStartingPoint(String _startingPoint) {
         this._startingPoint = _startingPoint;
     }
+
 }

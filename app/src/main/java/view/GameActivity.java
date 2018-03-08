@@ -1,23 +1,41 @@
 package view;
 
 import android.content.Intent;
-import android.graphics.Matrix;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.a340team.tickettoride.BuildConfig;
 import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import model.ClientRoot;
+import shared.model.CardSet;
+import shared.model.City;
+import shared.model.CityPoint;
+import shared.model.DestCard;
+import shared.model.Hand;
+import shared.model.Route;
+import shared.model.Train;
+import shared.model.TrainCard;
+import shared.model.interfaces.Card;
+
+import static shared.model.initialized_info.DestCardId.*;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
+    //DEMO
+    Button _demoButton;
     //Map
     ImageView mapView;
     //Click Buttons
@@ -62,8 +80,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     Button new_york;
     Button boston;
     Button montreal;
+    Button miami;
     //Button Array
     ArrayList<Button> _cityButtons;
+    ArrayList<String> _citiesSelected = new ArrayList<>();
+    private int _maxCitiesSelected = 2;
+
 
 
 
@@ -71,29 +93,31 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_acitvity);
-
+        //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
-//        Matrix matrix = new Matrix();
-//        matrix.preScale(.5f,.5f);
-//        mapView.setImageMatrix(matrix);
 
+        //TODO Delete me DEMO STUFF
+        //*****DEMO CRAP ******* DELETE AFTER PHASE 2//
+
+        _demoButton = (Button) findViewById(R.id.demo_button);
+        _demoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RUNDEMO();
+            }
+        });
+
+        //*****END OF DEMO CRAP ********//
+
+        //Initialize Components
         _initializeButtons();
         _createOnClickListeners(_cityButtons);
         _createFunctionButtonListeners();
+        _setCityButtons(false);
         displayStartDestCards();
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        // MotionEvent object holds X-Y values
-//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-//            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
-//            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-//        }
-//
-//        return super.onTouchEvent(event);
-//    }
 
     @Override
     public void onBackPressed() {
@@ -108,20 +132,39 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
          View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Button button = (Button) view;
-                String text = button.getText().toString();
-
-                if(text.equals("atlanta")){
-                    text = "atlanta nanana";
-                    mediaPlayer.start();
-                }
-
-                ViewUtilities.displayMessage(text, view.getContext());
+                _cityListeners(view, mediaPlayer);
             }
         };
 
         for (int i = 0; i < _cityButtons.size(); i++) {
             _cityButtons.get(i).setOnClickListener(clickListener);
+        }
+    }
+
+    private void _cityListeners(View view, MediaPlayer mediaPlayer) {
+        if(_citiesSelected.size() < _maxCitiesSelected) {
+            Button button = (Button) view;
+            String text = button.getText().toString();
+
+            /*
+            if (text.equals(ATLANTA)) {
+                text = "atlanta nanana";
+                mediaPlayer.start();
+            }
+            */
+            if (text.equals(HOUSTON)) {
+                _citiesSelected.add(HOUSTON);
+            }
+            if (text.equals(EL_PASO)) {
+                _citiesSelected.add(EL_PASO);
+
+            }
+
+
+            ViewUtilities.displayMessage(text, view.getContext());
+        }
+        else{
+            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Route to End", view.getContext());
         }
     }
 
@@ -136,9 +179,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _claimRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Do something please!
-                ViewUtilities.displayMessage("Claim Route\nShould Show", view.getContext());
+                claimRoute();
             }
         });
 
@@ -152,9 +193,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _myGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Do something please!
-                ViewUtilities.displayMessage("My Game\nShould Show", view.getContext());
+                displayGame();
             }
         });
 
@@ -213,6 +252,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         las_vegas = (Button) findViewById(R.id.las_vegas);
         phoenix = (Button) findViewById(R.id.phoenix);
         toronto = (Button) findViewById(R.id.toronto);
+        miami = (Button) findViewById(R.id.miami);
+
 
         //Add buttons to list
         _cityButtons = new ArrayList<>();
@@ -251,6 +292,51 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _cityButtons.add(new_york);
         _cityButtons.add(boston);
         _cityButtons.add(montreal);
+        _cityButtons.add(miami);
+    }
+
+    private void _setCityButtons(boolean value){
+        portland.setEnabled(value);
+        vancouver.setEnabled(value);
+        seattle.setEnabled(value);
+        san_francisco.setEnabled(value);
+        los_angeles.setEnabled(value);
+        calgary.setEnabled(value);
+        helena.setEnabled(value);
+        salt_lake_city.setEnabled(value);
+        las_vegas.setEnabled(value);
+        phoenix.setEnabled(value);
+        el_paso.setEnabled(value);
+        santa_fe.setEnabled(value);
+        denver.setEnabled(value);
+        winnipeg.setEnabled(value);
+        duluth.setEnabled(value);
+        omaha.setEnabled(value);
+        kansas_city.setEnabled(value);
+        oklahoma_city.setEnabled(value);
+        dallas.setEnabled(value);
+        houston.setEnabled(value);
+        saul_st_marie.setEnabled(value);
+        chicago.setEnabled(value);
+        st_louis.setEnabled(value);
+        little_rock.setEnabled(value);
+        new_orleans.setEnabled(value);
+        nashville.setEnabled(value);
+        atlanta.setEnabled(value);
+        toronto.setEnabled(value);
+        pittsburgh.setEnabled(value);
+        charleston.setEnabled(value);
+        raleigh.setEnabled(value);
+        washington.setEnabled(value);
+        new_york.setEnabled(value);
+        boston.setEnabled(value);
+        montreal.setEnabled(value);
+        miami.setEnabled(value);
+    }
+
+    private void _setDrawButtons(boolean value) {
+        _drawTrains.setEnabled(value);
+        _drawDestinations.setEnabled(value);
     }
 
     @Override
@@ -268,6 +354,50 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void claimRoute() {
+        _setCityButtons(true);
+        _setDrawButtons(false);
+        int tint = Color.argb(50, 0, 0, 0);
+        mapView.setColorFilter(tint);
+        //mapView.setBackgroundColor(tint);
+
+        if(_citiesSelected.size() == 2) {
+
+            City houston = new City(new CityPoint(580, 540), HOUSTON);
+            City elPaso = new City(new CityPoint(345, 480), EL_PASO);
+            Route r = new Route();
+            r.setStart(houston);
+            r.setEnd(elPaso);
+            r.setLength(6);
+            List<Route> routes = new ArrayList<>();
+            routes.add(r);
+
+            _drawRoutes(routes);
+
+            ViewUtilities.displayMessage("You Claimed:\nStart: " + _citiesSelected.get(0) +"\nDest: " + _citiesSelected.get(1), this);
+            _setCityButtons(false);
+            _setDrawButtons(true);
+            _citiesSelected.clear();
+            tint = Color.argb(0, 0, 0, 0);
+            mapView.setColorFilter(tint);
+            //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
+        }
+
+
+
+    }
+
+    private void _drawRoutes(List<Route> routes) {
+
+        DrawUtilities myDrawer = new DrawUtilities(this);
+
+        myDrawer.drawRoutes(routes, mapView);
+        /*
+        Drawer myDrawer = new Drawer(this);
+        Bitmap mapImg = BitmapFactory.decodeResource(getResources(), R.mipmap.ticket_to_ride_map_with_routes);
+        Canvas canvas = new Canvas(mapImg);
+        canvas.drawBitmap(mapImg, 0, 0, null);
+
+        myDrawer.drawRoute(canvas, routes);*/
 
     }
 
@@ -281,11 +411,67 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void displayGame() {
-
+        Intent intent = new Intent(this, GameInfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void displayChat() {
 
     }
+
+    //TODO Delete me DEMO STUFF 2
+    //Delete after phase 2 **************//
+    private void RUNDEMO(){
+
+        //DRAW TRAIN CARDS----------------------------------------------------|
+        //Add cards
+        Hand<TrainCard> list = ClientRoot.getClientPlayer().getTrainCardHand();
+        List<TrainCard> trainList = list.get_cards();
+        int cardAmt = 6;
+        for(int i = 0; i < cardAmt; i++){
+            trainList.add(new TrainCard(shared.model.Color.GREEN, 1));
+            trainList.add(new TrainCard(shared.model.Color.BLACK, 1));
+        }
+        ClientRoot.getClientPlayer().setTrainCards(trainList);
+
+        //For Player one, update the card count
+        Map<String, Integer> trainCount = ClientRoot.getClientGameInfo().getPlayerHandSizes();
+        if(trainCount.containsKey(ClientRoot.getClientPlayer().getUsername())){
+            int count = trainCount.get(ClientRoot.getClientPlayer().getUsername());
+            trainCount.put(ClientRoot.getClientPlayer().getUsername(), (Integer) count + (cardAmt*2));
+        }
+
+        //Show a toast
+        ViewUtilities.displayMessage("Drawing Train Cards...", this);
+        //END DRAW TRAIN CARDS -----------------------------------------------|
+
+
+
+
+        //DRAW DESTINATION CARDS -----------------------------------------------|
+        CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+        List<DestCard> destList = s.cards;
+        DestCard _17 = new DestCard(CHICAGO, LOS_ANGELES, 16);
+        DestCard _18 = new DestCard(PITTSBURGH, DENVER, 11);
+        destList.add(_17);
+        destList.add(_18);
+        ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
+
+        //Show a toast
+        ViewUtilities.displayMessage("Drawing Destination Train Cards...", this);
+        //END DRAW DESTINATION CARDS -----------------------------------------------|
+
+        //CLAIMING A ROUTE -----------------------------------------------|
+
+
+
+
+        //END CLAIMING A ROUTE -----------------------------------------------|
+        //Update the game history
+        //Update the game info
+        //Player's turn is over
+
+    }
+    //**********************************//
 }

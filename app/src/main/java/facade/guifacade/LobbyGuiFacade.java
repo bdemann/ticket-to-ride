@@ -2,9 +2,11 @@ package facade.guifacade;
 
 import java.util.List;
 
+import guiless.StartGame;
 import model.ClientRoot;
 import proxies.LobbyServerProxy;
 import shared.command.ICommand;
+import shared.model.DestCard;
 import shared.model.Game;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
@@ -31,20 +33,17 @@ public class LobbyGuiFacade {
 
     public static String startGame(IGame game, String username){
         LobbyServerProxy proxy = new LobbyServerProxy();
-        Result results = proxy.startGame((Game) game, username);
+        StartGameResult results = proxy.startGame(game, username);
         return _processStartGameResults(results);
     }
 
-    private static String _processStartGameResults(Result results) {
+    private static String _processStartGameResults(StartGameResult results) {
         if(results == null){
             return "Start Game Result is Null";
         }
-
-        StartGameResult startGameResult = (StartGameResult) results;
-
         if(results.getCommandSuccess()){
-            ClientRoot.setClientGameInfo(startGameResult.getGameInfo());
-            ClientRoot.setClientPlayer(startGameResult.getPlayer());
+            ClientRoot.setClientGameInfo(results.getGameInfo());
+            ClientRoot.setClientPlayer(results.getPlayer());
         }
 
         return results.getUserMessage();

@@ -18,7 +18,7 @@ public class Player implements IPlayer, Serializable {
     private int _color;
     private int _gameId = -1;
     private int _points = 0;
-    private List<Edge> playersEdges;
+    private List<Edge> playersEdges; 
     private List<Route> playersRoutes;
     private List<Train> _trains;
     private Hand<TrainCard> _trainCards;
@@ -97,6 +97,14 @@ public class Player implements IPlayer, Serializable {
     @Override
     public void incrementScore(int score) {
         this._points += score;
+    }
+
+    @Override
+    public void decrementTrains(int length) {
+        for(int i = 0; i < length; i++) {
+            _trains.remove(0);
+            //TODO how do we want to handle if the player is trying to use more trains then he has? Should we have a precondition that says that we can't the length of the decrement has to be bigger than the size and then police this in the guifacades?
+        }
     }
 
     @Override

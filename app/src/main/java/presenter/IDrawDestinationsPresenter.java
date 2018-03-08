@@ -1,5 +1,10 @@
 package presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import shared.model.DestCard;
+
 /**
  * Interface for this presenter
  * Created by BenNelson on 3/6/18.
@@ -7,6 +12,6 @@ package presenter;
 
 public interface IDrawDestinationsPresenter {
 
-    void drawDestinationCards();
-    void getStarterDestinationCards();
+    List<DestCard> drawDestinationCards();
+    List<DestCard> getStarterDestinationCards();
 }

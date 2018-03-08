@@ -1,26 +1,27 @@
 package shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import shared.model.interfaces.Card;
 
 /**
+ *
  * Created by bdemann on 3/7/18.
  */
 
-public class CardSet implements Iterable<Card>, Serializable {
+public class CardSet implements Iterable<DestCard>, Serializable {
 
-    public List<? extends Card> cards;
-
-    public CardSet(List<? extends Card> cards){
+    public List<DestCard> cards;
+    public CardSet(List<DestCard> cards){
         this.cards = cards;
     }
 
     @Override
-    public Iterator<Card> iterator() {
-        return new Iterator<Card>() {
+    public Iterator<DestCard> iterator() {
+        return new Iterator<DestCard>() {
 
             int index = 0;
 
@@ -30,8 +31,13 @@ public class CardSet implements Iterable<Card>, Serializable {
             }
 
             @Override
-            public Card next() {
-                return CardSet.this.cards.get(++index);
+            public DestCard next() {
+                return CardSet.this.cards.get(index++);
+            }
+
+            @Override
+            public void remove(){
+
             }
         };
     }
