@@ -1,5 +1,6 @@
 package view;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -145,8 +146,10 @@ public class GameInfoActivity extends AppCompatActivity {
     private void _initializeInfo(){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
         System.out.println("Size player list in Activity: " + gameInfo.getPlayers().size());
+        System.out.println("TURN INDEX: " + gameInfo.getTurnIndex());
         _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes(),
                 gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors());
+        _player2.setBackgroundColor(Color.rgb(220,220,220));
     }
 
     private void _initializePlayerHand(){
