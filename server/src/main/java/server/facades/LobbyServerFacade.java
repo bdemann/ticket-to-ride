@@ -21,10 +21,10 @@ public class LobbyServerFacade implements ILobbyServerFacade {
 
     @Override
     public StartGameResult startGame(IGame game, String username) {
-        IPlayer player = game.getPlayer(username);
         game = ServerRoot.getGame(game.getId());
         StartGameFacade.setUpGame(game);
         game.getGameHistory().addEvent(new GameEvent(username, "started the game"));
+        IPlayer player = game.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
         Logger.log(game.toString() + " started", Level.FINE);
         return new StartGameResult(player, game.getGameInfo(), true, ClientCommands.getCommandList(username), "Game Started");
