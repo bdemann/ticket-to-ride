@@ -3,6 +3,8 @@ package proxies;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
+import shared.model.CardSet;
+import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.interfaces.IEdge;
 import shared.results.ClaimRouteResult;
@@ -28,6 +30,18 @@ public class GameServerProxy implements IGameServerFacade {
             return (ClaimRouteResult) result;
         }
         return new ClaimRouteResult(result.getExceptionType(), result.getExceptionMessage());
+    }
+
+    @Override
+    public DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
+        //TODO implement method
+        return null;
+    }
+
+    @Override
+    public Result discardDestCards(String username, CardSet destCardSet) {
+        //TODO implement method
+        return null;
     }
 
     @Override

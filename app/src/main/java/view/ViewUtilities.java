@@ -4,8 +4,12 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import shared.model.DestCard;
 
 /**
  *
@@ -16,6 +20,7 @@ import java.util.regex.Pattern;
 
 class ViewUtilities {
 
+    static String GAME_START = "gameStart";
     static boolean containsSpecialCharacters(String str){
 
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
@@ -42,5 +47,18 @@ class ViewUtilities {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, message, duration);
         toast.show();
+    }
+
+    static ArrayList<Integer> createDestCardImagePaths(List<DestCard> destCards) {
+        ArrayList<Integer> imagePathList = new ArrayList<>();
+        for (DestCard card : destCards) {
+            int path = _findImagePath(card.getStartingPoint(), card.getDestination());
+            imagePathList.add(path);
+        }
+        return imagePathList;
+    }
+
+    private static int _findImagePath(String startingPoint, String destination) {
+        return 0;
     }
 }

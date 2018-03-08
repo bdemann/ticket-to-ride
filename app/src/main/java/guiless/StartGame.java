@@ -1,13 +1,17 @@
 package guiless;
 
+import model.ClientRoot;
 import proxies.syncProxy.GameMenuServerProxySync;
 import proxies.syncProxy.GameServerProxySync;
 import proxies.syncProxy.LobbyServerProxySync;
 import proxies.syncProxy.LoginServerProxySync;
+import shared.logging.Logger;
 import shared.model.Player;
+import shared.model.TrainCard;
 import shared.model.interfaces.IGame;
 import shared.results.CreateGameResult;
 import shared.results.Result;
+import shared.results.StartGameResult;
 
 /**
  * Created by bdemann on 3/5/18.
@@ -26,9 +30,12 @@ public class StartGame {
         System.out.println(result);
         IGame game = ((CreateGameResult) result).getGame();
         new GameMenuServerProxySync().joinGame(game.getId(), new Player("mkporet"));
-        result = new LobbyServerProxySync().startGame(game, "bdemann");
+        StartGameResult startGameResult = new LobbyServerProxySync().startGame(game, "bdemann");
         System.out.println("Start Game Result:");
-        System.out.println(result);
+        System.out.println(startGameResult);
+        for(TrainCard card: startGameResult.getGameInfo().getFaceUpCards()){
+            Logger.log("Here is a card:" + card.toString());
+        }
     }
 
 }

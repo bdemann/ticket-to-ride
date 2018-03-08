@@ -75,6 +75,11 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public CardSet getUnresolvedDestCards() {
+        return new CardSet(_unresolvedDestCards);
+    }
+
+    @Override
     public void setDestCards(List<DestCard> destCards) {
         this._destCards = new Hand<>(destCards);
     }

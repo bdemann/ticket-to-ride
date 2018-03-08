@@ -66,24 +66,29 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     public void listGame(){
-        String name = ClientRoot.getClientGame().getGameName();
-        //update the name of the game in the lobby activity
-        _activity.updateGameName(name);
+        if(ClientRoot.getClientGame() != null) {
+            String name = ClientRoot.getClientGame().getGameName();
+            //update the name of the game in the lobby activity
+            _activity.updateGameName(name);
+        }
     }
 
     public void listPlayers(){
-        ArrayList<IPlayer> players = new ArrayList<>(ClientRoot.getClientGame().getPlayers());
+        if(ClientRoot.getClientGame() != null){
 
-        StringBuilder playerList = new StringBuilder();
+            ArrayList<IPlayer> players = new ArrayList<>(ClientRoot.getClientGame().getPlayers());
 
-        for (int i = 0; i < players.size(); i++){
-            playerList.append(players.get(i).getUsername());
-            if (i != (players.size()-1)){
-                playerList.append(", ");
+            StringBuilder playerList = new StringBuilder();
+
+            for (int i = 0; i < players.size(); i++){
+                playerList.append(players.get(i).getUsername());
+                if (i != (players.size()-1)){
+                    playerList.append(", ");
+                }
             }
-        }
 
-        //Update the list of players on the lobby activity
-        _activity.updatePlayerList(playerList.toString());
+            //Update the list of players on the lobby activity
+            _activity.updatePlayerList(playerList.toString());
+        }
     }
 }

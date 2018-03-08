@@ -3,6 +3,7 @@ package shared.model.interfaces;
 
 import java.util.List;
 
+import shared.model.CardSet;
 import shared.model.DestCard;
 import shared.model.Hand;
 import shared.model.PlayerAction;
@@ -165,6 +166,7 @@ public interface IPlayer {
      * @param startingTickets
      */
     void setUnresolvedDestCards(List<DestCard> startingTickets);
+    CardSet getUnresolvedDestCards();
 
     void setDestCards(List<DestCard> destCards);
 

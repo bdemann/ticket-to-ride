@@ -33,7 +33,7 @@ public abstract class Deck<T> implements Serializable {
         List<T> cards = new ArrayList<>();
         for(int i = 0; i < count; i++){
             cards.add(this._cards.get(0));
-            cards.remove(0);
+            _cards.remove(0);
         }
         return cards;
     }

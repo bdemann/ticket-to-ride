@@ -6,6 +6,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
+import shared.model.CardSet;
 import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
@@ -17,6 +18,7 @@ import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
+import shared.results.Result;
 
 /**
  * Created by bdemann on 3/4/18.
@@ -62,6 +64,17 @@ public class GameServerFacade implements IGameServerFacade {
             }
         }
         return false;
+    }
+
+    @Override
+    public DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
+        //TODO implement this method
+        return null;
+    }
+
+    @Override
+    public Result discardDestCards(String username, CardSet destCardSet) {
+        return null;
     }
 
     @Override
