@@ -68,33 +68,23 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_acitvity);
-
+        //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
-//        Matrix matrix = new Matrix();
-//        matrix.preScale(.5f,.5f);
-//        mapView.setImageMatrix(matrix);
 
+        //Initialize Components
         _initializeButtons();
         _createOnClickListeners(_cityButtons);
         _createFunctionButtonListeners();
+        _setCityButtons(false);
         displayStartDestCards();
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        // MotionEvent object holds X-Y values
-//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-//            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
-//            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-//        }
-//
-//        return super.onTouchEvent(event);
-//    }
 
     @Override
     public void onBackPressed() {
@@ -109,21 +99,25 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
          View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Button button = (Button) view;
-                String text = button.getText().toString();
-
-                if(text.equals("atlanta")){
-                    text = "atlanta nanana";
-                    mediaPlayer.start();
-                }
-
-                ViewUtilities.displayMessage(text, view.getContext());
+                _cityListeners(view, mediaPlayer);
             }
         };
 
         for (int i = 0; i < _cityButtons.size(); i++) {
             _cityButtons.get(i).setOnClickListener(clickListener);
         }
+    }
+
+    private void _cityListeners(View view, MediaPlayer mediaPlayer) {
+        Button button = (Button) view;
+        String text = button.getText().toString();
+
+        if(text.equals("atlanta")){
+            text = "atlanta nanana";
+            mediaPlayer.start();
+        }
+
+        ViewUtilities.displayMessage(text, view.getContext());
     }
 
     private void _createFunctionButtonListeners(){
@@ -137,9 +131,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _claimRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Do something please!
-                ViewUtilities.displayMessage("Claim Route\nShould Show", view.getContext());
+                claimRoute();
             }
         });
 
@@ -154,8 +146,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             @Override
             public void onClick(View view) {
                 displayGame();
-                //Do something please!
-//                ViewUtilities.displayMessage("My Game\nShould Show", view.getContext());
             }
         });
 
@@ -257,6 +247,50 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _cityButtons.add(miami);
     }
 
+    private void _setCityButtons(boolean value){
+        portland.setEnabled(value);
+        vancouver.setEnabled(value);
+        seattle.setEnabled(value);
+        san_francisco.setEnabled(value);
+        los_angeles.setEnabled(value);
+        calgary.setEnabled(value);
+        helena.setEnabled(value);
+        salt_lake_city.setEnabled(value);
+        las_vegas.setEnabled(value);
+        phoenix.setEnabled(value);
+        el_paso.setEnabled(value);
+        santa_fe.setEnabled(value);
+        denver.setEnabled(value);
+        winnipeg.setEnabled(value);
+        duluth.setEnabled(value);
+        omaha.setEnabled(value);
+        kansas_city.setEnabled(value);
+        oklahoma_city.setEnabled(value);
+        dallas.setEnabled(value);
+        houston.setEnabled(value);
+        saul_st_marie.setEnabled(value);
+        chicago.setEnabled(value);
+        st_louis.setEnabled(value);
+        little_rock.setEnabled(value);
+        new_orleans.setEnabled(value);
+        nashville.setEnabled(value);
+        atlanta.setEnabled(value);
+        toronto.setEnabled(value);
+        pittsburgh.setEnabled(value);
+        charleston.setEnabled(value);
+        raleigh.setEnabled(value);
+        washington.setEnabled(value);
+        new_york.setEnabled(value);
+        boston.setEnabled(value);
+        montreal.setEnabled(value);
+        miami.setEnabled(value);
+    }
+
+    private void _setDrawButtons(boolean value) {
+        _drawTrains.setEnabled(value);
+        _drawDestinations.setEnabled(value);
+    }
+
     @Override
     public void displayStartDestCards() {
         Intent intent = new Intent(this, DrawDestinationsActivity.class);
@@ -272,8 +306,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void claimRoute() {
+        _setCityButtons(true);
+        _setDrawButtons(false);
+
 
     }
+
 
     @Override
     public void drawDestinations() {

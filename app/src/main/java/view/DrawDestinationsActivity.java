@@ -128,6 +128,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
             public void onClick(View view) {
                 //Send information to the server
                 if(_chosenCards.size() > 1){
+                    //Send the chosen cards onto the player, and the discard to the server
 
                     //Then finish the activity
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
