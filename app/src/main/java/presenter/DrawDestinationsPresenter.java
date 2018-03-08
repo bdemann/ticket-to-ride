@@ -17,7 +17,7 @@ public class DrawDestinationsPresenter implements IDrawDestinationsPresenter {
 
     @Override
     public List<DestCard> drawDestinationCards() {
-        return null;
+        return GameGuiFacade.drawDestinationCards();
     }
 
     @Override
