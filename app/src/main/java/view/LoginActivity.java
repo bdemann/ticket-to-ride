@@ -1,6 +1,7 @@
 package view;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -43,11 +44,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         //We need to create an intent in order to "intend" for it to do something.
         Intent intent = getIntent();
 
-        _setUpObserver();
         _initializeLoginElements();
         _createLoginListeners();
 
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        _setUpObserver();
     }
 
     @Override
@@ -62,12 +68,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public String getUsernameSignIn() {
-        return null;
+        return _usernameSignInText.getText().toString();
     }
 
     @Override
     public String getPasswordSignIn() {
-        return null;
+        return _passwordSignInText.getText().toString();
+    }
+
+    @Override
+    public void setUsernameSignIn(String username) {
+        _usernameSignInText.setText(username);
+    }
+
+    @Override
+    public void setPasswordSignIn(String username) {
+        _passwordSignInText.setText(username);
     }
 
     @Override
@@ -152,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     private void _setUpObserver(){
 
-        _loginPresenter = new LoginPresenter(getApplicationContext());
+        _loginPresenter = new LoginPresenter(getApplicationContext(), this);
         ClientRoot.addClientRootObserver(_loginPresenter);
     }
 
