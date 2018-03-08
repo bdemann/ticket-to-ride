@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ClientRoot;
+import proxies.GameServerProxy;
 import shared.model.CardSet;
 import shared.model.DestCard;
 import shared.model.interfaces.Card;
+import shared.results.DrawCardsResult;
 
 /**
  * This helps the presenters talk to the model
@@ -19,5 +21,20 @@ public class GameGuiFacade {
         CardSet set = ClientRoot.getClientPlayer().getUnresolvedDestCards();
         return set.cards;
 
+    }
+
+    public static List<DestCard> drawDestinationCards() {
+        GameServerProxy gsp = new GameServerProxy();
+        DrawCardsResult cardResults = gsp.drawTicketCards(ClientRoot.getClientPlayer().getUsername());
+        return _processDrawDestinationResults(cardResults);
+    }
+
+    private static List<DestCard> _processDrawDestinationResults(DrawCardsResult cardResults) {
+        if(cardResults != null){
+            return (List<DestCard>) cardResults.getCards();
+        }
+        else {
+            return null;
+        }
     }
 }

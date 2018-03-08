@@ -29,7 +29,11 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
     private ImageButton _destCardTwo;
     private ImageButton _destCardThree;
     private Button _confirm;
+    private List<Integer> _chosenCards = new ArrayList<>();
     private IDrawDestinationsPresenter _destinationsPresenter;
+    static int FIRST_CARD = 1;
+    static int SECOND_CARD = 2;
+    static int THIRD_CARD = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                 //Lock the image button
                 _destCardOne.setEnabled(false);
                 _destCardOne.setColorFilter(tint); // Green Tint
+                _chosenCards.add(FIRST_CARD);
             }
         });
 
@@ -102,6 +107,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                 //Lock the image button
                 _destCardTwo.setEnabled(false);
                 _destCardTwo.setColorFilter(tint); // Green Tint
+                _chosenCards.add(SECOND_CARD);
 
             }
         });
@@ -112,6 +118,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                 //Lock the image button
                 _destCardThree.setEnabled(false);
                 _destCardThree.setColorFilter(tint); // Green Tint
+                _chosenCards.add(THIRD_CARD);
 
             }
         });
@@ -120,10 +127,16 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
             @Override
             public void onClick(View view) {
                 //Send information to the server
+                if(_chosenCards.size() > 1){
 
-                //Then finish the activity
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.finish();
+                    //Then finish the activity
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.finish();
+                }
+                else{
+                    ViewUtilities.displayMessage("You need at least 2.", view.getContext());
+                }
+
             }
         });
     }
