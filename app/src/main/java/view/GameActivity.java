@@ -17,15 +17,18 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import model.ClientRoot;
 import shared.model.CardSet;
 import shared.model.City;
 import shared.model.CityPoint;
 import shared.model.DestCard;
+import shared.model.Hand;
 import shared.model.Route;
 import shared.model.Train;
 import shared.model.TrainCard;
+import shared.model.interfaces.Card;
 
 import static shared.model.initialized_info.DestCardId.*;
 
@@ -420,12 +423,22 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     //TODO Delete me DEMO STUFF 2
     //Delete after phase 2 **************//
     private void RUNDEMO(){
-        //Draw Trains Cards
-        List<TrainCard> trainList = new ArrayList<>();
+
+        //DRAW TRAIN CARDS
+        Hand<TrainCard> list = ClientRoot.getClientPlayer().getTrainCardHand();
+        List<TrainCard> trainList = list.get_cards();
         for(int i = 0; i < 6; i++){
             trainList.add(new TrainCard(shared.model.Color.GREEN, 1));
+            trainList.add(new TrainCard(shared.model.Color.BLACK, 1));
         }
         ClientRoot.getClientPlayer().setTrainCards(trainList);
+
+        //For Player one
+        Map<String, Integer> trainCount = ClientRoot.getClientGameInfo().getPlayerHandSizes();
+        int count = trainCount.get(0);
+
+
+
 
         //Draw Destination Cards
         CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();

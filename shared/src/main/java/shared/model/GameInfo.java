@@ -88,6 +88,13 @@ public class GameInfo implements IGameInfo, Serializable {
     }
 
     @Override
+    public void setPlayerHandSizes(String username, Integer trainCardCount) {
+        if(_playerHandSizes.containsKey(username)){
+            _playerHandSizes.put(username,trainCardCount);
+        }
+    }
+
+    @Override
     public Map<String, IEdge> getClaimedRoutes() {
         return _claimedRoutes;
     }
@@ -95,6 +102,13 @@ public class GameInfo implements IGameInfo, Serializable {
     @Override
     public Map<String, Integer> getRemainingTrains() {
         return _playerRemainingTrains;
+    }
+
+    @Override
+    public void setRemainingTrains(String username, Integer trainsCount) {
+        if(_playerRemainingTrains.containsKey(username)){
+            _playerRemainingTrains.put(username,trainsCount);
+        }
     }
 
     @Override
