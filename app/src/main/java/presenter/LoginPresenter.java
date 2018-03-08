@@ -9,6 +9,7 @@ import java.util.Observer;
 import facade.guifacade.LoginGuiFacade;
 import model.ClientRoot;
 import view.GameSelectionActivity;
+import view.LoginActivity;
 
 /**
  *
@@ -18,10 +19,13 @@ import view.GameSelectionActivity;
 public class LoginPresenter implements ILoginPresenter, Observer {
 
     private Context _context;
+    LoginActivity _loginActivity;
 
-    public LoginPresenter(Context appContext){
+    public LoginPresenter(Context appContext, LoginActivity loginActivity){
         this._context = appContext;
-
+        this._loginActivity = loginActivity;
+        this._loginActivity.setUsernameSignIn("b");
+        this._loginActivity.setPasswordSignIn("b");
     }
 
     @Override
