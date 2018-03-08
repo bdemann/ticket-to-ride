@@ -8,6 +8,7 @@ import shared.model.CityPoint;
 import static shared.model.initialized_info.DestCardId.*;
 
 /**
+ *
  * Created by paulinecausse on 3/3/18.
  */
 
@@ -21,7 +22,7 @@ public class Cities implements Serializable {
         return _instance;
     }
 
-    private Cities() {}
+    private Cities(){}
 
     private City vanc = new City(new CityPoint(132,18), VANCOUVER);
     private City winn = new City(new CityPoint(524, 62), WINNIPEG);

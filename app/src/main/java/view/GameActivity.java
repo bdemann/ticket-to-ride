@@ -123,29 +123,20 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             Button button = (Button) view;
             String text = button.getText().toString();
 
+            /*
             if (text.equals(ATLANTA)) {
                 text = "atlanta nanana";
                 mediaPlayer.start();
             }
+            */
             if (text.equals(HOUSTON)) {
                 _citiesSelected.add(HOUSTON);
-            }
-            if (text.equals(DALLAS)) {
-                _citiesSelected.add(DALLAS);
-
-            }
-            if (text.equals(OKLAHOMA_CITY)) {
-                _citiesSelected.add(OKLAHOMA_CITY);
-
             }
             if (text.equals(EL_PASO)) {
                 _citiesSelected.add(EL_PASO);
 
             }
-            if (text.equals(SANTA_FE)) {
-                _citiesSelected.add(SANTA_FE);
 
-            }
 
             ViewUtilities.displayMessage(text, view.getContext());
         }
@@ -344,6 +335,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _setDrawButtons(false);
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
+        //mapView.setBackgroundColor(tint);
 
         if(_citiesSelected.size() == 2) {
 
@@ -355,12 +347,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             r.setLength(6);
             List<Route> routes = new ArrayList<>();
             routes.add(r);
+
             _drawRoutes(routes);
+
             ViewUtilities.displayMessage("You Claimed:\nStart: " + _citiesSelected.get(0) +"\nDest: " + _citiesSelected.get(1), this);
             _setCityButtons(false);
             _setDrawButtons(true);
+            _citiesSelected.clear();
             tint = Color.argb(0, 0, 0, 0);
             mapView.setColorFilter(tint);
+            //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
         }
 
 
@@ -369,6 +365,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     private void _drawRoutes(List<Route> routes) {
 
+        DrawUtilities myDrawer = new DrawUtilities(this);
+
+        myDrawer.drawRoutes(routes, mapView);
         /*
         Drawer myDrawer = new Drawer(this);
         Bitmap mapImg = BitmapFactory.decodeResource(getResources(), R.mipmap.ticket_to_ride_map_with_routes);
