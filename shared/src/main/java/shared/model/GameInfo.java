@@ -10,6 +10,7 @@ import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
 /**
+ *
  * Created by bdemann on 3/4/18.
  */
 
@@ -27,12 +28,12 @@ public class GameInfo implements IGameInfo, Serializable {
     private Map<String, Integer> _playerPoints;
     // and the order in which the players take turns
     private Map<String, Integer> _playerHandSizes;
-    private Map<String, IEdge> _claimedRoutes;
+    private Map<String, List<IEdge>> _claimedRoutes;
     private Map<String, Integer> _playerRemainingTrains;
     private GameHistory _gameHistory;
     private int _turnIndex;
 
-    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, Map<String, IEdge> claimedRoutes, Map<String, Integer> playerRemainingTrains, GameHistory gameHistory, int turnIndex) {
+    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, Map<String, List<IEdge>> claimedRoutes, Map<String, Integer> playerRemainingTrains, GameHistory gameHistory, int turnIndex) {
         this._playerWithLongestRoute = playerWithLongestRoute;
         this._faceUpCards = faceUpCards;
         this._gameId = gameId;
@@ -95,8 +96,13 @@ public class GameInfo implements IGameInfo, Serializable {
     }
 
     @Override
-    public Map<String, IEdge> getClaimedRoutes() {
+    public Map<String, List<IEdge>> getClaimedRoutes() {
         return _claimedRoutes;
+    }
+
+    @Override
+    public void setClaimedRoutes(Map<String, List<IEdge>> claimedRoutesMap) {
+        this._claimedRoutes = claimedRoutesMap;
     }
 
     @Override
