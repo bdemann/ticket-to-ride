@@ -1,6 +1,10 @@
 package presenter;
 
-import model.ClientRoot;
+
+import java.util.List;
+
+import facade.guifacade.GameGuiFacade;
+import shared.model.DestCard;
 
 /**
  *
@@ -10,13 +14,14 @@ import model.ClientRoot;
 public class DrawDestinationsPresenter implements IDrawDestinationsPresenter {
 
 
+
     @Override
     public void drawDestinationCards() {
 
     }
 
     @Override
-    public void getStarterDestinationCards() {
-
+    public List<DestCard> getStarterDestinationCards() {
+        return GameGuiFacade.getStarterDestinationCards();
     }
 }

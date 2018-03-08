@@ -69,4 +69,5 @@ public class DestCard implements IDestCard, Serializable {
     public void setStartingPoint(String _startingPoint) {
         this._startingPoint = _startingPoint;
     }
+
 }

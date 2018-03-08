@@ -22,4 +22,5 @@ public interface IDestCard extends Card {
     String getStartingPoint();
 
     void setStartingPoint(String startingPoint);
+
 }
