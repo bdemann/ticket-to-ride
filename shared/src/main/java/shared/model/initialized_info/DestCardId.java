@@ -1,6 +1,6 @@
 package shared.model.initialized_info;
 
-import shared.model.DestCard;
+
 
 /**
  * This class with help contain information on the game destination cards.
@@ -41,8 +41,9 @@ public class DestCardId {
     public static String HELENA = "helena";
     public static String OKLAHOMA_CITY = "okalahoma_city";
     public static String LAS_VEGAS = "las_vegas";
-    public static String OHMAHA = "omaha";
+    public static String OMAHA = "omaha";
     public static String ST_LOUIS = "st_louis";
     public static String CHARLESTON = "charleston";
     public static String RALEIGH = "raleigh";
+    public static String WASHINGTON = "washington";
 }
