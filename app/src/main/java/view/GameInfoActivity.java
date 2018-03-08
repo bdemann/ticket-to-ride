@@ -13,6 +13,7 @@ import java.util.Map;
 
 import model.ClientRoot;
 import presenter.GameInfoPresenter;
+import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGameInfo;
 
 public class GameInfoActivity extends AppCompatActivity {
@@ -70,7 +71,8 @@ public class GameInfoActivity extends AppCompatActivity {
     private void _initializeInfo(){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
         System.out.println("Size player list in Activity: " + gameInfo.getPlayers().size());
-        _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes());
+        _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes(),
+                gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains());
     }
 
     private void _setUpRecycler(){
@@ -121,24 +123,49 @@ public class GameInfoActivity extends AppCompatActivity {
         _player5Routes = (TextView) findViewById(R.id.player5_routes);
     }
 
-    //TODO: Add the player's routes and trains
-    public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize){
+
+    private String numberRoutes(Map<String, IEdge> claimedRoutes, String player){
+        System.out.println("Size of claimedRoutes: " + claimedRoutes.size());
+
+        int number = 0;
+        for (Map.Entry<String, IEdge> entry : claimedRoutes.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            if(entry.getKey().equals(player)){
+                number++;
+            }
+        }
+
+        String numAsStr = Integer.toString(number);
+        return numAsStr;
+    }
+
+
+    public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize,
+                                Map<String, IEdge> claimedRoutes, Map<String, Integer> playerRemainingTrains){
         _player1.setText(players.get(0));
         String points = playerPoints.get(players.get(0)).toString();
         _player1Points.setText(points);
         String handSize = playerHandSize.get(players.get(0)).toString();
         _player1Cards.setText(handSize);
+        String numTrains = playerRemainingTrains.get(players.get(0)).toString();
+        _player1Trains.setText(numTrains);
+        _player1Routes.setText(numberRoutes(claimedRoutes, players.get(0)));
 
         _player2.setText(players.get(1));
         points = playerPoints.get(players.get(1)).toString();
         _player2Points.setText(points);
         handSize = playerHandSize.get(players.get(1)).toString();
         _player2Cards.setText(handSize);
+        numTrains = playerRemainingTrains.get(players.get(1)).toString();
+        _player2Trains.setText(numTrains);
+        _player2Routes.setText(numberRoutes(claimedRoutes, players.get(1)));
 
         if(players.size() != 3){
             _player3.setText("--");
             _player3Points.setText("--");
             _player3Cards.setText("--");
+            _player3Trains.setText("--");
+            _player3Routes.setText("--");
         }
         else{
             _player3.setText(players.get(2));
@@ -146,12 +173,17 @@ public class GameInfoActivity extends AppCompatActivity {
             _player3Points.setText(points);
             handSize = playerHandSize.get(players.get(2)).toString();
             _player3Cards.setText(handSize);
+            numTrains = playerRemainingTrains.get(players.get(2)).toString();
+            _player3Trains.setText(numTrains);
+            _player3Routes.setText(numberRoutes(claimedRoutes, players.get(2)));
         }
 
         if(players.size() != 4){
             _player4.setText("--");
             _player4Points.setText("--");
             _player4Cards.setText("--");
+            _player4Trains.setText("--");
+            _player4Routes.setText("--");
         }
         else{
             _player4.setText(players.get(3));
@@ -159,12 +191,17 @@ public class GameInfoActivity extends AppCompatActivity {
             _player4Points.setText(points);
             handSize = playerHandSize.get(players.get(3)).toString();
             _player4Cards.setText(handSize);
+            numTrains = playerRemainingTrains.get(players.get(3)).toString();
+            _player4Trains.setText(numTrains);
+            _player4Routes.setText(numberRoutes(claimedRoutes, players.get(3)));
         }
 
         if(players.size() != 5){
             _player5.setText("--");
             _player5Points.setText("--");
             _player5Cards.setText("--");
+            _player5Trains.setText("--");
+            _player5Routes.setText("--");
         }
         else{
             _player5.setText(players.get(4));
@@ -172,6 +209,9 @@ public class GameInfoActivity extends AppCompatActivity {
             _player5Points.setText(points);
             handSize = playerHandSize.get(players.get(4)).toString();
             _player5Cards.setText(handSize);
+            numTrains = playerRemainingTrains.get(players.get(4)).toString();
+            _player5Trains.setText(numTrains);
+            _player5Routes.setText(numberRoutes(claimedRoutes, players.get(4)));
         }
     }
 }

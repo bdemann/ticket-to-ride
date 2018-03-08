@@ -56,11 +56,13 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 //        Map<String, String> claimesRoutes;
 
         IGameInfo gameInfo = ClientRoot.getClientGameInfo();
-        if(gameInfo.getPlayers() == null || gameInfo.getPlayerHandSizes() == null || gameInfo.getPlayerPoints() == null){
+        if(gameInfo.getPlayers() == null || gameInfo.getPlayerHandSizes() == null || gameInfo.getPlayerPoints() == null
+                || gameInfo.getClaimedRoutes() == null || gameInfo.getRemainingTrains() == null){
             System.out.println("Game Info null!");
         }
         else{
-            _gameInfoActivity._updateGameInfo(gameInfo.getPlayers(),gameInfo.getPlayerPoints(),gameInfo.getPlayerHandSizes());
+            _gameInfoActivity._updateGameInfo(gameInfo.getPlayers(),gameInfo.getPlayerPoints(),gameInfo.getPlayerHandSizes(),
+                    gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains());
 
         }
 
