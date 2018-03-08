@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.ClientRoot;
 import presenter.CreateJoinPresenter;
@@ -25,9 +26,9 @@ import shared.model.DestCard;
  */
 
 class DestinationCardRecyclerAdapter extends RecyclerView.Adapter<DestinationCardRecyclerAdapter.ViewHolder>{
-    private ArrayList<DestCard> _destinationCards;
+    private List<DestCard> _destinationCards;
     private ArrayList<Integer> _destinationCardImages;
-    private ArrayList<Boolean> _complete;
+    private List<Boolean> _complete;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -51,10 +52,9 @@ class DestinationCardRecyclerAdapter extends RecyclerView.Adapter<DestinationCar
         }
     }
 
-    public DestinationCardRecyclerAdapter(ArrayList<DestCard> _destCards, ArrayList<Boolean> _complete) {
+    public DestinationCardRecyclerAdapter(List<DestCard> _destCards, List<Boolean> _complete) {
         this._destinationCards = _destCards;
         this._complete = _complete;
-
 
         //Get Images for the cards
         _destinationCardImages = ViewUtilities.createDestCardImagePaths( _destinationCards);
