@@ -60,15 +60,16 @@ public class GameInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
 
+        _initializeGuiElements();
         _initializePresenter();
         _initializeInfo();
-        _initializeGuiElements();
         _setUpRecycler();
         _setUpObserver();
     }
 
     private void _initializeInfo(){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
+        System.out.println("Size player list in Activity: " + gameInfo.getPlayers().size());
         _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes());
     }
 
@@ -134,7 +135,7 @@ public class GameInfoActivity extends AppCompatActivity {
         handSize = playerHandSize.get(players.get(1)).toString();
         _player2Cards.setText(handSize);
 
-        if(players.get(2) == null){
+        if(players.size() != 3){
             _player3.setText("--");
             _player3Points.setText("--");
             _player3Cards.setText("--");
@@ -147,7 +148,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player3Cards.setText(handSize);
         }
 
-        if(players.get(3) == null){
+        if(players.size() != 4){
             _player4.setText("--");
             _player4Points.setText("--");
             _player4Cards.setText("--");
@@ -160,7 +161,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player4Cards.setText(handSize);
         }
 
-        if(players.get(4) == null){
+        if(players.size() != 5){
             _player5.setText("--");
             _player5Points.setText("--");
             _player5Cards.setText("--");
