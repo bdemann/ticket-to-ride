@@ -262,7 +262,8 @@ public class Game implements IGame, Serializable {
             playerPoints.put(username, player.getScore());
             trainsRemaining.put(username, player.getTrains().size());
             //TODO fix this once we know how to get the routes.
-            claimedRoutes.put(username, null);
+            List<IEdge> list = new ArrayList<>();
+            claimedRoutes.put(username, list);
         }
         return new GameInfo(_id, _gameName, _gameHistory, _playerWithLongestRoute, _faceUpCards, players, playerColors, playerPoints, playerHandSizes, claimedRoutes, trainsRemaining, getGameHistory(), _turnIndex);
     }
