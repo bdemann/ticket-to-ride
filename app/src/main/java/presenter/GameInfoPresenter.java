@@ -11,6 +11,10 @@ import java.util.Observer;
 import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
 import shared.model.DestCard;
+import shared.model.Route;
+import shared.model.TrainCard;
+import shared.model.history.GameHistory;
+import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import view.GameInfoActivity;
 
@@ -59,5 +63,20 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
             _gameInfoActivity._updateGameInfo(gameInfo.getPlayers(),gameInfo.getPlayerPoints(),gameInfo.getPlayerHandSizes());
 
         }
+
+    }
+
+    public ArrayList<DestCard> getDestinationCards(){
+
+        //Gets a list of the destination cards in a player's hand
+
+        return new ArrayList<DestCard>();
+    }
+
+    public ArrayList<Boolean> getCompleteDestinations(){
+
+        //Gets a list of the completion status of each destination card
+
+        return new ArrayList<Boolean>();
     }
 }

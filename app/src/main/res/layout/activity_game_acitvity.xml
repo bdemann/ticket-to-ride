@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
-        android:src="@mipmap/ticket_to_ride_map_scaledf" />
+        android:src="@mipmap/ticket_to_ride_map_with_routes" />
 
     <Button
         android:id="@+id/draw_trains"

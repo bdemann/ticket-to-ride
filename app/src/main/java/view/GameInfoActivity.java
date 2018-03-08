@@ -2,9 +2,9 @@ package view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.a340team.tickettoride.R;
 
@@ -12,11 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.ClientRoot;
-import presenter.CreateJoinPresenter;
 import presenter.GameInfoPresenter;
-import presenter.IGameInfoPresenter;
-import shared.model.DestCard;
-import shared.model.Edge;
 import shared.model.interfaces.IGameInfo;
 
 public class GameInfoActivity extends AppCompatActivity {
@@ -53,6 +49,9 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private GameInfoPresenter _gameInfoPresenter;
 
+    private DestinationCardRecyclerAdapter _adapter;
+    private RecyclerView _destinationRecycler;
+
     //Todo: Destinatin Cards as a Recycler View!
 
 
@@ -64,12 +63,21 @@ public class GameInfoActivity extends AppCompatActivity {
         _initializePresenter();
         _initializeInfo();
         _initializeGuiElements();
+        _setUpRecycler();
         _setUpObserver();
     }
 
     private void _initializeInfo(){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
         _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes());
+    }
+
+    private void _setUpRecycler(){
+        _destinationRecycler = (RecyclerView) findViewById(R.id.destination_recycler);
+        _adapter = new DestinationCardRecyclerAdapter(_gameInfoPresenter.getDestinationCards(),
+                _gameInfoPresenter.getCompleteDestinations());
+        _destinationRecycler.setAdapter(_adapter);
+        _destinationRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void _initializePresenter(){
