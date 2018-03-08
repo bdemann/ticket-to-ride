@@ -60,7 +60,7 @@ public class TrainCardSet implements Serializable, Iterable<TrainCard> {
 
             @Override
             public TrainCard next() {
-                return TrainCardSet.this.trainCards.get(++index);
+                return TrainCardSet.this.trainCards.get(index++);
             }
         };
     }

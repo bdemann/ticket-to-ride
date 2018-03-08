@@ -1,6 +1,7 @@
 package shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,11 +32,11 @@ public class CardSet implements Iterable<DestCard>, Serializable {
 
             @Override
             public DestCard next() {
-                return CardSet.this.cards.get(++index);
+                return CardSet.this.cards.get(index++);
             }
 
             @Override
-            public void remove() {
+            public void remove(){
 
             }
         };
