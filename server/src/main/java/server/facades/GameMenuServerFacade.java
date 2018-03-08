@@ -97,6 +97,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
             }
             if(notSame == players.size()){
                 ServerRoot.getPlayer(joiner.getUsername()).setColor(ServerRoot.getColors().get(i));
+                joiner.setColor(ServerRoot.getColors().get(i));
                 break;
             }
         }
