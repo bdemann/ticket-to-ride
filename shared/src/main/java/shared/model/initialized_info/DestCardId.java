@@ -9,35 +9,36 @@ import shared.model.DestCard;
 
 public class DestCardId {
 
-    static String NEW_YORK = "NewYork";
-    static String LOS_ANGELES = "LosAngeles";
-    static String HOUSTON = "Houston";
-    static String DULUTH = "Duluth";
-    static String NASHVILLE = "Nashville";
-    static String SAUL_ST_MARIE = "SaulSt.Marie";
-    static String ATLANTA = "Atlanta";
-    static String PORTLAND = "Houston";
-    static String MONTREAL = "Montreal";
-    static String VANCOUVER = "Vancouver";
-    static String EL_PASO = "ElPaso";
-    static String MIAMI = "Miami";
-    static String TORONTO = "Toronto";
-    static String PHOENIX = "Phoenix";
-    static String DALLAS = "Dallas";
-    static String SALT_LAKE_CITY = "SaltLakeCity";
-    static String CALGARY = "Calgary";
-    static String LITTLE_ROCK = "LittleRock";
-    static String WINNIPEG = "Winnipeg";
-    static String SAN_FRANCISCO = "SanFrancisco";
-    static String KANSAS_CITY = "KansasCity";
-    static String CHICAGO = "Chicago";
-    static String PITTSBURGH = "Pittsburgh";
-    static String DENVER = "Denver";
-    static String SANTA_FE = "SantaFe";
-    static String BOSTON = "Boston";
-    static String NEW_ORLEANS = "NewOrleans";
-    static String SEATTLE = "Seattle";
-    static String HELENA = "Helena";
-    static String OKLAHOMA_CITY = "OkalahomaCity";
+    //These must be public!
+    public static String NEW_YORK = "NewYork";
+    public static String LOS_ANGELES = "LosAngeles";
+    public static String HOUSTON = "Houston";
+    public static String DULUTH = "Duluth";
+    public static String NASHVILLE = "Nashville";
+    public static String SAUL_ST_MARIE = "SaulSt.Marie";
+    public static String ATLANTA = "Atlanta";
+    public static String PORTLAND = "Houston";
+    public static String MONTREAL = "Montreal";
+    public static String VANCOUVER = "Vancouver";
+    public static String EL_PASO = "ElPaso";
+    public static String MIAMI = "Miami";
+    public static String TORONTO = "Toronto";
+    public static String PHOENIX = "Phoenix";
+    public static String DALLAS = "Dallas";
+    public static String SALT_LAKE_CITY = "SaltLakeCity";
+    public static String CALGARY = "Calgary";
+    public static String LITTLE_ROCK = "LittleRock";
+    public static String WINNIPEG = "Winnipeg";
+    public static String SAN_FRANCISCO = "SanFrancisco";
+    public static String KANSAS_CITY = "KansasCity";
+    public static String CHICAGO = "Chicago";
+    public static String PITTSBURGH = "Pittsburgh";
+    public static String DENVER = "Denver";
+    public static String SANTA_FE = "SantaFe";
+    public static String BOSTON = "Boston";
+    public static String NEW_ORLEANS = "NewOrleans";
+    public static String SEATTLE = "Seattle";
+    public static String HELENA = "Helena";
+    public static String OKLAHOMA_CITY = "OkalahomaCity";
 
 }
