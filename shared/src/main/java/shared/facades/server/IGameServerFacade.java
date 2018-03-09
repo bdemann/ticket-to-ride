@@ -18,7 +18,7 @@ public interface IGameServerFacade {
 
     DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard);
 
-    Result discardDestCards(String username, CardSet destCardSet);
+    Result discardDestCards(String username, CardSet keptCards, CardSet discardCards);
 
     public DrawCardsResult drawTrainCard(String username);
     public DrawCardsResult drawTicketCards(String username);
