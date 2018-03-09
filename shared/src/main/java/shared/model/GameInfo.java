@@ -1,6 +1,8 @@
 package shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +34,21 @@ public class GameInfo implements IGameInfo, Serializable {
     private Map<String, Integer> _playerRemainingTrains;
     private GameHistory _gameHistory;
     private int _turnIndex;
+
+    public GameInfo(){
+        this._playerWithLongestRoute = "";
+        this._faceUpCards = new ArrayList<>();
+        this._gameId = -1;
+        this._gameName = "";
+        this._players = new ArrayList<>();
+        this._playerColors = new HashMap<>();
+        this._playerPoints = new HashMap<>();
+        this._playerHandSizes = new HashMap<>();
+        this._claimedRoutes = new HashMap<>();
+        this._playerRemainingTrains = new HashMap<>();
+        this._gameHistory = new GameHistory();
+        this._turnIndex = 0;
+    }
 
     public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, Map<String, List<IEdge>> claimedRoutes, Map<String, Integer> playerRemainingTrains, GameHistory gameHistory, int turnIndex) {
         this._playerWithLongestRoute = playerWithLongestRoute;
