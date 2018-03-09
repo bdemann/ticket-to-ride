@@ -156,6 +156,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                     CardSet destCardSet = new CardSet(destList);
                     CardSet removeCardSet = new CardSet(cardsToRemove);
 
+
                     gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeCardSet);
                     //END OF DELETE ME ---------------------------------------------------|
 

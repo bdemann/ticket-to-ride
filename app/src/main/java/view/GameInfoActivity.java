@@ -264,7 +264,9 @@ public class GameInfoActivity extends AppCompatActivity {
         int numRoutes = claimedRoutes.get(players.get(0)).size();
         _player1Routes.setText(Integer.toString(numRoutes));
         _player1Color.setBackgroundColor(playerColors.get(players.get(0)));
-        String numDestCards = destCards.get(players.get(0)).toString();
+
+        //**REMEMBER TO CHANGE!!! THIS IS JUST FOR DEMO
+        String numDestCards = Integer.toString(_gameInfoPresenter.getDestinationCards().size());//destCards.get(players.get(0)).toString();
         _player1_dest_cards.setText(numDestCards);
 
         _player2.setText(players.get(1));
@@ -277,7 +279,9 @@ public class GameInfoActivity extends AppCompatActivity {
         numRoutes = claimedRoutes.get(players.get(1)).size();
         _player2Routes.setText(Integer.toString(numRoutes));
         _player2Color.setBackgroundColor(playerColors.get(players.get(1)));
-        numDestCards = destCards.get(players.get(1)).toString();
+
+        //**REMEMBER TO CHANGE!!! THIS IS JUST FOR DEMO
+        numDestCards = Integer.toString(_gameInfoPresenter.getDestinationCards().size()); //destCards.get(players.get(1)).toString();
         _player2_dest_cards.setText(numDestCards);
 
         if(players.size() != 3){
