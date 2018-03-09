@@ -83,4 +83,8 @@ public class ChatActivity extends AppCompatActivity {
     public String getMessage(){
         return message.getText().toString();
     }
+
+    public void clearMessage() {
+        message.getText().clear();
+    }
 }
