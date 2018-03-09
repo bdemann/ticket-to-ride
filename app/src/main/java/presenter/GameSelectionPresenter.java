@@ -25,11 +25,11 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
     @Override
     public void update(Observable observable, Object o) {
         //If a game has been joined
-        if (ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo() == null){
+        if (ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo().getGameId() == -1){
             _gameSelectionActivity.goToGameLobby();
         }
 
-        if(ClientRoot.getClientGameInfo() != null){
+        if(ClientRoot.getClientGameInfo().getGameId() != -1){
             //Remove the game selection as an observer
             ClientRoot.removeClientRootObserver(this);
             _gameSelectionActivity.finish();
