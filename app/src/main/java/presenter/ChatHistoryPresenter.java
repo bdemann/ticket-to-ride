@@ -28,8 +28,8 @@ public class ChatHistoryPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        _chatActivity.setChats(getChats());
-        _chatActivity.setEvents(getEvents());
+        _chatActivity.updateChats(getChats());
+        _chatActivity.updateEvents(getEvents());
     }
 
     public void sendChat(){
