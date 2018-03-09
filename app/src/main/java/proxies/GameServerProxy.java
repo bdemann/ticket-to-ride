@@ -75,6 +75,6 @@ public class GameServerProxy implements IGameServerFacade {
     }
 
     private ICommand _generateGameServerFacadeCommand(String method, Class<?>[] parmTypes, Object[] parmValues){
-        return new Command("server.facade.GamerServerFacade", method, parmTypes, parmValues);
+        return new Command("server.facades.GameServerFacade", method, parmTypes, parmValues);
     }
 }

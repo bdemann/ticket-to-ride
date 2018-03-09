@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.ClientRoot;
+import proxies.GameServerProxy;
 import shared.model.CardSet;
 import shared.model.City;
 import shared.model.CityPoint;
@@ -29,6 +30,7 @@ import shared.model.Hand;
 import shared.model.Route;
 import shared.model.Train;
 import shared.model.TrainCard;
+import shared.model.TrainCardSet;
 import shared.model.interfaces.Card;
 import shared.model.interfaces.IEdge;
 
@@ -365,6 +367,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         if(_citiesSelected.size() == 2) {
 
+            //REFACTOR AFTER DEMO
             City houston = new City(new CityPoint(580, 540), HOUSTON);
             City elPaso = new City(new CityPoint(345, 480), EL_PASO);
             Route r = new Route();
@@ -391,14 +394,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         DrawUtilities myDrawer = new DrawUtilities(this);
 
         myDrawer.drawRoutes(routes, mapView);
-        /*
-        Drawer myDrawer = new Drawer(this);
-        Bitmap mapImg = BitmapFactory.decodeResource(getResources(), R.mipmap.ticket_to_ride_map_with_routes);
-        Canvas canvas = new Canvas(mapImg);
-        canvas.drawBitmap(mapImg, 0, 0, null);
-
-        myDrawer.drawRoute(canvas, routes);*/
-
     }
 
     @Override
@@ -469,10 +464,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _citiesSelected.add(EL_PASO);
         claimRoute();
         Map<String , List<IEdge>> claimedRoutes = ClientRoot.getClientGameInfo().getClaimedRoutes();
+        IEdge e = null;
         if(claimedRoutes.containsKey(ClientRoot.getClientPlayer().getUsername())){
 
             List<IEdge> edgeList = new ArrayList<>();
-            IEdge e = new Edge(6, new City(new CityPoint(0,0), HOUSTON),  new City(new CityPoint(0,0), HOUSTON), shared.model.Color.GREEN, true);
+            e = new Edge(6, new City(new CityPoint(0,0), HOUSTON),  new City(new CityPoint(0,0), EL_PASO), shared.model.Color.GREEN, true);
             edgeList.add(e);
             claimedRoutes.put(ClientRoot.getClientPlayer().getUsername(), edgeList);
         }
@@ -501,7 +497,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         //Update the game history
         //Update the game info
-
 
         //Player's turn is over
         _gameInfoDemoIsDone = true;
