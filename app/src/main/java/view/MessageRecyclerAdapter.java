@@ -27,6 +27,9 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         this.messages = messages;
     }
 
+    public void updateMessage(List<? extends Message> messages){
+        this.messages = messages;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();

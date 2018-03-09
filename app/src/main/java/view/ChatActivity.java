@@ -68,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    public void updateMessage(List<Chat> messages){
+    public void updateChat(List<Chat> messages){
         _chatRecycler.invalidate();
         _chatAdapter.updateMessage(messages);
         _chatAdapter.notifyDataSetChanged();
@@ -76,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
 
     public void updateEvents(List<GameEvent> events){
         _historyRecycler.invalidate();
-        _historyAdapter.updateEvents(events);
+        _historyAdapter.updateMessage(events);
         _historyAdapter.notifyDataSetChanged();
     }
 
