@@ -57,10 +57,9 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         username.setText(m.getUsername());
         DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, HH:mm:ss z");
         date.setText(dateFormat.format(m.getTime()));
-//        ContextCompat.getColor(this, R.color.myChat);
 
         if(m.getUsername().equals(ClientRoot.getClientPlayer().getUsername())){
-            container.setBackgroundColor(ContextCompat.getColor(holder.container.getContext(), R.color.myChat));
+            container.setBackground(ContextCompat.getDrawable(holder.container.getContext(), R.drawable.chatrectangletwo));
         }
     }
 
