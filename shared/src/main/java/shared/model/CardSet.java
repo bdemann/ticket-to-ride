@@ -19,6 +19,10 @@ public class CardSet implements Iterable<DestCard>, Serializable {
         this.cards = cards;
     }
 
+    public List<DestCard> getCards() {
+        return cards;
+    }
+
     @Override
     public Iterator<DestCard> iterator() {
         return new Iterator<DestCard>() {

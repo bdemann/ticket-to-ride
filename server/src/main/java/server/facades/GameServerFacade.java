@@ -76,7 +76,19 @@ public class GameServerFacade implements IGameServerFacade {
     @Override
     public Result discardDestCards(String username, CardSet keptCards, CardSet discardCards) {
         //TODO implement this method
-        return null;
+        // add kept cards to user cards
+        IPlayer player = ServerRoot.getPlayer(username);
+        player.addDestCards(keptCards.getCards());
+        // add discarded cards to discard
+
+        //Update game history
+        ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.cards.size() + " cards", System.currentTimeMillis()));
+
+        //Notify other users
+        ClientNotifications.playerDrewDestinationCards(username);
+
+        ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.cards);
+        return new Result(true, ClientCommands.getCommandList(username), "discarded successfully");
     }
 
     @Override
