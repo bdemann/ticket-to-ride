@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Hand<T> implements Serializable {
-    List<T> _cards;
+    private List<T> _cards;
 
     public Hand(List<T> cards) {
         this._cards = cards;
