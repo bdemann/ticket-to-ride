@@ -35,11 +35,11 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        _sendButton = (ImageButton) findViewById(R.id.send_button);
+        message = (EditText) findViewById(R.id.chat_text);
         _initializePresenter();
         _setUpRecycler();
         _setListeners();
-
-        _sendButton = (ImageButton) findViewById(R.id.send_button);
 
     }
 
@@ -81,6 +81,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public String getMessage(){
-        return message.toString();
+        return message.getText().toString();
     }
 }
