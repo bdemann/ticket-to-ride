@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="430dp"
     android:layout_height="wrap_content"
-    android:background="@color/cardview_dark_background"
+    android:orientation="vertical"
     android:layout_gravity="right"
     android:padding="20dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/message_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@drawable/chatrectangle">
+        android:background="@drawable/chatrectangle"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/message"
@@ -20,24 +20,27 @@
             android:layout_weight="1"
             android:text="Hey everyone this is a sample message that we could send!"
             android:textAlignment="textStart" />
-    </RelativeLayout>
+    </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/message_container"
-        android:layout_marginTop="5dp"
         android:layout_alignRight="@id/message_container"
+        android:layout_below="@id/message_container"
+        android:layout_marginTop="3dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/metadata_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/metadata_dash"
+            android:layout_alignParentTop="true"
             android:layout_weight="1"
             android:text="bdemann"
-            android:textColor="@android:color/white"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:textColor="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/metadata_dash"
@@ -45,21 +48,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=" - "
-            android:textColor="@android:color/white"
-            android:textAlignment="textStart" />
+            android:layout_toLeftOf="@+id/metadata_time"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/metadata_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/metadata_dash"
+            android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:text="Fri 8:00 PM"
-            android:textColor="@android:color/white"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:textColor="@android:color/darker_gray" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
