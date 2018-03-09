@@ -3,6 +3,7 @@ package facade.guifacade;
 import java.util.List;
 
 import model.ClientRoot;
+import proxies.ChatServerProxy;
 import shared.model.Chat;
 import shared.model.GameInfo;
 import shared.model.history.GameHistory;
@@ -21,8 +22,9 @@ public class ChatHistoryGuiFacade {
         return ClientRoot.getChats();
     }
 
-    public static void sendChats(String message){
-
+    public static void sendChat(String message){
+        ChatServerProxy chatServerProxy = new ChatServerProxy();
+        chatServerProxy.sendChat(new Chat(ClientRoot.getClientPlayer(), message, System.currentTimeMillis()));
     }
 
     //TODO: add chat and events

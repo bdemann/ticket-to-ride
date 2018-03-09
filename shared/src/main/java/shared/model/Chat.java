@@ -10,9 +10,15 @@ import shared.model.interfaces.Message;
  */
 
 public class Chat implements Serializable, Message {
-    private Player speaker;
+    private IPlayer speaker;
     private String message;
     private long time;
+
+    public Chat(IPlayer speaker, String message, long time) {
+        this.speaker = speaker;
+        this.message = message;
+        this.time = time;
+    }
 
     public IPlayer getSpeaker() {
         return speaker;
