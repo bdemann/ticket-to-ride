@@ -126,6 +126,8 @@ public class ClientRoot extends Observable {
 
     public static void addChatMessage(Chat message) {
         _instance.messages.add(message);
+        _instance.setChanged();
+        _instance.notifyObservers();
     }
 
     public static void removeClientRootObserver(Observer o){
