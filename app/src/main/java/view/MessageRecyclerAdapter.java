@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.a340team.tickettoride.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import shared.model.interfaces.Message;
@@ -39,7 +41,13 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         TextView message = holder.message;
         TextView username = holder.username;
         TextView date = holder.date;
-        //TODO is this even right?? What do I need to do here?
+
+        Message m = messages.get(position);
+
+        message.setText(m.getMessage());
+        username.setText(m.getUsername());
+        DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, HH:mm:ss z");
+        date.setText(dateFormat.format(m.getTime()));
     }
 
     @Override
