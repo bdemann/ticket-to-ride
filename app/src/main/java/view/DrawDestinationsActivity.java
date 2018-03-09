@@ -145,7 +145,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                     if(!_chosenCards.contains(THIRD_CARD)){
                         destList.remove(2);
                     }
-                    ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
+                    //ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
                     ClientRoot.getClientPlayer().setDestCards(destList);
                     //END OF DELETE ME ---------------------------------------------------|
 
