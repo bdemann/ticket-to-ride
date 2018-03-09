@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.a340team.tickettoride.R;
@@ -77,12 +79,23 @@ public class GameInfoActivity extends AppCompatActivity {
     private DestinationCardRecyclerAdapter _adapter;
     private RecyclerView _destinationRecycler;
 
+    private Button _doneButton;
+
     //Todo: Destinatin Cards as a Recycler View!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
         boolean isDemoDone = this.getIntent().getBooleanExtra("demo", true);
+
+        _doneButton = (Button) findViewById(R.id.game_info_done);
+
+        _doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         _initializeGuiElements();
         _initializePresenter();
