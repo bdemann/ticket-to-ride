@@ -21,9 +21,9 @@ import shared.model.interfaces.Message;
 
 public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecyclerAdapter.ViewHolder> {
 
-    List<Message> messages;
+    List<? extends Message> messages;
 
-    public MessageRecyclerAdapter(List<Message> messages){
+    public MessageRecyclerAdapter(List<? extends Message> messages){
         this.messages = messages;
     }
 
