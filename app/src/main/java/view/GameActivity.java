@@ -483,9 +483,25 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         ViewUtilities.displayMessage("Claiming Route...", this);
         //END CLAIMING A ROUTE -----------------------------------------------|
 
+        //CHANGE NUMBER OF TRAINS -----------------------------------------|
+        Map<String, Integer> playerTrains = ClientRoot.getClientGameInfo().getRemainingTrains();
+        String key = ClientRoot.getClientPlayer().getUsername();
+        playerTrains.put(key, playerTrains.get(key) - 6);
+
+        //Show a toast
+        ViewUtilities.displayMessage("Changing number of trains...", this);
+        //END OF CHANGING THE NUMBER OF TRAINS
+
+        //CHANGE NUMBER OF POINTS -----------------------------------------|
+        Map<String, Integer> points = ClientRoot.getClientGameInfo().getPlayerPoints();
+        key = ClientRoot.getClientPlayer().getUsername();
+        points.put(key, points.get(key) + 24);
+
+        //Show a toast
+        ViewUtilities.displayMessage("Changing points...", this);
+        //END OF CHANGING THE POINTS
 
         //Update the game history
-
         //Update the game info
 
 

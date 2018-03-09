@@ -12,6 +12,7 @@ import com.a340team.tickettoride.R;
 import java.util.List;
 import java.util.Map;
 
+import model.ClientRoot;
 import presenter.GameInfoPresenter;
 import shared.model.TrainCard;
 import shared.model.interfaces.IEdge;
@@ -64,6 +65,12 @@ public class GameInfoActivity extends AppCompatActivity {
     private TextView _player3Color;
     private TextView _player4Color;
     private TextView _player5Color;
+
+    private TextView _player1_dest_cards;
+    private TextView _player2_dest_cards;
+    private TextView _player3_dest_cards;
+    private TextView _player4_dest_cards;
+    private TextView _player5_dest_cards;
 
     private GameInfoPresenter _gameInfoPresenter;
 
@@ -142,6 +149,12 @@ public class GameInfoActivity extends AppCompatActivity {
         _player3Color = (TextView) findViewById(R.id.player3_color);
         _player4Color = (TextView) findViewById(R.id.player4_color);
         _player5Color = (TextView) findViewById(R.id.player5_color);
+
+        _player1_dest_cards = (TextView) findViewById(R.id.player1_dest_cards);
+        _player2_dest_cards = (TextView) findViewById(R.id.player2_dest_cards);
+        _player3_dest_cards = (TextView) findViewById(R.id.player3_dest_cards);
+        _player4_dest_cards = (TextView) findViewById(R.id.player4_dest_cards);
+        _player5_dest_cards = (TextView) findViewById(R.id.player5_dest_cards);
     }
 
     private void _initializeInfo(boolean isDemoDone){
@@ -236,6 +249,10 @@ public class GameInfoActivity extends AppCompatActivity {
         _player1Routes.setText(Integer.toString(numRoutes));
         _player1Color.setBackgroundColor(playerColors.get(players.get(0)));
 
+        //TODO: TODO: after phase2, we'll need to actually fetch the number of destCards from the server and add a Map<> playerDest to the GameInfo Model
+        int numDestCards = ClientRoot.getClientPlayer().getUnresolvedDestCards().cards.size();
+        _player1_dest_cards.setText(Integer.toString(numDestCards));
+
         _player2.setText(players.get(1));
         points = playerPoints.get(players.get(1)).toString();
         _player2Points.setText(points);
@@ -247,6 +264,9 @@ public class GameInfoActivity extends AppCompatActivity {
         _player2Routes.setText(Integer.toString(numRoutes));
         _player2Color.setBackgroundColor(playerColors.get(players.get(1)));
 
+        //TODO: after phase2, we'll need to actually fetch the number of destCards from the server and add a Map<> playerDest to the GameInfo Model
+        _player2_dest_cards.setText("3");
+
         if(players.size() != 3){
             _player3.setText("--");
             _player3Points.setText("--");
@@ -254,6 +274,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player3Trains.setText("--");
             _player3Routes.setText("--");
             _player3Color.setText("--");
+            _player3_dest_cards.setText("--");
         }
         else{
             _player3.setText(players.get(2));
@@ -266,6 +287,7 @@ public class GameInfoActivity extends AppCompatActivity {
             numRoutes = claimedRoutes.get(players.get(2)).size();
             _player3Routes.setText(Integer.toString(numRoutes));
             _player3Color.setBackgroundColor(playerColors.get(players.get(2)));
+            //TODO: update number of dest cards
         }
 
         if(players.size() != 4){
@@ -275,6 +297,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player4Trains.setText("--");
             _player4Routes.setText("--");
             _player4Color.setText("--");
+            _player4_dest_cards.setText("--");
         }
         else{
             _player4.setText(players.get(3));
@@ -287,6 +310,7 @@ public class GameInfoActivity extends AppCompatActivity {
             numRoutes = claimedRoutes.get(players.get(3)).size();
             _player4Routes.setText(Integer.toString(numRoutes));
             _player4Color.setBackgroundColor(playerColors.get(players.get(3)));
+            //TODO: update number of dest cards
         }
 
         if(players.size() != 5){
@@ -296,6 +320,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player5Trains.setText("--");
             _player5Routes.setText("--");
             _player5Color.setText("--");
+            _player5_dest_cards.setText("--");
         }
         else{
             _player5.setText(players.get(4));
@@ -308,6 +333,7 @@ public class GameInfoActivity extends AppCompatActivity {
             numRoutes = claimedRoutes.get(players.get(4)).size();
             _player5Routes.setText(Integer.toString(numRoutes));
             _player5Color.setBackgroundColor(playerColors.get(players.get(4)));
+            //TODO: update number of dest cards
         }
     }
 }
