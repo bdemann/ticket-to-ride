@@ -1,10 +1,14 @@
 package view;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.a340team.tickettoride.R;
@@ -13,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import model.ClientRoot;
 import shared.model.interfaces.Message;
 
 /**
@@ -44,6 +49,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         TextView message = holder.message;
         TextView username = holder.username;
         TextView date = holder.date;
+        LinearLayout container = holder.container;
 
         Message m = messages.get(position);
 
@@ -51,6 +57,11 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         username.setText(m.getUsername());
         DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, HH:mm:ss z");
         date.setText(dateFormat.format(m.getTime()));
+//        ContextCompat.getColor(this, R.color.myChat);
+
+        if(m.getUsername().equals(ClientRoot.getClientPlayer().getUsername())){
+            container.setBackgroundColor(ContextCompat.getColor(holder.container.getContext(), R.color.myChat));
+        }
     }
 
     @Override
@@ -63,12 +74,14 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         public TextView message;
         public TextView username;
         public TextView date;
+        public LinearLayout container;
 
         public ViewHolder(final View itemView) {
             super(itemView);
             message = (TextView) itemView.findViewById(R.id.message);
             username = (TextView) itemView.findViewById(R.id.metadata_username);
             date = (TextView) itemView.findViewById(R.id.metadata_time);
+            container = (LinearLayout) itemView.findViewById(R.id.message_container);
 
         }
 
