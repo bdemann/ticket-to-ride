@@ -52,7 +52,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
         }
         else{
             _gameInfoActivity._updateGameInfo(gameInfo.getPlayers(),gameInfo.getPlayerPoints(),gameInfo.getPlayerHandSizes(),
-                    gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors());
+                    gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors(), gameInfo.getPlayerDestCount());
 
         }
 
