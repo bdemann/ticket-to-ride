@@ -26,9 +26,8 @@ import shared.results.DrawCardsResult;
 public class GameGuiFacade {
 
     public static List<DestCard> getStarterDestinationCards(){
-        CardSet set = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-        return set.cards;
-
+        CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+        return (List<DestCard>) s.cards;
     }
 
     public static IGameInfo getStarterGameInfo(){
