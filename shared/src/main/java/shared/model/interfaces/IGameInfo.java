@@ -12,6 +12,8 @@ import shared.model.history.GameHistory;
  */
 
 public interface IGameInfo {
+    Map<String, Integer> getPlayerDestCount();
+
     String getPlayerWithLongestRoute();
     List<TrainCard> getFaceUpCards();
     int getGameId();
