@@ -10,7 +10,8 @@
         android:id="@+id/message_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/friendChat"
+        android:layout_gravity="right"
+        android:background="@drawable/chatrectangle"
         android:padding="20dp">
 
         <TextView
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hey everyone this is a sample message that we could send!"
+            android:text="sampletext"
             android:textAlignment="textStart" />
     </LinearLayout>
 
