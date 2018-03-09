@@ -22,7 +22,7 @@ public class ChatHistoryGuiFacade {
     }
 
     public static void sendChats(String message){
-        
+
     }
 
     //TODO: add chat and events
