@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.model.Chat;
+import shared.results.ChatResult;
 import shared.results.Result;
 import shared.facades.server.IChatServerFacade;
 import tasks.CommandTask;
@@ -16,11 +17,17 @@ import tasks.TaskExecutor;
 
 public class ChatServerProxy implements IChatServerFacade{
     @Override
-    public Result sendChat(Chat message) {
+    public ChatResult sendChat(Chat message) {
         Class<?>[] parmTypes = {Chat.class};
         Object[] parmValues = {message};
         ICommand sendChatCommand = new Command("server.facades.LobbyServerFacade", "sendChat", parmTypes, parmValues);
 
-        return TaskExecutor.runTask(sendChatCommand);
+        Result result = TaskExecutor.runTask(sendChatCommand);
+
+        if(result.getCommandSuccess()) {
+            return (ChatResult) result;
+        }
+
+        return new ChatResult(result.getExceptionType(), result.getExceptionMessage());
     }
 }

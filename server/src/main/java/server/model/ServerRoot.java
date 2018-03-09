@@ -80,4 +80,7 @@ public class ServerRoot extends Observable {
         return _instance._possibleColor;
     }
 
+    public static List<Chat> getChats(int id) {
+        return _instance._chats.get(id);
+    }
 }

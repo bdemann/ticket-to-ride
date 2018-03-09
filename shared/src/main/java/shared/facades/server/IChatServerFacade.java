@@ -1,6 +1,7 @@
 package shared.facades.server;
 
 import shared.model.Chat;
+import shared.results.ChatResult;
 import shared.results.Result;
 
 /**
@@ -9,6 +10,6 @@ import shared.results.Result;
 
 public interface IChatServerFacade {
 
-    public Result sendChat(Chat message);
+    public ChatResult sendChat(Chat message);
 
 }

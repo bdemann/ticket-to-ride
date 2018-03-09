@@ -10,14 +10,18 @@ import shared.model.Chat;
  */
 
 public class ChatResult extends Result {
-    private Chat _message;
+    private List<Chat> _message;
 
-    public ChatResult(Chat sentMessage, boolean success, List<ICommand> clientCommands, String userMessage) {
+    public ChatResult(List<Chat> sentMessage, boolean success, List<ICommand> clientCommands, String userMessage) {
         super(success, clientCommands, userMessage);
         this._message = sentMessage;
     }
 
-    public Chat getMessage(){
+    public ChatResult(String errorType, String errorMessage) {
+        super(errorType, errorMessage);
+    }
+
+    public List<Chat> getMessage(){
         return _message;
     }
 
