@@ -168,6 +168,8 @@ public interface IPlayer {
     void setUnresolvedDestCards(List<DestCard> startingTickets);
     CardSet getUnresolvedDestCards();
 
+    List<DestCard> getDestCards();
+
     void setDestCards(List<DestCard> destCards);
 
     void addDestCards(List<DestCard> newDestCards);

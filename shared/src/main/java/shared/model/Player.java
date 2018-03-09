@@ -80,6 +80,11 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public List<DestCard> getDestCards() {
+        return this._destCards.get_cards();
+    }
+
+    @Override
     public void setDestCards(List<DestCard> destCards) {
         this._destCards = new Hand<>(destCards);
     }

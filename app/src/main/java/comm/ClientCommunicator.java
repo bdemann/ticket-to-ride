@@ -17,7 +17,7 @@ import shared.results.Result;
 
 public class ClientCommunicator {
 
-    private static final String SERVER_HOST = "10.24.68.34";
+    private static final String SERVER_HOST = "10.24.67.27";
     private static final String SERVER_PORT = "8080";
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT + "/";
     private static final String HTTP_POST = "POST";
@@ -30,7 +30,6 @@ public class ClientCommunicator {
 
     //Command
     private Result _sendCommand(ICommand command) {
-
         try {
             return doPost("sendCommand", command);
         } catch (Exception e) {
