@@ -25,7 +25,7 @@ public class GameServerProxySync implements IGameServerFacade {
     }
 
     @Override
-    public Result discardDestCards(String username, CardSet destCardSet) {
+    public Result discardDestCards(String username, CardSet destCardSet, CardSet discardDestSet) {
         return null;
     }
 
