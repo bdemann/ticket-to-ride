@@ -2,6 +2,7 @@ package shared.model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import shared.model.interfaces.IPlayer;
@@ -30,18 +31,36 @@ public class Player implements IPlayer, Serializable {
         this._username = username;
         this._password = password;
         this._color = color;
+        this.playersEdges = new ArrayList<>();
+        this.playersRoutes = new ArrayList<>();
+        this._trains = new ArrayList<>();
+        this._destCards = new Hand<>(new ArrayList<DestCard>());
+        this._trainCards = new Hand<>(new ArrayList<TrainCard>());
+        this._unresolvedDestCards = new ArrayList<>();
     }
 
     public Player(String username, String password) {
         this._username = username;
         this._password = password;
         this._color = 0;
+        this.playersEdges = new ArrayList<>();
+        this.playersRoutes = new ArrayList<>();
+        this._trains = new ArrayList<>();
+        this._destCards = new Hand<>(new ArrayList<DestCard>());
+        this._trainCards = new Hand<>(new ArrayList<TrainCard>());
+        this._unresolvedDestCards = new ArrayList<>();
     }
 
     public Player(String username) {
         this._username = username;
         this._password = "";
         this._color = 0;
+        this.playersEdges = new ArrayList<>();
+        this.playersRoutes = new ArrayList<>();
+        this._trains = new ArrayList<>();
+        this._destCards = new Hand<>(new ArrayList<DestCard>());
+        this._trainCards = new Hand<>(new ArrayList<TrainCard>());
+        this._unresolvedDestCards = new ArrayList<>();
     }
 
     public String toString() {
@@ -77,6 +96,11 @@ public class Player implements IPlayer, Serializable {
     @Override
     public CardSet getUnresolvedDestCards() {
         return new CardSet(_unresolvedDestCards);
+    }
+
+    @Override
+    public List<DestCard> getDestCards() {
+        return this._destCards.get_cards();
     }
 
     @Override

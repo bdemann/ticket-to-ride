@@ -14,4 +14,6 @@ import shared.model.interfaces.ITrainCard;
 public interface IGameInfoPresenter {
     IGameInfo getStarterGameInfo();
     List<TrainCard> getStarterPlayerHand();
+    List<DestCard> getDestinationCards();
+    List<Boolean> getCompleteDestinations();
 }
