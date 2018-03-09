@@ -24,6 +24,7 @@ public class ChatHistoryPresenter implements Observer {
 
     public ChatHistoryPresenter(ChatActivity chatActivity){
         this._chatActivity = chatActivity;
+        ClientRoot.addClientRootObserver(this);
     }
 
     @Override
