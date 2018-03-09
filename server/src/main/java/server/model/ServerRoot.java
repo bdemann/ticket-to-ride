@@ -49,6 +49,8 @@ public class ServerRoot extends Observable {
         game.setId(gameId);
         gameId++;
         _games.add(game);
+
+        _instance._chats.add(game.getId(), new ArrayList<Chat>());
     }
 
     private void _addPlayer(IPlayer player){
