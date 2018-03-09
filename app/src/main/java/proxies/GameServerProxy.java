@@ -4,6 +4,7 @@ import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
 import shared.model.CardSet;
+import shared.model.DestCard;
 import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.interfaces.IEdge;
@@ -11,6 +12,7 @@ import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
 import shared.results.Result;
 import tasks.TaskExecutor;
+import test.CardsShuffleTest;
 
 /**
  * Created by bdemann on 3/4/18.
@@ -40,8 +42,12 @@ public class GameServerProxy implements IGameServerFacade {
 
     @Override
     public Result discardDestCards(String username, CardSet keptCards, CardSet discardCards) {
-        //TODO implement method
-        return null;
+        Class<?>[] parmTypes = {String.class, CardSet.class, CardSet.class};
+        Object[] parmValues = {keptCards, keptCards, discardCards};
+
+        
+        ICommand command = _generateGameServerFacadeCommand("discardDestCards", parmTypes, parmValues);
+        return TaskExecutor.runTask(command);
     }
 
     @Override
