@@ -32,6 +32,9 @@ public class ClientRoot extends Observable {
         this._gamesList = new ArrayList<>();
     }
 
+    public static List<Chat> getChats(){
+        return _instance.messages;
+    }
     //Getters and Setters
     public static IPlayer getClientPlayer(){
         return _instance._clientPlayer;
