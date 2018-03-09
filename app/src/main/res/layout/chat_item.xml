@@ -35,7 +35,7 @@
             android:id="@+id/metadata_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/metadata_dash"
+            android:layout_toLeftOf="@+id/metadata_dash"
             android:layout_alignParentTop="true"
             android:layout_weight="1"
             android:text="bdemann"
