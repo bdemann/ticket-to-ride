@@ -9,7 +9,7 @@ import shared.model.interfaces.IEdge;
  */
 
 public class ClaimRouteEvent extends GameEvent implements Serializable {
-    public ClaimRouteEvent(String username, IEdge claimedRoute) {
-        super(username, "claimed " + claimedRoute.toString());
+    public ClaimRouteEvent(String username, IEdge claimedRoute, long time) {
+        super(username, "claimed " + claimedRoute.toString(), time);
     }
 }

@@ -23,7 +23,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     public StartGameResult startGame(IGame game, String username) {
         game = ServerRoot.getGame(game.getId());
         StartGameFacade.setUpGame(game);
-        game.getGameHistory().addEvent(new GameEvent(username, "started the game"));
+        game.getGameHistory().addEvent(new GameEvent(username, "started the game", System.currentTimeMillis()));
         IPlayer player = game.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
         Logger.log(game.toString() + " started", Level.FINE);
@@ -38,7 +38,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
 
         IGame game = ServerRoot.getGame(player.getGameId());
         game.removePlayer(player);
-        game.getGameHistory().addEvent(new GameEvent(username, "left the game"));
+        game.getGameHistory().addEvent(new GameEvent(username, "left the game", System.currentTimeMillis()));
         //Inform the client of the change
         ClientNotifications.playerLeftGame(username);
 

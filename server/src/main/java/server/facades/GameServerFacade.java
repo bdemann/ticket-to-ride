@@ -49,7 +49,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         game.incrementTurnIndex();
 
-        game.getGameHistory().addEvent(new ClaimRouteEvent(username, route));
+        game.getGameHistory().addEvent(new ClaimRouteEvent(username, route, System.currentTimeMillis()));
         ClientNotifications.playerClaimedRoute(username, route);
         return null;
     }
@@ -88,7 +88,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         game.incrementTurnIndex();
 
-        game.getGameHistory().addEvent(new GameEvent(username, "drew a train card"));
+        game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
         return new DrawCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw a train card");
@@ -103,7 +103,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         game.incrementTurnIndex();
 
-        game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card"));
+        game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card", System.currentTimeMillis()));
         ClientNotifications.playerDrewDestinationCards(username);
 
         return new DrawCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
