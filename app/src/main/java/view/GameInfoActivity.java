@@ -16,6 +16,7 @@ import java.util.Map;
 
 import model.ClientRoot;
 import presenter.GameInfoPresenter;
+import presenter.IGameInfoPresenter;
 import shared.model.TrainCard;
 import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGameInfo;
@@ -74,14 +75,14 @@ public class GameInfoActivity extends AppCompatActivity {
     private TextView _player4_dest_cards;
     private TextView _player5_dest_cards;
 
-    private GameInfoPresenter _gameInfoPresenter;
+    private IGameInfoPresenter _gameInfoPresenter;
 
     private DestinationCardRecyclerAdapter _adapter;
     private RecyclerView _destinationRecycler;
 
     private Button _doneButton;
 
-    //Todo: Destinatin Cards as a Recycler View!
+    //Todo: Destination Cards as a Recycler View!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
