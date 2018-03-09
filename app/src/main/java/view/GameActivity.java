@@ -203,7 +203,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _chatStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                displayChat();
                 //Do something please!
                 ViewUtilities.displayMessage("Chat and Stats\nShould Show", view.getContext());
             }
@@ -421,7 +421,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
     @Override
     public void displayChat() {
-
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
 
     //TODO Delete me DEMO STUFF 2
