@@ -16,6 +16,7 @@ import java.util.List;
 import model.ClientRoot;
 import presenter.DrawDestinationsPresenter;
 import presenter.IDrawDestinationsPresenter;
+import proxies.GameServerProxy;
 import shared.model.CardSet;
 import shared.model.DestCard;
 
@@ -135,18 +136,27 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                     //TODO delete me, I was part of DEMO ---------------------------------|
                     CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
                     List<DestCard> destList = s.cards;
+                    List<DestCard> cardsToRemove = new ArrayList<DestCard>();
 
                     if(!_chosenCards.contains(FIRST_CARD)){
+                        cardsToRemove.add(destList.get(0));
                         destList.remove(0);
                     }
                     if(!_chosenCards.contains(SECOND_CARD)){
+                        cardsToRemove.add(destList.get(1));
                         destList.remove(1);
                     }
                     if(!_chosenCards.contains(THIRD_CARD)){
+                        cardsToRemove.add(destList.get(2));
                         destList.remove(2);
                     }
                     //ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
                     ClientRoot.getClientPlayer().setDestCards(destList);
+                    GameServerProxy gameServerProxy = new GameServerProxy();
+                    CardSet destCardSet = new CardSet(destList);
+                    CardSet removeCardSet = new CardSet(cardsToRemove);
+
+                    gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeCardSet);
                     //END OF DELETE ME ---------------------------------------------------|
 
                     //Then finish the activity
