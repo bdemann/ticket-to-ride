@@ -146,6 +146,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                         destList.remove(2);
                     }
                     ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
+                    ClientRoot.getClientPlayer().setDestCards(destList);
                     //END OF DELETE ME ---------------------------------------------------|
 
                     //Then finish the activity
