@@ -384,9 +384,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             mapView.setColorFilter(tint);
             //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
         }
-
-
-
     }
 
     private void _drawRoutes(List<Route> routes) {
