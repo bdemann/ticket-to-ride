@@ -2,6 +2,7 @@ package model;
 
 
 import shared.model.Chat;
+import shared.model.GameInfo;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
@@ -28,8 +29,9 @@ public class ClientRoot extends Observable {
     private ClientRoot(){
         this._clientPlayer = null;
         this._clientGame = null;
-        this._gameInfo = null;
+        this._gameInfo = new GameInfo();
         this._gamesList = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
 
     public static List<Chat> getChats(){
