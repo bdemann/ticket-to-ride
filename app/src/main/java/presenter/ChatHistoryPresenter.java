@@ -34,8 +34,10 @@ public class ChatHistoryPresenter implements Observer {
     }
 
     public void sendChat(){
-        ChatHistoryGuiFacade.sendChat(_chatActivity.getMessage());
-        _chatActivity.clearMessage();
+        if(_chatActivity.getMessage() != ""){
+            ChatHistoryGuiFacade.sendChat(_chatActivity.getMessage());
+            _chatActivity.clearMessage();
+        }
     }
 
     public List<Chat> getChats() {
