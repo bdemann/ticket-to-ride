@@ -20,4 +20,8 @@ public class GameHistory implements Serializable{
     public void addEvent(GameEvent event){
         history.add(event);
     }
+
+    public List<GameEvent> getEvents(){
+        return history;
+    }
 }
