@@ -20,7 +20,7 @@ public class ChatServerProxy implements IChatServerFacade{
     public ChatResult sendChat(Chat message) {
         Class<?>[] parmTypes = {Chat.class};
         Object[] parmValues = {message};
-        ICommand sendChatCommand = new Command("server.facades.LobbyServerFacade", "sendChat", parmTypes, parmValues);
+        ICommand sendChatCommand = new Command("server.facades.ChatServerFacade", "sendChat", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(sendChatCommand);
 
