@@ -8,6 +8,7 @@ import shared.model.Chat;
 import shared.model.GameInfo;
 import shared.model.history.GameHistory;
 import shared.model.history.events.GameEvent;
+import shared.results.ChatResult;
 
 /**
  * Created by paulinecausse on 3/8/18.
@@ -24,7 +25,9 @@ public class ChatHistoryGuiFacade {
 
     public static void sendChat(String message){
         ChatServerProxy chatServerProxy = new ChatServerProxy();
-        chatServerProxy.sendChat(new Chat(ClientRoot.getClientPlayer(), message, System.currentTimeMillis()));
+        ChatResult chatResult = chatServerProxy.sendChat(new Chat(ClientRoot.getClientPlayer(), message, System.currentTimeMillis()));
+
+        ClientRoot.addChatMessage(chatResult.getMessage());
     }
 
     //TODO: add chat and events
