@@ -39,7 +39,7 @@ public class GameServerProxy implements IGameServerFacade {
     }
 
     @Override
-    public Result discardDestCards(String username, CardSet destCardSet) {
+    public Result discardDestCards(String username, CardSet keptCards, CardSet discardCards) {
         //TODO implement method
         return null;
     }

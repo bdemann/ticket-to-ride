@@ -74,7 +74,7 @@ public class GameServerFacade implements IGameServerFacade {
     }
 
     @Override
-    public Result discardDestCards(String username, CardSet destCardSet) {
+    public Result discardDestCards(String username, CardSet keptCards, CardSet discardCards) {
         //TODO implement this method
         return null;
     }
