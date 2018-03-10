@@ -33,7 +33,7 @@ public class CommandHandler implements HttpHandler {
 
         try {
             results = command.execute();
-            Logger.log(results, Level.FINE);
+            Logger.log(results, Level.FINNEST);
         } catch (Exception e){
             results = new Result(e.getClass().toString(), e.getMessage());
             e.printStackTrace();

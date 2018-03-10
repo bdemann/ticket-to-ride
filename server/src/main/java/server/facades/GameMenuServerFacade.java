@@ -25,7 +25,7 @@ import shared.model.interfaces.IPlayer;
 public class GameMenuServerFacade implements IGameMenuServerFacade {
     @Override
     public Result createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
-        Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINE);
+        Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINNEST);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 
         //set color to creator
@@ -43,7 +43,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
         IGame game = new Game(gameName, playerList, maxNumberPlayer);
         ServerRoot.addGame(game);
 
-        Logger.log("Game: " + game);
+        Logger.log("Game: " + game, Level.FINNEST);
 
         CreateGameResult createGameCommandResult = new CreateGameResult(game, true, ClientCommands.getCommandList(creator.getUsername()));
 
@@ -52,14 +52,14 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
 
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
 
-        Logger.log("CommandResult: " + createGameCommandResult.getGame());
+        Logger.log("CommandResult: " + createGameCommandResult.getGame(), Level.FINNEST);
 
         return createGameCommandResult;
     }
 
     @Override
     public Result joinGame(int gameId, IPlayer joiner) {
-        Logger.log("Joining game: " + gameId + "Joining player: " + joiner, Level.FINE);
+        Logger.log("Joining game: " + gameId + "Joining player: " + joiner, Level.FINNEST);
         IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
             Logger.log("Couldn't find the current game", Level.ALL);
@@ -82,7 +82,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
 
         JoinGameResult results = new JoinGameResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()),"Join successful");
 
-        Logger.log("Join Game successful " + results.toString());
+        Logger.log("Join Game successful " + results.toString(), Level.FINNEST);
         return results;
     }
 
@@ -122,11 +122,11 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
 
     @Override
     public Result getGamesList(String username) {
-        Logger.log("Getting the games list", Level.FINE);
+        Logger.log("Getting the games list", Level.FINNEST);
         for (IGame game: ServerRoot.getGames()) {
-            Logger.log("Games: " + game.toString());
+            Logger.log("Games: " + game.toString(), Level.FINNEST);
         }
-        Logger.log("Finished getting the game list");
+        Logger.log("Finished getting the game list", Level.FINNEST);
         return new GameListResult(ServerRoot.getGames(), true, ClientCommands.getCommandList(username));
     }
 

@@ -3,6 +3,7 @@ package shared.results;
 import java.util.List;
 
 import shared.command.ICommand;
+import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.interfaces.IGame;
 
@@ -21,7 +22,7 @@ public class CreateGameResult extends Result {
     public CreateGameResult(IGame game, boolean success, List<ICommand> clientCommands, String userMessage){
         super(success, clientCommands, userMessage);
         this._newGame = game;
-        Logger.log("CreateGameResult constructor game: " + _newGame);
+        Logger.log("CreateGameResult constructor game: " + _newGame, Level.FINNEST);
     }
 
     public IGame getGame() {

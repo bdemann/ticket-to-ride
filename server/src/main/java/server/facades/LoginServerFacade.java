@@ -24,7 +24,7 @@ public class LoginServerFacade implements ILoginServerFacade {
 
     @Override
     public Result signin(String username, String password) {
-        Logger.log("Logging in user: " + username, Level.FINE);
+        Logger.log("Logging in user: " + username, Level.FINNEST);
 
         IPlayer player = ServerRoot.getPlayer(username);
         if(player == null){
@@ -32,10 +32,10 @@ public class LoginServerFacade implements ILoginServerFacade {
             return new LoginResult(false, ClientCommands.getCommandList(username), "Player does not exists");
         }
         if(player.getPassword().equals(password)){
-            Logger.log("Login Successful", Level.FINE);
+            Logger.log("Login Successful", Level.FINNEST);
             return new LoginResult(true, ClientCommands.getCommandList(username), "Login successful");
         }
-        Logger.log("Login failed", Level.FINE);
+        Logger.log("Login failed", Level.FINNEST);
         return new LoginResult(false, ClientCommands.getCommandList(username), "Wrong password");
 
     }

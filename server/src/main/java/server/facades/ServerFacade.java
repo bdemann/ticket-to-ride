@@ -1,6 +1,7 @@
 package server.facades;
 
 import server.poller.ClientCommands;
+import shared.logging.Level;
 import shared.results.Result;
 import shared.facades.server.IServerFacade;
 import shared.logging.Logger;
@@ -13,8 +14,8 @@ public class ServerFacade implements IServerFacade {
     @Override
     public Result getCommands(String username) {
         Result result = new Result(true, ClientCommands.getCommandList(username), "Got Command List");
-        Logger.log("Here is the get commands result");
-        Logger.log(result);
+        Logger.log("Here is the get commands result", Level.FINNEST);
+        Logger.log(result, Level.FINNEST);
         return result;
     }
 }

@@ -26,7 +26,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "started the game", System.currentTimeMillis()));
         IPlayer player = game.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
-        Logger.log(game.toString() + " started", Level.FINE);
+        Logger.log(game.toString() + " started", Level.FINNEST);
         return new StartGameResult(player, game.getGameInfo(), true, ClientCommands.getCommandList(username), "Game Started");
     }
 
@@ -34,7 +34,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     public Result leaveGame(String username) {
         //Find the game with this user.
         IPlayer player = ServerRoot.getPlayer(username);
-        Logger.log("PLAYER GAMEID: " + player.getGameId());
+        Logger.log("PLAYER GAMEID: " + player.getGameId(), Level.FINNEST);
 
         IGame game = ServerRoot.getGame(player.getGameId());
         game.removePlayer(player);

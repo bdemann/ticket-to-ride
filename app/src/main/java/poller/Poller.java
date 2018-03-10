@@ -7,6 +7,7 @@ import java.util.List;
 import model.ClientRoot;
 import proxies.ServerProxy;
 import shared.command.ICommand;
+import shared.logging.Level;
 import shared.results.Result;
 import shared.logging.Logger;
 
@@ -30,7 +31,7 @@ public class Poller {
             @Override
             public void run() {
                 Result result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
-                Logger.log("We are polling");
+                Logger.log("We are polling", Level.SANITY_CHECK);
                 List<ICommand> commandList = result.getClientCommands();
                 for(ICommand command: commandList) {
                     try {
