@@ -1,5 +1,8 @@
 package server;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import server.comm.ServerCommunicator;
 import server.facades.GameMenuServerFacade;
 import server.facades.LoginServerFacade;
@@ -35,6 +38,18 @@ public class Server {
         loginServerFacade.register("bdemann", "password");
         loginServerFacade.signin("bdemann", "password");
         gameMenuServerFacade.createGame(new Player("bdemann", "password", -65536), 2, "test game");
-        Logger.log("Server Started on localhost:" + serverPortNumber + "/", Level.FINE);
+        InetAddress inetAddress = null;
+        try {
+            inetAddress = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        String ipAddress = "localhost";
+        String hostName = "hostName";
+        if(inetAddress != null) {
+            ipAddress = inetAddress.getHostAddress();
+            hostName = inetAddress.getHostName();
+        }
+        Logger.log("Server Started on " + hostName + ". Addr: " + ipAddress + ":" + serverPortNumber + "/", Level.ALL);
     }
 }
