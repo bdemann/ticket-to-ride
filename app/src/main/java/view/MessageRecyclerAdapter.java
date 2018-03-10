@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.a340team.tickettoride.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import model.ClientRoot;
@@ -55,8 +53,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
 
         message.setText(m.getMessage());
         username.setText(m.getUsername());
-        DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, HH:mm:ss z");
-        date.setText(dateFormat.format(m.getTime()));
+        date.setText(m.getFormattedTime());
 
         if(m.getUsername().equals(ClientRoot.getClientPlayer().getUsername())){
             container.setBackground(ContextCompat.getDrawable(holder.container.getContext(), R.drawable.chatrectangletwo));
