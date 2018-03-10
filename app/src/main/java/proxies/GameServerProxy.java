@@ -43,9 +43,7 @@ public class GameServerProxy implements IGameServerFacade {
     @Override
     public Result discardDestCards(String username, CardSet keptCards, CardSet discardCards) {
         Class<?>[] parmTypes = {String.class, CardSet.class, CardSet.class};
-        Object[] parmValues = {keptCards, keptCards, discardCards};
-
-        
+        Object[] parmValues = {username, keptCards, discardCards};
         ICommand command = _generateGameServerFacadeCommand("discardDestCards", parmTypes, parmValues);
         return TaskExecutor.runTask(command);
     }
