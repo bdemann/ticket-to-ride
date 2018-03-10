@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.logging.Level;
+import shared.logging.Logger;
 import shared.model.history.events.GameEvent;
 
 /**
@@ -19,6 +21,7 @@ public class GameHistory implements Serializable{
 
     public void addEvent(GameEvent event){
         history.add(event);
+        Logger.log(event.getUsername() + " " + event.getMessage() + " at " + event.getFormattedTime(), Level.FINE);
     }
 
     public List<GameEvent> getEvents(){
