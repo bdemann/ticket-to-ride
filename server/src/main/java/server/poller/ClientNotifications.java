@@ -44,6 +44,10 @@ public class ClientNotifications {
         new GameClientProxy().updateGameInfo(game.getGameInfo());
     }
 
+    public static void gameUpdated(String username){
+        _updateGame(username);
+    }
+
     public static void playerClaimedRoute(String username, IEdge route) {
         _updateGame(username);
     }
