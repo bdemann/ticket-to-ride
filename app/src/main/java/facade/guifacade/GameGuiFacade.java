@@ -27,7 +27,7 @@ public class GameGuiFacade {
 
     public static List<DestCard> getStarterDestinationCards(){
         CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-        return (List<DestCard>) s.cards;
+        return (List<DestCard>) s.toList();
     }
 
     public static IGameInfo getStarterGameInfo(){

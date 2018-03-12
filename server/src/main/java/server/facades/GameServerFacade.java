@@ -82,12 +82,12 @@ public class GameServerFacade implements IGameServerFacade {
         // add discarded cards to discard
 
         //Update game history
-        ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.cards.size() + " cards", System.currentTimeMillis()));
+        ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.size() + " cards", System.currentTimeMillis()));
 
         //Notify other users
         ClientNotifications.playerDrewDestinationCards(username);
 
-        ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.cards);
+        ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.toList());
         return new Result(true, ClientCommands.getCommandList(username), "discarded successfully");
     }
 

@@ -135,7 +135,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
 
                     //TODO delete me, I was part of DEMO ---------------------------------|
                     CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-                    List<DestCard> destList = s.cards;
+                    List<DestCard> destList = s.toList();
                     List<DestCard> cardsToRemove = new ArrayList<DestCard>();
 
                     if(!_chosenCards.contains(FIRST_CARD)){

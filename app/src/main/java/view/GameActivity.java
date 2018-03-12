@@ -448,7 +448,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         //DRAW DESTINATION CARDS -----------------------------------------------|
         CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-        List<DestCard> destList = s.cards;
+        List<DestCard> destList = s.toList();
         DestCard _17 = new DestCard(CHICAGO, LOS_ANGELES, 16);
         DestCard _18 = new DestCard(PITTSBURGH, DENVER, 11);
         destList.add(_17);

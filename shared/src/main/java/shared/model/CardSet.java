@@ -14,13 +14,18 @@ import shared.model.interfaces.Card;
 
 public class CardSet implements Iterable<DestCard>, Serializable {
 
-    public List<DestCard> cards;
+    private List<DestCard> cards;
+
     public CardSet(List<DestCard> cards){
         this.cards = cards;
     }
 
     public List<DestCard> toList() {
         return cards;
+    }
+
+    public int size(){
+        return cards.size();
     }
 
     @Override
