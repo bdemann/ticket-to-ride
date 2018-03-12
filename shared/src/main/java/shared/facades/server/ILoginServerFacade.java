@@ -1,12 +1,13 @@
 package shared.facades.server;
 
-import shared.results.Result;
+import shared.results.LoginResult;
+import shared.results.RegisterResult;
 
 /**
  * Created by Ben on 2/6/2018.
  */
 
 public interface ILoginServerFacade {
-    public Result signin(String username, String password);
-    public Result register(String username, String password);
+    public LoginResult signin(String username, String password);
+    public RegisterResult register(String username, String password);
 }

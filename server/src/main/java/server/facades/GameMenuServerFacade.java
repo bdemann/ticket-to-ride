@@ -9,7 +9,6 @@ import server.poller.ClientCommands;
 import shared.model.history.events.GameEvent;
 import shared.results.CreateGameResult;
 import shared.results.JoinGameResult;
-import shared.results.Result;
 import shared.results.GameListResult;
 import shared.facades.server.IGameMenuServerFacade;
 import shared.logging.Level;
@@ -24,7 +23,7 @@ import shared.model.interfaces.IPlayer;
 
 public class GameMenuServerFacade implements IGameMenuServerFacade {
     @Override
-    public Result createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
+    public CreateGameResult createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINNEST);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 
@@ -58,7 +57,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
     }
 
     @Override
-    public Result joinGame(int gameId, IPlayer joiner) {
+    public JoinGameResult joinGame(int gameId, IPlayer joiner) {
         Logger.log("Joining game: " + gameId + "Joining player: " + joiner, Level.FINNEST);
         IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){
@@ -121,7 +120,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
     }
 
     @Override
-    public Result getGamesList(String username) {
+    public GameListResult getGamesList(String username) {
         Logger.log("Getting the games list", Level.FINNEST);
         for (IGame game: ServerRoot.getGames()) {
             Logger.log("Games: " + game.toString(), Level.FINNEST);

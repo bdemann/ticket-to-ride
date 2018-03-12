@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutionException;
 
 import shared.command.Command;
 import shared.command.ICommand;
+import shared.results.LoginResult;
+import shared.results.RegisterResult;
 import shared.results.Result;
 import shared.facades.server.ILoginServerFacade;
 import tasks.CommandTask;
@@ -17,13 +19,25 @@ import tasks.TaskExecutor;
 public class LoginServerProxy implements ILoginServerFacade{
     public LoginServerProxy(){}
     @Override
-    public Result signin(String username, String password) {
-        return TaskExecutor.runTask(generateLoginCommand("signin", username, password));
+    public LoginResult signin(String username, String password) {
+        Result result = TaskExecutor.runTask(generateLoginCommand("signin", username, password));
+
+        if(result.getCommandSuccess()) {
+            return (LoginResult) result;
+        }
+
+        return new LoginResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     @Override
-    public Result register(String username, String password) {
-        return TaskExecutor.runTask(generateLoginCommand("register", username, password));
+    public RegisterResult register(String username, String password) {
+        Result result = TaskExecutor.runTask(generateLoginCommand("register", username, password));
+
+        if(result.getCommandSuccess()) {
+            return (RegisterResult) result;
+        }
+
+        return new RegisterResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     private ICommand generateLoginCommand(String methodName, String username, String password){

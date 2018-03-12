@@ -1,17 +1,13 @@
 package proxies;
 
-import android.util.Log;
-
-import java.util.concurrent.ExecutionException;
-
 import shared.command.Command;
 import shared.command.ICommand;
-import shared.logging.Logger;
-import shared.results.CreateGameResult;
-import shared.results.Result;
-import shared.model.interfaces.IPlayer;
 import shared.facades.server.IGameMenuServerFacade;
-import tasks.CommandTask;
+import shared.model.interfaces.IPlayer;
+import shared.results.CreateGameResult;
+import shared.results.GameListResult;
+import shared.results.JoinGameResult;
+import shared.results.Result;
 import tasks.TaskExecutor;
 
 /**
@@ -21,30 +17,42 @@ import tasks.TaskExecutor;
 
 public class GameMenuServerProxy implements IGameMenuServerFacade {
     @Override
-    public Result createGame(IPlayer creator, int numberPlayer, String gameName) {
+    public CreateGameResult createGame(IPlayer creator, int numberPlayer, String gameName) {
         Class<?>[] parmTypes = {IPlayer.class, int.class, String.class};
         Object[] parmValues = {creator, numberPlayer, gameName};
         ICommand createGameCommand = new Command("server.facades.GameMenuServerFacade", "createGame", parmTypes, parmValues);
 
-        return TaskExecutor.runTask(createGameCommand);
+        Result result = TaskExecutor.runTask(createGameCommand);
+        if(result.getCommandSuccess()) {
+            return (CreateGameResult) result;
+        }
+        return new CreateGameResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     @Override
-    public Result joinGame(int gameId, IPlayer joiner) {
+    public JoinGameResult joinGame(int gameId, IPlayer joiner) {
         Class<?>[] parmTypes = {int.class, IPlayer.class};
         Object[] parmValues = {gameId, joiner};
 
         ICommand joinGameCommand = new Command("server.facades.GameMenuServerFacade", "joinGame", parmTypes, parmValues);
 
-        return TaskExecutor.runTask(joinGameCommand);
+        Result result = TaskExecutor.runTask(joinGameCommand);
+        if(result.getCommandSuccess()) {
+            return (JoinGameResult) result;
+        }
+        return new JoinGameResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     @Override
-    public Result getGamesList(String username) {
+    public GameListResult getGamesList(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
         ICommand getGamesCommand = new Command("server.facades.GameMenuServerFacade", "getGamesList", parmTypes, parmValues);
 
-        return TaskExecutor.runTask(getGamesCommand);
+        Result result = TaskExecutor.runTask(getGamesCommand);
+        if(result.getCommandSuccess()) {
+            return (GameListResult) result;
+        }
+        return new GameListResult(result.getExceptionType(), result.getExceptionMessage());
     }
 }

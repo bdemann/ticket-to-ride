@@ -4,7 +4,6 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import shared.results.LoginResult;
 import shared.results.RegisterResult;
-import shared.results.Result;
 import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.interfaces.IPlayer;
@@ -17,13 +16,9 @@ import shared.facades.server.ILoginServerFacade;
  */
 
 public class LoginServerFacade implements ILoginServerFacade {
-    public static void main(String[] args){
-        LoginServerFacade loginServerFacade = new LoginServerFacade();
-        Result result = loginServerFacade.signin("username", "password");
-    }
 
     @Override
-    public Result signin(String username, String password) {
+    public LoginResult signin(String username, String password) {
         Logger.log("Logging in user: " + username, Level.FINNEST);
 
         IPlayer player = ServerRoot.getPlayer(username);
@@ -41,7 +36,7 @@ public class LoginServerFacade implements ILoginServerFacade {
     }
 
     @Override
-    public Result register(String username, String password) {
+    public RegisterResult register(String username, String password) {
         IPlayer player = ServerRoot.getPlayer(username);
         if(player != null){
             // Player already exists

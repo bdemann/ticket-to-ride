@@ -1,5 +1,8 @@
 package shared.facades.server;
 
+import shared.results.CreateGameResult;
+import shared.results.GameListResult;
+import shared.results.JoinGameResult;
 import shared.results.Result;
 import shared.model.interfaces.IPlayer;
 
@@ -25,7 +28,7 @@ public interface IGameMenuServerFacade {
      * @param gameName is the name of the game.
      * @return A Result class with info about the created game.
      */
-    public Result createGame(IPlayer creator, int numberPlayer, String gameName);
+    public CreateGameResult createGame(IPlayer creator, int numberPlayer, String gameName);
 
     /**
      * Adds the IPlayer joiner to the game with gameId
@@ -40,7 +43,7 @@ public interface IGameMenuServerFacade {
      * @param joiner the IPlayer that is joining the game
      * @return A Result class with info about the joined game.
      */
-    public Result joinGame(int gameId, IPlayer joiner);
+    public JoinGameResult joinGame(int gameId, IPlayer joiner);
 
     /**
      * Returns a list of games on the server.
@@ -50,5 +53,5 @@ public interface IGameMenuServerFacade {
      * @param username
      * @return A Result class with a list games on the server
      */
-    public Result getGamesList(String username);
+    public GameListResult getGamesList(String username);
 }
