@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import server.handlers.CommandHandler;
-import server.handlers.TestHandler;
 
 /**
  *
@@ -35,13 +34,11 @@ public class ServerCommunicator {
         server.setExecutor(null); // use the default executor.
 
         server.createContext("/sendCommand", command);
-        server.createContext("/test", testHandler);
 
         server.start();
     }
 
     private HttpHandler command = new CommandHandler();
-    private HttpHandler testHandler = new TestHandler();
 
     public static void terminate() {
         System.exit(0);
