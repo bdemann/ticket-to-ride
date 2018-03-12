@@ -13,6 +13,10 @@ public class RegisterResult extends Result {
         super(success, clientCommands, userMessage);
     }
 
+    public RegisterResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Register Result - ");

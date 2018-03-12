@@ -21,6 +21,10 @@ public class GameListResult extends Result {
         }
     }
 
+    public GameListResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Game List Results - ");

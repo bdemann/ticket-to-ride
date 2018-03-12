@@ -18,6 +18,10 @@ public class JoinGameResult extends Result {
         this._game = joinedGame;
     }
 
+    public JoinGameResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public IGame getGame() {
         return _game;
     }

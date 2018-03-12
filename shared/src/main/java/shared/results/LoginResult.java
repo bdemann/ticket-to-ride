@@ -13,6 +13,10 @@ public class LoginResult extends Result {
         super(success, clientCommands, userMessage);
     }
 
+    public LoginResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Login Result - ");

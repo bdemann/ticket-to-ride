@@ -25,6 +25,10 @@ public class CreateGameResult extends Result {
         Logger.log("CreateGameResult constructor game: " + _newGame, Level.FINNEST);
     }
 
+    public CreateGameResult(String exceptionType, String exceptionMessage) {
+        super(exceptionType, exceptionMessage);
+    }
+
     public IGame getGame() {
         return _newGame;
     }
