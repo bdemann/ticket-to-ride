@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.model.DestCard;
-import shared.model.DestinationDeck;
+import shared.model.DestDeck;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.model.Train;
@@ -39,9 +39,9 @@ public class StartGameFacade {
     }
 
     private static IGame dealStartingTickets(IGame game, int startingTicketCount) {
-        DestinationDeck destinationDeck = game.getDestCardDeck();
+        DestDeck destDeck = game.getDestCardDeck();
         for(IPlayer player : game.getPlayers()) {
-            List<DestCard> startingTickets = destinationDeck.draw(3);
+            List<DestCard> startingTickets = destDeck.draw(3);
             player.setUnresolvedDestCards(startingTickets);
         }
         return game;

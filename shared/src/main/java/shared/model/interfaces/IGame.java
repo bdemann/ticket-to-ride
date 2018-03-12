@@ -2,7 +2,7 @@ package shared.model.interfaces;
 import java.util.List;
 
 import shared.model.DestCard;
-import shared.model.DestinationDeck;
+import shared.model.DestDeck;
 import shared.model.Route;
 import shared.model.TTRMap;
 import shared.model.TrainCard;
@@ -18,7 +18,7 @@ import shared.model.history.GameHistory;
 public interface IGame {
     void setPlayerWithLongestRoute(String playerName);
     void setTrainCardDeck(TrainDeck trainCardDeck);
-    void setDestCardDeck(DestinationDeck destCardDeck);
+    void setDestCardDeck(DestDeck destCardDeck);
     void setCardsFaceUp(List<TrainCard> cardsFaceUp);
     void setOpenRoutes(List<Route> openRoutes);
     void setClaimedRoutes(List<Route> claimedRoutes);
@@ -27,7 +27,7 @@ public interface IGame {
     void setGameMap(TTRMap gameMap);
     String getPlayerWithLongestRoute();
     TrainDeck getTrainCardDeck();
-    DestinationDeck getDestCardDeck();
+    DestDeck getDestCardDeck();
     List<TrainCard> getCardsFaceUp();
     List<Route> getOpenRoutes();
     List<Route> getClaimedRoutes();

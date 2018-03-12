@@ -26,7 +26,7 @@ public class Game implements IGame, Serializable {
     private boolean _gameIsStarted = false;
     private String _playerWithLongestRoute; //If no one has it it will be empty string.
     private TrainDeck _trainDeck;
-    private DestinationDeck _destinationDeck;
+    private DestDeck _destDeck;
     private List<TrainCard> _faceUpCards;
     private GameHistory _gameHistory;
     private int _turnIndex;
@@ -38,7 +38,7 @@ public class Game implements IGame, Serializable {
         this._gameName = gameName;
         this._playerWithLongestRoute = "";
         this._trainDeck = new TrainDeck();
-        this._destinationDeck = new DestinationDeck();
+        this._destDeck = new DestDeck();
         this._faceUpCards = new ArrayList<>();
         this._gameHistory = new GameHistory();
     }
@@ -63,8 +63,8 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public void setDestCardDeck(DestinationDeck destCardDeck) {
-        _destinationDeck = destCardDeck;
+    public void setDestCardDeck(DestDeck destCardDeck) {
+        _destDeck = destCardDeck;
     }
 
     @Override
@@ -113,8 +113,8 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public DestinationDeck getDestCardDeck() {
-        return _destinationDeck;
+    public DestDeck getDestCardDeck() {
+        return _destDeck;
     }
 
     @Override
@@ -203,7 +203,7 @@ public class Game implements IGame, Serializable {
 
     @Override
     public void discardDestCards(List<DestCard> cards) {
-        _destinationDeck.discard(cards);
+        _destDeck.discard(cards);
     }
 
     @Override
