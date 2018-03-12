@@ -87,6 +87,9 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
     }
 
     private void _assignColor(int gameId, IPlayer joiner){
+        if(joiner.getColor() != 0){
+            return;
+        }
         List<IPlayer> players = ServerRoot.getGame(gameId).getPlayers();
         for(int i = 0; i < ServerRoot.getColors().size(); i++){
             int notSame = 0;
