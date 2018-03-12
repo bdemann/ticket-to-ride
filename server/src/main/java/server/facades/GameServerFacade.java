@@ -107,7 +107,7 @@ public class GameServerFacade implements IGameServerFacade {
     }
 
     @Override
-    public DrawCardsResult drawTicketCards(String username) {
+    public DrawCardsResult drawDestCards(String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 

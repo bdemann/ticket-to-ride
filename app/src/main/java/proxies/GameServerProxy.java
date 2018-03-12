@@ -118,11 +118,11 @@ public class GameServerProxy implements IGameServerFacade {
      * @return DrawCardsResult from the action
      */
     @Override
-    public DrawCardsResult drawTicketCards(String username) {
+    public DrawCardsResult drawDestCards(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
 
-        ICommand command = _generateGameServerFacadeCommand("drawTicketCards", parmTypes, parmValues);
+        ICommand command = _generateGameServerFacadeCommand("drawDestCards", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(command);
 

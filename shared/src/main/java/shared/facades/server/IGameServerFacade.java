@@ -21,6 +21,6 @@ public interface IGameServerFacade {
     Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards);
 
     public DrawCardsResult drawTrainCard(String username);
-    public DrawCardsResult drawTicketCards(String username);
+    public DrawCardsResult drawDestCards(String username);
 
 }

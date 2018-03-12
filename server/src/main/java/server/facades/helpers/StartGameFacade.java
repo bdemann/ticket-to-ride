@@ -24,7 +24,7 @@ public class StartGameFacade {
     // shuffle decks
     // deal cards to each player
     // put out top five cards
-    // initiailize the longest path.
+    // initialize the longest path.
     // deal out 3 destination cards
     // let each person know that they need to pick at least two cards
     public static IGame setUpGame(IGame game){
@@ -34,14 +34,14 @@ public class StartGameFacade {
         game = dealStartingTrainCards(game, 4);
         game = initDrawPile(game);
         game = initLongestPath(game);
-        game = dealStartingTickets(game, 3);
+        game = dealStartingDestCards(game, 3);
         return game;
     }
 
-    private static IGame dealStartingTickets(IGame game, int startingTicketCount) {
+    private static IGame dealStartingDestCards(IGame game, int startingDestCardCount) {
         DestDeck destDeck = game.getDestCardDeck();
         for(IPlayer player : game.getPlayers()) {
-            List<DestCard> startingTickets = destDeck.draw(3);
+            List<DestCard> startingTickets = destDeck.draw(startingDestCardCount);
             player.setUnresolvedDestCards(startingTickets);
         }
         return game;

@@ -33,7 +33,7 @@ public class GameGuiFacade {
 
     public static List<DestCard> drawDestinationCards() {
         GameServerProxy gsp = new GameServerProxy();
-        DrawCardsResult cardResults = gsp.drawTicketCards(ClientRoot.getClientPlayer().getUsername());
+        DrawCardsResult cardResults = gsp.drawDestCards(ClientRoot.getClientPlayer().getUsername());
         return _processDrawDestinationResults(cardResults);
     }
 
