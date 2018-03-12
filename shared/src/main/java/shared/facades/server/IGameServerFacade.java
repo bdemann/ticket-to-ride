@@ -1,6 +1,6 @@
 package shared.facades.server;
 
-import shared.model.CardSet;
+import shared.model.DestCardSet;
 import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.interfaces.IEdge;
@@ -18,7 +18,7 @@ public interface IGameServerFacade {
 
     DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard);
 
-    Result discardDestCards(String username, CardSet keptCards, CardSet discardCards);
+    Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards);
 
     public DrawCardsResult drawTrainCard(String username);
     public DrawCardsResult drawTicketCards(String username);

@@ -17,7 +17,7 @@ import model.ClientRoot;
 import presenter.DrawDestinationsPresenter;
 import presenter.IDrawDestinationsPresenter;
 import proxies.GameServerProxy;
-import shared.model.CardSet;
+import shared.model.DestCardSet;
 import shared.model.DestCard;
 
 
@@ -134,7 +134,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                     //Send the chosen cards onto the player, and the discard to the server
 
                     //TODO delete me, I was part of DEMO ---------------------------------|
-                    CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+                    DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
                     List<DestCard> destList = s.toList();
                     List<DestCard> cardsToRemove = new ArrayList<DestCard>();
 
@@ -153,11 +153,11 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                     //ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
                     ClientRoot.getClientPlayer().setDestCards(destList);
                     GameServerProxy gameServerProxy = new GameServerProxy();
-                    CardSet destCardSet = new CardSet(destList);
-                    CardSet removeCardSet = new CardSet(cardsToRemove);
+                    DestCardSet destCardSet = new DestCardSet(destList);
+                    DestCardSet removeDestCardSet = new DestCardSet(cardsToRemove);
 
 
-                    gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeCardSet);
+                    gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeDestCardSet);
                     //END OF DELETE ME ---------------------------------------------------|
 
                     //Then finish the activity

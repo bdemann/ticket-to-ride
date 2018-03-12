@@ -1,11 +1,7 @@
 package view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,18 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 import model.ClientRoot;
-import proxies.GameServerProxy;
-import shared.model.CardSet;
+import shared.model.DestCardSet;
 import shared.model.City;
 import shared.model.CityPoint;
 import shared.model.DestCard;
 import shared.model.Edge;
 import shared.model.Hand;
 import shared.model.Route;
-import shared.model.Train;
 import shared.model.TrainCard;
-import shared.model.TrainCardSet;
-import shared.model.interfaces.Card;
 import shared.model.interfaces.IEdge;
 
 import static shared.model.initialized_info.DestCardId.*;
@@ -447,7 +439,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
 
         //DRAW DESTINATION CARDS -----------------------------------------------|
-        CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+        DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
         List<DestCard> destList = s.toList();
         DestCard _17 = new DestCard(CHICAGO, LOS_ANGELES, 16);
         DestCard _18 = new DestCard(PITTSBURGH, DENVER, 11);

@@ -94,8 +94,8 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
-    public CardSet getUnresolvedDestCards() {
-        return new CardSet(_unresolvedDestCards);
+    public DestCardSet getUnresolvedDestCards() {
+        return new DestCardSet(_unresolvedDestCards);
     }
 
     @Override

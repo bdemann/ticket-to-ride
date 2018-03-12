@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
-import shared.model.CardSet;
+import shared.model.DestCardSet;
 import shared.model.DestCard;
 import shared.model.TrainCard;
 import shared.model.interfaces.IGameInfo;
@@ -19,7 +19,7 @@ import shared.results.DrawCardsResult;
 public class GameGuiFacade {
 
     public static List<DestCard> getStarterDestinationCards(){
-        CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+        DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
         return s.toList();
     }
 

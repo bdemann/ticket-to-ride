@@ -6,7 +6,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
-import shared.model.CardSet;
+import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
@@ -74,7 +74,7 @@ public class GameServerFacade implements IGameServerFacade {
     }
 
     @Override
-    public Result discardDestCards(String username, CardSet keptCards, CardSet discardCards) {
+    public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
         //TODO implement this method
         // add kept cards to user cards
         IPlayer player = ServerRoot.getPlayer(username);
