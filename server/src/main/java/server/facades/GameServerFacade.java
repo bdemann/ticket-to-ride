@@ -78,7 +78,7 @@ public class GameServerFacade implements IGameServerFacade {
         //TODO implement this method
         // add kept cards to user cards
         IPlayer player = ServerRoot.getPlayer(username);
-        player.addDestCards(keptCards.getCards());
+        player.addDestCards(keptCards.toList());
         // add discarded cards to discard
 
         //Update game history

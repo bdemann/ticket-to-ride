@@ -19,7 +19,7 @@ public class CardSet implements Iterable<DestCard>, Serializable {
         this.cards = cards;
     }
 
-    public List<DestCard> getCards() {
+    public List<DestCard> toList() {
         return cards;
     }
 
