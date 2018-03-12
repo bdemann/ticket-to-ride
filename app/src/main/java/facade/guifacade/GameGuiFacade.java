@@ -1,21 +1,14 @@
 package facade.guifacade;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
 import shared.model.CardSet;
 import shared.model.DestCard;
 import shared.model.TrainCard;
-import shared.model.interfaces.Card;
 import shared.model.interfaces.IGameInfo;
-import shared.model.interfaces.ITrainCard;
 import shared.results.DrawCardsResult;
 
 /**
@@ -27,7 +20,7 @@ public class GameGuiFacade {
 
     public static List<DestCard> getStarterDestinationCards(){
         CardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-        return (List<DestCard>) s.toList();
+        return s.toList();
     }
 
     public static IGameInfo getStarterGameInfo(){
@@ -46,6 +39,7 @@ public class GameGuiFacade {
 
     private static List<DestCard> _processDrawDestinationResults(DrawCardsResult cardResults) {
         if(cardResults != null){
+            //TODO it was not my intention to have a cast like this... is there a way to change this? Maybe its not too big of a deal?
             return (List<DestCard>) cardResults.getCards();
         }
         else {

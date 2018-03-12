@@ -1,15 +1,8 @@
 package facade.guifacade;
 
-import java.util.List;
-
-import guiless.StartGame;
 import model.ClientRoot;
 import proxies.LobbyServerProxy;
-import shared.command.ICommand;
-import shared.model.DestCard;
-import shared.model.Game;
 import shared.model.interfaces.IGame;
-import shared.model.interfaces.IGameInfo;
 import shared.results.Result;
 import shared.model.interfaces.IPlayer;
 import shared.results.StartGameResult;
