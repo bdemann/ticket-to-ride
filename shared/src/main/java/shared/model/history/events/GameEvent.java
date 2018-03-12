@@ -11,10 +11,6 @@ import shared.model.interfaces.Message;
  */
 
 public class GameEvent extends Message implements Serializable {
-    private String username;
-    private String event;
-    private long time;
-
     public GameEvent(String username, String event, long time) {
         super(username, event, time);
     }
