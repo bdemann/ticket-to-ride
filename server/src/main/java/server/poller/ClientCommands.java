@@ -42,24 +42,4 @@ public class ClientCommands {
         commands.add(command);
         _instance._commands.put(username, commands);
     }
-
-    public static void main(String[] args){
-        List<ICommand> commands = new ArrayList<>();
-        Class<?>[] parmTypes = {String.class, String.class};
-        Object[] parmValues = {"bdemann", "password"};
-        Command command = new Command("server.facades.LoginServerFacade", "register", parmTypes, parmValues);
-        commands.add(command);
-        _instance._commands.put("bdemann", commands);
-        _instance._commands.put("mcporet", commands);
-        System.out.println(_instance._commands.keySet());
-        if(_instance._commands.get("mcporet")==null) {
-            System.out.println("it was null");
-        } else {
-            System.out.println("it wasn't null");
-        }
-        System.out.println("This is after");
-        System.out.println(_instance._commands.get("bdemann"));
-        System.out.println(getCommandList("bdemann"));
-        System.out.println(_instance._commands.get("bdemann"));
-    }
 }
