@@ -31,10 +31,14 @@ public class Poller {
             @Override
             public void run() {
                 Result result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
-                Logger.log("We are polling", Level.SANITY_CHECK);
+                if(result.getClientCommands() != null && result.getClientCommands().size() > 0){
+                    Logger.log("-------We are polling-----------", Level.ALL);
+                }
                 List<ICommand> commandList = result.getClientCommands();
                 for(ICommand command: commandList) {
                     try {
+                        System.out.println("-----HERE IS THE COMMAND------");
+                        System.out.println(command.toString());
                         command.execute();
                     } catch (Exception e) {
                         e.printStackTrace();

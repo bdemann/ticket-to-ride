@@ -16,20 +16,20 @@ public class Command implements ICommand, Serializable {
     private String _className;
     private String _methodName;
     private Class<?>[] _parmTypes;
-    private Object[] _parms;
+    private Object[] _parmValues;
 
     public Command(String className, String methodName, Class<?>[] parmTypes, Object[] parms) {
         this._className = className;
         this._methodName = methodName;
         this._parmTypes = parmTypes;
-        this._parms = parms;
+        this._parmValues = parms;
     }
 
     public Command(String className, String methodName) {
         this._className = className;
         this._methodName = methodName;
         this._parmTypes = new Class[0];
-        this._parms = new Object[0];
+        this._parmValues = new Object[0];
     }
 
     public Result execute() throws Exception{
@@ -37,7 +37,7 @@ public class Command implements ICommand, Serializable {
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName,_parmTypes);
             Object t = receiver.newInstance();
-            return (Result) method.invoke(t, _parms);
+            return (Result) method.invoke(t, _parmValues);
         } catch (Exception e) {
             throw e;
         }
@@ -55,11 +55,11 @@ public class Command implements ICommand, Serializable {
         result.delete(result.length()-2, result.length());
         result.append("\n");
 
-        result.append("\t_parms = ");
-        if(_parms == null) {
+        result.append("\t_parmValues = ");
+        if(_parmValues == null) {
             result.append("null\n");
         } else {
-            for(Object parameter : _parms) {
+            for(Object parameter : _parmValues) {
                 result.append(parameter);
                 result.append("(" + parameter.getClass().getName() + ")");
                 result.append(", ");

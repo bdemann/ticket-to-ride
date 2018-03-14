@@ -18,11 +18,12 @@ public class GameClientProxy implements IGameClientFacade {
         }
     }
 
-    private static final String CLASS = "facade.LobbyClientFacade";
+    private static final String CLASS = "facade.GameClientFacade";
 
     private ICommand _createUpdateCommand(IGameInfo gameInfo) {
         Class<?>[] parmTypes = {IGameInfo.class};
         Object[] parmValues = {gameInfo};
+        System.out.println("---WE CREATE AN UPDATE COMMAND----");
         return new Command(CLASS, "updateGameInfo", parmTypes, parmValues);
     }
 }

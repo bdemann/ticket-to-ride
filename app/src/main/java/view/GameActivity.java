@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.ClientRoot;
+import proxies.GameServerProxy;
 import shared.model.DestCardSet;
 import shared.model.City;
 import shared.model.CityPoint;
@@ -489,6 +490,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         //Update the game history
         //Update the game info
+        GameServerProxy gameServerProxy = new GameServerProxy();
+        gameServerProxy.drawDestCards(key);
 
         //Player's turn is over
         _gameInfoDemoIsDone = true;
