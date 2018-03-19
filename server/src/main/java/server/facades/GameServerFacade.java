@@ -105,7 +105,6 @@ public class GameServerFacade implements IGameServerFacade {
                 return true;
             } else {
                 Color cardColor = cards.getSetColor();
-                //TODO can you claim a route with all wilds? I am assuming so but we will have to change this if not.
                 return cardColor.equals(route.getColor()) || cardColor.equals(Color.RAINBOW);
             }
         }
@@ -168,7 +167,7 @@ public class GameServerFacade implements IGameServerFacade {
         ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.size() + " cards", System.currentTimeMillis()));
 
         //Notify other users
-        ClientNotifications.playerDrewDestinationCards(username);
+        ClientNotifications.gameUpdated(username);
 
         ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.toList());
         return new Result(true, ClientCommands.getCommandList(username), "discarded successfully");
