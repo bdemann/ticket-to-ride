@@ -29,7 +29,7 @@ public class DrawTrainCardsPresenter implements IDrawTrainCardsPresenter, Observ
 
     @Override
     public void drawFaceDownCard() {
-        GameGuiFacade.drawFaceDownTrainCard();
+        ClientRoot.getClientPlayer().addTrainCard(GameGuiFacade.drawFaceDownTrainCard());
     }
 
     @Override
