@@ -14,7 +14,7 @@ import shared.logging.Logger;
 public class ServerFacade implements IServerFacade {
     @Override
     public Result getCommands(String username) {
-        Logger.log(username + " is getting a list of commands.");
+        Logger.log(username + " is getting a list of commands.", Level.SANITY_CHECK);
         Result result = new Result(true, ClientCommands.getCommandList(username), "Got Command List");
         Logger.log("Here is the get commands result", Level.FINNEST);
         Logger.log(result, Level.FINNEST);
