@@ -105,7 +105,7 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         _trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceDownCard();
             }
         });
     }
@@ -161,6 +161,9 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         }
     }
 
+    private void drawFaceDownCard() {
+
+    }
 
     //EDIT THIS LATER...STRICTLY IMPLEMENTED FOR PHASE 2 PASS OFF
     @Override
