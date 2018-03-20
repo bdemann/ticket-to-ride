@@ -9,7 +9,7 @@ import shared.model.interfaces.Card;
  * Created by bdemann on 3/3/18.
  */
 
-public class DrawCardsResult extends Result {
+public abstract class DrawCardsResult extends Result {
 
     List<? extends Card> _cards;
 

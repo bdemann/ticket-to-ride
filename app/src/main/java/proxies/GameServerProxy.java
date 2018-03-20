@@ -9,6 +9,8 @@ import shared.model.TrainCardSet;
 import shared.model.interfaces.IEdge;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
+import shared.results.DrawDestCardsResult;
+import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
 import tasks.TaskExecutor;
 
@@ -93,7 +95,7 @@ public class GameServerProxy implements IGameServerFacade {
      * @return DrawCardResult from the action.
      */
     @Override
-    public DrawCardsResult drawTrainCard(String username) {
+    public DrawTrainCardsResult drawTrainCard(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
 
@@ -102,9 +104,9 @@ public class GameServerProxy implements IGameServerFacade {
         Result result = TaskExecutor.runTask(command);
 
         if(result.getCommandSuccess()){
-            return (DrawCardsResult) result;
+            return (DrawTrainCardsResult) result;
         }
-        return new DrawCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     /**
@@ -118,7 +120,7 @@ public class GameServerProxy implements IGameServerFacade {
      * @return DrawCardsResult from the action
      */
     @Override
-    public DrawCardsResult drawDestCards(String username) {
+    public DrawDestCardsResult drawDestCards(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
 
@@ -127,9 +129,9 @@ public class GameServerProxy implements IGameServerFacade {
         Result result = TaskExecutor.runTask(command);
 
         if(result.getCommandSuccess()){
-            return (DrawCardsResult) result;
+            return (DrawDestCardsResult) result;
         }
-        return new DrawCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     /**

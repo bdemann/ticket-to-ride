@@ -18,6 +18,8 @@ import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
+import shared.results.DrawDestCardsResult;
+import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
 
 /**
@@ -129,7 +131,7 @@ public class GameServerFacade implements IGameServerFacade {
      * @return
      */
     @Override
-    public DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
+    public DrawTrainCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
         //TODO implement this method
         return null;
     }
@@ -191,7 +193,7 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a DrawCardResult with a message about the success of the action
      */
     @Override
-    public DrawCardsResult drawTrainCard(String username) {
+    public DrawTrainCardsResult drawTrainCard(String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
@@ -202,7 +204,7 @@ public class GameServerFacade implements IGameServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
-        return new DrawCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw a train card");
+        return new DrawTrainCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw a train card");
     }
 
     /**
@@ -220,7 +222,7 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns s DrawCardsResult with a message about the success of the action
      */
     @Override
-    public DrawCardsResult drawDestCards(String username) {
+    public DrawDestCardsResult drawDestCards(String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
@@ -231,6 +233,6 @@ public class GameServerFacade implements IGameServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card", System.currentTimeMillis()));
         ClientNotifications.playerDrewDestinationCards(username);
 
-        return new DrawCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
+        return new DrawDestCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
     }
 }
