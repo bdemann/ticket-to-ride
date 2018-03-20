@@ -8,6 +8,6 @@ import shared.model.TrainCard;
  */
 
 public interface IDrawTrainCardsPresenter {
-    void drawFaceUpCard(TrainCard trainCard);
+    void drawFaceUpCard(int index);
     void drawFaceDownCard();
 }
