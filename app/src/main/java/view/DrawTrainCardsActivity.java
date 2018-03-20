@@ -1,10 +1,8 @@
 package view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
@@ -12,9 +10,9 @@ import com.a340team.tickettoride.R;
 import java.util.concurrent.ThreadLocalRandom;
 
 import model.ClientRoot;
+import presenter.DrawTrainCardsPresenter;
 import shared.model.Color;
 import shared.model.TrainCard;
-import shared.model.TrainCardSet;
 import shared.model.interfaces.IGameInfo;
 
 /**
@@ -31,6 +29,7 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
     private ImageButton _trainCardFive;
     private ImageButton _trainCardDeck;
     private int _trainCardsDrawn;
+    private DrawTrainCardsPresenter _presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +37,14 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         //Set the drawn cards to zero
         _trainCardsDrawn = 0;
         setContentView(R.layout.activity_draw_trains);
+        _initializePresenter();
         _initializeImageButtons(ClientRoot.getClientGameInfo());
         _createOnClickListeners();
 
+    }
+
+    private void _initializePresenter(){
+        _presenter = new DrawTrainCardsPresenter(this);
     }
 
     private void _initializeImageButtons(IGameInfo gameInfo){
@@ -105,7 +109,7 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         _trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawFaceDownCard();
+                drawCardFromDeck();
             }
         });
     }
@@ -161,30 +165,27 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         }
     }
 
-    private void drawFaceDownCard() {
-
-    }
-
     //EDIT THIS LATER...STRICTLY IMPLEMENTED FOR PHASE 2 PASS OFF
     @Override
     public void drawFaceUpCard(int cardNum) {
         //TEMPORARY FOR PASS OFF
         if(!(_trainCardsDrawn > 2)) {
-            if (cardNum == 1) {
-                _trainCardOne.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 2) {
-                _trainCardTwo.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 3) {
-                _trainCardThree.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 4) {
-                _trainCardFour.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 5) {
-                _trainCardFive.setImageResource(_tempGetRandomDrawable());
-            }
+            _presenter.drawFaceUpCard(cardNum);
+//            if (cardNum == 1) {
+//                _trainCardOne.setImageResource(_tempGetRandomDrawable());
+//            }
+//            if (cardNum == 2) {
+//                _trainCardTwo.setImageResource(_tempGetRandomDrawable());
+//            }
+//            if (cardNum == 3) {
+//                _trainCardThree.setImageResource(_tempGetRandomDrawable());
+//            }
+//            if (cardNum == 4) {
+//                _trainCardFour.setImageResource(_tempGetRandomDrawable());
+//            }
+//            if (cardNum == 5) {
+//                _trainCardFive.setImageResource(_tempGetRandomDrawable());
+//            }
 
             //Alert the user they drew a card
             _trainCardsDrawn++;
@@ -197,6 +198,7 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
 
     @Override
     public void drawCardFromDeck() {
-
+        //TODO we should make these the same kind of name
+        _presenter.drawFaceDownCard();
     }
 }
