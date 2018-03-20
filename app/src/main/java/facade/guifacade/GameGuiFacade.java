@@ -11,6 +11,7 @@ import shared.model.DestCard;
 import shared.model.TrainCard;
 import shared.model.interfaces.IGameInfo;
 import shared.results.DrawCardsResult;
+import shared.results.DrawTrainCardsResult;
 
 /**
  * This helps the presenters talk to the model
@@ -38,17 +39,6 @@ public class GameGuiFacade {
         return _processDrawDestinationResults(cardResults);
     }
 
-    public static TrainCard drawFaceDownTrainCard() {
-        GameServerProxy gsp = new GameServerProxy();
-        DrawCardsResult cardsResult = gsp.drawTrainCard(ClientRoot.getClientPlayer().getUsername());
-        try {
-            Command.executeList(cardsResult.getClientCommands());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return (TrainCard) cardsResult.getCards().get(0);
-    }
-
     private static List<DestCard> _processDrawDestinationResults(DrawCardsResult cardResults) {
         if(cardResults != null){
             //TODO it was not my intention to have a cast like this... is there a way to change this? Maybe its not too big of a deal?
@@ -69,7 +59,26 @@ public class GameGuiFacade {
         return completedDestination;
     }
 
-    public static TrainCard drawFaceUpTrainCard(TrainCard trainCard) {
-        return trainCard;
+    public static void drawFaceDownTrainCard() {
+        GameServerProxy gsp = new GameServerProxy();
+        DrawTrainCardsResult cardsResult = gsp.drawFaceDownTrainCard(ClientRoot.getClientPlayer().getUsername());
+        try {
+            Command.executeList(cardsResult.getClientCommands());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ClientRoot.getClientPlayer().addTrainCard(cardsResult.getDrawnCard());
+    }
+
+    public static void drawFaceUpTrainCard(int trainCardIndex) {
+        GameServerProxy gsp = new GameServerProxy();
+        DrawTrainCardsResult result = gsp.drawFaceUpTrainCard(ClientRoot.getClientPlayer().getUsername(), trainCardIndex);
+        try {
+            Command.executeList(result.getClientCommands());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
+        ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
     }
 }
