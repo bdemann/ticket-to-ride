@@ -8,6 +8,8 @@ import java.util.Set;
 
 import shared.command.Command;
 import shared.command.ICommand;
+import shared.logging.Level;
+import shared.logging.Logger;
 
 /**
  * Created by bdemann on 2/12/18.
@@ -40,6 +42,7 @@ public class ClientCommands {
             commands = new ArrayList<>();
         }
         commands.add(command);
+        Logger.log("We are adding the command " + command + " to " + username + "'s command list", Level.SANITY_CHECK);
         _instance._commands.put(username, commands);
     }
 }

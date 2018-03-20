@@ -26,15 +26,17 @@ public class GameMenuClientProxy implements IGameMenuClientFacade {
         }
     }
 
+    private static final String CLASS = "facade.GameMenuClientFacade";
+
     private static ICommand _createJoinCommand(IPlayer player, IGame game){
         Class<?>[] parmTypes = {IPlayer.class,IGame.class};
         Object[] parm = {player,game};
-        return new Command("facade.GameMenuClientFacade", "joinGame", parmTypes, parm);
+        return new Command(CLASS, "joinGame", parmTypes, parm);
     }
 
     private static ICommand _createGameCommand(IGame game){
         Class<?>[] parmTypes = {IGame.class};
         IGame[] parm = {game};
-        return new Command("facade.GameMenuClientFacade", "createGame", parmTypes, parm);
+        return new Command(CLASS, "createGame", parmTypes, parm);
     }
 }
