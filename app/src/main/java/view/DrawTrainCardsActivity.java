@@ -66,9 +66,7 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
     }
 
     public void setFaceUpCards(List<TrainCard> faceUpCards) {
-        System.out.println("-------WE are updating the train cards---------");
         for(int i = 0; i < 5; i++) {
-            System.out.println("The card we are working on is " + faceUpCards.get(i));
             setFaceUpCard(i, faceUpCards.get(i));
             _trainCards[i].invalidate();
         }

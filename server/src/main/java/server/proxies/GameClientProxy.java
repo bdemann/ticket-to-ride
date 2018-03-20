@@ -4,6 +4,7 @@ import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.client.IGameClientFacade;
+import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.interfaces.IGameInfo;
 
@@ -15,7 +16,7 @@ public class GameClientProxy implements IGameClientFacade {
     @Override
     public void updateGameInfo(IGameInfo gameInfo) {
         for(String username : gameInfo.getPlayers()) {
-            Logger.log("We are telling " + username + " about an update to the game.");
+            Logger.log("We are telling " + username + " about an update to the game.", Level.FINNEST);
             ClientCommands.addCommand(username, _createUpdateCommand(gameInfo));
         }
     }

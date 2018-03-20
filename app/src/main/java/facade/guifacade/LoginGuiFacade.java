@@ -43,18 +43,15 @@ public class LoginGuiFacade {
         else{
             //check for exception
             if(results.getExceptionType() != null){
-                //System.out.println("ExceptionType: " + results.getExceptionType()+". " + results.getExceptionMessage());
                 return "Exception of type: " + results.getExceptionType() +
                         ". " + results.getExceptionMessage();
             }
 
             if(!results.getCommandSuccess()){
-                //System.out.println("False. UserMessage: " + results.getUserMessage());
                 return results.getUserMessage();
             }
         }
 
-        //System.out.println("True. UserMessage: " + results.getUserMessage());
         return results.getUserMessage();
     }
 
@@ -81,18 +78,15 @@ public class LoginGuiFacade {
         else{
             //check for exception
             if(results.getExceptionType() != null){
-                //System.out.println("ExceptionType: " + results.getExceptionType()+". " + results.getExceptionMessage());
                 return "Exception of type: " + results.getExceptionType() +
                         ". " + results.getExceptionMessage();
             }
 
             if(!results.getCommandSuccess()){
-                //System.out.println("False. UserMessage: " + results.getUserMessage());
                 return results.getUserMessage();
             }
         }
 
-        //System.out.println("True. UserMessage: " + results.getUserMessage());
         return results.getUserMessage();
     }
 }

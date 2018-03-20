@@ -176,6 +176,8 @@ public class GameServerFacade implements IGameServerFacade {
         TrainCard result = game.getCardsFaceUp().get(trainCardIndex);
         game.getCardsFaceUp().set(trainCardIndex, drawTrainCard(game.getId()));
 
+        //TODO make sure we shuffle away any time we have 3+ locomotive cards.
+
         //TODO take care of incrementing the turn if its the second draw or a locamotive card
         game.getGameHistory().addEvent(new GameEvent(username, "drew " + result.toString(), System.currentTimeMillis()));
         ClientNotifications.gameUpdated(username);

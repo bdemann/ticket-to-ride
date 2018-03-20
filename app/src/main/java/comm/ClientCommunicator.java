@@ -6,6 +6,8 @@ import java.net.URL;
 
 import shared.command.ICommand;
 import shared.comm.CommandEncoder;
+import shared.logging.Level;
+import shared.logging.Logger;
 import shared.results.Result;
 
 /**
@@ -17,7 +19,7 @@ import shared.results.Result;
 
 public class ClientCommunicator {
 
-    private static final String SERVER_HOST = "10.24.205.55";
+    private static final String SERVER_HOST = "192.168.0.114";
     private static final String SERVER_PORT = "8080";
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT + "/";
     private static final String HTTP_POST = "POST";
@@ -35,7 +37,7 @@ public class ClientCommunicator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("DO POST FAILED");
+        Logger.log("DO POST FAILED", Level.ALL);
         return null;
     }
 

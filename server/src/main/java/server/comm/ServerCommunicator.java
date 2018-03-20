@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import server.handlers.CommandHandler;
+import shared.logging.Level;
+import shared.logging.Logger;
 
 /**
  *
@@ -27,7 +29,7 @@ public class ServerCommunicator {
         try {
             server = HttpServer.create(new InetSocketAddress(getServerPortNumber()), MAX_WAITING_CONNECTIONS);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Logger.log(e.getMessage(), Level.ALL);
             return;
         }
 
