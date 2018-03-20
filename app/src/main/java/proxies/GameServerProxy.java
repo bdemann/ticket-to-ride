@@ -52,13 +52,20 @@ public class GameServerProxy implements IGameServerFacade {
     /**
      *
      * @param username Username of a player in the game
-     * @param trainCard A train card from the player
+     * @param trainCardIndex A train card from the player
      * @return DrawCardsResult
      */
     @Override
-    public DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
-        //TODO implement method
-        return null;
+    public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
+        Class<?>[] parmTypes = {String.class, int.class};
+        Object[] parmValues = {username, trainCardIndex};
+        ICommand command = _generateGameServerFacadeCommand("drawFaceUpTrainCard", parmTypes, parmValues);
+        Result result = TaskExecutor.runTask(command);
+
+        if(result.getCommandSuccess()) {
+            return (DrawTrainCardsResult) result;
+        }
+        return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     /**
@@ -95,11 +102,11 @@ public class GameServerProxy implements IGameServerFacade {
      * @return DrawCardResult from the action.
      */
     @Override
-    public DrawTrainCardsResult drawTrainCard(String username) {
+    public DrawTrainCardsResult drawFaceDownTrainCard(String username) {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
 
-        ICommand command = _generateGameServerFacadeCommand("drawTrainCard", parmTypes, parmValues);
+        ICommand command = _generateGameServerFacadeCommand("drawFaceDownTrainCard", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(command);
 
