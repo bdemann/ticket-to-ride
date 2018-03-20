@@ -4,7 +4,6 @@ import java.util.List;
 
 import shared.command.ICommand;
 import shared.model.DestCard;
-import shared.model.interfaces.Card;
 
 /**
  * Created by bdemann on 3/20/18.

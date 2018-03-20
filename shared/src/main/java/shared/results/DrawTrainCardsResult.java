@@ -4,24 +4,31 @@ import java.util.List;
 
 import shared.command.ICommand;
 import shared.model.TrainCard;
-import shared.model.interfaces.Card;
 
 /**
  * Created by bdemann on 3/20/18.
  */
 
-public class DrawTrainCardsResult extends DrawCardsResult {
+public class DrawTrainCardsResult extends Result {
 
-    public DrawTrainCardsResult(List<TrainCard> cards, boolean success, List<ICommand> clientCommands, String userMessage) {
-        super(cards, success, clientCommands, userMessage);
+    private List<TrainCard> faceUpCards;
+    private TrainCard drawnCard;
+
+    public DrawTrainCardsResult(TrainCard drawnCard, List<TrainCard> faceUpCards, boolean success, List<ICommand> clientCommands, String userMessage) {
+        super(success, clientCommands, userMessage);
+        this.drawnCard = drawnCard;
+        this.faceUpCards = faceUpCards;
     }
 
     public DrawTrainCardsResult(String exceptionType, String exceptionMessage) {
         super(exceptionType, exceptionMessage);
     }
 
-    @Override
-    public List<TrainCard> getCards() {
-        return (List<TrainCard>) super.getCards();
+    public TrainCard getDrawnCard() {
+        return drawnCard;
+    }
+
+    public List<TrainCard> getFaceUpCards() {
+        return faceUpCards;
     }
 }
