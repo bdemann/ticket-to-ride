@@ -6,6 +6,7 @@ import java.util.Observer;
 import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
 import shared.model.TrainCard;
+import shared.results.DrawTrainCardsResult;
 import view.DrawTrainCardsActivity;
 
 /**
@@ -19,21 +20,23 @@ public class DrawTrainCardsPresenter implements IDrawTrainCardsPresenter, Observ
 
     public DrawTrainCardsPresenter(DrawTrainCardsActivity view) {
         this.view = view;
+        ClientRoot.addClientRootObserver(this);
     }
 
     @Override
     public void drawFaceUpCard(int index) {
-        TrainCard trainCard = ClientRoot.getClientGame().getCardsFaceUp().get(index);
-        GameGuiFacade.drawFaceUpTrainCard(trainCard);
+        GameGuiFacade.drawFaceUpTrainCard(index);
     }
 
     @Override
     public void drawFaceDownCard() {
-        ClientRoot.getClientPlayer().addTrainCard(GameGuiFacade.drawFaceDownTrainCard());
+        GameGuiFacade.drawFaceDownTrainCard();
     }
 
     @Override
     public void update(Observable observable, Object o) {
-
+        //TODO update the face up cards
+        //TODO update the state?
+        view.setFaceUpCards(ClientRoot.getClientGameInfo().getFaceUpCards());
     }
 }
