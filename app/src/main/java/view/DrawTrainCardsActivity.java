@@ -110,7 +110,6 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
             @Override
             public void onClick(View view) {
                 drawCardFromDeck();
-            }
         });
     }
 
