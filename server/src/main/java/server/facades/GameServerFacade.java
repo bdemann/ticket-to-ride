@@ -113,29 +113,6 @@ public class GameServerFacade implements IGameServerFacade {
         return false;
     }
 
-    /**
-     * When a player draws a train card from the faceUpDeck. A card is added to his/her hand
-     * and the same card is taken from the deck.
-     *
-     * @param username the username of the player claiming the route as a String
-     * @param trainCard an object representing the train cards in the game
-     *
-     * @pre username != null
-     * @pre trainCard != null
-     *
-     * @post FaceUpDeck.cardCount -= 1
-     * @post player.trainCards += 1
-     * @post trainCard is added to player's hand
-     * @post trainCard is removed from faceUpDeck
-     *
-     * @return
-     */
-    @Override
-    public DrawTrainCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
-        //TODO implement this method
-        return null;
-    }
-
 
     /**
      * Discards the Destination Card that wasn't chosen by a player
@@ -176,6 +153,37 @@ public class GameServerFacade implements IGameServerFacade {
     }
 
     /**
+     * When a player draws a train card from the faceUpDeck. A card is added to his/her hand
+     * and the same card is taken from the deck.
+     *
+     * @param username the username of the player claiming the route as a String
+     * @param trainCardIndex the index of the train card to be drawn
+     *
+     * @pre username != null
+     * @pre trainCard != null
+     *
+     * @post FaceUpDeck.cardCount -= 1
+     * @post player.trainCards += 1
+     * @post trainCard is added to player's hand
+     * @post trainCard is removed from faceUpDeck
+     *
+     * @return
+     */
+    @Override
+    public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
+        IPlayer player = ServerRoot.getPlayer(username);
+        IGame game = ServerRoot.getGame(player.getGameId());
+        TrainCard result = game.getCardsFaceUp().get(trainCardIndex);
+        game.getCardsFaceUp().set(trainCardIndex, drawTrainCard(game.getId()));
+
+        //TODO take care of incrementing the turn if its the second draw or a locamotive card
+        game.getGameHistory().addEvent(new GameEvent(username, "drew " + result.toString(), System.currentTimeMillis()));
+        ClientNotifications.gameUpdated(username);
+
+        return new DrawTrainCardsResult(result, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Drew a face up card");
+    }
+
+    /**
      * When a player draws a train card from the face down Deck. A card is added to his/her hand
      * and the same card is taken from the deck.
      *
@@ -193,18 +201,24 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a DrawCardResult with a message about the success of the action
      */
     @Override
-    public DrawTrainCardsResult drawTrainCard(String username) {
+    public DrawTrainCardsResult drawFaceDownTrainCard(String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
-        List<TrainCard> cards = game.getTrainCardDeck().draw(1);
+        TrainCard drawnCard = drawTrainCard(game.getId());
 
         game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
-        return new DrawTrainCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw a train card");
+        return new DrawTrainCardsResult(drawnCard, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Draw a train card");
+    }
+
+    private TrainCard drawTrainCard(int gameId){
+        IGame game = ServerRoot.getGame(gameId);
+
+        return game.getTrainCardDeck().draw(1).get(0);
     }
 
     /**
