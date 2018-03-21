@@ -18,6 +18,8 @@ import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
+import shared.results.DrawDestCardsResult;
+import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
 
 /**
@@ -105,34 +107,10 @@ public class GameServerFacade implements IGameServerFacade {
                 return true;
             } else {
                 Color cardColor = cards.getSetColor();
-                //TODO can you claim a route with all wilds? I am assuming so but we will have to change this if not.
                 return cardColor.equals(route.getColor()) || cardColor.equals(Color.RAINBOW);
             }
         }
         return false;
-    }
-
-    /**
-     * When a player draws a train card from the faceUpDeck. A card is added to his/her hand
-     * and the same card is taken from the deck.
-     *
-     * @param username the username of the player claiming the route as a String
-     * @param trainCard an object representing the train cards in the game
-     *
-     * @pre username != null
-     * @pre trainCard != null
-     *
-     * @post FaceUpDeck.cardCount -= 1
-     * @post player.trainCards += 1
-     * @post trainCard is added to player's hand
-     * @post trainCard is removed from faceUpDeck
-     *
-     * @return
-     */
-    @Override
-    public DrawCardsResult drawFaceUpTrainCard(String username, TrainCard trainCard) {
-        //TODO implement this method
-        return null;
     }
 
 
@@ -168,10 +146,43 @@ public class GameServerFacade implements IGameServerFacade {
         ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.size() + " cards", System.currentTimeMillis()));
 
         //Notify other users
-        ClientNotifications.playerDrewDestinationCards(username);
+        ClientNotifications.gameUpdated(username);
 
         ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.toList());
         return new Result(true, ClientCommands.getCommandList(username), "discarded successfully");
+    }
+
+    /**
+     * When a player draws a train card from the faceUpDeck. A card is added to his/her hand
+     * and the same card is taken from the deck.
+     *
+     * @param username the username of the player claiming the route as a String
+     * @param trainCardIndex the index of the train card to be drawn
+     *
+     * @pre username != null
+     * @pre trainCard != null
+     *
+     * @post FaceUpDeck.cardCount -= 1
+     * @post player.trainCards += 1
+     * @post trainCard is added to player's hand
+     * @post trainCard is removed from faceUpDeck
+     *
+     * @return
+     */
+    @Override
+    public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
+        IPlayer player = ServerRoot.getPlayer(username);
+        IGame game = ServerRoot.getGame(player.getGameId());
+        TrainCard result = game.getCardsFaceUp().get(trainCardIndex);
+        game.getCardsFaceUp().set(trainCardIndex, drawTrainCard(game.getId()));
+
+        //TODO make sure we shuffle away any time we have 3+ locomotive cards.
+
+        //TODO take care of incrementing the turn if its the second draw or a locamotive card
+        game.getGameHistory().addEvent(new GameEvent(username, "drew " + result.toString(), System.currentTimeMillis()));
+        ClientNotifications.gameUpdated(username);
+
+        return new DrawTrainCardsResult(result, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Drew a face up card");
     }
 
     /**
@@ -192,18 +203,24 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a DrawCardResult with a message about the success of the action
      */
     @Override
-    public DrawCardsResult drawTrainCard(String username) {
+    public DrawTrainCardsResult drawFaceDownTrainCard(String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
-        List<TrainCard> cards = game.getTrainCardDeck().draw(1);
+        TrainCard drawnCard = drawTrainCard(game.getId());
 
         game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
-        return new DrawCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw a train card");
+        return new DrawTrainCardsResult(drawnCard, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Draw a train card");
+    }
+
+    private TrainCard drawTrainCard(int gameId){
+        IGame game = ServerRoot.getGame(gameId);
+
+        return game.getTrainCardDeck().draw(1).get(0);
     }
 
     /**
@@ -221,7 +238,7 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns s DrawCardsResult with a message about the success of the action
      */
     @Override
-    public DrawCardsResult drawDestCards(String username) {
+    public DrawDestCardsResult drawDestCards(String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
@@ -232,6 +249,6 @@ public class GameServerFacade implements IGameServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card", System.currentTimeMillis()));
         ClientNotifications.playerDrewDestinationCards(username);
 
-        return new DrawCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
+        return new DrawDestCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
     }
 }

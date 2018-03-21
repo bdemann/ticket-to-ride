@@ -7,5 +7,5 @@ package view;
 
 public interface IDrawTrainCardsView {
     void drawFaceUpCard(int cardNum);
-    void drawCardFromDeck();
+    void drawFaceDownCard();
 }

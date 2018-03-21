@@ -5,11 +5,13 @@ import java.util.List;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
+import shared.command.Command;
 import shared.model.DestCardSet;
 import shared.model.DestCard;
 import shared.model.TrainCard;
 import shared.model.interfaces.IGameInfo;
 import shared.results.DrawCardsResult;
+import shared.results.DrawTrainCardsResult;
 
 /**
  * This helps the presenters talk to the model
@@ -55,5 +57,28 @@ public class GameGuiFacade {
         }
 
         return completedDestination;
+    }
+
+    public static void drawFaceDownTrainCard() {
+        GameServerProxy gsp = new GameServerProxy();
+        DrawTrainCardsResult cardsResult = gsp.drawFaceDownTrainCard(ClientRoot.getClientPlayer().getUsername());
+        try {
+            Command.executeList(cardsResult.getClientCommands());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ClientRoot.getClientPlayer().addTrainCard(cardsResult.getDrawnCard());
+    }
+
+    public static void drawFaceUpTrainCard(int trainCardIndex) {
+        GameServerProxy gsp = new GameServerProxy();
+        DrawTrainCardsResult result = gsp.drawFaceUpTrainCard(ClientRoot.getClientPlayer().getUsername(), trainCardIndex);
+        try {
+            Command.executeList(result.getClientCommands());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
+        ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
     }
 }

@@ -59,4 +59,5 @@ public class ClientNotifications {
     public static void playerDrewDestinationCards(String username) {
         _updateGame(username);
     }
+
 }

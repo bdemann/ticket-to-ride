@@ -20,24 +20,14 @@ public class ChatHistoryGuiFacade {
     }
 
     public static List<Chat> getChats() {
-        System.out.println("Before chat");
-        for(Chat chat: ClientRoot.getChats()){
-            System.out.println("CHAT: " + chat);
-        }
         return ClientRoot.getChats();
     }
 
     public static void sendChat(String message){
         ChatServerProxy chatServerProxy = new ChatServerProxy();
         ChatResult chatResult = chatServerProxy.sendChat(new Chat(ClientRoot.getClientPlayer(), message, System.currentTimeMillis()));
-        System.out.println("Chat result: " + chatResult);
 
-        System.out.println("Message: " + message);
         ClientRoot.addChatMessage(chatResult.getMessage());
-        System.out.println("Before chat2");
-        for(Chat chat: ClientRoot.getChats()){
-            System.out.println("CHAT: " + chat);
-        }
     }
 
     //TODO: add chat and events
