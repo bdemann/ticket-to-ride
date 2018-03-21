@@ -87,7 +87,6 @@ public class GameInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
-        boolean isDemoDone = this.getIntent().getBooleanExtra("demo", true);
 
         _doneButton = (Button) findViewById(R.id.game_info_done);
 
@@ -100,7 +99,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
         _initializeGuiElements();
         _initializePresenter();
-        _initializeInfo(isDemoDone);
+        _initializeInfo();
         _initializePlayerHand();
         _setUpRecycler();
     }
@@ -171,13 +170,14 @@ public class GameInfoActivity extends AppCompatActivity {
         _player5_dest_cards = (TextView) findViewById(R.id.player5_dest_cards);
     }
 
-    private void _initializeInfo(boolean isDemoDone){
+    private void _initializeInfo(){
         IGameInfo gameInfo = _gameInfoPresenter.getStarterGameInfo();
         System.out.println("Size player list in Activity: " + gameInfo.getPlayers().size());
         System.out.println("TURN INDEX: " + gameInfo.getTurnIndex());
         _updateGameInfo(gameInfo.getPlayers(), gameInfo.getPlayerPoints(), gameInfo.getPlayerHandSizes(),
                 gameInfo.getClaimedRoutes(), gameInfo.getRemainingTrains(), gameInfo.getPlayerColors(), gameInfo.getPlayerDestCount());
 
+        /* WAS FROM DEMO - DIDNT delete this just in case it's useful later.
         if(!isDemoDone) {
             _player1.setBackgroundColor(Color.argb(0,255,255,255));
             _player2.setBackgroundColor(Color.argb(255,220,220,220));
@@ -186,6 +186,7 @@ public class GameInfoActivity extends AppCompatActivity {
             _player1.setBackgroundColor(Color.argb(255,220,220,220));
             _player2.setBackgroundColor(Color.argb(0,255,255,255));
         }
+        */
 
     }
 
