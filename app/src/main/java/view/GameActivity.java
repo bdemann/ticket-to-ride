@@ -127,22 +127,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             Button button = (Button) view;
             String text = button.getText().toString();
 
-            /*
-            if (text.equals(ATLANTA)) {
-                text = "atlanta nanana";
-                mediaPlayer.start();
-            }
-            */
-            if (text.equals(HOUSTON)) {
-                _citiesSelected.add(HOUSTON);
-            }
-            if (text.equals(EL_PASO)) {
-                _citiesSelected.add(EL_PASO);
-
-            }
-
-
+            //Add the city to the selected list
+            _citiesSelected.add(text);
             ViewUtilities.displayMessage(text, view.getContext());
+
         }
         else{
             ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Route to End", view.getContext());
@@ -182,8 +170,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             @Override
             public void onClick(View view) {
                 displayChat();
-                //Do something please!
-                ViewUtilities.displayMessage("Chat and Stats\nShould Show", view.getContext());
             }
         });
     }
@@ -343,6 +329,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         if(_citiesSelected.size() == 2) {
 
+            //Check if the two cities comprise a valid route
+            //Check if that valid route has been claimed.
+            //If those conditions are true, then claim the route and draw.
+
+            /*
             //REFACTOR AFTER DEMO
             City houston = new City(new CityPoint(580, 540), HOUSTON);
             City elPaso = new City(new CityPoint(345, 480), EL_PASO);
@@ -362,6 +353,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             tint = Color.argb(0, 0, 0, 0);
             mapView.setColorFilter(tint);
             //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
+            */
         }
     }
 
