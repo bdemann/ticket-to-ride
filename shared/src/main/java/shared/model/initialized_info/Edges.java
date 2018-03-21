@@ -10,6 +10,7 @@ import shared.model.Color;
 import shared.model.Edge;
 
 /**
+ *
  * Created by paulinecausse on 3/2/18.
  */
 
@@ -235,5 +236,9 @@ public class Edges implements Serializable {
         _allEdges.add(_76);
         _allEdges.add(_77);
 
+    }
+
+    public List<Edge> getEdges(){
+        return _allEdges;
     }
 }

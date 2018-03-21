@@ -15,7 +15,19 @@ import com.a340team.tickettoride.R;
 
 import java.util.List;
 
+import shared.model.CityPoint;
+import shared.model.Edge;
 import shared.model.Route;
+
+import static shared.model.Color.BLACK;
+import static shared.model.Color.BLUE;
+import static shared.model.Color.GRAY;
+import static shared.model.Color.GREEN;
+import static shared.model.Color.ORANGE;
+import static shared.model.Color.PINK;
+import static shared.model.Color.RED;
+import static shared.model.Color.WHITE;
+import static shared.model.Color.YELLOW;
 
 /**
  *
@@ -25,7 +37,7 @@ import shared.model.Route;
 public class DrawUtilities extends View {
 
     private Context _context;
-    private static float strokeWidth = 10;
+    private static double scaleFactor = 0.885;
 
     public DrawUtilities(Context context) {
         super(context);
@@ -45,28 +57,68 @@ public class DrawUtilities extends View {
     }
 
 
-    public void drawRoutes(List<Route> routes, ImageView view) {
+    public void drawRoutes(List<Edge> edges, ImageView view) {
         //super.onDraw(canvas);
+        //Set the paint
         Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStrokeWidth(strokeWidth);
+        paint.setStrokeWidth(8);
+        paint.setStrokeCap(Paint.Cap.ROUND);
 
+        //Set the bit map
         Bitmap gameMapBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ticket_to_ride_map_with_routes);
         Bitmap drawableBitmap = gameMapBitmap.copy(Bitmap.Config.ARGB_8888, true);
 
+        //Get the final canvas
         Canvas canvas = new Canvas(drawableBitmap);
-        float xOffset = -50;
-        float yOffset = -55;
 
-        for (Route route : routes) {
-            float sX = route.getStart().get_coordinates().x() + xOffset;
-            float sY = route.getStart().get_coordinates().y() + yOffset;
-            float eX = route.getEnd().get_coordinates().x() + xOffset;
-            float eY = route.getEnd().get_coordinates().y()+ yOffset;
-            canvas.drawLine(sX,sY,eX,eY,paint);
+        for (Edge edge : edges) {
+            CityPoint start = _scale(edge.getStart().get_coordinates(), scaleFactor);
+            CityPoint end = _scale(edge.getEnd().get_coordinates(), scaleFactor);
+            paint.setColor(_convertColor(edge.getColor()));
+            canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
         }
-
+        //Set the new bg image with the strokes
         view.setImageBitmap(drawableBitmap);
-
     }
+
+    private CityPoint _scale(CityPoint coords, double scaleFactor) {
+        double x = coords.x() * scaleFactor;
+        double y = coords.y() * scaleFactor;
+        return new CityPoint((int)x,(int)y);
+    }
+
+    /*
+    This method converts our shared model colors to android graphics colors
+     */
+    private int _convertColor(shared.model.Color color) {
+        if(color.equals(PINK)){
+            return Color.MAGENTA;
+        }
+        if(color.equals(RED)){
+            return Color.RED;
+        }
+        if(color.equals(BLUE)){
+            return Color.BLUE;
+        }
+        if(color.equals(ORANGE)){
+            return Color.rgb(255,165,0);
+        }
+        if(color.equals(WHITE)){
+            return Color.WHITE;
+        }
+        if(color.equals(BLACK)){
+            return Color.BLACK;
+        }
+        if(color.equals(GREEN)){
+            return Color.GREEN;
+        }
+        if(color.equals(YELLOW)){
+            return Color.YELLOW;
+        }
+        if(color.equals(GRAY)){
+            return Color.GRAY;
+        }
+        return Color.CYAN;//CYAN MEANS ERROR
+    }
+
 }

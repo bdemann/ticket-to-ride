@@ -7,6 +7,7 @@ import shared.model.interfaces.IRoute;
 
 /**
  * Created by BenNelson on 2/2/18.
+ *
  */
 public class Route implements IRoute, Serializable {
     private List<Edge> _edges;

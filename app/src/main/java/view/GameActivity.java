@@ -24,6 +24,8 @@ import shared.model.Edge;
 import shared.model.Hand;
 import shared.model.Route;
 import shared.model.TrainCard;
+import shared.model.initialized_info.Cities;
+import shared.model.initialized_info.Edges;
 import shared.model.interfaces.IEdge;
 
 import static shared.model.initialized_info.DestCardId.*;
@@ -326,12 +328,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
         //mapView.setBackgroundColor(tint);
+        List<Edge> allEdges = Edges.instance().getEdges();
+        _drawRoutes(allEdges);
 
         if(_citiesSelected.size() == 2) {
 
-            //Check if the two cities comprise a valid route
-            //Check if that valid route has been claimed.
-            //If those conditions are true, then claim the route and draw.
+            //Check if the two cities comprise a valid edge
+            //Check if that valid edge has been claimed.
+            //Check if the player has enough train cards that are the right color.
+            //If those conditions are true, then claim the route(edge) and draw.
+            //Discard the train cards.
+
+
 
             /*
             //REFACTOR AFTER DEMO
@@ -357,11 +365,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         }
     }
 
-    private void _drawRoutes(List<Route> routes) {
+    private void _drawRoutes(List<Edge> edges) {
 
         DrawUtilities myDrawer = new DrawUtilities(this);
 
-        myDrawer.drawRoutes(routes, mapView);
+        myDrawer.drawRoutes(edges, mapView);
     }
 
     @Override
