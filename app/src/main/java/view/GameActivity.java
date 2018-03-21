@@ -13,22 +13,9 @@ import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import model.ClientRoot;
-import shared.model.DestCardSet;
-import shared.model.City;
-import shared.model.CityPoint;
-import shared.model.DestCard;
-import shared.model.Edge;
-import shared.model.Hand;
 import shared.model.Route;
-import shared.model.TrainCard;
-import shared.model.initialized_info.Cities;
-import shared.model.initialized_info.Edges;
-import shared.model.interfaces.IEdge;
-
-import static shared.model.initialized_info.DestCardId.*;
+import shared.model.initialized_info.Routes;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
@@ -135,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         }
         else{
-            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Route to End", view.getContext());
+            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Routes to End", view.getContext());
         }
     }
 
@@ -328,8 +315,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
         //mapView.setBackgroundColor(tint);
-        List<Edge> allEdges = Edges.instance().getEdges();
-        _drawRoutes(allEdges);
+        List<Route> allRoutes = Routes.instance().getEdges();
+        _drawRoutes(allRoutes);
 
         if(_citiesSelected.size() == 2) {
 
@@ -345,11 +332,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             //REFACTOR AFTER DEMO
             City houston = new City(new CityPoint(580, 540), HOUSTON);
             City elPaso = new City(new CityPoint(345, 480), EL_PASO);
-            Route r = new Route();
+            Routes r = new Routes();
             r.setStart(houston);
             r.setEnd(elPaso);
             r.setLength(6);
-            List<Route> routes = new ArrayList<>();
+            List<Routes> routes = new ArrayList<>();
             routes.add(r);
 
             _drawRoutes(routes);
@@ -365,11 +352,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         }
     }
 
-    private void _drawRoutes(List<Edge> edges) {
+    private void _drawRoutes(List<Route> routes) {
 
         DrawUtilities myDrawer = new DrawUtilities(this);
 
-        myDrawer.drawRoutes(edges, mapView);
+        myDrawer.drawRoutes(routes, mapView);
     }
 
     @Override

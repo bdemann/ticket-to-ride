@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
-import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IRoute;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
@@ -253,7 +253,7 @@ public class Game implements IGame, Serializable {
         Map<String, Integer> playerHandSizes = new HashMap<>();
         Map<String, Integer> playerPoints = new HashMap<>();
         Map<String, Integer> trainsRemaining = new HashMap<>();
-        Map<String, List<IEdge>> claimedRoutes = new HashMap<>();
+        Map<String, List<IRoute>> claimedRoutes = new HashMap<>();
         Map<String, Integer> playerDestCount = new HashMap<>();
         for(IPlayer player : _players) {
             String username = player.getUsername();
@@ -263,7 +263,7 @@ public class Game implements IGame, Serializable {
             playerPoints.put(username, player.getScore());
             trainsRemaining.put(username, player.getTrains().size());
             //TODO fix this once we know how to get the routes.
-            List<IEdge> list = new ArrayList<>();
+            List<IRoute> list = new ArrayList<>();
             claimedRoutes.put(username, list);
             playerDestCount.put(username, player.getDestCards().size());
         }

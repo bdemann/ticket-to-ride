@@ -1,43 +1,65 @@
 package shared.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import shared.model.interfaces.IRoute;
 
 /**
- * Created by BenNelson on 2/2/18.
- *
+ * Created by paulinecausse on 2/28/18.
  */
-public class Route implements IRoute, Serializable {
-    private List<Edge> _edges;
+
+public class Route implements IRoute, Serializable{
     private int _length;
     private City _start;
-    private City end;
+    private City _end;
+//    private List<Block> _blocks;
+    private Color _color;
+    private boolean _claimed;
 
-    public Route(){}
+    public Route(int length, City start, City end, Color color, boolean claimed){
+        this._color = color;
+        this._start = start;
+        this._end = end;
+        this._length = length;
+        this._claimed = claimed;
+    }
 
-    @Override
-    public void setEdges(List<Edge> edges){ this._edges = edges; }
-
-    @Override
     public void setLength(int length){ this._length = length; }
 
-    @Override
-    public void setStart(City start){this._start = start; }
+    public void setStart(City start){ this._start = start; }
 
-    @Override
-    public void setEnd(City end){this.end = end; }
+    public void setEnd(City end){ this._end = end; }
 
-    @Override
-    public List<Edge> getEdges(){ return _edges; }
+//    public void setBlocks(List<Block> blocks){ this._blocks = blocks; }
 
-    @Override
+    public void setColor(Color color){ this._color = color; }
+
     public int getLength(){ return _length; }
 
-    @Override
     public City getStart(){ return _start; }
 
+    public City getEnd(){ return _end; }
+
+//    public List<Block> getBlocks(){ return _blocks; }
+
+    public Color getColor(){ return _color; }
+
     @Override
-    public City getEnd(){ return end; }
+    public int getValue() {
+        switch (_length){
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 4;
+            case 4:
+                return 7;
+            case 5:
+                return 10;
+            case 6:
+                return 15;
+        }
+        return 0;
+    }
 }
