@@ -315,12 +315,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
         //mapView.setBackgroundColor(tint);
-        List<Route> allRoutes = Routes.instance().getEdges();
-        _drawRoutes(allRoutes);
+        //List<Route> allRoutes = Routes.instance().getEdges();
+        //_drawRoutes(allRoutes, shared.model.Color.PINK);
 
         if(_citiesSelected.size() == 2) {
 
             //Check if the two cities comprise a valid edge
+            String startCity = _citiesSelected.get(0);
+            String endCity = _citiesSelected.get(1);
+
+            //TO DO WORK ON CLAIM ROUTE STUFF
+
+
             //Check if that valid edge has been claimed.
             //Check if the player has enough train cards that are the right color.
             //If those conditions are true, then claim the route(edge) and draw.
@@ -352,11 +358,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         }
     }
 
-    private void _drawRoutes(List<Route> routes) {
+    private void _drawRoutes(List<Route> routes, shared.model.Color playerColor) {
 
         DrawUtilities myDrawer = new DrawUtilities(this);
 
-        myDrawer.drawRoutes(routes, mapView);
+        myDrawer.drawRoutes(routes, playerColor, mapView);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class DrawUtilities extends View {
     }
 
 
-    public void drawRoutes(List<Route> routes, ImageView view) {
+    public void drawRoutes(List<Route> routes, shared.model.Color playerColor, ImageView view) {
         //super.onDraw(canvas);
         //Set the paint
         Paint paint = new Paint();
