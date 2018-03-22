@@ -91,6 +91,13 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
         _destinationsPresenter = new DrawDestinationsPresenter();
     }
 
+    private void printDestList(List<DestCard> destList){
+        for(DestCard card: destList){
+            System.out.println("Card: " + card.getDestination().toString());
+        }
+    }
+
+
     //Make the listeners for the image buttons
     private void _createListeners() {
         final int tint = Color.argb(128, 0, 200, 0);
@@ -133,10 +140,10 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                 if(_chosenCards.size() > 1){
                     //Send the chosen cards onto the player, and the discard to the server
 
-                    //TODO delete me, I was part of DEMO ---------------------------------|
                     DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
                     List<DestCard> destList = s.toList();
                     List<DestCard> cardsToRemove = new ArrayList<DestCard>();
+//                    printDestList(destList);
 
                     if(!_chosenCards.contains(FIRST_CARD)){
                         cardsToRemove.add(destList.get(0));
@@ -150,16 +157,11 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                         cardsToRemove.add(destList.get(2));
                         destList.remove(2);
                     }
-//                    ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
-//                    ClientRoot.getClientPlayer().setDestCards(destList);
-//
-//                    GameServerProxy gameServerProxy = new GameServerProxy();
-//                    DestCardSet destCardSet = new DestCardSet(destList);
+
+//                    printDestList(destList);
                     DestCardSet removeDestCardSet = new DestCardSet(cardsToRemove);
                     _destinationsPresenter.discardDestCards(destList, removeDestCardSet);
 
-//                    gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeDestCardSet);
-                    //END OF DELETE ME ---------------------------------------------------|
 
                     //Then finish the activity
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
