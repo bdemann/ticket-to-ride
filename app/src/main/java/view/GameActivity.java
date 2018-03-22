@@ -68,6 +68,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     ArrayList<Button> _cityButtons;
     ArrayList<String> _citiesSelected = new ArrayList<>();
     private int _maxCitiesSelected = 2;
+    private AppCompatActivity _gameActivity;
 
 
 
@@ -76,6 +77,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_acitvity);
+        _gameActivity = this;
         //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
 
@@ -314,6 +316,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _setDrawButtons(false);
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
+        //getWindow().getDecorView().setBackgroundColor(Color.RED);
+        _gameActivity.findViewById(R.id.map_image).setBackgroundColor(Color.RED);
+
+
         //mapView.setBackgroundColor(tint);
         //List<Route> allRoutes = Routes.instance().getEdges();
         //_drawRoutes(allRoutes, shared.model.Color.PINK);
@@ -346,6 +352,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             routes.add(r);
 
             _drawRoutes(routes);
+            */
 
             ViewUtilities.displayMessage("You Claimed:\nStart: " + _citiesSelected.get(0) +"\nDest: " + _citiesSelected.get(1), this);
             _setCityButtons(false);
@@ -353,8 +360,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             _citiesSelected.clear();
             tint = Color.argb(0, 0, 0, 0);
             mapView.setColorFilter(tint);
-            //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
-            */
+            mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
+
         }
     }
 
