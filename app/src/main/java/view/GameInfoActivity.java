@@ -250,8 +250,6 @@ public class GameInfoActivity extends AppCompatActivity {
                                 Map<String, List<String>> claimedRoutes, Map<String, Integer> playerRemainingTrains,
                                 Map<String, Integer> playerColors, Map<String, Integer> destCards){
 
-        System.out.println("SIZE OF DESTCARD: " + destCards.size());
-
         _player1.setText(players.get(0));
         String points = playerPoints.get(players.get(0)).toString();
         _player1Points.setText(points);
@@ -264,7 +262,8 @@ public class GameInfoActivity extends AppCompatActivity {
         _player1Color.setBackgroundColor(playerColors.get(players.get(0)));
 
         //**REMEMBER TO CHANGE!!! THIS IS JUST FOR DEMO
-        String numDestCards = Integer.toString(_gameInfoPresenter.getDestinationCards().size());//destCards.get(players.get(0)).toString();
+//        String numDestCards = Integer.toString(_gameInfoPresenter.getDestinationCards().size());
+        String numDestCards = destCards.get(players.get(0)).toString();
         _player1_dest_cards.setText(numDestCards);
 
         _player2.setText(players.get(1));
@@ -279,7 +278,8 @@ public class GameInfoActivity extends AppCompatActivity {
         _player2Color.setBackgroundColor(playerColors.get(players.get(1)));
 
         //**REMEMBER TO CHANGE!!! THIS IS JUST FOR DEMO
-        numDestCards = Integer.toString(_gameInfoPresenter.getDestinationCards().size()); //destCards.get(players.get(1)).toString();
+//        numDestCards = Integer.toString(_gameInfoPresenter.getDestinationCards().size()); //destCards.get(players.get(1)).toString();
+        numDestCards = destCards.get(players.get(1)).toString();
         _player2_dest_cards.setText(numDestCards);
 
         if(players.size() != 3){
