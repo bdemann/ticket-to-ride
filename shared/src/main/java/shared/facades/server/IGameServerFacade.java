@@ -1,9 +1,8 @@
 package shared.facades.server;
 
 import shared.model.DestCardSet;
-import shared.model.TrainCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IRoute;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
@@ -15,7 +14,7 @@ import shared.results.Result;
 
 public interface IGameServerFacade {
 
-    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username);
+    public ClaimRouteResult claimRoute(IRoute route, TrainCardSet cards, String username);
 
     public DrawDestCardsResult drawDestCards(String username);
     public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards);

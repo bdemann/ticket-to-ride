@@ -6,7 +6,7 @@ import server.proxies.GameClientProxy;
 import server.proxies.GameMenuClientProxy;
 import server.proxies.LobbyClientFacadeProxy;
 import shared.model.Chat;
-import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IRoute;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
@@ -48,7 +48,7 @@ public class ClientNotifications {
         _updateGame(username);
     }
 
-    public static void playerClaimedRoute(String username, IEdge route) {
+    public static void playerClaimedRoute(String username, IRoute route) {
         _updateGame(username);
     }
 

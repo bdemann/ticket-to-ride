@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
-import shared.model.interfaces.IEdge;
+import shared.model.initialized_info.Routes;
+import shared.model.interfaces.IRoute;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
@@ -30,6 +31,8 @@ public class Game implements IGame, Serializable {
     private List<TrainCard> _faceUpCards;
     private GameHistory _gameHistory;
     private int _turnIndex;
+    private List<String> _openRoutes;
+    private List<String> _claimedRoutes;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
@@ -41,6 +44,8 @@ public class Game implements IGame, Serializable {
         this._destDeck = new DestDeck();
         this._faceUpCards = new ArrayList<>();
         this._gameHistory = new GameHistory();
+        this._openRoutes = Routes.instance().getRoutesList();
+        this._claimedRoutes = new ArrayList<>();
     }
 
     public String toString(){
@@ -73,13 +78,13 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public void setOpenRoutes(List<Route> openRoutes) {
-        //TODO implement this method
+    public void setOpenRoutes(List<String> openRoutes) {
+        this._openRoutes = openRoutes;
     }
 
     @Override
-    public void setClaimedRoutes(List<Route> claimedRoutes) {
-        //TODO implement this method
+    public void setClaimedRoutes(List<String> claimedRoutes) {
+        this._claimedRoutes = claimedRoutes;
     }
 
     @Override
@@ -123,15 +128,13 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public List<Route> getOpenRoutes() {
-        //TODO implement this method
-        return null;
+    public List<String> getOpenRoutes() {
+        return this._openRoutes;
     }
 
     @Override
-    public List<Route> getClaimedRoutes() {
-        //TODO implement this method
-        return null;
+    public List<String> getClaimedRoutes() {
+        return this._claimedRoutes;
     }
 
     @Override
@@ -253,7 +256,7 @@ public class Game implements IGame, Serializable {
         Map<String, Integer> playerHandSizes = new HashMap<>();
         Map<String, Integer> playerPoints = new HashMap<>();
         Map<String, Integer> trainsRemaining = new HashMap<>();
-        Map<String, List<IEdge>> claimedRoutes = new HashMap<>();
+        Map<String, List<String>> claimedRoutes = new HashMap<>();
         Map<String, Integer> playerDestCount = new HashMap<>();
         for(IPlayer player : _players) {
             String username = player.getUsername();
@@ -262,11 +265,43 @@ public class Game implements IGame, Serializable {
             playerHandSizes.put(username, player.getTrainCardHand().size());
             playerPoints.put(username, player.getScore());
             trainsRemaining.put(username, player.getTrains().size());
-            //TODO fix this once we know how to get the routes.
-            List<IEdge> list = new ArrayList<>();
-            claimedRoutes.put(username, list);
+            claimedRoutes.put(username, _claimedRoutes);
             playerDestCount.put(username, player.getDestCards().size());
         }
         return new GameInfo(_id, _gameName, _gameHistory, _playerWithLongestRoute, _faceUpCards, players, playerColors, playerPoints, playerHandSizes, playerDestCount, claimedRoutes, trainsRemaining, getGameHistory(), _turnIndex);
+    }
+
+    @Override
+    public IRoute isRouteAvailable(IRoute route) {
+
+        String start = route.getStart().get_name();
+        String end = route.getEnd().get_name();
+        Map<String, IRoute> map = Routes.instance().getRoutesMap();
+        for(String routeName : _openRoutes){
+            if(map.containsKey(routeName)){
+                IRoute currentRoute = map.get(routeName);
+                String s = currentRoute.getStart().get_name();
+                String e = currentRoute.getEnd().get_name();
+
+                if((start.equals(s) && end.equals(e)) || (start.equals(e) && end.equals(s))){
+                    //Then it is an open route
+                    return new Route(currentRoute.getLength(),currentRoute.getStart(),currentRoute.getEnd(),currentRoute.getColor(),false);
+                }
+            }
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public IRoute claimRoute(IRoute route) {
+        //This assumes the incoming route is valid
+        //TODO finish the claiming benjamin
+
+
+
+
+        return null;
     }
 }

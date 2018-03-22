@@ -15,18 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.ClientRoot;
-import shared.model.DestCardSet;
-import shared.model.City;
-import shared.model.CityPoint;
-import shared.model.DestCard;
-import shared.model.Edge;
-import shared.model.Hand;
+import presenter.GamePresenter;
+import presenter.IGamePresenter;
 import shared.model.Route;
-import shared.model.TrainCard;
-import shared.model.interfaces.IEdge;
-
-import static shared.model.initialized_info.DestCardId.*;
+import shared.model.initialized_info.Routes;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
@@ -78,7 +70,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     //Button Array
     ArrayList<Button> _cityButtons;
     ArrayList<String> _citiesSelected = new ArrayList<>();
-    private int _maxCitiesSelected = 2;
+    private final int _maxCitiesSelected = 2;
+    private IGamePresenter _gamePresenter;
 
 
 
@@ -87,6 +80,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_acitvity);
+        _gamePresenter = new GamePresenter();
         //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
 
@@ -133,7 +127,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
 
         }
         else{
-            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Route to End", view.getContext());
+            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Routes to End", view.getContext());
         }
     }
 
@@ -325,42 +319,31 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _setDrawButtons(false);
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
-        //mapView.setBackgroundColor(tint);
 
         if(_citiesSelected.size() == 2) {
 
-            //Check if the two cities comprise a valid route
-            //Check if that valid route has been claimed.
-            //If those conditions are true, then claim the route and draw.
+            //Check if the two cities comprise a valid edge
+            String message = _gamePresenter.claimRoute(_citiesSelected.get(0),_citiesSelected.get(1));
 
-            /*
-            //REFACTOR AFTER DEMO
-            City houston = new City(new CityPoint(580, 540), HOUSTON);
-            City elPaso = new City(new CityPoint(345, 480), EL_PASO);
-            Route r = new Route();
-            r.setStart(houston);
-            r.setEnd(elPaso);
-            r.setLength(6);
-            List<Route> routes = new ArrayList<>();
-            routes.add(r);
+            //Draw all the routes in the game.
+            //_drawRoutes();
 
-            _drawRoutes(routes);
-
-            ViewUtilities.displayMessage("You Claimed:\nStart: " + _citiesSelected.get(0) +"\nDest: " + _citiesSelected.get(1), this);
+            //Re-enable buttons, turn off tint, and let the use know what just happened.
+            ViewUtilities.displayMessage(message, this);
             _setCityButtons(false);
             _setDrawButtons(true);
             _citiesSelected.clear();
             tint = Color.argb(0, 0, 0, 0);
             mapView.setColorFilter(tint);
-            //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
-            */
         }
     }
 
-    private void _drawRoutes(List<Route> routes) {
+    private void _drawRoutes() {
+        //Get all the routes to draw.
+        Map<shared.model.Color, List<Route>> routes = _gamePresenter.getRoutesMapForDrawing();
 
+        //Draw the routes
         DrawUtilities myDrawer = new DrawUtilities(this);
-
         myDrawer.drawRoutes(routes, mapView);
     }
 

@@ -4,11 +4,9 @@ import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
 import shared.model.DestCardSet;
-import shared.model.TrainCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IRoute;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardsResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
@@ -23,7 +21,7 @@ public class GameServerProxy implements IGameServerFacade {
     /**
      * Claims a route and returns the result of the claimed route
      *
-     * @param route Route being claimed
+     * @param route Routes being claimed
      * @param cards Cards being used to claim the route
      * @param username Username of the player claiming the route
      *
@@ -35,8 +33,8 @@ public class GameServerProxy implements IGameServerFacade {
      * @return ClaimRouteResult the results of the action.
      */
     @Override
-    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username) {
-        Class<?>[] parmTypes = {IEdge.class, TrainCardSet.class, String.class};
+    public ClaimRouteResult claimRoute(IRoute route, TrainCardSet cards, String username) {
+        Class<?>[] parmTypes = {IRoute.class, TrainCardSet.class, String.class};
         Object[] parmValues = {route, cards, username};
 
         ICommand command = _generateGameServerFacadeCommand("claimRoute", parmTypes, parmValues);

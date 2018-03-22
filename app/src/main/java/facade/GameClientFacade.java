@@ -2,7 +2,6 @@ package facade;
 
 import model.ClientRoot;
 import shared.facades.client.IGameClientFacade;
-import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGameInfo;
 
 /**

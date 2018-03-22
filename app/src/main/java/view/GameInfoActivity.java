@@ -1,6 +1,5 @@
 package view;
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +13,10 @@ import com.a340team.tickettoride.R;
 import java.util.List;
 import java.util.Map;
 
-import model.ClientRoot;
 import presenter.GameInfoPresenter;
 import presenter.IGameInfoPresenter;
 import shared.model.TrainCard;
-import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IRoute;
 import shared.model.interfaces.IGameInfo;
 
 public class GameInfoActivity extends AppCompatActivity {
@@ -195,11 +193,11 @@ public class GameInfoActivity extends AppCompatActivity {
 
     }
 
-    private String numberOfRoutes(Map<String, IEdge> claimedRoutes, String player){
+    private String numberOfRoutes(Map<String, IRoute> claimedRoutes, String player){
         System.out.println("Size of claimedRoutes: " + claimedRoutes.size());
 
         int number = 0;
-        for (Map.Entry<String, IEdge> entry : claimedRoutes.entrySet()) {
+        for (Map.Entry<String, IRoute> entry : claimedRoutes.entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             if(entry.getKey().equals(player)){
                 number++;
@@ -249,7 +247,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
 
     public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize,
-                                Map<String, List<IEdge>> claimedRoutes, Map<String, Integer> playerRemainingTrains,
+                                Map<String, List<String>> claimedRoutes, Map<String, Integer> playerRemainingTrains,
                                 Map<String, Integer> playerColors, Map<String, Integer> destCards){
 
         System.out.println("SIZE OF DESTCARD: " + destCards.size());

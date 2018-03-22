@@ -21,7 +21,7 @@ public class DestCard implements IDestCard, Serializable {
     private int _points;
 
     public String toString(){
-        return "Route: " + _startingPoint + " to " + _destination;
+        return "Routes: " + _startingPoint + " to " + _destination;
     }
 
 //    public DestCard(){

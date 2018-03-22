@@ -6,18 +6,19 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
+import shared.model.City;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IEdge;
+import shared.model.initialized_info.Routes;
+import shared.model.interfaces.IRoute;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
 import shared.model.history.events.GameEvent;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardsResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
@@ -37,7 +38,7 @@ public class GameServerFacade implements IGameServerFacade {
      * A player can claim a route (an edge connecting two cities) using the right amount of train
      * cards.
      *
-     * @param route the Edge object representing the routes claimed by a player
+     * @param route the Route object representing the routes claimed by a player
      * @param cards the set of cards used to claim the route
      * @param username the username of the player claiming the route as a String
      *
@@ -57,19 +58,29 @@ public class GameServerFacade implements IGameServerFacade {
      *         returns null if everything is successful (In this case a new Command object is sent)
      */
     @Override
-    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username) {
+    public ClaimRouteResult claimRoute(IRoute route, TrainCardSet cards, String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
+
+        //TODO implement claiming a route
+        //Claim the route
+        //Make sure the route is a valid route.
+        route = _routeIsValid(route, game);
+        if(route != null){
+             //Now claim it.
+            route = game.claimRoute(route);
+            route.claim();
+        }
+        else{
+            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid or claimed.");
+        }
         //Check that the cards are the same color as the route.
         boolean cardsMatch = _colorsMatch(cards, route);
         if (!cardsMatch) {
             return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
         }
 
-        //TODO implement claiming a route
-        //Claim the route
-        //TODO where we we store all of the routes (and by routes I mean edges, but I mean routes)?
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
@@ -85,11 +96,21 @@ public class GameServerFacade implements IGameServerFacade {
         return null;
     }
 
+    private IRoute _routeIsValid(IRoute route, IGame game){
+        if(Routes.instance().isRouteValid(route)){
+            return game.isRouteAvailable(route);
+        }
+        else {
+            return null;
+        }
+    }
+
+
     /**
      * Checks the color of the train cards and of the route claimed to see if they match.
      *
      * @param cards the set of cards used to claim the route
-     * @param route the Edge object representing the routes claimed by a player
+     * @param route the Route object representing the routes claimed by a player
      *
      * @pre route.getLength() == number of cards in cardSet
      * @pre route != null
@@ -101,7 +122,7 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a boolean value stating whether the color of the cards and the route match
      * or not.
      */
-    private boolean _colorsMatch(TrainCardSet cards, IEdge route) {
+    private boolean _colorsMatch(TrainCardSet cards, IRoute route) {
         if (cards.colorsMatch()) {
             if(route.getColor().equals(Color.GRAY)) {
                 return true;
