@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
-import shared.model.interfaces.IRoute;
 import shared.model.interfaces.IGameInfo;
 
 /**
@@ -29,7 +28,7 @@ public class GameInfo implements IGameInfo, Serializable {
     private Map<String, Integer> _playerPoints;
     // and the order in which the players take turns
     private Map<String, Integer> _playerHandSizes;
-    private Map<String, Integer> _playerDestCout;
+    private Map<String, Integer> _playerDestCards;
     private Map<String, List<String>> _claimedRoutes;
     private Map<String, Integer> _playerRemainingTrains;
     private GameHistory _gameHistory;
@@ -63,12 +62,12 @@ public class GameInfo implements IGameInfo, Serializable {
         this._playerRemainingTrains = playerRemainingTrains;
         this._gameHistory = gameHistory;
         this._turnIndex = turnIndex;
-        this._playerDestCout = playerDestCout;
+        this._playerDestCards = playerDestCout;
     }
 
     @Override
     public Map<String, Integer> getPlayerDestCount() {
-        return _playerDestCout;
+        return _playerDestCards;
     }
 
     @Override
