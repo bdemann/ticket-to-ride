@@ -1,6 +1,8 @@
 package shared.model.initialized_info;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import shared.model.City;
 import shared.model.CityPoint;
@@ -14,15 +16,7 @@ import static shared.model.initialized_info.DestCardId.*;
 
 public class Cities implements Serializable {
     private static Cities _instance;
-
-    public static Cities instance() {
-
-        if (_instance == null)
-            _instance = new Cities();
-        return _instance;
-    }
-
-    private Cities(){}
+    private Map<String, City> citiesMap;
 
     private City vanc = new City(new CityPoint(132,18), VANCOUVER);
     private City winn = new City(new CityPoint(524, 62), WINNIPEG);
@@ -60,6 +54,55 @@ public class Cities implements Serializable {
     private City lax = new City(new CityPoint(131, 416), LOS_ANGELES);
     private City sanFr = new City(new CityPoint(65, 306), SAN_FRANCISCO);
     private City slc = new City(new CityPoint(261, 264), SALT_LAKE_CITY);
+
+    public static Cities instance() {
+
+        if (_instance == null)
+            _instance = new Cities();
+        return _instance;
+    }
+
+    private Cities(){
+        citiesMap = new HashMap<>();
+        citiesMap.put(VANCOUVER, vanc);
+        citiesMap.put(WINNIPEG, winn);
+        citiesMap.put(CALGARY, cal);
+        citiesMap.put(MONTREAL, mont);
+        citiesMap.put(SEATTLE, seat);
+        citiesMap.put(PORTLAND, port);
+        citiesMap.put(HELENA, hel);
+        citiesMap.put(DULUTH, dul);
+        citiesMap.put(SAUL_ST_MARIE, stm);
+        citiesMap.put(TORONTO, tor);
+        citiesMap.put(BOSTON, bost);
+        citiesMap.put(NEW_YORK, nyc);
+        citiesMap.put(PITTSBURGH, pitt);
+        citiesMap.put(WASHINGTON, wash);
+        citiesMap.put(CHICAGO, chic);
+        citiesMap.put(OKLAHOMA_CITY, omhC);
+        citiesMap.put(OMAHA, omh);
+        citiesMap.put(DENVER, dvr);
+        citiesMap.put(KANSAS_CITY, kanC);
+        citiesMap.put(ST_LOUIS, stL);
+        citiesMap.put(NASHVILLE, nash);
+        citiesMap.put(RALEIGH, ral);
+        citiesMap.put(ATLANTA, atl);
+        citiesMap.put(CHARLESTON, charl);
+        citiesMap.put(MIAMI, miami);
+        citiesMap.put(NEW_ORLEANS, newO);
+        citiesMap.put(LITTLE_ROCK, lRock);
+        citiesMap.put(HOUSTON, hou);
+        citiesMap.put(DALLAS, dal);
+        citiesMap.put(EL_PASO, elP);
+        citiesMap.put(SANTA_FE, sanFe);
+        citiesMap.put(PHOENIX, phx);
+        citiesMap.put(LAS_VEGAS, lasV);
+        citiesMap.put(LOS_ANGELES, lax);
+        citiesMap.put(SAN_FRANCISCO, sanFr);
+        citiesMap.put(SALT_LAKE_CITY, slc);
+    }
+
+
 
     public City getVanc() {
         return vanc;
@@ -201,5 +244,16 @@ public class Cities implements Serializable {
 
     public City getSlc() {
         return slc;
+    }
+
+    public City getCity(String cityName) {
+
+        if(citiesMap.containsKey(cityName)){
+            return citiesMap.get(cityName);
+        }
+        else {
+            return null;
+        }
+
     }
 }

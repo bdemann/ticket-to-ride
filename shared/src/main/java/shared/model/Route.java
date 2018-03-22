@@ -12,7 +12,6 @@ public class Route implements IRoute, Serializable{
     private int _length;
     private City _start;
     private City _end;
-//    private List<Block> _blocks;
     private Color _color;
     private boolean _claimed;
 
@@ -22,6 +21,14 @@ public class Route implements IRoute, Serializable{
         this._end = end;
         this._length = length;
         this._claimed = claimed;
+    }
+
+    public Route(City start, City end){
+        this._color = Color.RAINBOW;
+        this._start = start;
+        this._end = end;
+        this._length = -1;
+        this._claimed = false;
     }
 
     public void setLength(int length){ this._length = length; }

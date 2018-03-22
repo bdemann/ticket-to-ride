@@ -9,7 +9,9 @@ import shared.command.Command;
 import shared.model.DestCardSet;
 import shared.model.DestCard;
 import shared.model.TrainCard;
+import shared.model.TrainCardSet;
 import shared.model.interfaces.IGameInfo;
+import shared.model.interfaces.IRoute;
 import shared.results.DrawCardsResult;
 import shared.results.DrawTrainCardsResult;
 
@@ -80,5 +82,10 @@ public class GameGuiFacade {
         }
         ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
         ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
+    }
+
+    public static String claimRoute(IRoute route, TrainCardSet cards, String username){
+
+        return null;
     }
 }

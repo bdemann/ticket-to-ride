@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.a340team.tickettoride.R;
 
 import java.util.List;
+import java.util.Map;
 
 import shared.model.CityPoint;
 import shared.model.Route;
@@ -42,20 +43,8 @@ public class DrawUtilities extends View {
         this._context = context;
 
     }
-    public DrawUtilities(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
 
-    public DrawUtilities(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    public DrawUtilities(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-
-    public void drawRoutes(List<Route> routes, shared.model.Color playerColor, ImageView view) {
+    public void drawRoutes(Map<shared.model.Color, List<Route>> routesMap, ImageView view) {
         //super.onDraw(canvas);
         //Set the paint
         Paint paint = new Paint();
@@ -69,12 +58,19 @@ public class DrawUtilities extends View {
         //Get the final canvas
         Canvas canvas = new Canvas(drawableBitmap);
 
-        for (Route route : routes) {
-            CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor);
-            CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor);
-            paint.setColor(_convertColor(route.getColor()));
-            canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
+        for(shared.model.Color playerColor : routesMap.keySet()){
+            if(routesMap.containsKey(playerColor)){
+                List<Route> routes = routesMap.get(playerColor);
+
+                for (Route route : routes) {
+                    CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor);
+                    CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor);
+                    paint.setColor(_convertColor(route.getColor()));
+                    canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
+                }
+            }
         }
+
         //Set the new bg image with the strokes
         view.setImageBitmap(drawableBitmap);
     }
