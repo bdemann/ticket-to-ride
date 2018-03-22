@@ -82,7 +82,6 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private Button _doneButton;
 
-    //Todo: Destination Cards as a Recycler View!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

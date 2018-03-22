@@ -150,14 +150,15 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                         cardsToRemove.add(destList.get(2));
                         destList.remove(2);
                     }
-                    //ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
-                    ClientRoot.getClientPlayer().setDestCards(destList);
-                    GameServerProxy gameServerProxy = new GameServerProxy();
-                    DestCardSet destCardSet = new DestCardSet(destList);
+//                    ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
+//                    ClientRoot.getClientPlayer().setDestCards(destList);
+//
+//                    GameServerProxy gameServerProxy = new GameServerProxy();
+//                    DestCardSet destCardSet = new DestCardSet(destList);
                     DestCardSet removeDestCardSet = new DestCardSet(cardsToRemove);
+                    _destinationsPresenter.discardDestCards(destList, removeDestCardSet);
 
-
-                    gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeDestCardSet);
+//                    gameServerProxy.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, removeDestCardSet);
                     //END OF DELETE ME ---------------------------------------------------|
 
                     //Then finish the activity
