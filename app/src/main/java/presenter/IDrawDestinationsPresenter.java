@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.model.DestCard;
+import shared.model.DestCardSet;
 
 /**
  * Interface for this presenter
@@ -14,4 +15,5 @@ public interface IDrawDestinationsPresenter {
 
     List<DestCard> drawDestinationCards();
     List<DestCard> getStarterDestinationCards();
+    void discardDestCards(List<DestCard> chosenDestList, DestCardSet removeDestCardSet);
 }
