@@ -74,7 +74,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
     public List<DestCard> getDestinationCards(){
 
         //Gets a list of the destination cards in a player's hand
-        List<DestCard> playerDestCard = GameGuiFacade.getStarterDestinationCards();
+        List<DestCard> playerDestCard = GameGuiFacade.getPlayerDestCards();
         return playerDestCard;
 //        return new ArrayList<DestCard>();
     }
