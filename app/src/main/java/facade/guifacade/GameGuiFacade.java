@@ -12,6 +12,7 @@ import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IRoute;
+import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
 import shared.results.DrawTrainCardsResult;
 
@@ -86,6 +87,19 @@ public class GameGuiFacade {
 
     public static String claimRoute(IRoute route, TrainCardSet cards, String username){
 
-        return null;
+        GameServerProxy gameServerProxy = new GameServerProxy();
+        ClaimRouteResult result = gameServerProxy.claimRoute(route,cards,username);
+        try{
+            Command.executeList(result.getClientCommands());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result.getUserMessage();
+
+
+       // return null;
+
     }
 }

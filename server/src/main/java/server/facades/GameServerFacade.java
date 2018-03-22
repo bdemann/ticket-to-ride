@@ -6,10 +6,12 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
+import shared.model.City;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
+import shared.model.initialized_info.Routes;
 import shared.model.interfaces.IRoute;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
@@ -60,15 +62,25 @@ public class GameServerFacade implements IGameServerFacade {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
+
+        //TODO implement claiming a route
+        //Claim the route
+        //Make sure the route is a valid route.
+        route = _routeIsValid(route, game);
+        if(route != null){
+             //Now claim it.
+            route = game.claimRoute(route);
+            route.claim();
+        }
+        else{
+            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid or claimed.");
+        }
         //Check that the cards are the same color as the route.
         boolean cardsMatch = _colorsMatch(cards, route);
         if (!cardsMatch) {
             return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
         }
 
-        //TODO implement claiming a route
-        //Claim the route
-        //TODO where we we store all of the routes (and by routes I mean edges, but I mean routes)?
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
@@ -83,6 +95,16 @@ public class GameServerFacade implements IGameServerFacade {
 
         return null;
     }
+
+    private IRoute _routeIsValid(IRoute route, IGame game){
+        if(Routes.instance().isRouteValid(route)){
+            return game.isRouteAvailable(route);
+        }
+        else {
+            return null;
+        }
+    }
+
 
     /**
      * Checks the color of the train cards and of the route claimed to see if they match.

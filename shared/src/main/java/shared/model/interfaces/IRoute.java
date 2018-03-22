@@ -29,4 +29,6 @@ public interface IRoute {
     Color getColor();
 
     int getValue();
+
+    void claim();
 }

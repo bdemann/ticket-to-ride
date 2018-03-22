@@ -31,13 +31,21 @@ public class Route implements IRoute, Serializable{
         this._claimed = false;
     }
 
+    public boolean isClaimed() {
+        return _claimed;
+    }
+
+
+
+    public void setClaimed(boolean claimed) {
+        this._claimed = claimed;
+    }
+
     public void setLength(int length){ this._length = length; }
 
     public void setStart(City start){ this._start = start; }
 
     public void setEnd(City end){ this._end = end; }
-
-//    public void setBlocks(List<Block> blocks){ this._blocks = blocks; }
 
     public void setColor(Color color){ this._color = color; }
 
@@ -46,8 +54,6 @@ public class Route implements IRoute, Serializable{
     public City getStart(){ return _start; }
 
     public City getEnd(){ return _end; }
-
-//    public List<Block> getBlocks(){ return _blocks; }
 
     public Color getColor(){ return _color; }
 
@@ -68,5 +74,10 @@ public class Route implements IRoute, Serializable{
                 return 15;
         }
         return 0;
+    }
+
+    @Override
+    public void claim() {
+        this._claimed = true;
     }
 }
