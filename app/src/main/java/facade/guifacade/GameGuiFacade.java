@@ -20,9 +20,14 @@ import shared.results.DrawTrainCardsResult;
 
 public class GameGuiFacade {
 
+    //TODO: change this method to get the destination cards, not the unresolved ones
     public static List<DestCard> getStarterDestinationCards(){
         DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
         return s.toList();
+    }
+
+    public static List<DestCard> getPlayerDestCards(){
+        return ClientRoot.getClientPlayer().getDestCards();
     }
 
     public static IGameInfo getStarterGameInfo(){
@@ -47,6 +52,14 @@ public class GameGuiFacade {
         else {
             return null;
         }
+    }
+
+    public static void discardDestinationCards(List<DestCard> chosenDestCards, DestCardSet cardsToRemove){
+        GameServerProxy gsp = new GameServerProxy();
+        ClientRoot.getClientPlayer().setDestCards(chosenDestCards);
+        DestCardSet destCardSet = new DestCardSet(chosenDestCards);
+
+        gsp.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, cardsToRemove);
     }
 
     public static List<Boolean> getCompleteDestination(){
