@@ -20,8 +20,8 @@ import shared.model.history.events.GameEvent;
 
 public class ChatActivity extends AppCompatActivity {
 
-    ImageButton _sendButton;
-    EditText message;
+    private ImageButton _sendButton;
+    private EditText message;
     private ChatHistoryPresenter _chatHistPresenter;
 
     private MessageRecyclerAdapter _chatAdapter;

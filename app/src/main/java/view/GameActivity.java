@@ -24,15 +24,14 @@ import shared.model.Edge;
 import shared.model.Hand;
 import shared.model.Route;
 import shared.model.TrainCard;
+import shared.model.initialized_info.Cities;
+import shared.model.initialized_info.Edges;
 import shared.model.interfaces.IEdge;
 
 import static shared.model.initialized_info.DestCardId.*;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
-    //DEMO
-    Button _demoButton;
-    boolean _gameInfoDemoIsDone = false;
     //Map
     ImageView mapView;
     //Click Buttons
@@ -93,19 +92,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
 
-        //TODO Delete me DEMO STUFF
-        //*****DEMO CRAP ******* DELETE AFTER PHASE 2//
-
-        _demoButton = (Button) findViewById(R.id.demo_button);
-        _demoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RUNDEMO();
-            }
-        });
-
-        //*****END OF DEMO CRAP ********//
-
         //Initialize Components
         _initializeButtons();
         _createOnClickListeners(_cityButtons);
@@ -143,22 +129,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             Button button = (Button) view;
             String text = button.getText().toString();
 
-            /*
-            if (text.equals(ATLANTA)) {
-                text = "atlanta nanana";
-                mediaPlayer.start();
-            }
-            */
-            if (text.equals(HOUSTON)) {
-                _citiesSelected.add(HOUSTON);
-            }
-            if (text.equals(EL_PASO)) {
-                _citiesSelected.add(EL_PASO);
-
-            }
-
-
+            //Add the city to the selected list
+            _citiesSelected.add(text);
             ViewUtilities.displayMessage(text, view.getContext());
+
         }
         else{
             ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Route to End", view.getContext());
@@ -198,8 +172,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             @Override
             public void onClick(View view) {
                 displayChat();
-                //Do something please!
-                ViewUtilities.displayMessage("Chat and Stats\nShould Show", view.getContext());
             }
         });
     }
@@ -356,9 +328,20 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         int tint = Color.argb(50, 0, 0, 0);
         mapView.setColorFilter(tint);
         //mapView.setBackgroundColor(tint);
+        List<Edge> allEdges = Edges.instance().getEdges();
+        _drawRoutes(allEdges);
 
         if(_citiesSelected.size() == 2) {
 
+            //Check if the two cities comprise a valid edge
+            //Check if that valid edge has been claimed.
+            //Check if the player has enough train cards that are the right color.
+            //If those conditions are true, then claim the route(edge) and draw.
+            //Discard the train cards.
+
+
+
+            /*
             //REFACTOR AFTER DEMO
             City houston = new City(new CityPoint(580, 540), HOUSTON);
             City elPaso = new City(new CityPoint(345, 480), EL_PASO);
@@ -378,14 +361,15 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             tint = Color.argb(0, 0, 0, 0);
             mapView.setColorFilter(tint);
             //mapView.setBackgroundColor(getResources().getColor(R.color.mapBackground));
+            */
         }
     }
 
-    private void _drawRoutes(List<Route> routes) {
+    private void _drawRoutes(List<Edge> edges) {
 
         DrawUtilities myDrawer = new DrawUtilities(this);
 
-        myDrawer.drawRoutes(routes, mapView);
+        myDrawer.drawRoutes(edges, mapView);
     }
 
     @Override
@@ -399,7 +383,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     @Override
     public void displayGame() {
         Intent intent = new Intent(this, GameInfoActivity.class);
-        intent.putExtra("demo", _gameInfoDemoIsDone);
         startActivity(intent);
     }
 
@@ -409,92 +392,4 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         startActivity(intent);
     }
 
-    //TODO Delete me DEMO STUFF 2
-    //Delete after phase 2 **************//
-    private void RUNDEMO(){
-
-        //DRAW TRAIN CARDS----------------------------------------------------|
-        //Add cards
-        Hand<TrainCard> list = ClientRoot.getClientPlayer().getTrainCardHand();
-        List<TrainCard> trainList = list.get_cards();
-        int cardAmt = 6;
-        for(int i = 0; i < cardAmt; i++){
-            trainList.add(new TrainCard(shared.model.Color.GREEN, 1));
-            trainList.add(new TrainCard(shared.model.Color.BLACK, 1));
-        }
-        ClientRoot.getClientPlayer().setTrainCards(trainList);
-
-        //For Player one, update the card count
-        Map<String, Integer> trainCount = ClientRoot.getClientGameInfo().getPlayerHandSizes();
-        if(trainCount.containsKey(ClientRoot.getClientPlayer().getUsername())){
-            int count = trainCount.get(ClientRoot.getClientPlayer().getUsername());
-            trainCount.put(ClientRoot.getClientPlayer().getUsername(), (Integer) count + (cardAmt*2));
-        }
-
-        //Show a toast
-        ViewUtilities.displayMessage("Drawing Train Cards...", this);
-        //END DRAW TRAIN CARDS -----------------------------------------------|
-
-
-
-
-        //DRAW DESTINATION CARDS -----------------------------------------------|
-        DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
-        List<DestCard> destList = s.toList();
-        DestCard _17 = new DestCard(CHICAGO, LOS_ANGELES, 16);
-        DestCard _18 = new DestCard(PITTSBURGH, DENVER, 11);
-        destList.add(_17);
-        destList.add(_18);
-        ClientRoot.getClientPlayer().setUnresolvedDestCards(destList);
-
-        //Show a toast
-        ViewUtilities.displayMessage("Drawing Destination Train Cards...", this);
-        //END DRAW DESTINATION CARDS -----------------------------------------------|
-
-        //CLAIMING A ROUTE -----------------------------------------------|
-        _citiesSelected.add(HOUSTON);
-        _citiesSelected.add(EL_PASO);
-        claimRoute();
-        Map<String , List<IEdge>> claimedRoutes = ClientRoot.getClientGameInfo().getClaimedRoutes();
-        IEdge e = null;
-        if(claimedRoutes.containsKey(ClientRoot.getClientPlayer().getUsername())){
-
-            List<IEdge> edgeList = new ArrayList<>();
-            e = new Edge(6, new City(new CityPoint(0,0), HOUSTON),  new City(new CityPoint(0,0), EL_PASO), shared.model.Color.GREEN, true);
-            edgeList.add(e);
-            claimedRoutes.put(ClientRoot.getClientPlayer().getUsername(), edgeList);
-        }
-
-        //Show a toast
-        ViewUtilities.displayMessage("Claiming Route...", this);
-        //END CLAIMING A ROUTE -----------------------------------------------|
-
-        //CHANGE NUMBER OF TRAINS -----------------------------------------|
-        Map<String, Integer> playerTrains = ClientRoot.getClientGameInfo().getRemainingTrains();
-        String key = ClientRoot.getClientPlayer().getUsername();
-        playerTrains.put(key, playerTrains.get(key) - 6);
-
-        //Show a toast
-        ViewUtilities.displayMessage("Changing number of trains...", this);
-        //END OF CHANGING THE NUMBER OF TRAINS
-
-        //CHANGE NUMBER OF POINTS -----------------------------------------|
-        Map<String, Integer> points = ClientRoot.getClientGameInfo().getPlayerPoints();
-        key = ClientRoot.getClientPlayer().getUsername();
-        points.put(key, points.get(key) + 24);
-
-        //Show a toast
-        ViewUtilities.displayMessage("Changing points...", this);
-        //END OF CHANGING THE POINTS
-
-        //Update the game history
-        //Update the game info
-
-        //Player's turn is over
-        _gameInfoDemoIsDone = true;
-        ViewUtilities.displayMessage("End of Turn.", this);
-        //Done
-
-    }
-    //**********************************//
 }

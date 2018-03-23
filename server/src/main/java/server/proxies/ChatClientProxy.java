@@ -5,6 +5,8 @@ import server.poller.ClientCommands;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.client.IChatClientFacade;
+import shared.logging.Level;
+import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
@@ -19,6 +21,7 @@ public class ChatClientProxy implements IChatClientFacade {
     public void updateChat(Chat message) {
         IGame game = ServerRoot.getGame(message.getSpeaker().getGameId());
         for(IPlayer player : game.getPlayers()) {
+            Logger.log("We are telling " + player.getUsername() + " about a new chat.", Level.FINNEST);
             ClientCommands.addCommand(player.getUsername(), _createUpdateChat(message));
         }
     }

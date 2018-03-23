@@ -1,20 +1,19 @@
 package view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.a340team.tickettoride.R;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import model.ClientRoot;
+import presenter.DrawTrainCardsPresenter;
 import shared.model.Color;
 import shared.model.TrainCard;
-import shared.model.TrainCardSet;
 import shared.model.interfaces.IGameInfo;
 
 /**
@@ -24,88 +23,96 @@ import shared.model.interfaces.IGameInfo;
 
 public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTrainCardsView{
 
-    private ImageButton _trainCardOne;
-    private ImageButton _trainCardTwo;
-    private ImageButton _trainCardThree;
-    private ImageButton _trainCardFour;
-    private ImageButton _trainCardFive;
+    private ImageButton[] _trainCards;
     private ImageButton _trainCardDeck;
     private int _trainCardsDrawn;
+    private DrawTrainCardsPresenter _presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Set the drawn cards to zero
         _trainCardsDrawn = 0;
+        _trainCards = new ImageButton[5];
         setContentView(R.layout.activity_draw_trains);
+        _initializePresenter();
         _initializeImageButtons(ClientRoot.getClientGameInfo());
         _createOnClickListeners();
 
     }
 
+    private void _initializePresenter(){
+        _presenter = new DrawTrainCardsPresenter(this);
+    }
+
     private void _initializeImageButtons(IGameInfo gameInfo){
 
-
-        _trainCardOne = (ImageButton) findViewById(R.id.train_card_one);
-        _trainCardTwo = (ImageButton) findViewById(R.id.train_card_two);
-        _trainCardThree = (ImageButton) findViewById(R.id.train_card_three);
-        _trainCardFour = (ImageButton) findViewById(R.id.train_card_four);
-        _trainCardFive = (ImageButton) findViewById(R.id.train_card_five);
+        _trainCards[0] = (ImageButton) findViewById(R.id.train_card_one);
+        _trainCards[1] = (ImageButton) findViewById(R.id.train_card_two);
+        _trainCards[2] = (ImageButton) findViewById(R.id.train_card_three);
+        _trainCards[3] = (ImageButton) findViewById(R.id.train_card_four);
+        _trainCards[4] = (ImageButton) findViewById(R.id.train_card_five);
         _trainCardDeck = (ImageButton) findViewById(R.id.train_card_deck);
 
-        TrainCard cardOne = gameInfo.getFaceUpCards().get(0);
-        TrainCard cardTwo = gameInfo.getFaceUpCards().get(1);
-        TrainCard cardThree = gameInfo.getFaceUpCards().get(2);
-        TrainCard cardFour = gameInfo.getFaceUpCards().get(3);
-        TrainCard cardFive = gameInfo.getFaceUpCards().get(4);
+        for(int i = 0; i < 5; i++) {
+            _trainCards[i].setImageResource(_getCardImage(gameInfo.getFaceUpCards().get(i)));
+        }
 
-        _trainCardOne.setImageResource(_getCardImage(cardOne));
-        _trainCardTwo.setImageResource(_getCardImage(cardTwo));
-        _trainCardThree.setImageResource(_getCardImage(cardThree));
-        _trainCardFour.setImageResource(_getCardImage(cardFour));
-        _trainCardFive.setImageResource(_getCardImage(cardFive));
+        setFaceUpCards(gameInfo.getFaceUpCards());
+    }
+
+    public void setFaceUpCard(int index, TrainCard trainCard) {
+        _trainCards[index].setImageResource(_getCardImage(trainCard));
+    }
+
+    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+        for(int i = 0; i < 5; i++) {
+            setFaceUpCard(i, faceUpCards.get(i));
+            _trainCards[i].invalidate();
+        }
     }
 
     private void _createOnClickListeners() {
-        _trainCardOne.setOnClickListener(new View.OnClickListener() {
+
+        _trainCards[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawFaceUpCard(0);
+            }
+        });
+
+        _trainCards[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawFaceUpCard(1);
             }
         });
 
-        _trainCardTwo.setOnClickListener(new View.OnClickListener() {
+        _trainCards[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawFaceUpCard(2);
             }
         });
 
-        _trainCardThree.setOnClickListener(new View.OnClickListener() {
+        _trainCards[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawFaceUpCard(3);
             }
         });
 
-        _trainCardFour.setOnClickListener(new View.OnClickListener() {
+        _trainCards[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawFaceUpCard(4);
             }
         });
 
-        _trainCardFive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawFaceUpCard(5);
-            }
-        });
-
         _trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                drawFaceDownCard();
             }
         });
     }
@@ -132,58 +139,13 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
         }
     }
 
-    //DELETE THIS LATER...THIS IS JUST FOR PHASE 2 PASS OFF ANIMATION
-    private int _tempGetRandomDrawable() {
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int min = 1;
-        int max = 9;
-        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-
-        if (randomNum == 1) {
-            return R.drawable.black;
-        } else if (randomNum == 2) {
-            return R.drawable.blue;
-        } else if (randomNum == 3) {
-            return R.drawable.green;
-        } else if (randomNum == 4) {
-            return R.drawable.orange;
-        } else if (randomNum == 5) {
-            return R.drawable.yellow;
-        } else if (randomNum == 6) {
-            return R.drawable.white;
-        } else if (randomNum == 7) {
-            return R.drawable.red;
-        } else if (randomNum == 8) {
-            return R.drawable.pink;
-        } else {//RAINBOW
-            return R.drawable.rainbow;
-        }
-    }
-
-
-    //EDIT THIS LATER...STRICTLY IMPLEMENTED FOR PHASE 2 PASS OFF
     @Override
     public void drawFaceUpCard(int cardNum) {
-        //TEMPORARY FOR PASS OFF
         if(!(_trainCardsDrawn > 2)) {
-            if (cardNum == 1) {
-                _trainCardOne.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 2) {
-                _trainCardTwo.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 3) {
-                _trainCardThree.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 4) {
-                _trainCardFour.setImageResource(_tempGetRandomDrawable());
-            }
-            if (cardNum == 5) {
-                _trainCardFive.setImageResource(_tempGetRandomDrawable());
-            }
+            _presenter.drawFaceUpCard(cardNum);
 
             //Alert the user they drew a card
+            //TODO we need to replace this with our state machine
             _trainCardsDrawn++;
             ViewUtilities.displayMessage(Integer.toString(_trainCardsDrawn) + " Cards Drawn.", this);
         }
@@ -193,7 +155,7 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
     }
 
     @Override
-    public void drawCardFromDeck() {
-
+    public void drawFaceDownCard() {
+        _presenter.drawFaceDownCard();
     }
 }

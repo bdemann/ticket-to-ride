@@ -9,7 +9,9 @@ import shared.model.interfaces.Card;
  * Created by bdemann on 3/3/18.
  */
 
-public class DrawCardsResult extends Result {
+public abstract class DrawCardsResult extends Result {
+
+    //TODO we should get rid of this class and have just the DrawDestCardsResult class which is the only one that extends this class.
 
     List<? extends Card> _cards;
 
