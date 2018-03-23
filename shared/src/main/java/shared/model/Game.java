@@ -333,4 +333,13 @@ public class Game implements IGame, Serializable {
             }
         }
     }
+
+    @Override
+    public void updatePlayerTrainCard(IPlayer newPlayer,TrainCard card){
+        for(IPlayer player: _players){
+            if(newPlayer.getUsername().equals(player.getUsername())){
+                player.addTrainCard(card);
+            }
+        }
+    }
 }
