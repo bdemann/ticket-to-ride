@@ -39,7 +39,8 @@ public class GamePresenter implements IGamePresenter, Observer{
         City end = Cities.instance().getCity(endCity);
         IRoute route = new Route(start,end);
         Hand<TrainCard> hand = ClientRoot.getClientPlayer().getTrainCardHand();
-        TrainCardSet trainCards = (TrainCardSet) hand.get_cards();
+        List<TrainCard> cards = hand.get_cards();
+        TrainCardSet trainCards = new TrainCardSet(cards);
 
         return GameGuiFacade.claimRoute(route,trainCards, ClientRoot.getClientPlayer().getUsername());
     }

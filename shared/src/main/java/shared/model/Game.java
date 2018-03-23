@@ -297,11 +297,29 @@ public class Game implements IGame, Serializable {
     @Override
     public IRoute claimRoute(IRoute route) {
         //This assumes the incoming route is valid
-        //TODO finish the claiming benjamin
+        //We need to use this route to tell the Game that it is now claimed
+        String start = route.getStart().get_name();
+        String end = route.getEnd().get_name();
+        //Find it in the map of Routes
+        Map<String, IRoute> map = Routes.instance().getRoutesMap();
 
+        String routeToClaim = "";
+        for(String routeName: map.keySet()){
+            IRoute currentRoute = map.get(routeName);
+            //I'm okay with this message chaining
+            if(currentRoute.getStart().get_name().equals(start) && currentRoute.getEnd().get_name().equals(end)){
+                //We found the route, so now we just need it's string value, which is routeName
+                routeToClaim = routeName;
+                break;
+            }
+        }
+        //Remove it from the open routes
+        _openRoutes.remove(routeToClaim);
+        //Add it to the claimed routes
+        _claimedRoutes.add(routeToClaim);
 
-
-
-        return null;
+        //Tell the route it is claimed
+        route.claim();
+        return route;
     }
 }

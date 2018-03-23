@@ -68,17 +68,21 @@ public class GameServerFacade implements IGameServerFacade {
         //Make sure the route is a valid route.
         route = _routeIsValid(route, game);
         if(route != null){
-             //Now claim it.
+            //Check that the cards are the same color as the route.
+            boolean cardsMatch = _colorsMatch(cards, route);
+            if (!cardsMatch) {
+                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
+            }
+
+            //Check if there are sufficient trains with the player
+            //if there are, then claim, else false.
+
+            //Now claim it. It is valid, open and the cards match.
             route = game.claimRoute(route);
-            route.claim();
         }
         else{
-            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid or claimed.");
-        }
-        //Check that the cards are the same color as the route.
-        boolean cardsMatch = _colorsMatch(cards, route);
-        if (!cardsMatch) {
-            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
+            ClaimRouteResult r = new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid or claimed.");
+            return r;
         }
 
         //Add cards to discard pile
