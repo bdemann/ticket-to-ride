@@ -206,6 +206,8 @@ public class GameServerFacade implements IGameServerFacade {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getGameId());
         TrainCard result = game.getCardsFaceUp().get(trainCardIndex);
+        player.addTrainCard(result);
+        game.updatePlayerTrainCard(player, result);
         game.getCardsFaceUp().set(trainCardIndex, drawTrainCard(game.getId()));
 
         //TODO make sure we shuffle away any time we have 3+ locomotive cards.
