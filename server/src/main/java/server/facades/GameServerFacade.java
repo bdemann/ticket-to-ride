@@ -1,7 +1,10 @@
 package server.facades;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import server.Server;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
@@ -12,6 +15,7 @@ import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
+import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IRoute;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
@@ -160,11 +164,15 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a Result Object with a message about the success of the action
      */
     @Override
-    public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
+    public DrawDestCardsResult discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
         // add kept cards to user cards
         IPlayer player = ServerRoot.getPlayer(username);
+//        ServerRoot.getPlayer(username).addDestCards(keptCards.toList());
         player.addDestCards(keptCards.toList());
         // add discarded cards to discard
+
+        //Update dest cards of the player in the game
+        ServerRoot.getGame(player.getGameId()).updatePlayerDestCard(player,keptCards.toList());
 
         //Update game history
         ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.size() + " cards", System.currentTimeMillis()));
@@ -173,7 +181,7 @@ public class GameServerFacade implements IGameServerFacade {
         ClientNotifications.gameUpdated(username);
 
         ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.toList());
-        return new Result(true, ClientCommands.getCommandList(username), "discarded successfully");
+        return new DrawDestCardsResult(player.getDestCards(),true, ClientCommands.getCommandList(username), "discarded successfully");
     }
 
     /**
@@ -208,6 +216,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         return new DrawTrainCardsResult(result, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Drew a face up card");
     }
+
 
     /**
      * When a player draws a train card from the face down Deck. A card is added to his/her hand

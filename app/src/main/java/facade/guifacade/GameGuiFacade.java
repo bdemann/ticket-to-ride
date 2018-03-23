@@ -17,7 +17,9 @@ import shared.model.interfaces.IPlayer;
 import shared.model.interfaces.IRoute;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawCardsResult;
+import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
+import shared.results.Result;
 
 /**
  * This helps the presenters talk to the model
@@ -65,8 +67,12 @@ public class GameGuiFacade {
         GameServerProxy gsp = new GameServerProxy();
         ClientRoot.getClientPlayer().addDestCards(chosenDestCards) ;
         DestCardSet destCardSet = new DestCardSet(chosenDestCards);
-
-        gsp.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, cardsToRemove);
+        DrawDestCardsResult destCardsResult = gsp.discardDestCards(ClientRoot.getClientPlayer().getUsername(), destCardSet, cardsToRemove);
+        try {
+            Command.executeList(destCardsResult.getClientCommands());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Boolean> getCompleteDestination(){
