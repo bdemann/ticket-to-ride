@@ -17,7 +17,7 @@ public interface IGameServerFacade {
     public ClaimRouteResult claimRoute(IRoute route, TrainCardSet cards, String username);
 
     public DrawDestCardsResult drawDestCards(String username);
-    public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards);
+    public DrawDestCardsResult discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards);
 
     public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex);
     public DrawTrainCardsResult drawFaceDownTrainCard(String username);
