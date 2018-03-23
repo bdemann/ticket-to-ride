@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.a340team.tickettoride.R;
 
@@ -30,6 +31,39 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     Button _drawDestinations;
     Button _myGame;
     Button _chatStats;
+
+    //Card Selection ImageViews and TextViews
+    ImageView _redCardImage;
+    ImageView _whiteCardImage;
+    ImageView _orangeCardImage;
+    ImageView _greenCardImage;
+    ImageView _blackCardImage;
+    ImageView _blueCardImage;
+    ImageView _yellowCardImage;
+    ImageView _rainbowCardImage;
+    ImageView _pinkCardImage;
+    TextView _redCardNumber;
+    TextView _whiteCardNumber;
+    TextView _orangeCardNumber;
+    TextView _greenCardNumber;
+    TextView _blackCardNumber;
+    TextView _blueCardNumber;
+    TextView _yellowCardNumber;
+    TextView _rainbowCardNumber;
+    TextView _pinkCardNumber;
+    TextView _pickTrainInstructions;
+    Button _confirmClaimButton;
+    Button _selectCardsButton;
+    private int _redCard = 0;
+    private int _whiteCard = 0;
+    private int _orangeCard = 0;
+    private int _greenCard = 0;
+    private int _blackCard = 0;
+    private int _blueCard = 0;
+    private int _yellowCard = 0;
+    private int _rainbowCard = 0;
+    private int _pinkCard = 0;
+
     //Cities
     Button portland;
     Button vancouver;
@@ -72,6 +106,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     ArrayList<String> _citiesSelected = new ArrayList<>();
     private final int _maxCitiesSelected = 2;
     private IGamePresenter _gamePresenter;
+    private final int INVISIBLE = View.GONE;
+    private final int VISIBLE = View.VISIBLE;
+    private boolean _cardPickerVisible;
+    private final int tint = Color.argb(50, 0, 0, 0);
+    private final int notint = Color.argb(0, 0, 0, 0);
+
 
 
 
@@ -85,6 +125,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         mapView = (ImageView) findViewById(R.id.map_image);
 
         //Initialize Components
+        _initializeCardPicker();
+        _createCardPickerListeners();
         _initializeButtons();
         _createOnClickListeners(_cityButtons);
         _createFunctionButtonListeners();
@@ -92,6 +134,231 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         displayStartDestCards();
 
     }
+
+    private void _createCardPickerListeners() {
+         _redCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _redCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _whiteCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _whiteCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _orangeCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _orangeCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _greenCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _greenCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _blackCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _blackCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _blueCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _blueCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _yellowCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _yellowCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _rainbowCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _rainbowCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+         _pinkCardImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _pinkCard++;
+                 _updateCardPickerNumbers();
+
+             }
+         });
+
+         _confirmClaimButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 _confirmClaimButtonClick();
+             }
+         });
+         _selectCardsButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if(_cardPickerVisible){
+                     _setCardPickerVisibility(INVISIBLE);
+                 }
+                 else{
+                     _setCardPickerVisibility(VISIBLE);
+                 }
+             }
+         });
+    }
+
+    private void _updateCardPickerNumbers(){
+        String red = Integer.toString(_redCard);
+        String white = Integer.toString(_whiteCard);
+        String orange = Integer.toString(_orangeCard);
+        String green = Integer.toString(_greenCard);
+        String black = Integer.toString(_blackCard);
+        String blue = Integer.toString(_blueCard);
+        String yellow = Integer.toString(_yellowCard);
+        String rainbow = Integer.toString(_rainbowCard);
+        String pink = Integer.toString(_pinkCard);
+        _redCardNumber.setText(red);
+        _whiteCardNumber.setText(white);
+        _orangeCardNumber.setText(orange);
+        _greenCardNumber.setText(green);
+        _blackCardNumber.setText(black);
+        _blueCardNumber.setText(blue);
+        _yellowCardNumber.setText(yellow);
+        _rainbowCardNumber.setText(rainbow);
+        _pinkCardNumber.setText(pink);
+    }
+
+    private void _confirmClaimButtonClick() {
+        if(_citiesSelected.size() == 2) {
+
+            //Check if the two cities comprise a valid edge
+            String message = _gamePresenter.claimRoute(_citiesSelected.get(0),_citiesSelected.get(1));
+
+            //Draw all the routes in the game.
+            //_drawRoutes();
+
+            //Re-enable buttons, turn off tint, and let the use know what just happened.
+            ViewUtilities.displayMessage(message, this);
+            _setCityButtons(false);
+            _setDrawButtons(true);
+            _claimRoute.setEnabled(true);
+            _citiesSelected.clear();
+            _setCardPickerVisibility(INVISIBLE);
+            _setCardPickerButtonsVisibility(INVISIBLE);
+            _zeroOutCardPicker();
+            mapView.setColorFilter(notint);
+        }
+        else{
+            ViewUtilities.displayMessage("Must Claim a Route", this);
+        }
+    }
+
+    private void _initializeCardPicker() {
+        _redCardImage = (ImageView) findViewById(R.id.player_red_train_card);
+         _whiteCardImage = (ImageView) findViewById(R.id.player_white_train_card);
+         _orangeCardImage = (ImageView) findViewById(R.id.player_orange_train_card);
+         _greenCardImage = (ImageView) findViewById(R.id.player_green_train_card);
+         _blackCardImage = (ImageView) findViewById(R.id.player_black_train_card);
+         _blueCardImage = (ImageView) findViewById(R.id.player_blue_train_card);
+         _yellowCardImage = (ImageView) findViewById(R.id.player_yellow_train_card);
+         _rainbowCardImage = (ImageView) findViewById(R.id.player_rainbow_train_card);
+         _pinkCardImage = (ImageView) findViewById(R.id.player_pink_train_card);
+         _redCardNumber = (TextView) findViewById(R.id.red_number);
+         _whiteCardNumber = (TextView) findViewById(R.id.white_number);
+        _orangeCardNumber = (TextView) findViewById(R.id.orange_number);
+        _greenCardNumber = (TextView) findViewById(R.id.green_number);
+        _blackCardNumber = (TextView) findViewById(R.id.black_number);
+        _blueCardNumber = (TextView) findViewById(R.id.blue_number);
+        _yellowCardNumber = (TextView) findViewById(R.id.yellow_number);
+        _rainbowCardNumber = (TextView) findViewById(R.id.rainbow_number);
+        _pinkCardNumber = (TextView) findViewById(R.id.pink_number);
+        _pickTrainInstructions = (TextView) findViewById(R.id.PickTrainColorTextView);
+      _zeroOutCardPicker();
+
+        _confirmClaimButton = (Button) findViewById(R.id.confirm_claim);
+        _selectCardsButton = (Button) findViewById(R.id.display_card_picker);
+        _setCardPickerVisibility(INVISIBLE);
+        _setCardPickerButtonsVisibility(INVISIBLE);
+    }
+
+    private void _zeroOutCardPicker() {
+        String zero = "0";
+        _redCard = 0;
+        _whiteCard = 0;
+        _orangeCard = 0;
+        _greenCard = 0;
+        _blackCard = 0;
+        _blueCard = 0;
+        _yellowCard = 0;
+        _rainbowCard = 0;
+        _pinkCard = 0;
+
+        _redCardNumber.setText(zero);
+        _whiteCardNumber.setText(zero);
+        _orangeCardNumber.setText(zero);
+        _greenCardNumber.setText(zero);
+        _blackCardNumber.setText(zero);
+        _blueCardNumber.setText(zero);
+        _yellowCardNumber.setText(zero);
+        _rainbowCardNumber.setText(zero);
+        _pinkCardNumber.setText(zero);
+    }
+
+    private void _setCardPickerButtonsVisibility(int vis) {
+        _confirmClaimButton.setVisibility(vis);
+        _selectCardsButton.setVisibility(vis);
+    }
+
+    private void _setCardPickerVisibility(int visibility) {
+         _redCardImage.setVisibility(visibility);
+         _whiteCardImage.setVisibility(visibility);
+         _orangeCardImage.setVisibility(visibility);
+         _greenCardImage.setVisibility(visibility);
+         _blackCardImage.setVisibility(visibility);
+         _blueCardImage.setVisibility(visibility);
+         _yellowCardImage.setVisibility(visibility);
+         _rainbowCardImage.setVisibility(visibility);
+         _pinkCardImage.setVisibility(visibility);
+         _redCardNumber.setVisibility(visibility);
+         _whiteCardNumber.setVisibility(visibility);
+         _orangeCardNumber.setVisibility(visibility);
+         _greenCardNumber.setVisibility(visibility);
+         _blackCardNumber.setVisibility(visibility);
+         _blueCardNumber.setVisibility(visibility);
+         _yellowCardNumber.setVisibility(visibility);
+         _rainbowCardNumber.setVisibility(visibility);
+         _pinkCardNumber.setVisibility(visibility);
+        _pickTrainInstructions.setVisibility(visibility);
+
+        if(visibility == VISIBLE){
+            _cardPickerVisible = true;
+        }
+        else{
+            _cardPickerVisible = false;
+        }
+    }
+
 
 
     @Override
@@ -317,25 +584,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     public void claimRoute() {
         _setCityButtons(true);
         _setDrawButtons(false);
-        int tint = Color.argb(50, 0, 0, 0);
+        _claimRoute.setEnabled(false);
+        _setCardPickerButtonsVisibility(VISIBLE);
         mapView.setColorFilter(tint);
-
-        if(_citiesSelected.size() == 2) {
-
-            //Check if the two cities comprise a valid edge
-            String message = _gamePresenter.claimRoute(_citiesSelected.get(0),_citiesSelected.get(1));
-
-            //Draw all the routes in the game.
-            //_drawRoutes();
-
-            //Re-enable buttons, turn off tint, and let the use know what just happened.
-            ViewUtilities.displayMessage(message, this);
-            _setCityButtons(false);
-            _setDrawButtons(true);
-            _citiesSelected.clear();
-            tint = Color.argb(0, 0, 0, 0);
-            mapView.setColorFilter(tint);
-        }
     }
 
     private void _drawRoutes() {
