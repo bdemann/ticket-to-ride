@@ -1,5 +1,7 @@
 package proxies;
 
+import android.support.v7.widget.RecyclerView;
+
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
@@ -82,11 +84,17 @@ public class GameServerProxy implements IGameServerFacade {
      * @return Result of the discard.
      */
     @Override
-    public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
+    public DrawDestCardsResult discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
         Class<?>[] parmTypes = {String.class, DestCardSet.class, DestCardSet.class};
         Object[] parmValues = {username, keptCards, discardCards};
         ICommand command = _generateGameServerFacadeCommand("discardDestCards", parmTypes, parmValues);
-        return TaskExecutor.runTask(command);
+
+        Result result = TaskExecutor.runTask(command);
+
+        if(result.getCommandSuccess()){
+            return (DrawDestCardsResult) result;
+        }
+        return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
     }
 
     /**

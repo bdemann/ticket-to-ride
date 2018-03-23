@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 import shared.model.history.GameHistory;
 import shared.model.initialized_info.Routes;
 import shared.model.interfaces.IRoute;
@@ -321,5 +323,14 @@ public class Game implements IGame, Serializable {
         //Tell the route it is claimed
         route.claim();
         return route;
+    }
+
+    @Override
+    public void updatePlayerDestCard(IPlayer newPlayer,List<DestCard> destCards){
+        for(IPlayer player: _players){
+            if(newPlayer.getUsername().equals(player.getUsername())){
+                player.addDestCards(destCards);
+            }
+        }
     }
 }
