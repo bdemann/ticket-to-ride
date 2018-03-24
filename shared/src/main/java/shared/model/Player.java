@@ -19,7 +19,6 @@ public class Player implements IPlayer, Serializable {
     private int _color;
     private int _gameId = -1;
     private int _points = 0;
-    private List<Edge> playersEdges; 
     private List<Route> playersRoutes;
     private List<Train> _trains;
     private Hand<TrainCard> _trainCards;
@@ -31,7 +30,6 @@ public class Player implements IPlayer, Serializable {
         this._username = username;
         this._password = password;
         this._color = color;
-        this.playersEdges = new ArrayList<>();
         this.playersRoutes = new ArrayList<>();
         this._trains = new ArrayList<>();
         this._destCards = new Hand<>(new ArrayList<DestCard>());
@@ -43,7 +41,6 @@ public class Player implements IPlayer, Serializable {
         this._username = username;
         this._password = password;
         this._color = 0;
-        this.playersEdges = new ArrayList<>();
         this.playersRoutes = new ArrayList<>();
         this._trains = new ArrayList<>();
         this._destCards = new Hand<>(new ArrayList<DestCard>());
@@ -55,7 +52,6 @@ public class Player implements IPlayer, Serializable {
         this._username = username;
         this._password = "";
         this._color = 0;
-        this.playersEdges = new ArrayList<>();
         this.playersRoutes = new ArrayList<>();
         this._trains = new ArrayList<>();
         this._destCards = new Hand<>(new ArrayList<DestCard>());

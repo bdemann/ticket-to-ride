@@ -4,6 +4,8 @@ import java.util.List;
 
 import model.ClientRoot;
 import proxies.ChatServerProxy;
+import shared.command.Command;
+import shared.command.ICommand;
 import shared.model.Chat;
 import shared.model.GameInfo;
 import shared.model.history.GameHistory;
@@ -27,7 +29,13 @@ public class ChatHistoryGuiFacade {
         ChatServerProxy chatServerProxy = new ChatServerProxy();
         ChatResult chatResult = chatServerProxy.sendChat(new Chat(ClientRoot.getClientPlayer(), message, System.currentTimeMillis()));
 
-        ClientRoot.addChatMessage(chatResult.getMessage());
+        try {
+            Command.executeList(chatResult.getClientCommands());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ClientRoot.setChats(chatResult.getMessage());
     }
 
     //TODO: add chat and events

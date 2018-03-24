@@ -13,6 +13,7 @@ import java.util.List;
  */
 
 public class Result implements Serializable {
+    private boolean _isExceptional;
     protected boolean _success;
     protected List<ICommand> _clientCommands;
     protected String _userMessage;
@@ -21,6 +22,7 @@ public class Result implements Serializable {
 
     public Result(boolean success, List<ICommand> clientCommands, String userMessage){
         this._success = success;
+        this._isExceptional = false;
         this._userMessage = userMessage;
         this._clientCommands = clientCommands;
         if (clientCommands == null) {
@@ -33,6 +35,7 @@ public class Result implements Serializable {
 
     public Result(String exceptionType, String exceptionMessage){
         this._success = false;
+        this._isExceptional = true;
         this._exceptionType = exceptionType;
         this._exceptionMessage = exceptionMessage;
         this._clientCommands = new ArrayList<>();
@@ -47,6 +50,10 @@ public class Result implements Serializable {
             sb.append(command.toString()).append("\n");
         }
         return sb.toString();
+    }
+
+    public boolean isExceptional() {
+        return _isExceptional;
     }
 
     public String getExceptionType()

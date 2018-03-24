@@ -22,22 +22,23 @@ public class LoginServerProxy implements ILoginServerFacade{
     public LoginResult signin(String username, String password) {
         Result result = TaskExecutor.runTask(generateLoginCommand("signin", username, password));
 
-        if(result.getCommandSuccess()) {
-            return (LoginResult) result;
+        if(result.isExceptional()) {
+            return new LoginResult(result.getExceptionType(), result.getExceptionMessage());
         }
 
-        return new LoginResult(result.getExceptionType(), result.getExceptionMessage());
+        return (LoginResult) result;
     }
 
     @Override
     public RegisterResult register(String username, String password) {
         Result result = TaskExecutor.runTask(generateLoginCommand("register", username, password));
 
-        if(result.getCommandSuccess()) {
-            return (RegisterResult) result;
+        if(result.isExceptional()) {
+            return new RegisterResult(result.getExceptionType(), result.getExceptionMessage());
         }
 
-        return new RegisterResult(result.getExceptionType(), result.getExceptionMessage());
+        return (RegisterResult) result;
+
     }
 
     private ICommand generateLoginCommand(String methodName, String username, String password){

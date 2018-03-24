@@ -1,14 +1,14 @@
 package proxies;
 
+import android.support.v7.widget.RecyclerView;
+
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
 import shared.model.DestCardSet;
-import shared.model.TrainCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IEdge;
+import shared.model.interfaces.IRoute;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardsResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
@@ -23,7 +23,7 @@ public class GameServerProxy implements IGameServerFacade {
     /**
      * Claims a route and returns the result of the claimed route
      *
-     * @param route Route being claimed
+     * @param route Routes being claimed
      * @param cards Cards being used to claim the route
      * @param username Username of the player claiming the route
      *
@@ -35,18 +35,18 @@ public class GameServerProxy implements IGameServerFacade {
      * @return ClaimRouteResult the results of the action.
      */
     @Override
-    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username) {
-        Class<?>[] parmTypes = {IEdge.class, TrainCardSet.class, String.class};
+    public ClaimRouteResult claimRoute(IRoute route, TrainCardSet cards, String username) {
+        Class<?>[] parmTypes = {IRoute.class, TrainCardSet.class, String.class};
         Object[] parmValues = {route, cards, username};
 
         ICommand command = _generateGameServerFacadeCommand("claimRoute", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (ClaimRouteResult) result;
+        if(result.isExceptional()){
+            return new ClaimRouteResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new ClaimRouteResult(result.getExceptionType(), result.getExceptionMessage());
+        return (ClaimRouteResult) result;
     }
 
     /**
@@ -62,10 +62,10 @@ public class GameServerProxy implements IGameServerFacade {
         ICommand command = _generateGameServerFacadeCommand("drawFaceUpTrainCard", parmTypes, parmValues);
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()) {
-            return (DrawTrainCardsResult) result;
+        if(result.isExceptional()) {
+            return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawTrainCardsResult) result;
     }
 
     /**
@@ -84,11 +84,17 @@ public class GameServerProxy implements IGameServerFacade {
      * @return Result of the discard.
      */
     @Override
-    public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
+    public DrawDestCardsResult discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
         Class<?>[] parmTypes = {String.class, DestCardSet.class, DestCardSet.class};
         Object[] parmValues = {username, keptCards, discardCards};
         ICommand command = _generateGameServerFacadeCommand("discardDestCards", parmTypes, parmValues);
-        return TaskExecutor.runTask(command);
+
+        Result result = TaskExecutor.runTask(command);
+
+        if(result.isExceptional()){
+            return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        }
+        return (DrawDestCardsResult) result;
     }
 
     /**
@@ -110,10 +116,10 @@ public class GameServerProxy implements IGameServerFacade {
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (DrawTrainCardsResult) result;
+        if(result.isExceptional()){
+            return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawTrainCardsResult) result;
     }
 
     /**
@@ -135,10 +141,10 @@ public class GameServerProxy implements IGameServerFacade {
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (DrawDestCardsResult) result;
+        if(result.isExceptional()){
+            return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawDestCardsResult) result;
     }
 
     /**

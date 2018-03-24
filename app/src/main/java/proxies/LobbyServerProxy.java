@@ -32,11 +32,10 @@ public class LobbyServerProxy implements ILobbyServerFacade {
         Logger.log("This is the startGame command: " + startGameCommand, Level.SANITY_CHECK);
 
         Result result = TaskExecutor.runTask(startGameCommand);
-        if(result.getCommandSuccess()){
-            return (StartGameResult) result;
+        if(result.isExceptional()){
+            return new StartGameResult(result.getExceptionType(), result.getExceptionMessage());
         }
-
-        return new StartGameResult(result.getExceptionType(), result.getExceptionMessage());
+        return (StartGameResult) result;
     }
 
     @Override

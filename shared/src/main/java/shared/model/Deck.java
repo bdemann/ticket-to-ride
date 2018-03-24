@@ -37,4 +37,6 @@ public abstract class Deck<T> implements Serializable {
         }
         return cards;
     }
+
+    public abstract void discard(T card);
 }

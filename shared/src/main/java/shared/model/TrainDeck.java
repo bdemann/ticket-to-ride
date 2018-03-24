@@ -26,6 +26,11 @@ public class TrainDeck extends Deck<TrainCard> implements Serializable {
         discardPile.addAll(cards);
     }
 
+    @Override
+    public void discard(TrainCard card) {
+        discardPile.add(card);
+    }
+
     public void shuffleDiscardPile() {
         Collections.shuffle(discardPile);
         super.addCardsToBottom(discardPile);

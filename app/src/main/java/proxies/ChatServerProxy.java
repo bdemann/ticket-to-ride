@@ -24,10 +24,10 @@ public class ChatServerProxy implements IChatServerFacade{
 
         Result result = TaskExecutor.runTask(sendChatCommand);
 
-        if(result.getCommandSuccess()) {
-            return (ChatResult) result;
+        if(result.isExceptional()) {
+            return new ChatResult(result.getExceptionType(), result.getExceptionMessage());
         }
 
-        return new ChatResult(result.getExceptionType(), result.getExceptionMessage());
+        return (ChatResult) result;
     }
 }

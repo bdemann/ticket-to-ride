@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,9 +13,9 @@ import android.widget.ImageView;
 import com.a340team.tickettoride.R;
 
 import java.util.List;
+import java.util.Map;
 
 import shared.model.CityPoint;
-import shared.model.Edge;
 import shared.model.Route;
 
 import static shared.model.Color.BLACK;
@@ -44,20 +43,8 @@ public class DrawUtilities extends View {
         this._context = context;
 
     }
-    public DrawUtilities(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
 
-    public DrawUtilities(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    public DrawUtilities(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-
-    public void drawRoutes(List<Edge> edges, ImageView view) {
+    public void drawRoutes(Map<shared.model.Color, List<Route>> routesMap, ImageView view) {
         //super.onDraw(canvas);
         //Set the paint
         Paint paint = new Paint();
@@ -71,12 +58,19 @@ public class DrawUtilities extends View {
         //Get the final canvas
         Canvas canvas = new Canvas(drawableBitmap);
 
-        for (Edge edge : edges) {
-            CityPoint start = _scale(edge.getStart().get_coordinates(), scaleFactor);
-            CityPoint end = _scale(edge.getEnd().get_coordinates(), scaleFactor);
-            paint.setColor(_convertColor(edge.getColor()));
-            canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
+        for(shared.model.Color playerColor : routesMap.keySet()){
+            if(routesMap.containsKey(playerColor)){
+                List<Route> routes = routesMap.get(playerColor);
+
+                for (Route route : routes) {
+                    CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor);
+                    CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor);
+                    paint.setColor(_convertColor(route.getColor()));
+                    canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
+                }
+            }
         }
+
         //Set the new bg image with the strokes
         view.setImageBitmap(drawableBitmap);
     }

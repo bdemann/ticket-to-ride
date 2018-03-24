@@ -20,8 +20,8 @@ public interface IGame {
     void setTrainCardDeck(TrainDeck trainCardDeck);
     void setDestCardDeck(DestDeck destCardDeck);
     void setCardsFaceUp(List<TrainCard> cardsFaceUp);
-    void setOpenRoutes(List<Route> openRoutes);
-    void setClaimedRoutes(List<Route> claimedRoutes);
+    void setOpenRoutes(List<String> openRoutes);
+    void setClaimedRoutes(List<String> claimedRoutes);
     void setPlayers(List<IPlayer> players);
     void generateScoreSummary();
     void setGameMap(TTRMap gameMap);
@@ -29,8 +29,8 @@ public interface IGame {
     TrainDeck getTrainCardDeck();
     DestDeck getDestCardDeck();
     List<TrainCard> getCardsFaceUp();
-    List<Route> getOpenRoutes();
-    List<Route> getClaimedRoutes();
+    List<String> getOpenRoutes();
+    List<String> getClaimedRoutes();
     List<IPlayer> getPlayers();
     String getScoreSummary();
     TTRMap getGameMap();
@@ -46,6 +46,8 @@ public interface IGame {
     boolean isGameStarted();
     void startGame();
     IGameInfo getGameInfo();
+    IRoute isRouteAvailable(IRoute route);
+    IRoute claimRoute(IRoute route);
 
     GameHistory getGameHistory();
     int getTurnIndex();
@@ -54,4 +56,9 @@ public interface IGame {
 
     void discardTrainCards(TrainCardSet cards);
     void discardDestCards(List<DestCard> cards);
+
+    void updatePlayerDestCard(IPlayer newPlayer,List<DestCard> destCards);
+    void updatePlayerTrainCard(IPlayer newPlayer,TrainCard card);
+
+    void discardTrainCard(TrainCard trainCard);
 }

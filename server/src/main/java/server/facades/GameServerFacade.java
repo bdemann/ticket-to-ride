@@ -1,23 +1,31 @@
 package server.facades;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import server.Server;
+import server.facades.traincardstate.FirstDraw;
+import server.facades.traincardstate.SecondDraw;
+import server.facades.traincardstate.TrainCardState;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
+import shared.model.City;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IEdge;
+import shared.model.initialized_info.Routes;
+import shared.model.interfaces.IGameInfo;
+import shared.model.interfaces.IRoute;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
 import shared.model.history.events.GameEvent;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardsResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
 import shared.results.Result;
@@ -33,11 +41,18 @@ import shared.results.Result;
  * cards and routes that have been drawn and claimed to the model and return the associated result.
  */
 public class GameServerFacade implements IGameServerFacade {
+
+    private TrainCardState trainCardState;
+
+    public GameServerFacade() {
+        trainCardState = new FirstDraw(this);
+    }
+
     /**
      * A player can claim a route (an edge connecting two cities) using the right amount of train
      * cards.
      *
-     * @param route the Edge object representing the routes claimed by a player
+     * @param route the Route object representing the routes claimed by a player
      * @param cards the set of cards used to claim the route
      * @param username the username of the player claiming the route as a String
      *
@@ -57,19 +72,33 @@ public class GameServerFacade implements IGameServerFacade {
      *         returns null if everything is successful (In this case a new Command object is sent)
      */
     @Override
-    public ClaimRouteResult claimRoute(IEdge route, TrainCardSet cards, String username) {
+    public ClaimRouteResult claimRoute(IRoute route, TrainCardSet cards, String username) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
-        //Check that the cards are the same color as the route.
-        boolean cardsMatch = _colorsMatch(cards, route);
-        if (!cardsMatch) {
-            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
-        }
 
         //TODO implement claiming a route
         //Claim the route
-        //TODO where we we store all of the routes (and by routes I mean edges, but I mean routes)?
+        //Make sure the route is a valid route.
+        route = _routeIsValid(route, game);
+        if(route != null){
+            //Check that the cards are the same color as the route.
+            boolean cardsMatch = _colorsMatch(cards, route);
+            if (!cardsMatch) {
+                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
+            }
+
+            //Check if there are sufficient trains with the player
+            //if there are, then claim, else false.
+
+            //Now claim it. It is valid, open and the cards match.
+            route = game.claimRoute(route);
+        }
+        else{
+            ClaimRouteResult r = new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid or claimed.");
+            return r;
+        }
+
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
@@ -85,11 +114,21 @@ public class GameServerFacade implements IGameServerFacade {
         return null;
     }
 
+    private IRoute _routeIsValid(IRoute route, IGame game){
+        if(Routes.instance().isRouteValid(route)){
+            return game.isRouteAvailable(route);
+        }
+        else {
+            return null;
+        }
+    }
+
+
     /**
      * Checks the color of the train cards and of the route claimed to see if they match.
      *
      * @param cards the set of cards used to claim the route
-     * @param route the Edge object representing the routes claimed by a player
+     * @param route the Route object representing the routes claimed by a player
      *
      * @pre route.getLength() == number of cards in cardSet
      * @pre route != null
@@ -101,7 +140,7 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a boolean value stating whether the color of the cards and the route match
      * or not.
      */
-    private boolean _colorsMatch(TrainCardSet cards, IEdge route) {
+    private boolean _colorsMatch(TrainCardSet cards, IRoute route) {
         if (cards.colorsMatch()) {
             if(route.getColor().equals(Color.GRAY)) {
                 return true;
@@ -135,12 +174,15 @@ public class GameServerFacade implements IGameServerFacade {
      * @return returns a Result Object with a message about the success of the action
      */
     @Override
-    public Result discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
-        //TODO implement this method
+    public DrawDestCardsResult discardDestCards(String username, DestCardSet keptCards, DestCardSet discardCards) {
         // add kept cards to user cards
         IPlayer player = ServerRoot.getPlayer(username);
+//        ServerRoot.getPlayer(username).addDestCards(keptCards.toList());
         player.addDestCards(keptCards.toList());
         // add discarded cards to discard
+
+        //Update dest cards of the player in the game
+        ServerRoot.getGame(player.getGameId()).updatePlayerDestCard(player,keptCards.toList());
 
         //Update game history
         ServerRoot.getGame(player.getGameId()).getGameHistory().addEvent(new GameEvent(username, "kept " + keptCards.size() + " cards", System.currentTimeMillis()));
@@ -149,7 +191,7 @@ public class GameServerFacade implements IGameServerFacade {
         ClientNotifications.gameUpdated(username);
 
         ServerRoot.getGame(player.getGameId()).getDestCardDeck().discard(discardCards.toList());
-        return new Result(true, ClientCommands.getCommandList(username), "discarded successfully");
+        return new DrawDestCardsResult(player.getDestCards(),true, ClientCommands.getCommandList(username), "discarded successfully");
     }
 
     /**
@@ -173,17 +215,38 @@ public class GameServerFacade implements IGameServerFacade {
     public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getGameId());
-        TrainCard result = game.getCardsFaceUp().get(trainCardIndex);
-        game.getCardsFaceUp().set(trainCardIndex, drawTrainCard(game.getId()));
+        TrainCard result = trainCardState.drawFaceUpCard(game, trainCardIndex);
+        if(result == null) {
+            return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "You can't draw a two face up cards if one is a locomotive");
+        }
+        player.addTrainCard(result);
+        game.updatePlayerTrainCard(player, result);
+        game.getCardsFaceUp().set(trainCardIndex, drawCardFromDeck(game.getId()));
 
-        //TODO make sure we shuffle away any time we have 3+ locomotive cards.
+        //shuffle away any time we have 3+ locomotive cards.
+        while(threeLocomotiveCards(game)){
+            for(int i = 0; i < 5; i++) {
+                game.discardTrainCard(game.getCardsFaceUp().get(i));
+                game.getCardsFaceUp().set(i, drawCardFromDeck(game.getId()));
+            }
+        }
 
-        //TODO take care of incrementing the turn if its the second draw or a locamotive card
         game.getGameHistory().addEvent(new GameEvent(username, "drew " + result.toString(), System.currentTimeMillis()));
         ClientNotifications.gameUpdated(username);
 
         return new DrawTrainCardsResult(result, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Drew a face up card");
     }
+
+    private boolean threeLocomotiveCards(IGame game) {
+        int locoCount = 0;
+        for(TrainCard trainCard : game.getCardsFaceUp()) {
+            if(trainCard.getColor().equals(Color.RAINBOW)){
+                locoCount++;
+            }
+        }
+        return locoCount >= 3;
+    }
+
 
     /**
      * When a player draws a train card from the face down Deck. A card is added to his/her hand
@@ -207,20 +270,12 @@ public class GameServerFacade implements IGameServerFacade {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
-        TrainCard drawnCard = drawTrainCard(game.getId());
-
-        game.incrementTurnIndex();
+        TrainCard drawnCard = trainCardState.drawFaceDownCard(game);
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
         return new DrawTrainCardsResult(drawnCard, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Draw a train card");
-    }
-
-    private TrainCard drawTrainCard(int gameId){
-        IGame game = ServerRoot.getGame(gameId);
-
-        return game.getTrainCardDeck().draw(1).get(0);
     }
 
     /**
@@ -250,5 +305,14 @@ public class GameServerFacade implements IGameServerFacade {
         ClientNotifications.playerDrewDestinationCards(username);
 
         return new DrawDestCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
+    }
+
+    public TrainCard drawCardFromDeck(int gameId) {
+        IGame game = ServerRoot.getGame(gameId);
+        return game.getTrainCardDeck().draw(1).get(0);
+    }
+
+    public void setState(TrainCardState state) {
+        this.trainCardState = state;
     }
 }

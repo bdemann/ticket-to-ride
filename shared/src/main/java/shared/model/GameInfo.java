@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import shared.model.history.GameHistory;
-import shared.model.interfaces.IEdge;
 import shared.model.interfaces.IGameInfo;
-import shared.model.interfaces.IPlayer;
 
 /**
  *
@@ -30,8 +28,8 @@ public class GameInfo implements IGameInfo, Serializable {
     private Map<String, Integer> _playerPoints;
     // and the order in which the players take turns
     private Map<String, Integer> _playerHandSizes;
-    private Map<String, Integer> _playerDestCout;
-    private Map<String, List<IEdge>> _claimedRoutes;
+    private Map<String, Integer> _playerDestCards;
+    private Map<String, List<String>> _claimedRoutes;
     private Map<String, Integer> _playerRemainingTrains;
     private GameHistory _gameHistory;
     private int _turnIndex;
@@ -51,7 +49,7 @@ public class GameInfo implements IGameInfo, Serializable {
         this._turnIndex = 0;
     }
 
-    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, Map<String, Integer> playerDestCout, Map<String, List<IEdge>> claimedRoutes, Map<String, Integer> playerRemainingTrains, GameHistory gameHistory, int turnIndex) {
+    public GameInfo(int gameId, String gameName, GameHistory _gameHistory, String playerWithLongestRoute, List<TrainCard> faceUpCards, List<String> players, Map<String, Integer> playerColors, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSizes, Map<String, Integer> playerDestCout, Map<String, List<String>> claimedRoutes, Map<String, Integer> playerRemainingTrains, GameHistory gameHistory, int turnIndex) {
         this._playerWithLongestRoute = playerWithLongestRoute;
         this._faceUpCards = faceUpCards;
         this._gameId = gameId;
@@ -64,12 +62,12 @@ public class GameInfo implements IGameInfo, Serializable {
         this._playerRemainingTrains = playerRemainingTrains;
         this._gameHistory = gameHistory;
         this._turnIndex = turnIndex;
-        this._playerDestCout = playerDestCout;
+        this._playerDestCards = playerDestCout;
     }
 
     @Override
     public Map<String, Integer> getPlayerDestCount() {
-        return _playerDestCout;
+        return _playerDestCards;
     }
 
     @Override
@@ -120,12 +118,12 @@ public class GameInfo implements IGameInfo, Serializable {
     }
 
     @Override
-    public Map<String, List<IEdge>> getClaimedRoutes() {
+    public Map<String, List<String>> getClaimedRoutes() {
         return _claimedRoutes;
     }
 
     @Override
-    public void setClaimedRoutes(Map<String, List<IEdge>> claimedRoutesMap) {
+    public void setClaimedRoutes(Map<String, List<String>> claimedRoutesMap) {
         this._claimedRoutes = claimedRoutesMap;
     }
 
