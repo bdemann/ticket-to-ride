@@ -34,7 +34,6 @@ public class GamePresenter implements IGamePresenter, Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("GamePresenter update called\n");
         _gameActivity.checkTurn();
     }
 

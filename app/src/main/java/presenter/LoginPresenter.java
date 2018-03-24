@@ -6,6 +6,7 @@ import android.content.Intent;
 import java.util.Observable;
 import java.util.Observer;
 
+import comm.ClientCommunicator;
 import facade.guifacade.LoginGuiFacade;
 import model.ClientRoot;
 import view.GameSelectionActivity;
@@ -58,8 +59,15 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     }
 
     @Override
-    public String signIn(String username, String password) {
+    public void changeHost(String serverHost){
+        if(!serverHost.equals("")) {
+            ClientCommunicator.setServerHost(serverHost);
+            System.out.println("SERVERHOST IN PRESENTER: " + serverHost);
+        }
+    }
 
+    @Override
+    public String signIn(String username, String password) {
         return LoginGuiFacade.signIn(username, password);
     }
 
