@@ -57,6 +57,7 @@ public class ServerRoot extends Observable {
         _players.add(player);
     }
 
+
     public static IGame getGame(int gameId) {
         return _instance._games.get(gameId);
     }

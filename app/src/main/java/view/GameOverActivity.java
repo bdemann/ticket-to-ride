@@ -139,4 +139,8 @@ public class GameOverActivity extends AppCompatActivity {
             totals.get(i).setText(total_list.get(i));
         }
     }
+
+    public void set_winner(int index){
+        rank.get(index).setImageDrawable(getDrawable(R.drawable.winner));
+    }
 }

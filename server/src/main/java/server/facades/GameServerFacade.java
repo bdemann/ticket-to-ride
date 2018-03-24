@@ -1,5 +1,6 @@
 package server.facades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import server.facades.traincardstate.FirstDraw;
@@ -11,6 +12,8 @@ import shared.facades.server.IGameServerFacade;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
+import shared.model.EndGameTotals;
+import shared.model.Player;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
 import shared.model.interfaces.IRoute;
@@ -41,6 +44,42 @@ public class GameServerFacade implements IGameServerFacade {
         if(trainCardState == null) {
             trainCardState = new FirstDraw(this);
         }
+    }
+
+
+    public List<EndGameTotals> _calculatePoints(IGame game){
+        List<IPlayer> players = game.getPlayers();
+
+        //A list of totals with indexes correspoinding to the players
+        List<EndGameTotals> endGameTotals = new ArrayList<>();
+
+        //Loop through each player to calculate points
+        for (int i = 0; i < players.size(); i++){
+            IPlayer current_player = players.get(i);
+            EndGameTotals end = new EndGameTotals();
+
+            //Unclaimed destinations
+            int u_dest_points = 0;
+
+            DestCardSet unclaimed_cards = current_player.getUnresolvedDestCards();
+
+            for (DestCard d : unclaimed_cards) {
+                u_dest_points -= d.getPoints();
+            }
+            end.setUnclaimed_destination_points(u_dest_points);
+
+            //Claimed Route points
+            int claimed_route_points = current_player.getScore();
+            end.setClaimed_route_points(claimed_route_points);
+
+            //Calculate total points
+            int total_points = u_dest_points + claimed_route_points;
+            end.setTotal_points(total_points);
+            endGameTotals.add(end);
+        }
+
+        //Return the values
+        return endGameTotals;
     }
 
     /**
