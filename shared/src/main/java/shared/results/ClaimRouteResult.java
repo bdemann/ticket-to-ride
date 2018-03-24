@@ -6,6 +6,7 @@ import shared.command.ICommand;
 
 /**
  * Created by bdemann on 2/28/18.
+ *
  */
 
 public class ClaimRouteResult extends Result {

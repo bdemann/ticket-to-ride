@@ -17,9 +17,9 @@ import tasks.TaskExecutor;
 
 public class GameMenuServerProxy implements IGameMenuServerFacade {
     @Override
-    public CreateGameResult createGame(IPlayer creator, int numberPlayer, String gameName) {
-        Class<?>[] parmTypes = {IPlayer.class, int.class, String.class};
-        Object[] parmValues = {creator, numberPlayer, gameName};
+    public CreateGameResult createGame(String creatorUsername, int numberPlayer, String gameName) {
+        Class<?>[] parmTypes = {String.class, int.class, String.class};
+        Object[] parmValues = {creatorUsername, numberPlayer, gameName};
         ICommand createGameCommand = new Command("server.facades.GameMenuServerFacade", "createGame", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(createGameCommand);
@@ -30,9 +30,9 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
     }
 
     @Override
-    public JoinGameResult joinGame(int gameId, IPlayer joiner) {
-        Class<?>[] parmTypes = {int.class, IPlayer.class};
-        Object[] parmValues = {gameId, joiner};
+    public JoinGameResult joinGame(int gameId, String joinerUsername) {
+        Class<?>[] parmTypes = {int.class, String.class};
+        Object[] parmValues = {gameId, joinerUsername};
 
         ICommand joinGameCommand = new Command("server.facades.GameMenuServerFacade", "joinGame", parmTypes, parmValues);
 
