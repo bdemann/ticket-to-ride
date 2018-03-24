@@ -1,6 +1,8 @@
 package shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import shared.model.interfaces.IRoute;
 
@@ -34,8 +36,6 @@ public class Route implements IRoute, Serializable{
     public boolean isClaimed() {
         return _claimed;
     }
-
-
 
     public void setClaimed(boolean claimed) {
         this._claimed = claimed;
