@@ -39,12 +39,14 @@
         <activity
             android:name="view.DrawTrainCardsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="view.GameInfoActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name="view.GameInfoActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name="view.DrawDestinationsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="view.ChatActivity"></activity>
+        <activity android:name="view.ChatActivity" />
+        <activity android:name="view.GameOverActivity"></activity>
     </application>
 
 </manifest>
