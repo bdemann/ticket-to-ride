@@ -42,10 +42,12 @@ import shared.results.Result;
  */
 public class GameServerFacade implements IGameServerFacade {
 
-    private TrainCardState trainCardState;
+    private static TrainCardState trainCardState;
 
     public GameServerFacade() {
-        trainCardState = new FirstDraw(this);
+        if(trainCardState == null) {
+            trainCardState = new FirstDraw(this);
+        }
     }
 
     /**

@@ -1,13 +1,11 @@
 package presenter;
 
-import shared.model.TrainCard;
-
 /**
  * Interface for Drawing train cards
  * Created by BenNelson on 3/6/18.
  */
 
 public interface IDrawTrainCardsPresenter {
-    void drawFaceUpCard(int index);
-    void drawFaceDownCard();
+    String drawFaceUpCard(int index);
+    String drawFaceDownCard();
 }

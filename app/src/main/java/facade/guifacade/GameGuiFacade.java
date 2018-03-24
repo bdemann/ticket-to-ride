@@ -92,7 +92,7 @@ public class GameGuiFacade {
         return completedDestination;
     }
 
-    public static void drawFaceDownTrainCard() {
+    public static String drawFaceDownTrainCard() {
         GameServerProxy gsp = new GameServerProxy();
         DrawTrainCardsResult cardsResult = gsp.drawFaceDownTrainCard(ClientRoot.getClientPlayer().getUsername());
         try {
@@ -100,10 +100,14 @@ public class GameGuiFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ClientRoot.getClientPlayer().addTrainCard(cardsResult.getDrawnCard());
+        if(cardsResult.getCommandSuccess()){
+            ClientRoot.getClientPlayer().addTrainCard(cardsResult.getDrawnCard());
+            return cardsResult.getDrawnCard().toString();
+        }
+        return cardsResult.getUserMessage();
     }
 
-    public static void drawFaceUpTrainCard(int trainCardIndex) {
+    public static String drawFaceUpTrainCard(int trainCardIndex) {
         GameServerProxy gsp = new GameServerProxy();
         DrawTrainCardsResult result = gsp.drawFaceUpTrainCard(ClientRoot.getClientPlayer().getUsername(), trainCardIndex);
         try {
@@ -114,9 +118,8 @@ public class GameGuiFacade {
         if(result.getCommandSuccess()){
             ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
             ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
-        } else {
-            //TODO inform the user about the failed drawing experience
         }
+        return result.getUserMessage();
     }
 
     public static String claimRoute(IRoute route, TrainCardSet cards, String username){
