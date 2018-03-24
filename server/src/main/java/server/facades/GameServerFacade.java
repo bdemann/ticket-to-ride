@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import server.Server;
+import server.facades.traincardstate.FirstDraw;
+import server.facades.traincardstate.SecondDraw;
+import server.facades.traincardstate.TrainCardState;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
@@ -38,6 +41,13 @@ import shared.results.Result;
  * cards and routes that have been drawn and claimed to the model and return the associated result.
  */
 public class GameServerFacade implements IGameServerFacade {
+
+    private TrainCardState trainCardState;
+
+    public GameServerFacade() {
+        trainCardState = new FirstDraw(this);
+    }
+
     /**
      * A player can claim a route (an edge connecting two cities) using the right amount of train
      * cards.
@@ -205,18 +215,36 @@ public class GameServerFacade implements IGameServerFacade {
     public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getGameId());
-        TrainCard result = game.getCardsFaceUp().get(trainCardIndex);
+        TrainCard result = trainCardState.drawFaceUpCard(game, trainCardIndex);
+        if(result == null) {
+            return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "You can't draw a two face up cards if one is a locomotive");
+        }
         player.addTrainCard(result);
         game.updatePlayerTrainCard(player, result);
-        game.getCardsFaceUp().set(trainCardIndex, drawTrainCard(game.getId()));
+        game.getCardsFaceUp().set(trainCardIndex, drawCardFromDeck(game.getId()));
 
-        //TODO make sure we shuffle away any time we have 3+ locomotive cards.
+        //shuffle away any time we have 3+ locomotive cards.
+        while(threeLocomotiveCards(game)){
+            for(int i = 0; i < 5; i++) {
+                game.discardTrainCard(game.getCardsFaceUp().get(i));
+                game.getCardsFaceUp().set(i, drawCardFromDeck(game.getId()));
+            }
+        }
 
-        //TODO take care of incrementing the turn if its the second draw or a locamotive card
         game.getGameHistory().addEvent(new GameEvent(username, "drew " + result.toString(), System.currentTimeMillis()));
         ClientNotifications.gameUpdated(username);
 
         return new DrawTrainCardsResult(result, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Drew a face up card");
+    }
+
+    private boolean threeLocomotiveCards(IGame game) {
+        int locoCount = 0;
+        for(TrainCard trainCard : game.getCardsFaceUp()) {
+            if(trainCard.getColor().equals(Color.RAINBOW)){
+                locoCount++;
+            }
+        }
+        return locoCount >= 3;
     }
 
 
@@ -242,20 +270,12 @@ public class GameServerFacade implements IGameServerFacade {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getCurrentGame());
 
-        TrainCard drawnCard = drawTrainCard(game.getId());
-
-        game.incrementTurnIndex();
+        TrainCard drawnCard = trainCardState.drawFaceDownCard(game);
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
         return new DrawTrainCardsResult(drawnCard, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Draw a train card");
-    }
-
-    private TrainCard drawTrainCard(int gameId){
-        IGame game = ServerRoot.getGame(gameId);
-
-        return game.getTrainCardDeck().draw(1).get(0);
     }
 
     /**
@@ -285,5 +305,14 @@ public class GameServerFacade implements IGameServerFacade {
         ClientNotifications.playerDrewDestinationCards(username);
 
         return new DrawDestCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
+    }
+
+    public TrainCard drawCardFromDeck(int gameId) {
+        IGame game = ServerRoot.getGame(gameId);
+        return game.getTrainCardDeck().draw(1).get(0);
+    }
+
+    public void setState(TrainCardState state) {
+        this.trainCardState = state;
     }
 }

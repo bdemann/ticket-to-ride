@@ -23,10 +23,10 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         ICommand createGameCommand = new Command("server.facades.GameMenuServerFacade", "createGame", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(createGameCommand);
-        if(result.getCommandSuccess()) {
-            return (CreateGameResult) result;
+        if(result.isExceptional()) {
+            return new CreateGameResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new CreateGameResult(result.getExceptionType(), result.getExceptionMessage());
+        return (CreateGameResult) result;
     }
 
     @Override
@@ -37,10 +37,10 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         ICommand joinGameCommand = new Command("server.facades.GameMenuServerFacade", "joinGame", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(joinGameCommand);
-        if(result.getCommandSuccess()) {
-            return (JoinGameResult) result;
+        if(result.isExceptional()) {
+            return new JoinGameResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new JoinGameResult(result.getExceptionType(), result.getExceptionMessage());
+        return (JoinGameResult) result;
     }
 
     @Override
@@ -50,9 +50,9 @@ public class GameMenuServerProxy implements IGameMenuServerFacade {
         ICommand getGamesCommand = new Command("server.facades.GameMenuServerFacade", "getGamesList", parmTypes, parmValues);
 
         Result result = TaskExecutor.runTask(getGamesCommand);
-        if(result.getCommandSuccess()) {
-            return (GameListResult) result;
+        if(result.isExceptional()) {
+            return new GameListResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new GameListResult(result.getExceptionType(), result.getExceptionMessage());
+        return (GameListResult) result;
     }
 }

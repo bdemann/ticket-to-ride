@@ -24,6 +24,10 @@ public class DrawTrainCardsResult extends Result {
         super(exceptionType, exceptionMessage);
     }
 
+    public DrawTrainCardsResult(List<ICommand> clientCommands, String userMessage) {
+        super(false, clientCommands, userMessage);
+    }
+
     public TrainCard getDrawnCard() {
         return drawnCard;
     }

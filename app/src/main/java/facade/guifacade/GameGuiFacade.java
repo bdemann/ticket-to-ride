@@ -111,8 +111,12 @@ public class GameGuiFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
-        ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
+        if(result.getCommandSuccess()){
+            ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
+            ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
+        } else {
+            //TODO inform the user about the failed drawing experience
+        }
     }
 
     public static String claimRoute(IRoute route, TrainCardSet cards, String username){

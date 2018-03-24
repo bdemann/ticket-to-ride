@@ -59,4 +59,6 @@ public interface IGame {
 
     void updatePlayerDestCard(IPlayer newPlayer,List<DestCard> destCards);
     void updatePlayerTrainCard(IPlayer newPlayer,TrainCard card);
+
+    void discardTrainCard(TrainCard trainCard);
 }

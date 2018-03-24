@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.xml.bind.SchemaOutputResolver;
 
+import shared.logging.Logger;
 import shared.model.history.GameHistory;
 import shared.model.initialized_info.Routes;
 import shared.model.interfaces.IRoute;
@@ -191,6 +192,7 @@ public class Game implements IGame, Serializable {
 
     @Override
     public int incrementTurnIndex() {
+        Logger.log("We are incrementing the turn.");
         //If not every player has had a turn
         if(_turnIndex < _players.size()){
             // Move turn to the next player
@@ -204,6 +206,11 @@ public class Game implements IGame, Serializable {
     @Override
     public void discardTrainCards(TrainCardSet cards) {
         _trainDeck.discard(cards.getTrainCards());
+    }
+
+    @Override
+    public void discardTrainCard(TrainCard trainCard) {
+        _trainDeck.discard(trainCard);
     }
 
     @Override

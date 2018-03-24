@@ -17,6 +17,10 @@ public class ChatServerFacade implements IChatServerFacade {
     public ChatResult sendChat(Chat message) {
         IGame currentGame = ServerRoot.getGame(message.getSpeaker().getCurrentGame());
         ServerRoot.addChat(currentGame, message);
+        if(message.getMessage().equals("turn")) {
+            currentGame.incrementTurnIndex();
+            ClientNotifications.gameUpdated(message.getSpeaker().getUsername());
+        }
         ClientNotifications.messageSent(message, currentGame);
         return new ChatResult(message, true, ClientCommands.getCommandList(message.getSpeaker().getUsername()), "Chat sent");
     }

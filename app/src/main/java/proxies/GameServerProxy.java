@@ -43,10 +43,10 @@ public class GameServerProxy implements IGameServerFacade {
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (ClaimRouteResult) result;
+        if(result.isExceptional()){
+            return new ClaimRouteResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new ClaimRouteResult(result.getExceptionType(), result.getExceptionMessage());
+        return (ClaimRouteResult) result;
     }
 
     /**
@@ -62,10 +62,10 @@ public class GameServerProxy implements IGameServerFacade {
         ICommand command = _generateGameServerFacadeCommand("drawFaceUpTrainCard", parmTypes, parmValues);
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()) {
-            return (DrawTrainCardsResult) result;
+        if(result.isExceptional()) {
+            return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawTrainCardsResult) result;
     }
 
     /**
@@ -91,10 +91,10 @@ public class GameServerProxy implements IGameServerFacade {
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (DrawDestCardsResult) result;
+        if(result.isExceptional()){
+            return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawDestCardsResult) result;
     }
 
     /**
@@ -116,10 +116,10 @@ public class GameServerProxy implements IGameServerFacade {
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (DrawTrainCardsResult) result;
+        if(result.isExceptional()){
+            return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawTrainCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawTrainCardsResult) result;
     }
 
     /**
@@ -141,10 +141,10 @@ public class GameServerProxy implements IGameServerFacade {
 
         Result result = TaskExecutor.runTask(command);
 
-        if(result.getCommandSuccess()){
-            return (DrawDestCardsResult) result;
+        if(result.isExceptional()){
+            return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
         }
-        return new DrawDestCardsResult(result.getExceptionType(), result.getExceptionMessage());
+        return (DrawDestCardsResult) result;
     }
 
     /**
