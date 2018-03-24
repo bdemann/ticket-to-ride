@@ -139,8 +139,7 @@ public class GameGuiFacade {
 
     public static boolean checkTurn(){
         String username = ClientRoot.getClientPlayer().getUsername();
-        if(username.equals(ClientRoot.getClientGame().getGameInfo().activePlayer())){
-            System.out.println("My turn!");
+        if(username.equals(ClientRoot.getClientGameInfo().activePlayer())){
             return true;
         }
 
