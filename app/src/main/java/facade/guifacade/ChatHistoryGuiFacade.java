@@ -37,6 +37,4 @@ public class ChatHistoryGuiFacade {
 
         ClientRoot.setChats(chatResult.getMessage());
     }
-
-    //TODO: add chat and events
 }

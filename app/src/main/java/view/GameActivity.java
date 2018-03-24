@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.a340team.tickettoride.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,9 @@ import model.ClientRoot;
 import presenter.GamePresenter;
 import presenter.IGamePresenter;
 import shared.model.Route;
+import shared.model.TrainCard;
 import shared.model.initialized_info.Routes;
+import shared.model.Color.*;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
@@ -32,6 +35,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     Button _drawDestinations;
     Button _myGame;
     Button _chatStats;
+    Button _endGame;
 
     //Card Selection ImageViews and TextViews
     ImageView _redCardImage;
@@ -114,9 +118,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     private final int notint = Color.argb(0, 0, 0, 0);
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,15 +142,24 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _redCard++;
-                 _updateCardPickerNumbers();
-
+                 if(_checkIfUserHasCard(shared.model.Color.RED, _redCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _redCard--;
+                 }
              }
          });
          _whiteCardImage.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  _whiteCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.WHITE, _whiteCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _whiteCard--;
+                 }
 
              }
          });
@@ -157,7 +167,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _orangeCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.ORANGE, _orangeCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _orangeCard--;
+                 }
 
              }
          });
@@ -165,7 +180,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _greenCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.GREEN, _greenCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _greenCard--;
+                 }
 
              }
          });
@@ -173,7 +193,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _blackCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.BLACK, _blackCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _blackCard--;
+                 }
 
              }
          });
@@ -181,7 +206,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _blueCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.BLUE, _blueCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _blueCard--;
+                 }
 
              }
          });
@@ -189,7 +219,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _yellowCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.YELLOW, _yellowCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _yellowCard--;
+                 }
 
              }
          });
@@ -197,7 +232,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _rainbowCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.RAINBOW, _rainbowCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _rainbowCard--;
+                 }
 
              }
          });
@@ -205,7 +245,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              @Override
              public void onClick(View v) {
                  _pinkCard++;
-                 _updateCardPickerNumbers();
+                 if(_checkIfUserHasCard(shared.model.Color.PINK, _pinkCard)) {
+                     _updateCardPickerNumbers();
+                 }
+                 else{
+                     _pinkCard--;
+                 }
 
              }
          });
@@ -227,6 +272,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
                  }
              }
          });
+        _endGame = (Button) findViewById(R.id.end_game);
+        _endGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GameOverActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private boolean _checkIfUserHasCard(shared.model.Color color,int cardCount) {
+        return _gamePresenter.userHasCards(color, cardCount);
     }
 
     private void _updateCardPickerNumbers(){
@@ -254,8 +311,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         if(_citiesSelected.size() == 2) {
 
             //Check if the two cities comprise a valid edge
-            String message = _gamePresenter.claimRoute(_citiesSelected.get(0),_citiesSelected.get(1));
-
+            String message = _gamePresenter.claimRoute(_citiesSelected.get(0), _citiesSelected.get(1));
             //Draw all the routes in the game.
             //_drawRoutes();
 
@@ -360,15 +416,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         }
     }
 
-
-
-    @Override
-    public void onBackPressed() {
-        //We don't want them to leave the game.
-        ViewUtilities.displayMessage("You Can't Leave The Game.\n " +
-                "Never Give Up.", this);
-    }
-
     private void _createOnClickListeners(List<Button> _cityButtons){
 
          final MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.atlanta);
@@ -385,17 +432,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     }
 
     private void _cityListeners(View view, MediaPlayer mediaPlayer) {
-        if(_citiesSelected.size() < _maxCitiesSelected) {
-            Button button = (Button) view;
-            String text = button.getText().toString();
+        if(!_cardPickerVisible) {
+            if (_citiesSelected.size() < _maxCitiesSelected) {
+                Button button = (Button) view;
+                String text = button.getText().toString();
 
-            //Add the city to the selected list
-            _citiesSelected.add(text);
-            ViewUtilities.displayMessage(text, view.getContext());
+                //Add the city to the selected list
+                _citiesSelected.add(text);
+                ViewUtilities.displayMessage(text, view.getContext());
 
-        }
-        else{
-            ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Routes to End", view.getContext());
+            } else {
+                ViewUtilities.displayMessage("You've Selected 2 Cities\nPress Claim Routes to End", view.getContext());
+            }
         }
     }
 
@@ -458,6 +506,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _drawDestinations = (Button) findViewById(R.id.draw_destinations);
         _myGame = (Button) findViewById(R.id.my_game);
         _chatStats = (Button) findViewById(R.id.chats_stats);
+
 
         //Enables/Desables buttons if player's turn
         checkTurn();
@@ -584,6 +633,13 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     private void _setDrawButtons(boolean value) {
         _drawTrains.setEnabled(value);
         _drawDestinations.setEnabled(value);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //We don't want them to leave the game.
+        ViewUtilities.displayMessage("You Can't Leave The Game.\n " +
+                "Never Give Up.", this);
     }
 
     @Override

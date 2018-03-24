@@ -1,7 +1,5 @@
 package proxies;
 
-import android.support.v7.widget.RecyclerView;
-
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
