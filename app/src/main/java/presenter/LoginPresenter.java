@@ -61,8 +61,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
     @Override
     public void changeHost(String serverHost){
         if(!serverHost.equals("")) {
-            ClientCommunicator.setServerHost(serverHost);
-            System.out.println("SERVERHOST IN PRESENTER: " + serverHost);
+            ClientCommunicator.setServerURL(serverHost);
         }
     }
 
