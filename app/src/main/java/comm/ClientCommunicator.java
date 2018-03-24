@@ -21,13 +21,17 @@ public class ClientCommunicator {
 
     private static final String SERVER_HOST = "10.24.66.45";
     private static final String SERVER_PORT = "8080";
-    private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT + "/";
+    private static String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT + "/";
     private static final String HTTP_POST = "POST";
 
     private static ClientCommunicator _clientCommunicator = new ClientCommunicator();
 
     public static Result sendCommand(ICommand command){
         return _clientCommunicator._sendCommand(command);
+    }
+
+    public static void setServerURL(String serverHost){
+        URL_PREFIX = "http://" + serverHost + ":" + SERVER_PORT + "/";
     }
 
     //Command
