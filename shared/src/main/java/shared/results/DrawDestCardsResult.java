@@ -12,8 +12,6 @@ import shared.model.interfaces.Card;
 
 public class DrawDestCardsResult extends Result {
 
-    //TODO we should get rid of this class and have just the DrawDestCardsResult class which is the only one that extends this class.
-
     List<DestCard> _cards;
 
     public DrawDestCardsResult(List<DestCard> cards, boolean success, List<ICommand> clientCommands, String userMessage) {
