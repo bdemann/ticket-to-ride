@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import com.a340team.tickettoride.R;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import model.ClientRoot;
 import presenter.DrawTrainCardsPresenter;
@@ -25,14 +24,11 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
 
     private ImageButton[] _trainCards;
     private ImageButton _trainCardDeck;
-    private int _trainCardsDrawn;
     private DrawTrainCardsPresenter _presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Set the drawn cards to zero
-        _trainCardsDrawn = 0;
         _trainCards = new ImageButton[5];
         setContentView(R.layout.activity_draw_trains);
         _initializePresenter();
@@ -141,21 +137,11 @@ public class DrawTrainCardsActivity extends AppCompatActivity implements IDrawTr
 
     @Override
     public void drawFaceUpCard(int cardNum) {
-        if(!(_trainCardsDrawn > 2)) {
-            _presenter.drawFaceUpCard(cardNum);
-
-            //Alert the user they drew a card
-            //TODO we need to replace this with our state machine
-            _trainCardsDrawn++;
-            ViewUtilities.displayMessage(Integer.toString(_trainCardsDrawn) + " Cards Drawn.", this);
-        }
-        else {
-            ViewUtilities.displayMessage("You've drawn enough.", this);
-        }
+        ViewUtilities.displayMessage(_presenter.drawFaceUpCard(cardNum), this);
     }
 
     @Override
     public void drawFaceDownCard() {
-        _presenter.drawFaceDownCard();
+        ViewUtilities.displayMessage(_presenter.drawFaceDownCard(), this);
     }
 }

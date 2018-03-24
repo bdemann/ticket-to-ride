@@ -41,10 +41,10 @@ public class Hand<T> implements Serializable {
         List<T> cards = new ArrayList<>();
         Hand<T> originalHand = new Hand<>(new ArrayList<T>(_cards));
         for(Integer i : indices) {
-            //TODO this method will defiantly not work. It's going to mess up the indices a lot and it won't accurately get the position of the card to get
+            //This is where the method is broken. Its going to be messing up our indices as we are going though it. But I don't think that anyone ever calls this and there is an exception just in case.
             cards.add(useCard(i));
         }
-        throw new Exception("This method isn't implemented yet. Check the TODO in the function for more info");
+        throw new Exception("This method isn't implemented yet. this method will defiantly not work. It's going to mess up the indices a lot and it won't accurately get the position of the card to get.");
     }
 
     public void addCard(T card) {
