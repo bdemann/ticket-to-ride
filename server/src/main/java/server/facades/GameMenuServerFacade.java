@@ -23,7 +23,8 @@ import shared.model.interfaces.IPlayer;
 
 public class GameMenuServerFacade implements IGameMenuServerFacade {
     @Override
-    public CreateGameResult createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
+    public CreateGameResult createGame(String creatorUsername, int maxNumberPlayer, String gameName) {
+        IPlayer creator = ServerRoot.getPlayer(creatorUsername);
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINNEST);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 
@@ -57,7 +58,8 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
     }
 
     @Override
-    public JoinGameResult joinGame(int gameId, IPlayer joiner) {
+    public JoinGameResult joinGame(int gameId, String joinerUsername) {
+        IPlayer joiner = ServerRoot.getPlayer(joinerUsername);
         Logger.log("Joining game: " + gameId + "Joining player: " + joiner, Level.FINNEST);
         IGame currentGame = ServerRoot.getGame(gameId);
         if(currentGame == null){

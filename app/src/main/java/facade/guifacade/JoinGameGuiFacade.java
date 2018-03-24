@@ -17,7 +17,7 @@ public class JoinGameGuiFacade {
 
     public static String joinGame(int gameId) {
         IGameMenuServerFacade menuServerFacade = new GameMenuServerProxy();
-        IPlayer player = ClientRoot.getClientPlayer();
+        String player = ClientRoot.getClientPlayer().getUsername();
 
         if(player == null){
 
@@ -29,7 +29,8 @@ public class JoinGameGuiFacade {
         if(commandResult.getCommandSuccess()){
             JoinGameResult joinGameResult = (JoinGameResult) commandResult;
             _addGame(joinGameResult.getGame());
-            _addPlayer(joinGameResult.getGame(), player);
+            //TODO ben demann feels uneasy with this because we are just putting in the same player we had....hmmmm..what's the point?
+            _addPlayer(joinGameResult.getGame(), ClientRoot.getClientPlayer());
             _setPlayersGameId(joinGameResult.getGame());
         }
 

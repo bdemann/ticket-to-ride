@@ -19,13 +19,13 @@ public class CreateGameGuiFacade {
 
         GameMenuServerProxy proxy = new GameMenuServerProxy();
         ClientRoot.getClientPlayer().setColor(color);
-        Result result = proxy.createGame(ClientRoot.getClientPlayer(),maxNumberPlayer,gameName);
+        Result result = proxy.createGame(ClientRoot.getClientPlayer().getUsername(),maxNumberPlayer,gameName);
         IGame newGame = _processResults(result);
 
         if(newGame != null){
             CreateGameResult createGameResult = (CreateGameResult) result;
             //Get the player and gameID for the player to join
-            IPlayer player = ClientRoot.getClientPlayer();
+            String player = ClientRoot.getClientPlayer().getUsername();
             int gameId = newGame.getId();
 
             //Join the game

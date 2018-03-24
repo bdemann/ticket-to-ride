@@ -22,7 +22,7 @@ public interface IGame {
     void setCardsFaceUp(List<TrainCard> cardsFaceUp);
     void setOpenRoutes(List<String> openRoutes);
     void setClaimedRoutes(List<String> claimedRoutes);
-    void setPlayers(List<IPlayer> players);
+//    void setPlayers(List<IPlayer> players);
     void generateScoreSummary();
     void setGameMap(TTRMap gameMap);
     String getPlayerWithLongestRoute();

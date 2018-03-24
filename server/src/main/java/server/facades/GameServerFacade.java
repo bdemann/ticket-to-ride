@@ -119,33 +119,44 @@ public class GameServerFacade implements IGameServerFacade {
             //Check that the cards are the same color as the route.
             boolean cardsMatch = _colorsMatch(cards, route);
             if (!cardsMatch) {
-                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match the color of the route.");
+                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match\nthe color of the route.");
+            }
+            boolean sufficientTrains = _playerHasEnoughTrains(route.getLength(), player);
+            if(!sufficientTrains){
+                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "You didn't have enough\ntrains to claim the route.");
             }
 
-            //Check if there are sufficient trains with the player
-            //if there are, then claim, else false.
-
-            //Now claim it. It is valid, open and the cards match.
             route = game.claimRoute(route);
         }
         else{
-            ClaimRouteResult r = new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid or claimed.");
-            return r;
+            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid\nor claimed.");
         }
 
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
-        player.incrementScore(route.getValue());
+        int value = route.getValue();
+        player.incrementScore(value);
         //Adjust the number of remaining trains player has.
-        player.decrementTrains(route.getLength());
+        int length = route.getLength();
+        player.decrementTrains(length);
 
-        game.incrementTurnIndex();
+        //game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new ClaimRouteEvent(username, route, System.currentTimeMillis()));
         ClientNotifications.playerClaimedRoute(username, route);
 
-        return null;
+        return new ClaimRouteResult(true, ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
+    }
+
+    private boolean _playerHasEnoughTrains(int length, IPlayer player) {
+        if(length <= player.getTrains().size()){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     private IRoute _routeIsValid(IRoute route, IGame game){

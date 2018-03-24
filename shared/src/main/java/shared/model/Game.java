@@ -90,11 +90,11 @@ public class Game implements IGame, Serializable {
         this._claimedRoutes = claimedRoutes;
     }
 
-    @Override
-    public void setPlayers(List<IPlayer> players) {
-        this._players = players;
-
-    }
+//    @Override
+//    public void setPlayers(List<IPlayer> players) {
+//        this._players = players;
+//
+//    }
 
     @Override
     public void generateScoreSummary() {

@@ -37,7 +37,7 @@ public class Server {
         IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
         loginServerFacade.register("bdemann", "password");
         loginServerFacade.signin("bdemann", "password");
-        gameMenuServerFacade.createGame(new Player("bdemann", "password", -65536), 2, "test game");
+        gameMenuServerFacade.createGame("bdemann", 2, "test game");
         InetAddress inetAddress = null;
         try {
             inetAddress = InetAddress.getLocalHost();
