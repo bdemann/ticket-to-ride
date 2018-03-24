@@ -22,6 +22,7 @@ import presenter.GamePresenter;
 import presenter.IGamePresenter;
 import shared.model.Route;
 import shared.model.TrainCard;
+import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
 import shared.model.Color.*;
 
@@ -116,6 +117,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     private boolean _cardPickerVisible;
     private final int tint = Color.argb(50, 0, 0, 0);
     private final int notint = Color.argb(0, 0, 0, 0);
+    private List<TrainCard> userInputCards = new ArrayList<>();
 
 
     @Override
@@ -143,6 +145,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _redCard++;
                  if(_checkIfUserHasCard(shared.model.Color.RED, _redCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.RED,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -155,6 +158,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _whiteCard++;
                  if(_checkIfUserHasCard(shared.model.Color.WHITE, _whiteCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.WHITE,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -168,6 +172,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _orangeCard++;
                  if(_checkIfUserHasCard(shared.model.Color.ORANGE, _orangeCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.ORANGE,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -181,6 +186,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _greenCard++;
                  if(_checkIfUserHasCard(shared.model.Color.GREEN, _greenCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.GREEN,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -194,6 +200,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _blackCard++;
                  if(_checkIfUserHasCard(shared.model.Color.BLACK, _blackCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.BLACK,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -207,6 +214,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _blueCard++;
                  if(_checkIfUserHasCard(shared.model.Color.BLUE, _blueCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.BLUE,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -220,6 +228,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _yellowCard++;
                  if(_checkIfUserHasCard(shared.model.Color.YELLOW, _yellowCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.YELLOW,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -233,6 +242,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _rainbowCard++;
                  if(_checkIfUserHasCard(shared.model.Color.RAINBOW, _rainbowCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.RAINBOW,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -246,6 +256,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
              public void onClick(View v) {
                  _pinkCard++;
                  if(_checkIfUserHasCard(shared.model.Color.PINK, _pinkCard)) {
+                     userInputCards.add(new TrainCard(shared.model.Color.PINK,0));
                      _updateCardPickerNumbers();
                  }
                  else{
@@ -311,7 +322,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         if(_citiesSelected.size() == 2) {
 
             //Check if the two cities comprise a valid edge
-            String message = _gamePresenter.claimRoute(_citiesSelected.get(0), _citiesSelected.get(1));
+            String message = _gamePresenter.claimRoute(_citiesSelected, new TrainCardSet(userInputCards));
+            userInputCards.clear();
+
             //Draw all the routes in the game.
             //_drawRoutes();
 
