@@ -35,7 +35,7 @@ public class ChatHistoryGuiFacade {
             e.printStackTrace();
         }
 
-        ClientRoot.addChatMessage(chatResult.getMessage());
+        ClientRoot.setChats(chatResult.getMessage());
     }
 
     //TODO: add chat and events

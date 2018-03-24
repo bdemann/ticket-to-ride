@@ -22,6 +22,6 @@ public class ChatServerFacade implements IChatServerFacade {
             ClientNotifications.gameUpdated(message.getSpeaker().getUsername());
         }
         ClientNotifications.messageSent(message, currentGame);
-        return new ChatResult(message, true, ClientCommands.getCommandList(message.getSpeaker().getUsername()), "Chat sent");
+        return new ChatResult(ServerRoot.getChats(currentGame.getId()), true, ClientCommands.getCommandList(message.getSpeaker().getUsername()), "Chat sent");
     }
 }
