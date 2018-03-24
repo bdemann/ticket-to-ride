@@ -444,6 +444,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             _claimRoute.setEnabled(false);
             _drawDestinations.setEnabled(false);
         }
+        else {
+            _drawTrains.setEnabled(true);
+            _claimRoute.setEnabled(true);
+            _drawDestinations.setEnabled(true);
+        }
     }
 
     private void _initializeButtons(){
