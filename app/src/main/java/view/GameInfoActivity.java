@@ -251,6 +251,5 @@ public class GameInfoActivity extends AppCompatActivity {
             _playerColor[i].setBackgroundColor(playerColors.get(players.get(i)));
             _playerDestCards[i].setText(destCards.get(players.get(i)).toString());
         }
-
     }
 }

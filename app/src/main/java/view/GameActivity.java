@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.ClientRoot;
 import presenter.GamePresenter;
 import presenter.IGamePresenter;
 import shared.model.Route;
@@ -120,7 +121,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_acitvity);
-        _gamePresenter = new GamePresenter();
+        _gamePresenter = new GamePresenter(this);
         //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
 
@@ -435,6 +436,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         });
     }
 
+    public void checkTurn(){
+        boolean isTurn = _gamePresenter.checkTurn();
+
+        if(!isTurn){
+            _drawTrains.setEnabled(false);
+            _claimRoute.setEnabled(false);
+            _drawDestinations.setEnabled(false);
+        }
+    }
+
     private void _initializeButtons(){
         //Click buttons
         _drawTrains = (Button) findViewById(R.id.draw_trains);
@@ -442,6 +453,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _drawDestinations = (Button) findViewById(R.id.draw_destinations);
         _myGame = (Button) findViewById(R.id.my_game);
         _chatStats = (Button) findViewById(R.id.chats_stats);
+
+        //Enables/Desables buttons if player's turn
+        checkTurn();
 
         //find buttons
         portland = (Button) findViewById(R.id.portland);
