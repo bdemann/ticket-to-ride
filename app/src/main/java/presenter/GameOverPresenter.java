@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import facade.guifacade.GameOverGuiFacade;
 import model.ClientRoot;
 import shared.model.TrainCard;
 import shared.model.interfaces.IGameInfo;
@@ -34,6 +35,11 @@ public class GameOverPresenter implements Observer{
             updateActivity();
         }
 
+    }
+
+    public void getLongestRoute(){
+        GameOverGuiFacade gameOverGuiFacade = new GameOverGuiFacade();
+        gameOverGuiFacade.getLongestRoute();
     }
 
     public void updateActivity(){
