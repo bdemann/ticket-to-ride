@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private boolean _signInEnabled = false;
     private boolean _registerEnabled = false;
     private LoginPresenter _loginPresenter;
+    private EditText _serverHost;
 
 
     @Override
@@ -173,6 +174,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     private void _initializeLoginElements(){
+        //Server Information
+        _serverHost = (EditText) findViewById(R.id.server_host);
 
         //Sign In Portion
         _usernameSignInText = (EditText) findViewById(R.id.username);
@@ -201,6 +204,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
                     //Set what ever is in the text, and sign in.
                     String username = _usernameSignInText.getText().toString();
                     String password = _passwordSignInText.getText().toString();
+                    String serverHost = _serverHost.getText().toString();
+                    _loginPresenter.changeHost(serverHost);
                     String message =  _loginPresenter.signIn(username,password);
                     displayMessage(message);
                 }
