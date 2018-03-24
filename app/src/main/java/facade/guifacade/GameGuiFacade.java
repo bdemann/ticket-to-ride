@@ -2,6 +2,7 @@ package facade.guifacade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
@@ -130,5 +131,14 @@ public class GameGuiFacade {
 
        // return null;
 
+    }
+
+    public static boolean checkTurn(){
+        String username = ClientRoot.getClientPlayer().getUsername();
+        if(username.equals(ClientRoot.getClientGame().getActivePlayer().getUsername())){
+            return true;
+        }
+
+        return false;
     }
 }
