@@ -2,25 +2,19 @@ package facade.guifacade;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
 import shared.command.Command;
 import shared.model.DestCardSet;
 import shared.model.DestCard;
-import shared.model.DestDeck;
 import shared.model.TrainCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
-import shared.model.interfaces.IPlayer;
 import shared.model.interfaces.IRoute;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardsResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
-import shared.results.Result;
 
 /**
  * This helps the presenters talk to the model
@@ -49,15 +43,14 @@ public class GameGuiFacade {
 
     public static List<DestCard> drawDestinationCards() {
         GameServerProxy gsp = new GameServerProxy();
-        DrawCardsResult cardResults = gsp.drawDestCards(ClientRoot.getClientPlayer().getUsername());
+        DrawDestCardsResult cardResults = gsp.drawDestCards(ClientRoot.getClientPlayer().getUsername());
         return _processDrawDestinationResults(cardResults);
     }
 
-    private static List<DestCard> _processDrawDestinationResults(DrawCardsResult cardResults) {
+    private static List<DestCard> _processDrawDestinationResults(DrawDestCardsResult cardResults) {
         if(cardResults != null){
-            //TODO it was not my intention to have a cast like this... is there a way to change this? Maybe its not too big of a deal?
-            ClientRoot.getClientPlayer().setUnresolvedDestCards((List<DestCard>) cardResults.getCards());
-            return (List<DestCard>) cardResults.getCards();
+            ClientRoot.getClientPlayer().setUnresolvedDestCards(cardResults.getCards());
+            return cardResults.getCards();
         }
         else {
             return null;

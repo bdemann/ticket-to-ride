@@ -1,24 +1,18 @@
 package server.facades;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import server.Server;
 import server.facades.traincardstate.FirstDraw;
-import server.facades.traincardstate.SecondDraw;
 import server.facades.traincardstate.TrainCardState;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
-import shared.model.City;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
-import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IRoute;
 import shared.model.TrainCard;
 import shared.model.history.events.ClaimRouteEvent;
@@ -28,7 +22,6 @@ import shared.model.interfaces.IPlayer;
 import shared.results.ClaimRouteResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
-import shared.results.Result;
 
 /**
  * Created by bdemann on 3/4/18.
