@@ -199,7 +199,8 @@ public class Game implements IGame, Serializable {
             return _turnIndex;
         }
         // Otherwise start the turns over again.
-        return 0;
+        _turnIndex = 0;
+        return _turnIndex;
     }
 
     @Override
