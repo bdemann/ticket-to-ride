@@ -16,4 +16,6 @@ public interface IGamePresenter {
     String claimRoute(String startCity, String endCity);
 
     Map<Color,List<Route>> getRoutesMapForDrawing();
+
+    boolean checkTurn();
 }

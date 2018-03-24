@@ -15,6 +15,8 @@ import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Cities;
 import shared.model.interfaces.IRoute;
+import view.GameActivity;
+import view.GameInfoActivity;
 
 /**
  * This class is the presenter for the game
@@ -22,15 +24,18 @@ import shared.model.interfaces.IRoute;
  */
 
 public class GamePresenter implements IGamePresenter, Observer{
+    private GameActivity _gameActivity;
 
     //This presenter needs to add itself as an observer to the client
-    public GamePresenter(){
+    public GamePresenter(GameActivity gameActivity){
+        this._gameActivity = gameActivity;
         ClientRoot.addClientRootObserver(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-
+        System.out.println("GamePresenter update called\n");
+        _gameActivity.checkTurn();
     }
 
     @Override
@@ -48,6 +53,11 @@ public class GamePresenter implements IGamePresenter, Observer{
     @Override
     public Map<Color, List<Route>> getRoutesMapForDrawing() {
         return null;
+    }
+
+    @Override
+    public boolean checkTurn(){
+        return GameGuiFacade.checkTurn();
     }
 
 
