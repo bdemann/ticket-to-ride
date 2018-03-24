@@ -194,9 +194,9 @@ public class Game implements IGame, Serializable {
     public int incrementTurnIndex() {
         Logger.log("We are incrementing the turn.");
         //If not every player has had a turn
-        if(_turnIndex < _players.size()){
+        if(++_turnIndex < _players.size()){
             // Move turn to the next player
-            return ++_turnIndex;
+            return _turnIndex;
         }
         // Otherwise start the turns over again.
         _turnIndex = 0;

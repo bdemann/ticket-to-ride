@@ -2,25 +2,19 @@ package facade.guifacade;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 import model.ClientRoot;
 import proxies.GameServerProxy;
 import shared.command.Command;
 import shared.model.DestCardSet;
 import shared.model.DestCard;
-import shared.model.DestDeck;
 import shared.model.TrainCard;
 import shared.model.TrainCardSet;
-import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
-import shared.model.interfaces.IPlayer;
 import shared.model.interfaces.IRoute;
 import shared.results.ClaimRouteResult;
-import shared.results.DrawCardsResult;
 import shared.results.DrawDestCardsResult;
 import shared.results.DrawTrainCardsResult;
-import shared.results.Result;
 
 /**
  * This helps the presenters talk to the model
@@ -49,15 +43,14 @@ public class GameGuiFacade {
 
     public static List<DestCard> drawDestinationCards() {
         GameServerProxy gsp = new GameServerProxy();
-        DrawCardsResult cardResults = gsp.drawDestCards(ClientRoot.getClientPlayer().getUsername());
+        DrawDestCardsResult cardResults = gsp.drawDestCards(ClientRoot.getClientPlayer().getUsername());
         return _processDrawDestinationResults(cardResults);
     }
 
-    private static List<DestCard> _processDrawDestinationResults(DrawCardsResult cardResults) {
+    private static List<DestCard> _processDrawDestinationResults(DrawDestCardsResult cardResults) {
         if(cardResults != null){
-            //TODO it was not my intention to have a cast like this... is there a way to change this? Maybe its not too big of a deal?
-            ClientRoot.getClientPlayer().setUnresolvedDestCards((List<DestCard>) cardResults.getCards());
-            return (List<DestCard>) cardResults.getCards();
+            ClientRoot.getClientPlayer().setUnresolvedDestCards(cardResults.getCards());
+            return cardResults.getCards();
         }
         else {
             return null;
@@ -92,7 +85,7 @@ public class GameGuiFacade {
         return completedDestination;
     }
 
-    public static void drawFaceDownTrainCard() {
+    public static String drawFaceDownTrainCard() {
         GameServerProxy gsp = new GameServerProxy();
         DrawTrainCardsResult cardsResult = gsp.drawFaceDownTrainCard(ClientRoot.getClientPlayer().getUsername());
         try {
@@ -100,10 +93,14 @@ public class GameGuiFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ClientRoot.getClientPlayer().addTrainCard(cardsResult.getDrawnCard());
+        if(cardsResult.getCommandSuccess()){
+            ClientRoot.getClientPlayer().addTrainCard(cardsResult.getDrawnCard());
+            return cardsResult.getDrawnCard().toString();
+        }
+        return cardsResult.getUserMessage();
     }
 
-    public static void drawFaceUpTrainCard(int trainCardIndex) {
+    public static String drawFaceUpTrainCard(int trainCardIndex) {
         GameServerProxy gsp = new GameServerProxy();
         DrawTrainCardsResult result = gsp.drawFaceUpTrainCard(ClientRoot.getClientPlayer().getUsername(), trainCardIndex);
         try {
@@ -114,9 +111,8 @@ public class GameGuiFacade {
         if(result.getCommandSuccess()){
             ClientRoot.getClientGame().setCardsFaceUp(result.getFaceUpCards());
             ClientRoot.getClientPlayer().addTrainCard(result.getDrawnCard());
-        } else {
-            //TODO inform the user about the failed drawing experience
         }
+        return result.getUserMessage();
     }
 
     public static String claimRoute(IRoute route, TrainCardSet cards, String username){
@@ -139,8 +135,7 @@ public class GameGuiFacade {
 
     public static boolean checkTurn(){
         String username = ClientRoot.getClientPlayer().getUsername();
-        if(username.equals(ClientRoot.getClientGame().getGameInfo().activePlayer())){
-            System.out.println("My turn!");
+        if(username.equals(ClientRoot.getClientGameInfo().activePlayer())){
             return true;
         }
 
