@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
     Button _drawDestinations;
     Button _myGame;
     Button _chatStats;
+    Button _endGame;
 
     //Card Selection ImageViews and TextViews
     ImageView _redCardImage;
@@ -227,6 +228,13 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
                  }
              }
          });
+        _endGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GameOverActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void _updateCardPickerNumbers(){
@@ -458,6 +466,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _drawDestinations = (Button) findViewById(R.id.draw_destinations);
         _myGame = (Button) findViewById(R.id.my_game);
         _chatStats = (Button) findViewById(R.id.chats_stats);
+        _endGame = (Button) findViewById(R.id.end_game);
 
         //Enables/Desables buttons if player's turn
         checkTurn();

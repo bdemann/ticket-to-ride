@@ -693,4 +693,12 @@
         android:layout_below="@+id/relativeLayout2"
         android:text="Confirm" />
 
+    <Button
+        android:id="@+id/end_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/my_game"
+        android:layout_toStartOf="@+id/my_game"
+        android:text="I'm tired of playing" />
+
 </RelativeLayout>
