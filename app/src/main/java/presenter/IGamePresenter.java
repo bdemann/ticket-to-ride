@@ -18,4 +18,7 @@ public interface IGamePresenter {
     Map<Color,List<Route>> getRoutesMapForDrawing();
 
     boolean checkTurn();
+
+    boolean userHasCards(Color color, int cardCount);
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.StringTokenizer;
 
 import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
@@ -11,6 +12,7 @@ import shared.model.City;
 import shared.model.Color;
 import shared.model.Hand;
 import shared.model.Route;
+import shared.model.Train;
 import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Cities;
@@ -58,6 +60,22 @@ public class GamePresenter implements IGamePresenter, Observer{
     @Override
     public boolean checkTurn(){
         return GameGuiFacade.checkTurn();
+    }
+
+    @Override
+    public boolean userHasCards(Color color, int cardCount) {
+        List<TrainCard> trainCards = ClientRoot.getClientPlayer().getTrainCardHand().get_cards();
+        for(TrainCard card : trainCards){
+            if(color.equals(card.getColor())){
+                cardCount--;
+            }
+        }
+        if(cardCount <= 0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
