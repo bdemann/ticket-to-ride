@@ -21,6 +21,21 @@ public class TrainCard implements ITrainCard, Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TrainCard trainCard = (TrainCard) o;
+
+        return _color.equals(trainCard._color);
+    }
+
+    @Override
+    public int hashCode() {
+        return _color.hashCode();
+    }
+
+    @Override
     public void setColor(Color color){
         this._color = color;
     }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.model.interfaces.Card;
+
 /**
  * Created by bdemann on 3/4/18.
  */
@@ -63,5 +65,13 @@ public class Hand<T> implements Serializable {
 
     public int size() {
         return _cards.size();
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(T card : _cards) {
+            sb.append(card.toString());
+        }
+        return sb.toString();
     }
 }
