@@ -1,5 +1,7 @@
 package presenter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -37,6 +39,10 @@ public class GamePresenter implements IGamePresenter, Observer{
     @Override
     public void update(Observable o, Object arg) {
         _gameActivity.checkTurn();
+        if(ClientRoot.getClientGameInfo() != null){
+            _gameActivity.drawRoutes();
+        }
+
     }
 
     @Override
@@ -51,8 +57,35 @@ public class GamePresenter implements IGamePresenter, Observer{
     }
 
     @Override
-    public Map<Color, List<Route>> getRoutesMapForDrawing() {
-        return null;
+    public Map<Color, List<IRoute>> getRoutesMapForDrawing() {
+        Map<Color, List<IRoute>> drawMap = new HashMap<>();
+        Map<String, List<IRoute>> routesMap = ClientRoot.getClientGameInfo().getClaimedRoutes();
+
+        for(String player: routesMap.keySet()){
+            List<IRoute> routes = routesMap.get(player);
+            Integer playerColor = ClientRoot.getClientGameInfo().getPlayerColors().get(player);
+            switch(playerColor){
+                case Color.PLAYER_RED:
+                    drawMap.put(Color.RED, routes);
+                    break;
+                case Color.PLAYER_GREEN:
+                    drawMap.put(Color.GREEN, routes);
+                    break;
+                case Color.PLAYER_YELLOW:
+                    drawMap.put(Color.YELLOW, routes);
+                    break;
+                case Color.PLAYER_BLUE:
+                    drawMap.put(Color.BLUE, routes);
+                    break;
+                case Color.PLAYER_BLACK:
+                    drawMap.put(Color.BLACK, routes);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return drawMap;
     }
 
     @Override

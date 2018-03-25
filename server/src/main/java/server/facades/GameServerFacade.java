@@ -80,34 +80,38 @@ public class GameServerFacade implements IGameServerFacade {
             //Check that the cards are the same color as the route.
             boolean cardsMatch = _colorsMatch(cards, route);
             if (!cardsMatch) {
-                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Cards did not match\nthe color of the route.");
+                return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Cards did not match\nthe color of the route.");
             }
             boolean sufficientTrains = _playerHasEnoughTrains(route.getLength(), player);
             if(!sufficientTrains){
-                return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "You didn't have enough\ntrains to claim the route.");
+                return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You didn't have enough\ntrains to claim the route.");
             }
 
-            route = game.claimRoute(route);
+            route = game.claimRoute(route, player.getUsername());
+
         }
         else{
-            return new ClaimRouteResult(false, ClientCommands.getCommandList(username), "Route was not valid\nor claimed.");
+            return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "Route was not valid\nor claimed.");
         }
 
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
-        int value = route.getValue();
-        player.incrementScore(value);
+        player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
-        int length = route.getLength();
-        player.decrementTrains(length);
+        player.decrementTrains(route.getLength());
+
+        //Discard the right cards used up.
+        for(TrainCard card: cards.getTrainCards()){
+            player.discardTrainCard(card);
+        }
 
         //game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new ClaimRouteEvent(username, route, System.currentTimeMillis()));
         ClientNotifications.playerClaimedRoute(username, route);
 
-        return new ClaimRouteResult(true, ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
+        return new ClaimRouteResult(true, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
     }
 
     private boolean _playerHasEnoughTrains(int length, IPlayer player) {

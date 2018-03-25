@@ -20,6 +20,11 @@ public class Color implements Serializable{
     public static final Color GREEN = new Color("green");
     public static final Color YELLOW = new Color("yellow");
     public static final Color GRAY = new Color("gray");
+    public static final int PLAYER_RED = -65536;
+    public static final int PLAYER_YELLOW = -256;
+    public static final int PLAYER_BLACK = -16777216;
+    public static final int PLAYER_BLUE = -16776961;
+    public static final int PLAYER_GREEN = -16711936;
 
     private String _color;
 

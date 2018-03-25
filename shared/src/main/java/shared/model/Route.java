@@ -7,6 +7,7 @@ import java.util.List;
 import shared.model.interfaces.IRoute;
 
 /**
+ *
  * Created by paulinecausse on 2/28/18.
  */
 
@@ -16,6 +17,7 @@ public class Route implements IRoute, Serializable{
     private City _end;
     private Color _color;
     private boolean _claimed;
+    private String _owner;
 
     public Route(int length, City start, City end, Color color, boolean claimed){
         this._color = color;
@@ -23,6 +25,7 @@ public class Route implements IRoute, Serializable{
         this._end = end;
         this._length = length;
         this._claimed = claimed;
+        this._owner = null;
     }
 
     public Route(City start, City end){
@@ -31,14 +34,11 @@ public class Route implements IRoute, Serializable{
         this._end = end;
         this._length = -1;
         this._claimed = false;
+        this._owner = null;
     }
 
     public boolean isClaimed() {
         return _claimed;
-    }
-
-    public void setClaimed(boolean claimed) {
-        this._claimed = claimed;
     }
 
     public void setLength(int length){ this._length = length; }
@@ -77,7 +77,13 @@ public class Route implements IRoute, Serializable{
     }
 
     @Override
-    public void claim() {
+    public void setOwner(String username) {
+        this._owner = username;
         this._claimed = true;
+    }
+
+    @Override
+    public String getOwner() {
+        return this._owner;
     }
 }

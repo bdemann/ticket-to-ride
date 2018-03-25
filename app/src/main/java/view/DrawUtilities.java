@@ -17,6 +17,7 @@ import java.util.Map;
 
 import shared.model.CityPoint;
 import shared.model.Route;
+import shared.model.interfaces.IRoute;
 
 import static shared.model.Color.BLACK;
 import static shared.model.Color.BLUE;
@@ -44,7 +45,7 @@ public class DrawUtilities extends View {
 
     }
 
-    public void drawRoutes(Map<shared.model.Color, List<Route>> routesMap, ImageView view) {
+    public void drawRoutes(Map<shared.model.Color, List<IRoute>> routesMap, ImageView view) {
         //super.onDraw(canvas);
         //Set the paint
         Paint paint = new Paint();
@@ -60,9 +61,9 @@ public class DrawUtilities extends View {
 
         for(shared.model.Color playerColor : routesMap.keySet()){
             if(routesMap.containsKey(playerColor)){
-                List<Route> routes = routesMap.get(playerColor);
+                List<IRoute> routes = routesMap.get(playerColor);
 
-                for (Route route : routes) {
+                for (IRoute route : routes) {
                     CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor);
                     CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor);
                     paint.setColor(_convertColor(route.getColor()));
