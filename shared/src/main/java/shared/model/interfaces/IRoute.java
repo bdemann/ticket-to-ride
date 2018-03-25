@@ -26,8 +26,6 @@ public interface IRoute {
 
     int getValue();
 
-    void claim();
-
     void setOwner(String username);
 
     String getOwner();

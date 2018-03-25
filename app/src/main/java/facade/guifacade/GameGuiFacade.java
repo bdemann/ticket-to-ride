@@ -126,6 +126,8 @@ public class GameGuiFacade {
             e.printStackTrace();
         }
 
+        ClientRoot.getClientPlayer().setTrainCards(result.getHand());
+        ClientRoot.setClientGameInfo(result.getGameInfo());
         return result.getUserMessage();
 
 

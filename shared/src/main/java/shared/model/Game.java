@@ -35,7 +35,7 @@ public class Game implements IGame, Serializable {
     private GameHistory _gameHistory;
     private int _turnIndex;
     private List<String> _openRoutes;
-    private List<String> _claimedRoutes;
+    private List<IRoute> _claimedRoutes;
 
     public Game(String gameName, List<IPlayer> players, int maxNumberPlayer){
         this._players = players;
@@ -85,10 +85,6 @@ public class Game implements IGame, Serializable {
         this._openRoutes = openRoutes;
     }
 
-    @Override
-    public void setClaimedRoutes(List<String> claimedRoutes) {
-        this._claimedRoutes = claimedRoutes;
-    }
 
 //    @Override
 //    public void setPlayers(List<IPlayer> players) {
@@ -136,7 +132,7 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public List<String> getClaimedRoutes() {
+    public List<IRoute> getClaimedRoutes() {
         return this._claimedRoutes;
     }
 
@@ -265,7 +261,7 @@ public class Game implements IGame, Serializable {
         Map<String, Integer> playerHandSizes = new HashMap<>();
         Map<String, Integer> playerPoints = new HashMap<>();
         Map<String, Integer> trainsRemaining = new HashMap<>();
-        Map<String, List<String>> claimedRoutes = new HashMap<>();
+        Map<String, List<IRoute>> claimedRoutes = new HashMap<>();
         Map<String, Integer> playerDestCount = new HashMap<>();
         for(IPlayer player : _players) {
             String username = player.getUsername();
@@ -304,7 +300,7 @@ public class Game implements IGame, Serializable {
     }
 
     @Override
-    public IRoute claimRoute(IRoute route) {
+    public IRoute claimRoute(IRoute route, String owner) {
         //This assumes the incoming route is valid
         //We need to use this route to tell the Game that it is now claimed
         String start = route.getStart().get_name();
@@ -325,10 +321,8 @@ public class Game implements IGame, Serializable {
         //Remove it from the open routes
         _openRoutes.remove(routeToClaim);
         //Add it to the claimed routes
-        _claimedRoutes.add(routeToClaim);
-
-        //Tell the route it is claimed
-        route.claim();
+        route.setOwner(owner);
+        _claimedRoutes.add(route);
         return route;
     }
 

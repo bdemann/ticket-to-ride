@@ -41,10 +41,6 @@ public class Route implements IRoute, Serializable{
         return _claimed;
     }
 
-    public void setClaimed(boolean claimed) {
-        this._claimed = claimed;
-    }
-
     public void setLength(int length){ this._length = length; }
 
     public void setStart(City start){ this._start = start; }
@@ -81,13 +77,9 @@ public class Route implements IRoute, Serializable{
     }
 
     @Override
-    public void claim() {
-        this._claimed = true;
-    }
-
-    @Override
     public void setOwner(String username) {
         this._owner = username;
+        this._claimed = true;
     }
 
     @Override

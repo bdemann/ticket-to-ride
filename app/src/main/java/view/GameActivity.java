@@ -25,6 +25,7 @@ import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
 import shared.model.Color.*;
+import shared.model.interfaces.IRoute;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
 
@@ -324,9 +325,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             //Check if the two cities comprise a valid edge
             String message = _gamePresenter.claimRoute(_citiesSelected, new TrainCardSet(userInputCards));
             userInputCards.clear();
-
-            //Draw all the routes in the game.
-            //_drawRoutes();
 
             //Re-enable buttons, turn off tint, and let the use know what just happened.
             ViewUtilities.displayMessage(message, this);
@@ -677,9 +675,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         mapView.setColorFilter(tint);
     }
 
-    private void _drawRoutes() {
+    public void drawRoutes() {
         //Get all the routes to draw.
-        Map<shared.model.Color, List<Route>> routes = _gamePresenter.getRoutesMapForDrawing();
+        Map<shared.model.Color, List<IRoute>> routes = _gamePresenter.getRoutesMapForDrawing();
 
         //Draw the routes
         DrawUtilities myDrawer = new DrawUtilities(this);
