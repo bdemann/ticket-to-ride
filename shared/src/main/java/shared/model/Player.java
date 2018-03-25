@@ -127,6 +127,11 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public void setTrainCards(Hand<TrainCard> hand) {
+        this._trainCards = hand;
+    }
+
+    @Override
     public String getUsername() {
         return this._username;
     }

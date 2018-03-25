@@ -6,6 +6,7 @@ import java.util.Map;
 import shared.model.Color;
 import shared.model.Route;
 import shared.model.TrainCardSet;
+import shared.model.interfaces.IRoute;
 
 /**
  * This interface is for the main game presenter
@@ -16,7 +17,7 @@ public interface IGamePresenter {
 
     String claimRoute(List<String> startEndCities, TrainCardSet cards);
 
-    Map<Color,List<Route>> getRoutesMapForDrawing();
+    Map<Color,List<IRoute>> getRoutesMapForDrawing();
 
     boolean checkTurn();
 

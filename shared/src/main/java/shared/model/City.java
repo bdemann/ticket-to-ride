@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.model.interfaces.IRoute;
+
 /**
  * Created by paulinecausse on 3/2/18.
  */
@@ -13,7 +15,7 @@ public class City implements Serializable {
     private CityPoint _coordinates;
     private String _name;
     private boolean isVisited;
-    private List<Route> outgoingEdges;
+    private List<IRoute> outgoingEdges;
 
     public City(CityPoint coordinates, String name){
         this._coordinates = coordinates;
@@ -29,11 +31,11 @@ public class City implements Serializable {
         return isVisited;
     }
 
-    public void addOutGoingEdge(Route route){
+    public void addOutGoingEdge(IRoute route){
         outgoingEdges.add(route);
     }
 
-    public List<Route> getOutGoingEdges(){
+    public List<IRoute> getOutGoingEdges(){
         return outgoingEdges;
     }
 

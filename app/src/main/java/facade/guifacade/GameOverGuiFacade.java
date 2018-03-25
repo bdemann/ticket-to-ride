@@ -14,11 +14,6 @@ import shared.results.GameOverResult;
  */
 
 public class GameOverGuiFacade {
-    public void getLongestRoute(){
-        GameOverServerProxy gosp = new GameOverServerProxy();
-        GameOverResult result = gosp.getLongestRoute();
-        processLongestRoute(result);
-    }
 
     private void processLongestRoute(GameOverResult result){
         //TODO: update player with longest route

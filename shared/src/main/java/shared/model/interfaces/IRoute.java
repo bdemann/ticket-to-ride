@@ -14,8 +14,6 @@ public interface IRoute {
 
     void setEnd(City end);
 
-//    void setBlocks(List<Block> blocks);
-
     void setColor(Color color);
 
     int getLength();
@@ -24,11 +22,11 @@ public interface IRoute {
 
     City getEnd();
 
-//    List<Block> getBlocks();
-
     Color getColor();
 
     int getValue();
 
-    void claim();
+    void setOwner(String username);
+
+    String getOwner();
 }

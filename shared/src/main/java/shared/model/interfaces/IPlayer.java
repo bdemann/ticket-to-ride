@@ -179,4 +179,6 @@ public interface IPlayer {
     void incrementScore(int score);
 
     void decrementTrains(int length);
+
+    void setTrainCards(Hand<TrainCard> hand);
 }

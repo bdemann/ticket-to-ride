@@ -224,7 +224,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
 
     public void _updateGameInfo(List<String> players, Map<String, Integer> playerPoints, Map<String, Integer> playerHandSize,
-                                Map<String, List<String>> claimedRoutes, Map<String, Integer> playerRemainingTrains,
+                                Map<String, List<IRoute>> claimedRoutes, Map<String, Integer> playerRemainingTrains,
                                 Map<String, Integer> playerColors, Map<String, Integer> destCards){
 
         int numPlayers = players.size();
