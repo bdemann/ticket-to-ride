@@ -12,5 +12,5 @@ import shared.model.Route;
 public interface IGraph {
     void setOutGoingEdged();
     List<City> getVertices();
-    List<Route> getEdges();
+    List<IRoute> getEdges();
 }

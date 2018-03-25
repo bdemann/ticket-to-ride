@@ -23,10 +23,9 @@ import shared.results.Result;
  */
 
 public class GameOverServerFacade implements IGameOverServerFacade {
-    @Override
     public int getLongestRoute(IGame currentGame) {
         List<IPlayer> players = currentGame.getPlayers();
-        List<Route> allRoutes = currentGame.getClaimedRoutes();
+        List<IRoute> allRoutes = currentGame.getClaimedRoutes();
 
         IPlayer winner = null;
         int tempLP;
@@ -70,17 +69,17 @@ public class GameOverServerFacade implements IGameOverServerFacade {
         return longestPath;
     }
 
-    private Graph setPlayerGraph(IPlayer player, List<Route> allRoutes){
-        List<Route> playerRoute = setEdges(player,allRoutes);
+    private Graph setPlayerGraph(IPlayer player, List<IRoute> allRoutes){
+        List<IRoute> playerRoute = setEdges(player,allRoutes);
         List<City> playerCities = setCities(playerRoute);
 
         return new Graph(playerRoute,playerCities,player.getUsername());
     }
 
-    private List<Route> setEdges(IPlayer player, List<Route> allRoutes){
-        List<Route> playerRoutes = new ArrayList<>();
-        for(Route route:allRoutes){
-            if(route.getOwner().getUsername.equals(player.getUsername())){
+    private List<IRoute> setEdges(IPlayer player, List<IRoute> allRoutes){
+        List<IRoute> playerRoutes = new ArrayList<>();
+        for(IRoute route:allRoutes){
+            if(route.getOwner().equals(player.getUsername())){
                 playerRoutes.add(route);
             }
         }
@@ -88,9 +87,9 @@ public class GameOverServerFacade implements IGameOverServerFacade {
         return playerRoutes;
     }
 
-    private List<City> setCities(List<Route> playerRoutes){
+    private List<City> setCities(List<IRoute> playerRoutes){
         List<City> playerCities = new ArrayList<>();
-        for(Route route: playerRoutes){
+        for(IRoute route: playerRoutes){
             if(!findCity(playerCities,route.getStart())){
                 playerCities.add(route.getStart());
             }
