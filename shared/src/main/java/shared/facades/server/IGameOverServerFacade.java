@@ -1,5 +1,6 @@
 package shared.facades.server;
 
+import shared.model.interfaces.IGame;
 import shared.results.GameOverResult;
 
 /**
@@ -7,5 +8,4 @@ import shared.results.GameOverResult;
  */
 
 public interface IGameOverServerFacade {
-    GameOverResult getLongestRoute();
 }

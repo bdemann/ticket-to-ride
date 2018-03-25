@@ -15,10 +15,12 @@ public class Graph implements IGraph{
     //cities that are part of a player's routes
     //each city has a list of out-going edges
     private List<City> vertices;
+    private String ownerUsername;
 
-    public Graph(List<Route> edges, List<City> vertex){
+    public Graph(List<Route> edges, List<City> vertex, String username){
         this.edges = edges;
         this.vertices = vertex;
+        this.ownerUsername = username;
 
         setOutGoingEdged();
     }
