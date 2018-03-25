@@ -8,4 +8,5 @@ import shared.results.GameOverResult;
 
 public interface IGameOverServerFacade {
     GameOverResult getLongestRoute();
+    GameOverResult getTotalPoints();
 }

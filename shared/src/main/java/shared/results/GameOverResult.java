@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.command.ICommand;
+import shared.model.EndGameTotals;
 import shared.model.Player;
 import shared.model.interfaces.IGame;
 
@@ -13,6 +14,7 @@ import shared.model.interfaces.IGame;
 
 public class GameOverResult extends Result {
     private Player longestRouteWinner;
+    private List<EndGameTotals> endGameTotals;
 
     public GameOverResult(Player longestRouteWinner, boolean success, List<ICommand> clientCommands) {
         super(success, clientCommands, "Got player with longest route");
@@ -20,6 +22,11 @@ public class GameOverResult extends Result {
 //        if(this.longestRouteWinner == null) {
 //            longestRouteWinner = new Player();
 //        }
+    }
+
+    public GameOverResult(List<EndGameTotals> endGameTotals, boolean success, List<ICommand> clientCommands) {
+        super(success, clientCommands, "Got list of end game point totals");
+        this.endGameTotals = endGameTotals;
     }
 
     public GameOverResult(String exceptionType, String exceptionMessage) {
@@ -35,5 +42,9 @@ public class GameOverResult extends Result {
 
     public Player getPlayerWithLongestRoute(){
         return longestRouteWinner;
+    }
+
+    public List<EndGameTotals> getEndGameTotals() {
+        return endGameTotals;
     }
 }

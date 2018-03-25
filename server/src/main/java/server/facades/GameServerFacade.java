@@ -47,40 +47,6 @@ public class GameServerFacade implements IGameServerFacade {
     }
 
 
-    public List<EndGameTotals> _calculatePoints(IGame game){
-        List<IPlayer> players = game.getPlayers();
-
-        //A list of totals with indexes correspoinding to the players
-        List<EndGameTotals> endGameTotals = new ArrayList<>();
-
-        //Loop through each player to calculate points
-        for (int i = 0; i < players.size(); i++){
-            IPlayer current_player = players.get(i);
-            EndGameTotals end = new EndGameTotals();
-
-            //Unclaimed destinations
-            int u_dest_points = 0;
-
-            DestCardSet unclaimed_cards = current_player.getUnresolvedDestCards();
-
-            for (DestCard d : unclaimed_cards) {
-                u_dest_points -= d.getPoints();
-            }
-            end.setUnclaimed_destination_points(u_dest_points);
-
-            //Claimed Route points
-            int claimed_route_points = current_player.getScore();
-            end.setClaimed_route_points(claimed_route_points);
-
-            //Calculate total points
-            int total_points = u_dest_points + claimed_route_points;
-            end.setTotal_points(total_points);
-            endGameTotals.add(end);
-        }
-
-        //Return the values
-        return endGameTotals;
-    }
 
     /**
      * A player can claim a route (an edge connecting two cities) using the right amount of train

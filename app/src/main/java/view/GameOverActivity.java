@@ -39,7 +39,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         intializeViews();
         presenter = new GameOverPresenter(this);
-        getLongestRoute();
+//        getLongestRoute();
 
     }
 

@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import facade.guifacade.GameOverGuiFacade;
 import model.ClientRoot;
 import presenter.GamePresenter;
 import presenter.IGamePresenter;
@@ -287,6 +288,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _endGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                GameOverGuiFacade gameOverGuiFacade = new GameOverGuiFacade();
+                gameOverGuiFacade.getPointTotals();
                 Intent intent = new Intent(v.getContext(), GameOverActivity.class);
                 startActivity(intent);
             }

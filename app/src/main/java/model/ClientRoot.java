@@ -2,6 +2,7 @@ package model;
 
 
 import shared.model.Chat;
+import shared.model.EndGameTotals;
 import shared.model.GameInfo;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IGameInfo;
@@ -25,6 +26,7 @@ public class ClientRoot extends Observable {
     private static ClientRoot _instance = new ClientRoot();
     private IGameInfo _gameInfo;
     private List<Chat> messages;
+    private static List<EndGameTotals> endGameTotals;
 
     private ClientRoot(){
         this._clientPlayer = null;
@@ -138,6 +140,16 @@ public class ClientRoot extends Observable {
         _instance.notifyObservers();
     }
 
+    public static List<EndGameTotals> getEndGameTotals() {
+        return endGameTotals;
+    }
+
+    public static void setEndGameTotals(List<EndGameTotals> endGameTotals) {
+        _instance.endGameTotals = endGameTotals;
+        _instance.setChanged();
+        _instance.notifyObservers();
+    }
+
     public static void removeClientRootObserver(Observer o){
         _instance.deleteObserver(o);
     }
@@ -145,5 +157,4 @@ public class ClientRoot extends Observable {
     public static void removeAllObservers() {
         _instance.deleteObservers();
     }
-
 }
