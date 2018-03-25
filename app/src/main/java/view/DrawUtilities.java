@@ -66,7 +66,7 @@ public class DrawUtilities extends View {
                 for (IRoute route : routes) {
                     CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor);
                     CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor);
-                    paint.setColor(_convertColor(route.getColor()));
+                    paint.setColor(_convertColor(playerColor));
                     canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
                 }
             }
