@@ -5,6 +5,7 @@ import java.util.List;
 
 import server.facades.helpers.LongestPath;
 import server.model.ServerRoot;
+import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.command.ICommand;
 import java.util.ArrayList;
@@ -50,6 +51,9 @@ public class GameOverServerFacade implements IGameOverServerFacade {
             }
         }
 
+        if(winner == null){
+            return -1;
+        }
         currentGame.setPlayerWithLongestRoute(winner.getUsername());
 
         return getWinningPlayerID(winner,players);
@@ -122,7 +126,7 @@ public class GameOverServerFacade implements IGameOverServerFacade {
 
         return cityExists;
     }
-    public List<EndGameTotals> _calculatePoints(IGame game){
+    public GameOverResult getTotalPoints(IGame game){
         List<IPlayer> players = game.getPlayers();
 
         //A list of totals with indexes correspoinding to the players
@@ -148,7 +152,7 @@ public class GameOverServerFacade implements IGameOverServerFacade {
             end.setClaimed_route_points(claimed_route_points);
 
             //Longest Route Bonus
-            getLongestRoute(game);
+            int winnerID = getLongestRoute(game);
 
             //Calculate total points
             int total_points = u_dest_points + claimed_route_points;
@@ -157,7 +161,7 @@ public class GameOverServerFacade implements IGameOverServerFacade {
         }
 
         //Return the values
-        return endGameTotals;
+        return new GameOverResult(endGameTotals, true, ClientCommands.getCommandList(players.get(0).getUsername()));
     }
 
 }

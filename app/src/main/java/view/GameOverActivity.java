@@ -43,9 +43,9 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
-    private void getLongestRoute(){
-        presenter.getLongestRoute();
-    }
+//    private void getLongestRoute(){
+//        presenter.getLongestRoute();
+//    }
 
     private void intializeViews(){
 

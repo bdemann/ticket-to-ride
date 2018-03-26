@@ -1,8 +1,13 @@
 package proxies;
 
+import model.ClientRoot;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameOverServerFacade;
+import shared.model.interfaces.IGame;
+import shared.results.GameOverResult;
+import shared.results.Result;
+import tasks.TaskExecutor;
 
 
 /**
@@ -14,10 +19,10 @@ public class GameOverServerProxy implements IGameOverServerFacade {
         return new Command("server.facades.GameOverServerFacade", method, parmTypes, parmValues);
     }
 
-    @Override
     public GameOverResult getTotalPoints() {
-        Class<?>[] parmTypes = {};
-        Object[] parmValues = {};
+        IGame game = ClientRoot.getClientGame();
+        Class<?>[] parmTypes = {IGame.class};
+        Object[] parmValues = {game};
 
         ICommand command = generateGameOverServerFacadeCommand("getTotalPoints", parmTypes, parmValues);
 

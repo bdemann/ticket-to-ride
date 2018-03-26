@@ -23,7 +23,8 @@ public class GameOverPresenter implements Observer{
 
     public GameOverPresenter(GameOverActivity activity) {
         this.activity = activity;
-        getLongestRoute();
+//        getLongestRoute();
+
         updateActivity();
     }
 
@@ -37,11 +38,6 @@ public class GameOverPresenter implements Observer{
             updateActivity();
         }
 
-    }
-
-    public void getLongestRoute(){
-        GameOverGuiFacade gameOverGuiFacade = new GameOverGuiFacade();
-        gameOverGuiFacade.getLongestRoute();
     }
 
     public void updateActivity(){
@@ -61,6 +57,11 @@ public class GameOverPresenter implements Observer{
                 players.add("-");
             }
             activity.set_player_names(players);
+            EndGameTotals gameTotals = new EndGameTotals();
+            for(int i = gameInfo.getPlayers().size(); i < players.size(); i++){
+
+                endGameTotals.add(gameTotals);
+            }
 
             //Set Point Values and keep track of winner
             List<String> destination_points = new ArrayList<>();
