@@ -132,6 +132,11 @@ public class Player implements IPlayer, Serializable {
     }
 
     @Override
+    public void incrementRouteCount() {
+        //TODO we could do something like routes.size() if we were using the routes.
+    }
+
+    @Override
     public String getUsername() {
         return this._username;
     }

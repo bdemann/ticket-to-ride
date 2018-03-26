@@ -105,13 +105,14 @@ public class GameServerFacade implements IGameServerFacade {
         player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
         player.decrementTrains(route.getLength());
+        player.incrementRouteCount();
 
         //Discard the right cards used up.
         for(TrainCard card: cards.getTrainCards()){
             player.discardTrainCard(card);
         }
 
-        //game.incrementTurnIndex();
+        game.incrementTurnIndex();
 
         game.getGameHistory().addEvent(new ClaimRouteEvent(username, route, System.currentTimeMillis()));
         ClientNotifications.playerClaimedRoute(username, route);

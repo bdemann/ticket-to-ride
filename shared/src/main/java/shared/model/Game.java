@@ -270,6 +270,7 @@ public class Game implements IGame, Serializable {
             playerHandSizes.put(username, player.getTrainCardHand().size());
             playerPoints.put(username, player.getScore());
             trainsRemaining.put(username, player.getTrains().size());
+            //TODO get the claimed routes for just the player that we are on. Right now we are passing the full list.
             claimedRoutes.put(username, _claimedRoutes);
             playerDestCount.put(username, player.getDestCards().size());
         }

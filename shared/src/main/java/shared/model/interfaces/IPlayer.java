@@ -181,4 +181,6 @@ public interface IPlayer {
     void decrementTrains(int length);
 
     void setTrainCards(Hand<TrainCard> hand);
+
+    void incrementRouteCount();
 }
