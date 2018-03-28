@@ -37,7 +37,7 @@ import static shared.model.Color.YELLOW;
 public class DrawUtilities extends View {
 
     private Context _context;
-    private static double scaleFactor = 0.885;
+    private static double scaleFactor = 0.665;
 
     public DrawUtilities(Context context) {
         super(context);
@@ -51,6 +51,7 @@ public class DrawUtilities extends View {
         Paint paint = new Paint();
         paint.setStrokeWidth(8);
         paint.setStrokeCap(Paint.Cap.ROUND);
+        float screenScale = _context.getResources().getDisplayMetrics().density;
 
         //Set the bit map
         Bitmap gameMapBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ticket_to_ride_map_with_routes);
@@ -64,8 +65,8 @@ public class DrawUtilities extends View {
                 List<IRoute> routes = routesMap.get(playerColor);
 
                 for (IRoute route : routes) {
-                    CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor);
-                    CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor);
+                    CityPoint start = _scale(route.getStart().get_coordinates(), scaleFactor, screenScale);
+                    CityPoint end = _scale(route.getEnd().get_coordinates(), scaleFactor, screenScale);
                     paint.setColor(_convertColor(playerColor));
                     canvas.drawLine(start.x(),start.y(),end.x(),end.y(),paint);
                 }
@@ -76,9 +77,11 @@ public class DrawUtilities extends View {
         view.setImageBitmap(drawableBitmap);
     }
 
-    private CityPoint _scale(CityPoint coords, double scaleFactor) {
-        double x = coords.x() * scaleFactor;
-        double y = coords.y() * scaleFactor;
+    private CityPoint _scale(CityPoint coords, double scaleFactor, float screenScale) {
+        double x = coords.x() * screenScale;
+        double y = coords.y() * screenScale;
+        x *= scaleFactor;
+        y *= scaleFactor;
         return new CityPoint((int)x,(int)y);
     }
 
