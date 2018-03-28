@@ -194,7 +194,7 @@ public class GameServerFacade implements IGameServerFacade {
         // add kept cards to user cards
         IPlayer player = ServerRoot.getPlayer(username);
 //        ServerRoot.getPlayer(username).addDestCards(keptCards.toList());
-        player.addDestCards(keptCards.toList());
+        //player.addDestCards(keptCards.toList());
         // add discarded cards to discard
 
         //Update dest cards of the player in the game
@@ -235,7 +235,7 @@ public class GameServerFacade implements IGameServerFacade {
         if(result == null) {
             return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "You can't draw a two face up cards if one is a locomotive");
         }
-        player.addTrainCard(result);
+        //player.addTrainCard(result);
         game.updatePlayerTrainCard(player, result);
         game.getCardsFaceUp().set(trainCardIndex, drawCardFromDeck(game.getId()));
 
