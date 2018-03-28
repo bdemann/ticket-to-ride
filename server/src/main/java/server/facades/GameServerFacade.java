@@ -157,6 +157,10 @@ public class GameServerFacade implements IGameServerFacade {
      * or not.
      */
     private boolean _colorsMatch(TrainCardSet cards, IRoute route) {
+
+        if(cards.getTrainCards().size() != route.getLength()){
+            return false;
+        }
         if (cards.colorsMatch()) {
             if(route.getColor().equals(Color.GRAY)) {
                 return true;
