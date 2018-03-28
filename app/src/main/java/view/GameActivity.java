@@ -333,8 +333,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
             //Re-enable buttons, turn off tint, and let the use know what just happened.
             ViewUtilities.displayMessage(message, this);
             _setCityButtons(false);
-            _setDrawButtons(true);
-            _claimRoute.setEnabled(true);
+            //_setDrawButtons(true);
+            //_claimRoute.setEnabled(true);
             _citiesSelected.clear();
             _setCardPickerVisibility(INVISIBLE);
             _setCardPickerButtonsVisibility(INVISIBLE);
