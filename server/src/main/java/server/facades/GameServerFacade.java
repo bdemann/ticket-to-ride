@@ -85,7 +85,7 @@ public class GameServerFacade implements IGameServerFacade {
             //Check that the cards are the same color as the route.
             boolean cardsMatch = _colorsMatch(cards, route);
             if (!cardsMatch) {
-                return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Cards did not match\nthe color of the route.");
+                return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Cards did not match.");
             }
             boolean sufficientTrains = _playerHasEnoughTrains(route.getLength(), player);
             if(!sufficientTrains){
@@ -157,6 +157,10 @@ public class GameServerFacade implements IGameServerFacade {
      * or not.
      */
     private boolean _colorsMatch(TrainCardSet cards, IRoute route) {
+
+        if(cards.getTrainCards().size() != route.getLength()){
+            return false;
+        }
         if (cards.colorsMatch()) {
             if(route.getColor().equals(Color.GRAY)) {
                 return true;
