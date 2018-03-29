@@ -9,6 +9,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
+import shared.model.CityPoint;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
@@ -97,12 +98,15 @@ public class GameServerFacade implements IGameServerFacade {
             }
             else{
                 //If the double matches, then we want that one.
-                if(_colorsMatch(cards, doubleRoute)){
+                if( _colorsMatch(cards, doubleRoute) && !_routeIsClaimed(doubleRoute, game) ){
                     route = doubleRoute;
                     cardsMatch = true;
                 }
                 else{
                     cardsMatch = _colorsMatch(cards, route);
+                    if(_routeIsClaimed(route, game)){
+                        return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "Route was already claimed.");
+                    }
                 }
             }
             if (!cardsMatch) {
@@ -141,6 +145,31 @@ public class GameServerFacade implements IGameServerFacade {
         return new ClaimRouteResult(true, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
     }
 
+    private boolean _routeIsClaimed(IRoute route, IGame game) {
+        String routeStartName = route.getStart().get_name();
+        String routeEndName = route.getEnd().get_name();
+        CityPoint routeStartPt = route.getStart().get_coordinates();
+        CityPoint routeEndPt = route.getEnd().get_coordinates();
+
+        List<IRoute> claimedRoutes = game.getClaimedRoutes();
+        for(IRoute claimed : claimedRoutes){
+            String claimedStartName = claimed.getStart().get_name();
+            String claimedEndName = claimed.getEnd().get_name();
+            if((routeStartName.equals(claimedStartName) && routeEndName.equals(claimedEndName)) || (routeStartName.equals(claimedEndName) && routeEndName.equals(claimedStartName))) {
+                //Now check the coordinates
+                CityPoint claimStartPt = claimed.getStart().get_coordinates();
+                CityPoint claimEndPt = claimed.getEnd().get_coordinates();
+
+                if ((routeStartPt.x() == claimStartPt.x())  && (routeStartPt.y() == claimStartPt.y()) && (routeEndPt.x() == claimEndPt.x())  && (routeEndPt.y() == claimEndPt.y())) {
+                    //If the coordinates are all equal, then we know it's the same.
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
 
 
     private boolean _playerHasEnoughTrains(int length, IPlayer player) {

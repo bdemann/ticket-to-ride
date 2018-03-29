@@ -380,6 +380,22 @@ public class Routes implements Serializable {
             if( (sOne.equals(sTwo) && eOne.equals(eTwo)) || (sOne.equals(eTwo) && eOne.equals(sTwo)) ){
                 //Yep she's a match
                 routeCount++;
+                //Check if there is a difference in the coordinates and then we know there is a double
+                int routeStartX = route.getStart().get_coordinates().x();
+                int routeStartY = route.getStart().get_coordinates().y();
+                int routeEndX = route.getEnd().get_coordinates().x();
+                int routeEndY = route.getEnd().get_coordinates().y();
+                int rStartX = r.getStart().get_coordinates().x();
+                int rStartY = r.getStart().get_coordinates().y();
+                int rEndX = r.getEnd().get_coordinates().x();
+                int rEndY = r.getEnd().get_coordinates().y();
+
+                if ((routeStartX != rStartX)  || (routeStartY != rStartY) || (routeEndX != rEndX)  || (routeEndY != rEndY)){
+                    doubleRoute = r;
+                    break;
+                }
+
+
                 if(routeCount == 2){
                     //We know we have a double.
                     doubleRoute = r;
