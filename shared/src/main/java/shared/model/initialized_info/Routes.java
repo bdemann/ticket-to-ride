@@ -364,4 +364,34 @@ public class Routes implements Serializable {
     public Map<String, IRoute> getRoutesMap() {
         return _routesMap;
     }
+
+    public IRoute isRouteDouble(IRoute route) {
+        String sOne = route.getStart().get_name();
+        String eOne = route.getEnd().get_name();
+
+        int routeCount = 0;
+        IRoute doubleRoute = null;
+        for(IRoute r : _routesMap.values())
+        {
+            String sTwo = r.getStart().get_name();
+            String eTwo = r.getEnd().get_name();
+            if( (sOne.equals(sTwo) && eOne.equals(eTwo)) || (sOne.equals(eTwo) && eOne.equals(sTwo)) ){
+                //Yep she's a match
+                routeCount++;
+                if(routeCount == 2){
+                    //We know we have a double.
+                    doubleRoute = r;
+                }
+            }
+        }
+        //If we get to here and doubleRoute is not null, then we know we have the double route.
+        if(doubleRoute == null){
+            return null;
+        }
+        else{
+            //Be sure to return a new route instance.
+            return new Route(doubleRoute.getLength(),doubleRoute.getStart(),doubleRoute.getEnd(),doubleRoute.getColor(),false);
+        }
+
+    }
 }

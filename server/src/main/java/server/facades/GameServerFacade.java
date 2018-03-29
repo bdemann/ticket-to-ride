@@ -82,8 +82,26 @@ public class GameServerFacade implements IGameServerFacade {
         //Make sure the route is a valid route.
         route = _routeIsValid(route, game);
         if(route != null){
+            //Check if the valid route is already claimed.
+
+
             //Check that the cards are the same color as the route.
-            boolean cardsMatch = _colorsMatch(cards, route);
+            //Double check to see if the route is a double route.
+            boolean cardsMatch = false;
+            IRoute doubleRoute = _routeIsDouble(route);
+            if(doubleRoute == null) {
+                cardsMatch = _colorsMatch(cards, route);
+            }
+            else{
+                //If the double matches, then we want that one.
+                if(_colorsMatch(cards, doubleRoute)){
+                    route = doubleRoute;
+                    cardsMatch = true;
+                }
+                else{
+                    cardsMatch = _colorsMatch(cards, route);
+                }
+            }
             if (!cardsMatch) {
                 return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Cards did not match.");
             }
@@ -120,6 +138,8 @@ public class GameServerFacade implements IGameServerFacade {
         return new ClaimRouteResult(true, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
     }
 
+
+
     private boolean _playerHasEnoughTrains(int length, IPlayer player) {
         if(length <= player.getTrains().size()){
             return true;
@@ -137,6 +157,11 @@ public class GameServerFacade implements IGameServerFacade {
         else {
             return null;
         }
+    }
+
+    //This method will check to see if the route given is a double route, and if it is it will return its counterpart route.
+    private IRoute _routeIsDouble(IRoute route) {
+        return Routes.instance().isRouteDouble(route);
     }
 
 
