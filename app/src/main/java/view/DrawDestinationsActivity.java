@@ -37,6 +37,7 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
     static int FIRST_CARD = 1;
     static int SECOND_CARD = 2;
     static int THIRD_CARD = 3;
+    static boolean isStart = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,25 +138,32 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
             @Override
             public void onClick(View view) {
                 //Send information to the server
-                if(_chosenCards.size() > 1){
+                if((_chosenCards.size() > 1 && isStart) || (_chosenCards.size() > 0 && !isStart)){
                     //Send the chosen cards onto the player, and the discard to the server
 
                     DestCardSet s = ClientRoot.getClientPlayer().getUnresolvedDestCards();
+                    System.out.println("DEST CARDS: " + s.toList().toString());
                     List<DestCard> destList = s.toList();
+                    System.out.println("DEST CARD SIZE: " + destList.size());
                     List<DestCard> cardsToRemove = new ArrayList<DestCard>();
 //                    printDestList(destList);
+                    DestCard second = destList.get(1);
+                    DestCard third = destList.get(2);
 
                     if(!_chosenCards.contains(FIRST_CARD)){
                         cardsToRemove.add(destList.get(0));
                         destList.remove(0);
                     }
                     if(!_chosenCards.contains(SECOND_CARD)){
-                        cardsToRemove.add(destList.get(1));
-                        destList.remove(1);
+                        int index = findDestCard(destList,second);
+                        cardsToRemove.add(destList.get(index));
+                        destList.remove(index);
                     }
+                    //System.out.println(destList.get(2));
                     if(!_chosenCards.contains(THIRD_CARD)){
-                        cardsToRemove.add(destList.get(2));
-                        destList.remove(2);
+                        int index = findDestCard(destList,third);
+                        cardsToRemove.add(destList.get(index));
+                        destList.remove(index);
                     }
 
 //                    printDestList(destList);
@@ -168,11 +176,25 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
                     activity.finish();
                 }
                 else{
-                    ViewUtilities.displayMessage("You need at least 2.", view.getContext());
+                    ViewUtilities.displayMessage("You need more cards.", view.getContext());
                 }
+
+                isStart = false;
 
             }
         });
+    }
+
+    private int findDestCard(List<DestCard> destCards, DestCard card){
+        int i;
+        for(i = 0; i < destCards.size(); i++){
+            DestCard currentCard = destCards.get(i);
+            if(currentCard.getDestination().equals(card.getDestination()) && currentCard.getStartingPoint().equals(card.getStartingPoint())){
+                return i;
+            }
+        }
+
+        return -1;
     }
 
 }
