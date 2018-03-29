@@ -40,7 +40,7 @@ public class DestCardId implements Serializable{
     public static String NEW_ORLEANS = "new_orleans";
     public static String SEATTLE = "seattle";
     public static String HELENA = "helena";
-    public static String OKLAHOMA_CITY = "okalahoma_city";
+    public static String OKLAHOMA_CITY = "oklahoma_city";
     public static String LAS_VEGAS = "las_vegas";
     public static String OMAHA = "omaha";
     public static String ST_LOUIS = "st_louis";

@@ -83,6 +83,9 @@ public class GameServerFacade implements IGameServerFacade {
         route = _routeIsValid(route, game);
         if(route != null){
             //Check if the valid route is already claimed.
+            //if(_routeIsAlreadyClaimed(route)){
+                //return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Route(s) Already Claimed.");
+            //}
 
 
             //Check that the cards are the same color as the route.
@@ -163,6 +166,8 @@ public class GameServerFacade implements IGameServerFacade {
     private IRoute _routeIsDouble(IRoute route) {
         return Routes.instance().isRouteDouble(route);
     }
+
+
 
 
     /**
