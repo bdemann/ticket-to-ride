@@ -218,18 +218,23 @@ public class GameOverServerFacade implements IGameOverServerFacade {
             if(start_city.equals(start)){
                 List<IRoute> newRoute = new ArrayList<>(routes);
                 newRoute.remove(i);
-                return recursiveSearch(end_city,end,newRoute);
+                if(recursiveSearch(end_city,end,newRoute))
+                    return true;
             }
             else if(end_city.equals(start)){
                 List<IRoute> newRoute = new ArrayList<>(routes);
                 newRoute.remove(i);
-                return recursiveSearch(start_city,end,newRoute);
+                if( recursiveSearch(start_city,end,newRoute))
+                    return true;
             }
-            else if((start_city.equals(start) && end_city.equals(end)) || (end_city.equals(start) && start_city.equals(end))){
+            else if(( (start_city.equals(start) && end_city.equals(end) ) || (end_city.equals(start) && start_city.equals(end)) ))
+            {
                 System.out.println("TRue");
                 return true;
             }
         }
+        if(start.equals(end))
+            return true;
         return false;
     }
 
