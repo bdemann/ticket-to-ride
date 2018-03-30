@@ -39,13 +39,15 @@ public class GameOverActivity extends AppCompatActivity {
 
         intializeViews();
         presenter = new GameOverPresenter(this);
-//        getLongestRoute();
 
     }
 
-//    private void getLongestRoute(){
-//        presenter.getLongestRoute();
-//    }
+    @Override
+    public void onBackPressed(){
+        //This makes it so the back button should be disabled
+        ViewUtilities.displayMessage("Game is over! You can't go back", this);
+    }
+
 
     private void intializeViews(){
 

@@ -53,6 +53,12 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
 
     }
 
+    @Override
+    public void onBackPressed(){
+        //This makes it so the back button should be disabled
+        ViewUtilities.displayMessage("Sorry, you can't change your mind like that!", this);
+    }
+
     //This method will show the client what cards to choose from
     private void _initializeDestCards(boolean isStartOfGame) {
         if(isStartOfGame){
