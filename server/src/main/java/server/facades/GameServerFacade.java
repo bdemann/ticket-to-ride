@@ -351,6 +351,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         TrainCard drawnCard = trainCardState.drawFaceDownCard(game);
 
+        game.updatePlayerTrainCard(player, drawnCard);
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
