@@ -23,7 +23,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     public GameLobbyPresenter(GameLobbyActivity activity) {
         _activity = activity;
-        System.out.println("We are observing the client");
+        System.out.println("#############################We are observing the client##########################3");
         ClientRoot.addClientRootObserver(this);
     }
 

@@ -37,7 +37,6 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
 
         //Setup _gameLobbyPresenter
         _gameLobbyPresenter = new GameLobbyPresenter(this);
-        ClientRoot.addClientRootObserver(_gameLobbyPresenter);
 
         _gameID = getIntent().getStringExtra("GameID");
 
@@ -82,6 +81,7 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         //This gets called by the _gameLobbyPresenter. It is called with a string listing the players
         //separated by commas "Player One, Player Two, Player Three...."
         _playerList.setText(players);
+        _playerList.invalidate();
     }
 
     @Override
