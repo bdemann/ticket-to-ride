@@ -130,7 +130,6 @@ public class GameServerFacade implements IGameServerFacade {
         player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
         player.decrementTrains(route.getLength());
-        player.incrementRouteCount();
 
         //Discard the right cards used up.
         for(TrainCard card: cards.getTrainCards()){
@@ -294,6 +293,15 @@ public class GameServerFacade implements IGameServerFacade {
     public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getGameId());
+
+        //Figure out if its the players turn
+        List<IPlayer> players = game.getPlayers();
+        int playerIndex = players.indexOf(player);
+        int turnIndex = game.getTurnIndex();
+        if(playerIndex != turnIndex) {
+            return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "It's not your turn.");
+        }
+
         TrainCard result = trainCardState.drawFaceUpCard(game, trainCardIndex);
         if(result == null) {
             return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "You can't draw a two face up cards if one is a locomotive");
