@@ -83,12 +83,6 @@ public class GameServerFacade implements IGameServerFacade {
         //Make sure the route is a valid route.
         route = _routeIsValid(route, game);
         if(route != null){
-            //Check if the valid route is already claimed.
-            //if(_routeIsAlreadyClaimed(route)){
-                //return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Route(s) Already Claimed.");
-            //}
-
-
             //Check that the cards are the same color as the route.
             //Double check to see if the route is a double route.
             boolean cardsMatch = false;
@@ -124,6 +118,11 @@ public class GameServerFacade implements IGameServerFacade {
             return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "Route was not valid\nor claimed.");
         }
 
+        //Take care of double Route is the game has 3 players or less.
+        if(game.getPlayers().size() < 4){
+            _blockDoubleRoute(route, game);
+        }
+
         //Add cards to discard pile
         game.discardTrainCards(cards);
         //Adjust the players score
@@ -142,6 +141,15 @@ public class GameServerFacade implements IGameServerFacade {
         ClientNotifications.playerClaimedRoute(username, route);
 
         return new ClaimRouteResult(true, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
+    }
+
+    //The incoming route will be claimed. Make sure it's twin is now turned off.
+    private void _blockDoubleRoute(IRoute route, IGame game) {
+        IRoute routeToBlock = _routeIsDouble(route);
+        if(routeToBlock != null){
+            //Block it
+            game.blockRoute(routeToBlock);
+        }
     }
 
     private boolean _routeIsClaimed(IRoute route, IGame game) {
