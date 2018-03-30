@@ -91,7 +91,7 @@ public class GameServerFacade implements IGameServerFacade {
             if(!sufficientTrains){
                 return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You didn't have enough\ntrains to claim the route.");
             }
-
+            player.incrementScore(route.getLength());
             route = game.claimRoute(route, player.getUsername());
 
         }

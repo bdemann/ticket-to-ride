@@ -83,6 +83,7 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:text="-"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
             <TextView
@@ -91,6 +92,7 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:text="-"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
             <TextView
@@ -99,6 +101,7 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:text="-"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
             <TextView
@@ -107,6 +110,7 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:text="-"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
             <TextView
@@ -115,6 +119,7 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:text="-"
+                android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
 

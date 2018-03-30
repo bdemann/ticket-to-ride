@@ -126,10 +126,16 @@ public class GameOverServerFacade implements IGameOverServerFacade {
 
         return cityExists;
     }
+
     public GameOverResult getTotalPoints(IGame game){
+        game = ServerRoot.getGame(game.getId());
         List<IPlayer> players = game.getPlayers();
 
-        //A list of totals with indexes correspoinding to the players
+
+        //Longest Route Bonus
+        int winnerID = getLongestRoute(game);
+
+        //A list of totals with indexes corresponding to the players
         List<EndGameTotals> endGameTotals = new ArrayList<>();
 
         //Loop through each player to calculate points
@@ -151,11 +157,14 @@ public class GameOverServerFacade implements IGameOverServerFacade {
             int claimed_route_points = current_player.getScore();
             end.setClaimed_route_points(claimed_route_points);
 
-            //Longest Route Bonus
-            int winnerID = getLongestRoute(game);
+            if (winnerID == i){
+                end.setLongest_route_bonus(60);
+            }
+            else
+                end.setLongest_route_bonus(0);
 
             //Calculate total points
-            int total_points = u_dest_points + claimed_route_points;
+            int total_points = u_dest_points + claimed_route_points + end.getLongest_route_bonus();
             end.setTotal_points(total_points);
             endGameTotals.add(end);
         }

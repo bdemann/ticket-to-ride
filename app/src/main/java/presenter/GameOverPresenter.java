@@ -24,7 +24,7 @@ public class GameOverPresenter implements Observer{
     public GameOverPresenter(GameOverActivity activity) {
         this.activity = activity;
 //        getLongestRoute();
-
+        ClientRoot.addClientRootObserver(this);
         updateActivity();
     }
 
