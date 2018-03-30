@@ -15,6 +15,7 @@ public class LobbyClientFacade implements ILobbyClientFacade {
     @Override
     public void startGame(IGameInfo gameInfo, IPlayer player) {
         //Set the initialized gameInfo.
+        ClientRoot.getClientGame().startGame();
         ClientRoot.setClientGameInfo(gameInfo);
         ClientRoot.setClientPlayer(player);
     }

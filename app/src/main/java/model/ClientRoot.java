@@ -157,4 +157,9 @@ public class ClientRoot extends Observable {
     public static void removeAllObservers() {
         _instance.deleteObservers();
     }
+
+    public static void somethingChanged() {
+        _instance.setChanged();
+        _instance.notifyObservers();
+    }
 }

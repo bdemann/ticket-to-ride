@@ -21,9 +21,13 @@ public class GameMenuClientFacade implements IGameMenuClientFacade {
     public void joinGame(IPlayer player, IGame game) {
         ClientRoot.getListGames().get(game.getId()).addPlayer(player);
 
+        System.out.println(player.toString() + " is getting added to the client root");
+
         if(ClientRoot.getClientGame() != null){
             if(game.getId() == ClientRoot.getClientGame().getId()){
                 ClientRoot.getClientGame().addPlayer(player);
+                ClientRoot.somethingChanged();
+                System.out.println(player.toString() + " is added to the client root");
             }
         }
     }

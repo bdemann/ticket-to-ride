@@ -35,6 +35,7 @@ public class LobbyGuiFacade {
             return "Start Game Result is Null";
         }
         if(results.getCommandSuccess()){
+            ClientRoot.getClientGame().startGame();
             ClientRoot.setClientGameInfo(results.getGameInfo());
             ClientRoot.setClientPlayer(results.getPlayer());
         }

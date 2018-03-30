@@ -152,6 +152,10 @@ public class GameInfo implements IGameInfo, Serializable {
 
     @Override
     public String activePlayer() {
+        if(_players.size() <= _turnIndex) {
+            System.out.println("##############We shouldnt be calling this yet!!!!!!###########33");
+            return null;
+        }
         return _players.get(_turnIndex);
     }
 }
