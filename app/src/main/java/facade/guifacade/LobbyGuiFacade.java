@@ -37,6 +37,7 @@ public class LobbyGuiFacade {
         if(results.getCommandSuccess()){
             ClientRoot.setClientGameInfo(results.getGameInfo());
             ClientRoot.setClientPlayer(results.getPlayer());
+            ClientRoot.getClientGame().startGame();
         }
 
         return results.getUserMessage();
