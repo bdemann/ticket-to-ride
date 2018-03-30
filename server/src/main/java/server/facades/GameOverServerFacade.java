@@ -158,7 +158,7 @@ public class GameOverServerFacade implements IGameOverServerFacade {
             end.setClaimed_route_points(claimed_route_points);
 
             if (winnerID == i){
-                end.setLongest_route_bonus(60);
+                end.setLongest_route_bonus(10);
             }
             else
                 end.setLongest_route_bonus(0);
