@@ -27,6 +27,9 @@ public class SecondDraw extends TrainCardState {
             gameServerFacade.setState(new SecondDraw(gameServerFacade));
             return null;
         } else {
+            if(game.getCardsFaceUp().size() < 2){
+                gameServerFacade.setState(new NoCards(gameServerFacade));
+            }
             gameServerFacade.setState(new FirstDraw(gameServerFacade));
             game.incrementTurnIndex();
             return result;

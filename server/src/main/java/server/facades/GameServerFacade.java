@@ -321,6 +321,8 @@ public class GameServerFacade implements IGameServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "drew " + result.toString(), System.currentTimeMillis()));
         ClientNotifications.gameUpdated(username);
 
+        shuffleTrainCards(game);
+
         return new DrawTrainCardsResult(result, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Drew a face up card");
     }
 
@@ -363,7 +365,17 @@ public class GameServerFacade implements IGameServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 
+        shuffleTrainCards(game);
+
         return new DrawTrainCardsResult(drawnCard, game.getCardsFaceUp(), true, ClientCommands.getCommandList(username), "Draw a train card");
+    }
+
+    private void shuffleTrainCards(IGame game) {
+        int cardsLeft = game.getTrainCardDeck().size();
+        if(cardsLeft == 0) {
+            game.getTrainCardDeck().shuffleDiscardPile();
+        }
+
     }
 
     /**

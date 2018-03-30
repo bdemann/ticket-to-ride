@@ -39,4 +39,8 @@ public abstract class Deck<T> implements Serializable {
     }
 
     public abstract void discard(T card);
+
+    public int size() {
+        return _cards.size();
+    }
 }

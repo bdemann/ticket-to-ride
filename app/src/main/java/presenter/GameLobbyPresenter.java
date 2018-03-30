@@ -23,11 +23,14 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     public GameLobbyPresenter(GameLobbyActivity activity) {
         _activity = activity;
+        System.out.println("We are observing the client");
+        ClientRoot.addClientRootObserver(this);
     }
 
     @Override
     public void update(Observable observable, Object o) {
 
+        System.out.println("---------------We are at least getting into this function--------------------");
 
         if(ClientRoot.getClientGame() == null){
             //if we have left the game
@@ -37,10 +40,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             //switch to the game activity
             ClientRoot.removeAllObservers();
             _activity.goToGameActivity();
+            System.out.println("----------WE ARE UPDATEING THE game instead of the PLAYERS--------------");
+            listPlayers(); //TODO I am putting this here for tests. if it crashes try removing it.
         }
         else{
             //Get the list of players
             listPlayers();
+            System.out.println("----------WE ARE UPDATEING THE PLAYERS--------------");
         }
     }
 
