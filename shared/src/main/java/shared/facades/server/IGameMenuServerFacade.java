@@ -23,12 +23,12 @@ public interface IGameMenuServerFacade {
      * @post Creator will be a player in that game.
      * @post The game will have the specified name.
      *
-     * @param creatorUsername is the user that is creating the game
+     * @param creator is the user that is creating the game
      * @param numberPlayer is the number of players that will be in the game
      * @param gameName is the name of the game.
      * @return A Result class with info about the created game.
      */
-    public CreateGameResult createGame(String creatorUsername, int numberPlayer, String gameName);
+    public CreateGameResult createGame(IPlayer creator, int numberPlayer, String gameName);
 
     /**
      * Adds the IPlayer joiner to the game with gameId

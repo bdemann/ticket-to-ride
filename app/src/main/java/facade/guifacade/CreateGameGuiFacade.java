@@ -19,7 +19,7 @@ public class CreateGameGuiFacade {
 
         GameMenuServerProxy proxy = new GameMenuServerProxy();
         ClientRoot.getClientPlayer().setColor(color);
-        Result result = proxy.createGame(ClientRoot.getClientPlayer().getUsername(),maxNumberPlayer,gameName);
+        Result result = proxy.createGame(ClientRoot.getClientPlayer(),maxNumberPlayer,gameName);
         IGame newGame = _processResults(result);
 
         if(newGame != null){
