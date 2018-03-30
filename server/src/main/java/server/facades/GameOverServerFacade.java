@@ -138,18 +138,28 @@ public class GameOverServerFacade implements IGameOverServerFacade {
         //A list of totals with indexes corresponding to the players
         List<EndGameTotals> endGameTotals = new ArrayList<>();
 
+        //A list of claimed edges
+
+        List<IRoute> routes = game.getClaimedRoutes();
+
         //Loop through each player to calculate points
         for (int i = 0; i < players.size(); i++){
             IPlayer current_player = players.get(i);
             EndGameTotals end = new EndGameTotals();
 
+            //Claimed Destinations
+            int claimed_destinations = calculateDestCards(current_player,routes);
+            end.setDestination_card_points(claimed_destinations);
+
             //Unclaimed destinations
             int u_dest_points = 0;
 
-            DestCardSet unclaimed_cards = current_player.getUnresolvedDestCards();
+            List<DestCard> unclaimed_cards = current_player.getDestCards();
 
             for (DestCard d : unclaimed_cards) {
-                u_dest_points -= d.getPoints();
+                if(!d.isCompleted()){
+                    u_dest_points -= d.getPoints();
+                }
             }
             end.setUnclaimed_destination_points(u_dest_points);
 
@@ -164,13 +174,63 @@ public class GameOverServerFacade implements IGameOverServerFacade {
                 end.setLongest_route_bonus(0);
 
             //Calculate total points
-            int total_points = u_dest_points + claimed_route_points + end.getLongest_route_bonus();
+            int total_points = u_dest_points + claimed_route_points + end.getLongest_route_bonus() + claimed_destinations;
             end.setTotal_points(total_points);
             endGameTotals.add(end);
         }
 
         //Return the values
         return new GameOverResult(endGameTotals, true, ClientCommands.getCommandList(players.get(0).getUsername()));
+    }
+
+
+    private int calculateDestCards(IPlayer player, List<IRoute> routes){
+
+        //Calculate claimed destination cards
+        List<IRoute> current_routes = setEdges(player, routes);
+        List<DestCard> current_cards = player.getDestCards();
+        int total = 0;
+
+        //Loop through DestCards
+        for(int i = 0; i < current_cards.size(); i++){
+            DestCard card = current_cards.get(i);
+            String start_city = card.getStartingPoint();
+            String end_city = card.getDestination();
+            boolean isComplete = recursiveSearch(start_city,end_city,current_routes);
+            card.setCompleted(isComplete);
+            if(isComplete){
+                total += card.getPoints();
+            }
+        }
+
+
+        return total;
+    }
+
+    private boolean recursiveSearch(String start, String end, List<IRoute> routes){
+        System.out.println("Start: " + start);
+        System.out.println("End: " + end);
+        System.out.println("CITIES:");
+        for(int i = 0; i < routes.size(); i++){
+            String start_city = routes.get(i).getStart().get_name();
+            String end_city = routes.get(i).getEnd().get_name();
+            System.out.println(start_city + ",  " + end_city);
+            if(start_city.equals(start)){
+                List<IRoute> newRoute = new ArrayList<>(routes);
+                newRoute.remove(i);
+                return recursiveSearch(end_city,end,newRoute);
+            }
+            else if(end_city.equals(start)){
+                List<IRoute> newRoute = new ArrayList<>(routes);
+                newRoute.remove(i);
+                return recursiveSearch(start_city,end,newRoute);
+            }
+            else if((start_city.equals(start) && end_city.equals(end)) || (end_city.equals(start) && start_city.equals(end))){
+                System.out.println("TRue");
+                return true;
+            }
+        }
+        return false;
     }
 
 }
