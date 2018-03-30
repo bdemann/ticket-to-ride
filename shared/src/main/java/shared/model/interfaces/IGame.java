@@ -47,6 +47,7 @@ public interface IGame {
     IGameInfo getGameInfo();
     IRoute isRouteAvailable(IRoute route);
     IRoute claimRoute(IRoute route, String owner);
+    void blockRoute(IRoute route);
 
     GameHistory getGameHistory();
     int getTurnIndex();

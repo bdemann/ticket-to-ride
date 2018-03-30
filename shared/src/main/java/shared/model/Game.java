@@ -318,7 +318,7 @@ public class Game implements IGame, Serializable {
         for(String routeName: map.keySet()){
             IRoute currentRoute = map.get(routeName);
             //I'm okay with this message chaining
-            if(currentRoute.getStart().get_name().equals(start) && currentRoute.getEnd().get_name().equals(end) && currentRoute.getColor().equals(route.getColor())){
+            if(currentRoute.getStart().get_name().equals(start) &&    currentRoute.getEnd().get_name().equals(end) &&    currentRoute.getColor().equals(route.getColor()) && _coordsAreEqual(currentRoute, route)){
                 //We found the route, so now we just need it's string value, which is routeName
                 routeToClaim = routeName;
                 break;
@@ -330,6 +330,45 @@ public class Game implements IGame, Serializable {
         route.setOwner(owner);
         _claimedRoutes.add(route);
         return route;
+    }
+
+    @Override
+    public void blockRoute(IRoute route){
+
+        String start = route.getStart().get_name();
+        String end = route.getEnd().get_name();
+        //Find it in the map of Routes
+        Map<String, IRoute> map = Routes.instance().getRoutesMap();
+
+        String routeToBlock = null;
+        for(String routeName: _openRoutes) {
+            if(map.containsKey(routeName)) {
+                IRoute r = map.get(routeName);
+                if(r.getStart().get_name().equals(start) && r.getEnd().get_name().equals(end) && _coordsAreEqual(r, route)){
+                    //Found the route to block
+                    routeToBlock = routeName;
+                    break;
+                }
+            }
+        }
+        if(routeToBlock != null){
+            _openRoutes.remove(routeToBlock);
+        }
+    }
+
+    private boolean _coordsAreEqual(IRoute r1, IRoute r2) {
+
+        CityPoint r1Start = r1.getStart().get_coordinates();
+        CityPoint r1End = r1.getEnd().get_coordinates();
+        CityPoint r2Start = r2.getStart().get_coordinates();
+        CityPoint r2End = r2.getEnd().get_coordinates();
+
+        if((r1Start.x() == r2Start.x()) && (r1Start.y() == r2Start.y()) && (r1End.x() == r2End.x()) && (r1End.y() == r2End.y())){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
