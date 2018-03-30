@@ -24,7 +24,7 @@ public class GameOverPresenter implements Observer{
     public GameOverPresenter(GameOverActivity activity) {
         this.activity = activity;
 //        getLongestRoute();
-
+        ClientRoot.addClientRootObserver(this);
         updateActivity();
     }
 
@@ -63,6 +63,8 @@ public class GameOverPresenter implements Observer{
                 endGameTotals.add(gameTotals);
             }
 
+            System.out.println();
+
             //Set Point Values and keep track of winner
             List<String> destination_points = new ArrayList<>();
             List<String> unclaimed_points = new ArrayList<>();
@@ -71,7 +73,7 @@ public class GameOverPresenter implements Observer{
             List<String> totals = new ArrayList<>();
 
             int winner = 0;
-            int best_score = 0;
+            int best_score = -500;
 
             for (int i = 0; i < players.size(); i++){
                 EndGameTotals current_end_game = endGameTotals.get(i);
@@ -80,10 +82,12 @@ public class GameOverPresenter implements Observer{
                 route_points.add(Integer.toString(current_end_game.getClaimed_route_points()));
                 longest.add(Integer.toString(current_end_game.getLongest_route_bonus()));
                 totals.add(Integer.toString(current_end_game.getTotal_points()));
-
-                if (current_end_game.getTotal_points() > best_score){
-                    best_score = current_end_game.getTotal_points();
-                    winner = i;
+                
+                if(i < ClientRoot.getClientGame().getNumberPlayer()){
+                    if (current_end_game.getTotal_points() > best_score){
+                        best_score = current_end_game.getTotal_points();
+                        winner = i;
+                    }
                 }
             }
 

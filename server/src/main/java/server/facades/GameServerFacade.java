@@ -9,6 +9,7 @@ import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import server.poller.ClientNotifications;
 import shared.facades.server.IGameServerFacade;
+import shared.model.CityPoint;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
@@ -82,8 +83,32 @@ public class GameServerFacade implements IGameServerFacade {
         //Make sure the route is a valid route.
         route = _routeIsValid(route, game);
         if(route != null){
+            //Check if the valid route is already claimed.
+            //if(_routeIsAlreadyClaimed(route)){
+                //return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Route(s) Already Claimed.");
+            //}
+
+
             //Check that the cards are the same color as the route.
-            boolean cardsMatch = _colorsMatch(cards, route);
+            //Double check to see if the route is a double route.
+            boolean cardsMatch = false;
+            IRoute doubleRoute = _routeIsDouble(route);
+            if(doubleRoute == null) {
+                cardsMatch = _colorsMatch(cards, route);
+            }
+            else{
+                //If the double matches, then we want that one.
+                if( _colorsMatch(cards, doubleRoute) && !_routeIsClaimed(doubleRoute, game) ){
+                    route = doubleRoute;
+                    cardsMatch = true;
+                }
+                else{
+                    cardsMatch = _colorsMatch(cards, route);
+                    if(_routeIsClaimed(route, game)){
+                        return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "Route was already claimed.");
+                    }
+                }
+            }
             if (!cardsMatch) {
                 return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(), ClientCommands.getCommandList(username), "Cards did not match.");
             }
@@ -91,7 +116,7 @@ public class GameServerFacade implements IGameServerFacade {
             if(!sufficientTrains){
                 return new ClaimRouteResult(false, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You didn't have enough\ntrains to claim the route.");
             }
-
+            player.incrementScore(route.getLength());
             route = game.claimRoute(route, player.getUsername());
 
         }
@@ -105,7 +130,6 @@ public class GameServerFacade implements IGameServerFacade {
         player.incrementScore(route.getValue());
         //Adjust the number of remaining trains player has.
         player.decrementTrains(route.getLength());
-        player.incrementRouteCount();
 
         //Discard the right cards used up.
         for(TrainCard card: cards.getTrainCards()){
@@ -119,6 +143,33 @@ public class GameServerFacade implements IGameServerFacade {
 
         return new ClaimRouteResult(true, player.getTrainCardHand(),game.getGameInfo(),ClientCommands.getCommandList(username), "You claimed a route!\nKeep going!");
     }
+
+    private boolean _routeIsClaimed(IRoute route, IGame game) {
+        String routeStartName = route.getStart().get_name();
+        String routeEndName = route.getEnd().get_name();
+        CityPoint routeStartPt = route.getStart().get_coordinates();
+        CityPoint routeEndPt = route.getEnd().get_coordinates();
+
+        List<IRoute> claimedRoutes = game.getClaimedRoutes();
+        for(IRoute claimed : claimedRoutes){
+            String claimedStartName = claimed.getStart().get_name();
+            String claimedEndName = claimed.getEnd().get_name();
+            if((routeStartName.equals(claimedStartName) && routeEndName.equals(claimedEndName)) || (routeStartName.equals(claimedEndName) && routeEndName.equals(claimedStartName))) {
+                //Now check the coordinates
+                CityPoint claimStartPt = claimed.getStart().get_coordinates();
+                CityPoint claimEndPt = claimed.getEnd().get_coordinates();
+
+                if ((routeStartPt.x() == claimStartPt.x())  && (routeStartPt.y() == claimStartPt.y()) && (routeEndPt.x() == claimEndPt.x())  && (routeEndPt.y() == claimEndPt.y())) {
+                    //If the coordinates are all equal, then we know it's the same.
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
 
     private boolean _playerHasEnoughTrains(int length, IPlayer player) {
         if(length <= player.getTrains().size()){
@@ -138,6 +189,13 @@ public class GameServerFacade implements IGameServerFacade {
             return null;
         }
     }
+
+    //This method will check to see if the route given is a double route, and if it is it will return its counterpart route.
+    private IRoute _routeIsDouble(IRoute route) {
+        return Routes.instance().isRouteDouble(route);
+    }
+
+
 
 
     /**
@@ -235,6 +293,15 @@ public class GameServerFacade implements IGameServerFacade {
     public DrawTrainCardsResult drawFaceUpTrainCard(String username, int trainCardIndex) {
         IPlayer player = ServerRoot.getPlayer(username);
         IGame game = ServerRoot.getGame(player.getGameId());
+
+        //Figure out if its the players turn
+        List<IPlayer> players = game.getPlayers();
+        int playerIndex = players.indexOf(player);
+        int turnIndex = game.getTurnIndex();
+        if(playerIndex != turnIndex) {
+            return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "It's not your turn.");
+        }
+
         TrainCard result = trainCardState.drawFaceUpCard(game, trainCardIndex);
         if(result == null) {
             return new DrawTrainCardsResult(ClientCommands.getCommandList(username), "You can't draw a two face up cards if one is a locomotive");
@@ -292,6 +359,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         TrainCard drawnCard = trainCardState.drawFaceDownCard(game);
 
+        game.updatePlayerTrainCard(player, drawnCard);
         game.getGameHistory().addEvent(new GameEvent(username, "drew a train card", System.currentTimeMillis()));
         ClientNotifications.playerDrewTrainCards(username);
 

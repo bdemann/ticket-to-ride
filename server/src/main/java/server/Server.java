@@ -11,6 +11,7 @@ import shared.facades.server.ILoginServerFacade;
 import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.Player;
+import shared.model.interfaces.IPlayer;
 
 /**
  * Created by Ben on 2/6/2018.
@@ -37,7 +38,8 @@ public class Server {
         IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
         loginServerFacade.register("bdemann", "password");
         loginServerFacade.signin("bdemann", "password");
-        gameMenuServerFacade.createGame("bdemann", 2, "test game");
+        IPlayer bdemann = new Player("bdemann", "password", -16777216);
+        gameMenuServerFacade.createGame(bdemann, 2, "test game");
         InetAddress inetAddress = null;
         try {
             inetAddress = InetAddress.getLocalHost();

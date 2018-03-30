@@ -23,8 +23,8 @@ import shared.model.interfaces.IPlayer;
 
 public class GameMenuServerFacade implements IGameMenuServerFacade {
     @Override
-    public CreateGameResult createGame(String creatorUsername, int maxNumberPlayer, String gameName) {
-        IPlayer creator = ServerRoot.getPlayer(creatorUsername);
+    public CreateGameResult createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
+//        IPlayer creator = ServerRoot.getPlayer(creatorUsername);
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINNEST);
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
 

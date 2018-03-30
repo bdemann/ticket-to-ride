@@ -20,6 +20,7 @@ public class LoginGuiFacade {
         //It will receive certain results and decide what to do with them.
         LoginServerProxy lsp = new LoginServerProxy();
         Result result = lsp.signin(username,password);
+        System.out.println("SignIn result: " + result.getUserMessage());
         return _processResults(username,password,result, true);
     }
 
@@ -27,11 +28,13 @@ public class LoginGuiFacade {
 
         LoginServerProxy lsp = new LoginServerProxy();
         Result result = lsp.register(username,password);
+        System.out.println("Register Result: " + result.getUserMessage());
         return _processResults(username,password,result, false);
     }
 
     private static String _processResults(String username, String password, Result results, boolean isSignIn){
 
+        System.out.println("EXception? " + results.getExceptionType());
         if(results == null){
             return "Server Down";
         }
@@ -42,7 +45,7 @@ public class LoginGuiFacade {
         }
         else{
             //check for exception
-            if(results.getExceptionType() != null){
+            if(!results.getExceptionMessage().equals("")){
                 return "Exception of type: " + results.getExceptionType() +
                         ". " + results.getExceptionMessage();
             }

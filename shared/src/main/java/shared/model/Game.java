@@ -319,7 +319,7 @@ public class Game implements IGame, Serializable {
         for(String routeName: map.keySet()){
             IRoute currentRoute = map.get(routeName);
             //I'm okay with this message chaining
-            if(currentRoute.getStart().get_name().equals(start) && currentRoute.getEnd().get_name().equals(end)){
+            if(currentRoute.getStart().get_name().equals(start) && currentRoute.getEnd().get_name().equals(end) && currentRoute.getColor().equals(route.getColor())){
                 //We found the route, so now we just need it's string value, which is routeName
                 routeToClaim = routeName;
                 break;
