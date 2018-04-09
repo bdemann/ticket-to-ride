@@ -1,1 +1,1 @@
-include ':app', ':server', ':shared', ':databasesdk'
+include ':app', ':server', ':shared', ':databasesdk', ':relationaldatabase'
