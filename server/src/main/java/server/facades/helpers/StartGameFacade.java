@@ -31,7 +31,7 @@ public class StartGameFacade {
         game = initTrains(game);
         game = initScore(game);
         game = shuffleDecks(game);
-        game = dealStartingTrainCards(game, 40);
+        game = dealStartingTrainCards(game, 4);
         game = initDrawPile(game);
         game = initLongestPath(game);
         game = dealStartingDestCards(game, 3);
