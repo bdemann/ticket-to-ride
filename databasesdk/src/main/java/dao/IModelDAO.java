@@ -10,7 +10,7 @@ import shared.model.interfaces.IPlayer;
  * Created by bdemann on 4/9/18.
  */
 
-public interface ModelDAO {
+public interface IModelDAO {
     public void initializeDB(int commandLimit);
     public void storeCommand(ICommand command);
     public void isCommandLimitReached();

@@ -9,7 +9,7 @@ import shared.model.interfaces.IPlayer;
  * Created by bdemann on 4/9/18.
  */
 
-public interface GameDAO {
+public interface IGameDAO {
     public boolean addGame(IGame game);
     public boolean addPlayersToGame(List<IPlayer> players, int gameId);
     public boolean updateGame(IGame game);
