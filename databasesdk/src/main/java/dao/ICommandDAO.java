@@ -1,5 +1,7 @@
 package dao;
 
+import java.io.File;
+
 import shared.command.ICommand;
 
 /**

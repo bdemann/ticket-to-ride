@@ -13,7 +13,7 @@ import shared.model.interfaces.IPlayer;
 public interface IModelDAO {
     public void initializeDB(int commandLimit);
     public void storeCommand(ICommand command);
-    public void isCommandLimitReached();
+    public boolean isCommandLimitReached();
     public void executeCommandList();
     public void setGames(List<IGame>games);
     public void setPlayers(List<IPlayer>players, int gameID);
