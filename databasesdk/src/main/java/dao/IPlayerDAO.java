@@ -15,3 +15,4 @@ public interface IPlayerDAO {
     public boolean updatePlayer(IPlayer player);
     public boolean deletePlayer(IPlayer player);
 }
+
