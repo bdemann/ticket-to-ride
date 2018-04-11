@@ -19,4 +19,8 @@ public interface IModelDAO {
     public void setPlayers(List<IPlayer>players, int gameID);
     public List<IGame> getGames();
     public List<IPlayer>getPlayers(int gameID);
+
+    void clearCommands();
+
+    void saveGame();
 }

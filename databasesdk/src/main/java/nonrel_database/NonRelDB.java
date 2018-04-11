@@ -82,4 +82,14 @@ public class NonRelDB implements IModelDAO {
     public List<IPlayer>getPlayers(int gameID){
         return PlayerDAO.getInstance(playerFile).getPlayers();
     }
+
+    @Override
+    public void clearCommands() {
+        //TODO implement this method!! It should delete the list of commands
+    }
+
+    @Override
+    public void saveGame() {
+        //TODO implement this method!! It should reserialize the game.
+    }
 }
