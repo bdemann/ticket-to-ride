@@ -116,4 +116,12 @@ public class ServerRoot extends Observable {
     private void _setCommandListLen(int commandListLen) {
         this._commandListLen = commandListLen;
     }
+
+    public static void setGames(List<IGame> games){
+        _instance._games = games;
+    }
+
+    public static void setPlayers(List<IPlayer> players){
+        _instance._players = players;
+    }
 }
