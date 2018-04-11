@@ -21,6 +21,8 @@ public class ServerRoot extends Observable {
     private List<Integer> _possibleColor;
 
     private static final ServerRoot _instance = new ServerRoot();
+    private String _pluginPath;
+    private int _commandListLen;
 
     private ServerRoot() {
         super();
@@ -33,7 +35,7 @@ public class ServerRoot extends Observable {
         _possibleColor.add(-256);   //YELLOW
         _possibleColor.add(-16711936);  //GREEN
         _possibleColor.add(-16777216);  //BLACK
-
+        _pluginPath = "";
 
     }
 
@@ -85,5 +87,29 @@ public class ServerRoot extends Observable {
 
     public static List<Chat> getChats(int id) {
         return _instance._chats.get(id);
+    }
+
+    public static String getPluginPath() {
+        return _instance._getPluginPath();
+    }
+
+    private String _getPluginPath() {
+        return _pluginPath;
+    }
+
+    public static void setPluginPath(String pluginPath) {
+        _instance._setPluginPath(pluginPath);
+    }
+
+    private void _setPluginPath(String pluginPath) {
+        this._pluginPath = pluginPath;
+    }
+
+    public static void setCommandListLen(int commandListLen) {
+        _instance._setCommandListLen(commandListLen);
+    }
+
+    private void _setCommandListLen(int commandListLen) {
+        this._commandListLen = commandListLen;
     }
 }
