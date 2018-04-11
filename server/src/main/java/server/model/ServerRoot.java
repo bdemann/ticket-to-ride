@@ -75,6 +75,10 @@ public class ServerRoot extends Observable {
         return null;
     }
 
+    public static List<IPlayer> getPlayers(){
+        return _instance._players;
+    }
+
     public static List<IGame> getGames() {
         return _instance._games;
     }

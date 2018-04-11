@@ -1,13 +1,12 @@
 package nonrel_database;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import dao.IModelDAO;
-import shared.command.Command;
+import server.Server;
+import server.model.ServerRoot;
 import shared.command.ICommand;
-import shared.model.Game;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
@@ -38,13 +37,22 @@ public class NonRelDB implements IModelDAO {
             CommandDAO.getInstance(commandFile).addCommand(command);
         }
         else{
-            //TODO: serialize whole game
-            //TODO: delete commands
+            //serialize every game and player
+            List<IGame> games = ServerRoot.getGames();
+            List<IPlayer> players = ServerRoot.getPlayers();
+            //delete old games and players
+            PlayerDAO.getInstance(playerFile).deletePlayers();
+            GameDAO.getInstance(gameFile).deleteGames();
+            //add new games and players
+            setGames(games);
+            setPlayers(players,1);
+            //delete commands
+            CommandDAO.getInstance(commandFile).deleteCommands();
         }
     }
 
     public boolean isCommandLimitReached(){
-        if(CommandDAO.getInstance(commandFile).getCommands().size() > commandLimit){
+        if(CommandDAO.getInstance(commandFile).getCommandLimit() > commandLimit){
             return true;
         }
 

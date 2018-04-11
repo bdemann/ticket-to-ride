@@ -41,4 +41,13 @@ public class CommandEncoder {
     public static void encodeTestResults(Object o, OutputStream outputStream) {
         _instance.xStream.toXML(o, outputStream);
     }
+
+    public static String encodeDBInfo(Object o){
+        return _instance.xStream.toXML(o);
+
+    }
+
+    public static Object decodeDBInfo(String input){
+        return _instance.xStream.fromXML(input);
+    }
 }

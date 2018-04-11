@@ -1,10 +1,15 @@
 package nonrel_database;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.ICommandDAO;
+import shared.comm.CommandEncoder;
 import shared.command.Command;
 import shared.command.ICommand;
 
@@ -13,7 +18,10 @@ import shared.command.ICommand;
  */
 
 public class CommandDAO implements ICommandDAO {
+    private PrintWriter pw;
+    private BufferedReader reader;
     private File file;
+    private int numCommands;
     private static CommandDAO instance;
     public static CommandDAO getInstance(File file) {
         if (instance == null)
@@ -22,20 +30,87 @@ public class CommandDAO implements ICommandDAO {
     }
 
     private CommandDAO(File file){
-        this.file = file;
+        try{
+            this.pw = new PrintWriter(file);
+            this.reader = new BufferedReader(new FileReader(file));
+            this.file = file;
+            numCommands = 0;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public boolean addCommand(ICommand command){return false;}
+    public int getCommandLimit(){
+        return numCommands;
+    }
+
+    public boolean addCommand(ICommand command){
+        try{
+            //deserialize player
+            String strCommand = CommandEncoder.encodeDBInfo(command);
+            pw.append(strCommand + "\n");
+            pw.flush();
+            numCommands ++;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
     public List<ICommand> getCommands(){
-        return new ArrayList<>();
+        String line;
+        List<ICommand> commands = new ArrayList<>();
+
+        try{
+            while((line = reader.readLine()) != null) {
+                ICommand command = (ICommand) CommandEncoder.decodeDBInfo(line);
+                commands.add(command);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return commands;
     }
+
+    //We'll never need to get only one command
     public ICommand getCommand(int commandId){
         Class<?>[] paramTypes = {} ;
         Object[] parmValues = {};
         return new Command("class","method",paramTypes,parmValues);
     }
 
-    public boolean deleteCommand(ICommand command){return false;}
+    //We'll never need to delete only one command
+    public boolean deleteCommand(ICommand command){
+        return false;
+    }
 
+
+    public void deleteCommands(){
+        try{
+            pw.close();
+            pw = new PrintWriter(file);
+            pw.append("");
+            pw.flush();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        numCommands = 0;
+    }
+
+    public void closeFile(){
+        pw.close();
+        try{
+            reader.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
