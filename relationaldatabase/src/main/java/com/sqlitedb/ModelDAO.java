@@ -12,6 +12,10 @@ import shared.model.interfaces.IPlayer;
 public class ModelDAO implements IModelDAO {
 
 
+    public static void main(String[] args){
+
+
+    }
     @Override
     public void initializeDB(int commandLimit) {
         Connection c = null;
