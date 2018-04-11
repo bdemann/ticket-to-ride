@@ -27,6 +27,7 @@ public class PluginManager {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        System.out.printf("URL 1" + classLoaderUrls[0]);
 
         // Create a new URLClassLoader
         URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);
@@ -34,7 +35,9 @@ public class PluginManager {
         // Load the target class
         Class<?> daoClass = null;
         try {
+            System.out.printf("DaoClass: " + getClassName(pathToPlugin));
             daoClass = urlClassLoader.loadClass(getClassName(pathToPlugin));
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
