@@ -18,6 +18,7 @@ public class NonRelDB implements IModelDAO {
     private File commandFile;
     private int commandLimit;
 
+    @Override
     public void initializeDB(int commandLimit){
         try{
             playerFile = new File("PlayerFile.txt");
@@ -30,6 +31,7 @@ public class NonRelDB implements IModelDAO {
         }
     }
 
+    @Override
     public void storeCommand(ICommand command){
         if(!isCommandLimitReached()){
             CommandDAO.getInstance(commandFile).addCommand(command);
@@ -49,6 +51,7 @@ public class NonRelDB implements IModelDAO {
         }
     }
 
+    @Override
     public boolean isCommandLimitReached(){
         if(CommandDAO.getInstance(commandFile).getCommandLimit() > commandLimit){
             return true;
@@ -57,6 +60,7 @@ public class NonRelDB implements IModelDAO {
         return false;
     }
 
+    @Override
     public void executeCommandList() {
         List<ICommand> commands = CommandDAO.getInstance(commandFile).getCommands();
         for(ICommand command:commands){
@@ -69,22 +73,26 @@ public class NonRelDB implements IModelDAO {
         }
     }
 
-    public void setGames(List<IGame> games){
+    @Override
+    public void saveGames(List<IGame> games){
         for(IGame game:games){
             GameDAO.getInstance(gameFile).addGame(game);
         }
     }
 
-    public void setPlayers(List<IPlayer>players, int gameID){
+    @Override
+    public void savePlayers(List<IPlayer>players, int gameID){
         for(IPlayer player:players){
             PlayerDAO.getInstance(playerFile).addPlayer(player,gameID);
         }
     }
 
+    @Override
     public List<IGame> getGames(){
         return GameDAO.getInstance(gameFile).getGames();
     }
 
+    @Override
     public List<IPlayer>getPlayers(int gameID){
         return PlayerDAO.getInstance(playerFile).getPlayers();
     }
@@ -94,15 +102,4 @@ public class NonRelDB implements IModelDAO {
         CommandDAO.getInstance(commandFile).deleteCommands();
     }
 
-    @Override
-    public void saveGame() {
-        List<IGame> games = GameDAO.getInstance(gameFile).getGames();
-        List<IPlayer> players = PlayerDAO.getInstance(playerFile).getPlayers();
-
-        //TODO: update Games and Players in ServerRoot
-//        ServerRoot.setGames(games);
-//        ServerRoot.setPlayers(players);
-
-        executeCommandList();
-    }
 }

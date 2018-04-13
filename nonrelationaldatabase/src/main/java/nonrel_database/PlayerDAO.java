@@ -9,7 +9,6 @@ import java.util.List;
 
 import dao.IPlayerDAO;
 import shared.comm.CommandEncoder;
-import shared.model.Player;
 import shared.model.interfaces.IPlayer;
 
 /**
@@ -55,10 +54,6 @@ public class PlayerDAO implements IPlayerDAO {
         return true;
     }
 
-    public IPlayer getPlayer(String username){
-        return new Player("username");
-    }
-
     public List<IPlayer> getPlayers(){
         String line;
         List<IPlayer> players = new ArrayList<>();
@@ -73,15 +68,6 @@ public class PlayerDAO implements IPlayerDAO {
             e.printStackTrace();
         }
         return players;
-    }
-
-    public boolean updatePlayer(IPlayer player){
-        //TODO: delete, add it again
-        return false;
-    }
-
-    public boolean deletePlayer(IPlayer player){
-        return false;
     }
 
     public void deletePlayers(){

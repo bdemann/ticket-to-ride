@@ -9,7 +9,6 @@ import java.util.List;
 
 import dao.ICommandDAO;
 import shared.comm.CommandEncoder;
-import shared.command.Command;
 import shared.command.ICommand;
 
 /**
@@ -75,19 +74,6 @@ public class CommandDAO implements ICommandDAO {
 
         return commands;
     }
-
-    //We'll never need to get only one command
-    public ICommand getCommand(int commandId){
-        Class<?>[] paramTypes = {} ;
-        Object[] parmValues = {};
-        return new Command("class","method",paramTypes,parmValues);
-    }
-
-    //We'll never need to delete only one command
-    public boolean deleteCommand(ICommand command){
-        return false;
-    }
-
 
     public void deleteCommands(){
         try{
