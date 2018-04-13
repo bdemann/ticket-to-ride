@@ -23,6 +23,7 @@ public class ServerRoot extends Observable {
     private static final ServerRoot _instance = new ServerRoot();
     private String _pluginPath;
     private int _commandListLen;
+    private boolean _hasPlugin;
 
     private ServerRoot() {
         super();
@@ -117,11 +118,19 @@ public class ServerRoot extends Observable {
         this._commandListLen = commandListLen;
     }
 
+    public static boolean hasPlugin() {
+        return _instance._hasPlugin;
+    }
+
+    public static void setHasPlugin(boolean hasPlugin) {
+        _instance._hasPlugin = hasPlugin;
+	}
+
     public static void setGames(List<IGame> games){
         _instance._games = games;
     }
 
     public static void setPlayers(List<IPlayer> players){
         _instance._players = players;
-    }
+	}
 }
