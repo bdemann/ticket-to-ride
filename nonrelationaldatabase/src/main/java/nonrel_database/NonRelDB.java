@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import dao.IModelDAO;
-import server.model.ServerRoot;
 import shared.command.ICommand;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
@@ -36,15 +35,15 @@ public class NonRelDB implements IModelDAO {
             CommandDAO.getInstance(commandFile).addCommand(command);
         }
         else{
-            //serialize every game and player
-            List<IGame> games = ServerRoot.getGames();
-            List<IPlayer> players = ServerRoot.getPlayers();
+            //TODO: serialize every game and player
+//            List<IGame> games = ServerRoot.getGames();
+//            List<IPlayer> players = ServerRoot.getPlayers();
             //delete old games and players
             PlayerDAO.getInstance(playerFile).deletePlayers();
             GameDAO.getInstance(gameFile).deleteGames();
             //add new games and players
-            setGames(games);
-            setPlayers(players,1);
+//            setGames(games);
+//            setPlayers(players,1);
             //delete commands
             clearCommands();
         }
@@ -100,8 +99,9 @@ public class NonRelDB implements IModelDAO {
         List<IGame> games = GameDAO.getInstance(gameFile).getGames();
         List<IPlayer> players = PlayerDAO.getInstance(playerFile).getPlayers();
 
-        ServerRoot.setGames(games);
-        ServerRoot.setPlayers(players);
+        //TODO: update Games and Players in ServerRoot
+//        ServerRoot.setGames(games);
+//        ServerRoot.setPlayers(players);
 
         executeCommandList();
     }
