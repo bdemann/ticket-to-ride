@@ -8,4 +8,5 @@ import shared.results.Result;
 
 public interface ICommand {
     public abstract Result execute() throws Exception;
+    public abstract int getGameId();
 }

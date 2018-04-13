@@ -68,8 +68,6 @@ public class ModelDAO implements IModelDAO {
 
     @Override
     public void clearCommands() {
-
+        //TODO implement this method!! It should delete the list of commands
     }
-
-
 }
