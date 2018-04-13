@@ -78,6 +78,10 @@ public class ServerRoot extends Observable {
         return null;
     }
 
+    public static List<IPlayer> getPlayers(){
+        return _instance._players;
+    }
+
     public static List<IGame> getGames() {
         return _instance._games;
     }
@@ -120,5 +124,13 @@ public class ServerRoot extends Observable {
 
     public static void setHasPlugin(boolean hasPlugin) {
         _instance._hasPlugin = hasPlugin;
+	}
+
+    public static void setGames(List<IGame> games){
+        _instance._games = games;
     }
+
+    public static void setPlayers(List<IPlayer> players){
+        _instance._players = players;
+	}
 }

@@ -1,13 +1,10 @@
 package nonrel_database;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import dao.IModelDAO;
-import shared.command.Command;
 import shared.command.ICommand;
-import shared.model.Game;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
@@ -38,13 +35,22 @@ public class NonRelDB implements IModelDAO {
             CommandDAO.getInstance(commandFile).addCommand(command);
         }
         else{
-            //TODO: serialize whole game
-            //TODO: delete commands
+            //TODO: serialize every game and player
+//            List<IGame> games = ServerRoot.getGames();
+//            List<IPlayer> players = ServerRoot.getPlayers();
+            //delete old games and players
+            PlayerDAO.getInstance(playerFile).deletePlayers();
+            GameDAO.getInstance(gameFile).deleteGames();
+            //add new games and players
+//            setGames(games);
+//            setPlayers(players,1);
+            //delete commands
+            clearCommands();
         }
     }
 
     public boolean isCommandLimitReached(){
-        if(CommandDAO.getInstance(commandFile).getCommands().size() > commandLimit){
+        if(CommandDAO.getInstance(commandFile).getCommandLimit() > commandLimit){
             return true;
         }
 
@@ -85,11 +91,18 @@ public class NonRelDB implements IModelDAO {
 
     @Override
     public void clearCommands() {
-        //TODO implement this method!! It should delete the list of commands
+        CommandDAO.getInstance(commandFile).deleteCommands();
     }
 
     @Override
     public void saveGame() {
-        //TODO implement this method!! It should reserialize the game.
+        List<IGame> games = GameDAO.getInstance(gameFile).getGames();
+        List<IPlayer> players = PlayerDAO.getInstance(playerFile).getPlayers();
+
+        //TODO: update Games and Players in ServerRoot
+//        ServerRoot.setGames(games);
+//        ServerRoot.setPlayers(players);
+
+        executeCommandList();
     }
 }
