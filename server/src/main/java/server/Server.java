@@ -22,10 +22,14 @@ public class Server {
     public static void main(String[] args) {
         Logger.setLevel(Level.FINNER);
         if(args.length < 2) {
-            Logger.log("Not enough arguments");
+            Logger.log("Not enough arguments for plugin");
             Logger.log("USAGE: server PATH/TO/DATABASE/PLUGIN COMMAND_LIST_LEN");
-            return;
+            ServerRoot.setHasPlugin(false);
+        } else {
+            Logger.log("We are using a plugin");
+            ServerRoot.setHasPlugin(true);
         }
+
         int serverPortNumber;
         String pluginPath = args[0];
         int commandListLen = Integer.parseInt(args[1]);
