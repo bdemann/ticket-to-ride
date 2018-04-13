@@ -77,6 +77,10 @@ public class ServerRoot extends Observable {
         return null;
     }
 
+    public static List<IPlayer> getPlayers(){
+        return _instance._players;
+    }
+
     public static List<IGame> getGames() {
         return _instance._games;
     }
@@ -111,5 +115,13 @@ public class ServerRoot extends Observable {
 
     private void _setCommandListLen(int commandListLen) {
         this._commandListLen = commandListLen;
+    }
+
+    public static void setGames(List<IGame> games){
+        _instance._games = games;
+    }
+
+    public static void setPlayers(List<IPlayer> players){
+        _instance._players = players;
     }
 }
