@@ -47,12 +47,12 @@ public class ModelDAO implements IModelDAO {
     }
 
     @Override
-    public void setGames(List<IGame> games) {
+    public void saveGames(List<IGame> games) {
 
     }
 
     @Override
-    public void setPlayers(List<IPlayer> players, int gameID) {
+    public void savePlayers(List<IPlayer> players, int gameID) {
 
     }
 
@@ -68,11 +68,8 @@ public class ModelDAO implements IModelDAO {
 
     @Override
     public void clearCommands() {
-        //TODO implement this method!! It should delete the list of commands
+
     }
 
-    @Override
-    public void saveGame() {
-        //TODO implement this method!! It should reserialize the game.
-    }
+
 }
