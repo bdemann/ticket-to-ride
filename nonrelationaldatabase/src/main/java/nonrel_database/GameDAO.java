@@ -9,10 +9,7 @@ import java.util.List;
 
 import dao.IGameDAO;
 import shared.comm.CommandEncoder;
-import shared.model.Game;
-import shared.model.Player;
 import shared.model.interfaces.IGame;
-import shared.model.interfaces.IPlayer;
 
 /**
  * Created by paulinecausse on 4/9/18.
@@ -41,6 +38,7 @@ public class GameDAO implements IGameDAO {
 
     }
 
+    @Override
     public boolean addGame(IGame game){
         try{
             //deserialize player
@@ -53,22 +51,6 @@ public class GameDAO implements IGameDAO {
             return false;
         }
         return true;
-    }
-
-    //We'll never use this?
-    public boolean addPlayersToGame(List<IPlayer> players, int gameId){return false;}
-
-    //We'll never use this
-    public boolean updateGame(IGame game){
-        return false;
-    }
-
-    //we'll never use this
-    public IGame getGame(int gameId){
-        List players = new ArrayList();
-        Player player = new Player("username", "password");
-        players.add(player);
-        return new Game("game!", players,1);
     }
 
     public List<IGame> getGames(){
@@ -87,10 +69,8 @@ public class GameDAO implements IGameDAO {
         return games;
     }
 
-    //We'll never use this
-    public boolean deleteGame(IGame game){return false;}
 
-
+    @Override
     public void deleteGames(){
         try{
             pw.close();
