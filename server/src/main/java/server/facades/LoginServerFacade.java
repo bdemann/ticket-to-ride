@@ -1,5 +1,6 @@
 package server.facades;
 
+import server.database.Database;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
 import shared.results.LoginResult;
@@ -42,7 +43,9 @@ public class LoginServerFacade implements ILoginServerFacade {
             // Player already exists
             return new RegisterResult(false, ClientCommands.getCommandList(username), "Player already exists");
         }
-        ServerRoot.addPlayer(new Player(username, password));
+        player = new Player(username, password);
+        ServerRoot.addPlayer(player);
+        Database.getModelDAO().addPlayer(player);
         return new RegisterResult(true, ClientCommands.getCommandList(username),"Register successful");
     }
 }
