@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.IModelDAO;
 import shared.command.ICommand;
+import shared.model.Player;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
@@ -86,6 +87,12 @@ public class NonRelDB implements IModelDAO {
             PlayerDAO.getInstance(playerFile).addPlayer(player,gameID);
         }
     }
+
+    @Override
+    public void addPlayer(IPlayer player){
+        //gameID is not used in this function call
+        PlayerDAO.getInstance(playerFile).addPlayer(player, 0);
+    };
 
     @Override
     public List<IGame> getGames(){
