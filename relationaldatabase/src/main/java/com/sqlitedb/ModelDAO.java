@@ -1,8 +1,8 @@
 package com.sqlitedb;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
-import java.util.Set;
 
 import dao.IModelDAO;
 import shared.command.ICommand;
@@ -12,9 +12,6 @@ import shared.model.interfaces.IPlayer;
 
 public class ModelDAO implements IModelDAO {
 
-
-    private RelationalDatabase db;
-
     public static void main(String[] args){
         ModelDAO m = new ModelDAO();
         m.initializeDB(1);
@@ -22,17 +19,8 @@ public class ModelDAO implements IModelDAO {
 
     @Override
     public void initializeDB(int commandLimit) {
-        try {
-            this.db = new RelationalDatabase();
-            db.openConnection();
-            db.createTables();
-            db.fillDictionary();
-            Set<String> words = db.loadDictionary();
-            db.closeConnection(true);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        String[] strings = {"her"};
+        RelationalDatabase.main(strings);
 
     }
 
@@ -46,10 +34,10 @@ public class ModelDAO implements IModelDAO {
         return false;
     }
 
-    @Override
-    public void executeCommandList() {
-
-    }
+//    @Override
+//    public void executeCommandList() {
+//
+//    }
 
     @Override
     public void saveGames(List<IGame> games) {
@@ -72,12 +60,17 @@ public class ModelDAO implements IModelDAO {
     }
 
     @Override
-    public List<IPlayer> getPlayers(int gameID) {
+    public List<IPlayer> getPlayers() {
         return null;
     }
 
     @Override
     public void clearCommands() {
         //TODO implement this method!! It should delete the list of commands
+    }
+
+    @Override
+    public List<ICommand> getCommandList(int id){
+        return new ArrayList<>();
     }
 }

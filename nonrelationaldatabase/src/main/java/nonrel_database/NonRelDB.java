@@ -1,6 +1,7 @@
 package nonrel_database;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.IModelDAO;
@@ -61,18 +62,18 @@ public class NonRelDB implements IModelDAO {
         return false;
     }
 
-    @Override
-    public void executeCommandList() {
-        List<ICommand> commands = CommandDAO.getInstance(commandFile).getCommands();
-        for(ICommand command:commands){
-            try{
-                command.execute();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
+//    @Override
+//    public void executeCommandList() {
+//        List<ICommand> commands = CommandDAO.getInstance(commandFile).getCommands();
+//        for(ICommand command:commands){
+//            try{
+//                command.execute();
+//            }
+//            catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @Override
     public void saveGames(List<IGame> games){
@@ -100,13 +101,25 @@ public class NonRelDB implements IModelDAO {
     }
 
     @Override
-    public List<IPlayer>getPlayers(int gameID){
+    public List<IPlayer>getPlayers(){
         return PlayerDAO.getInstance(playerFile).getPlayers();
     }
 
     @Override
     public void clearCommands() {
         CommandDAO.getInstance(commandFile).deleteCommands();
+    }
+
+    @Override
+    public List<ICommand> getCommandList(int id){
+        List<ICommand> commands = CommandDAO.getInstance(commandFile).getCommands();
+        List<ICommand> wantedCommands = new ArrayList<>();
+        for(ICommand command: commands){
+            if(command.getGameId() == id){
+                wantedCommands.add(command);
+            }
+        }
+        return wantedCommands;
     }
 
 }
