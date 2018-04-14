@@ -1,5 +1,6 @@
 package proxies;
 
+import model.ClientRoot;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.facades.server.IGameServerFacade;
@@ -38,6 +39,7 @@ public class GameServerProxy implements IGameServerFacade {
         Object[] parmValues = {route, cards, username};
 
         ICommand command = _generateGameServerFacadeCommand("claimRoute", parmTypes, parmValues);
+        command.setGameId(ClientRoot.getClientGame().getId());
 
         Result result = TaskExecutor.runTask(command);
 
@@ -58,6 +60,7 @@ public class GameServerProxy implements IGameServerFacade {
         Class<?>[] parmTypes = {String.class, int.class};
         Object[] parmValues = {username, trainCardIndex};
         ICommand command = _generateGameServerFacadeCommand("drawFaceUpTrainCard", parmTypes, parmValues);
+        command.setGameId(ClientRoot.getClientGame().getId());
         Result result = TaskExecutor.runTask(command);
 
         if(result.isExceptional()) {
@@ -86,6 +89,7 @@ public class GameServerProxy implements IGameServerFacade {
         Class<?>[] parmTypes = {String.class, DestCardSet.class, DestCardSet.class};
         Object[] parmValues = {username, keptCards, discardCards};
         ICommand command = _generateGameServerFacadeCommand("discardDestCards", parmTypes, parmValues);
+        command.setGameId(ClientRoot.getClientGame().getId());
 
         Result result = TaskExecutor.runTask(command);
 
@@ -111,6 +115,7 @@ public class GameServerProxy implements IGameServerFacade {
         Object[] parmValues = {username};
 
         ICommand command = _generateGameServerFacadeCommand("drawFaceDownTrainCard", parmTypes, parmValues);
+        command.setGameId(ClientRoot.getClientGame().getId());
 
         Result result = TaskExecutor.runTask(command);
 
@@ -136,6 +141,7 @@ public class GameServerProxy implements IGameServerFacade {
         Object[] parmValues = {username};
 
         ICommand command = _generateGameServerFacadeCommand("drawDestCards", parmTypes, parmValues);
+        command.setGameId(ClientRoot.getClientGame().getId());
 
         Result result = TaskExecutor.runTask(command);
 

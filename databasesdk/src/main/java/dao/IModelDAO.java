@@ -21,4 +21,5 @@ public interface IModelDAO {
     public List<IPlayer>getPlayers(int gameID);
     public void clearCommands();
 
+    void addPlayer(IPlayer player);
 }

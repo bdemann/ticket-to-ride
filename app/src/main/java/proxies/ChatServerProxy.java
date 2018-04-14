@@ -2,6 +2,7 @@ package proxies;
 
 import java.util.concurrent.ExecutionException;
 
+import model.ClientRoot;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.model.Chat;
@@ -21,6 +22,7 @@ public class ChatServerProxy implements IChatServerFacade{
         Class<?>[] parmTypes = {Chat.class};
         Object[] parmValues = {message};
         ICommand sendChatCommand = new Command("server.facades.ChatServerFacade", "sendChat", parmTypes, parmValues);
+        sendChatCommand.setGameId(ClientRoot.getClientGame().getId());
 
         Result result = TaskExecutor.runTask(sendChatCommand);
 
