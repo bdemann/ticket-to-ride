@@ -50,6 +50,11 @@ public class ModelDAO implements IModelDAO {
     }
 
     @Override
+    public void addPlayer(IPlayer player){
+
+    }
+
+    @Override
     public List<IGame> getGames() {
         return null;
     }

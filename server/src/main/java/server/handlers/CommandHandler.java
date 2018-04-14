@@ -44,11 +44,13 @@ public class CommandHandler implements HttpHandler {
         }
 
         if(ServerRoot.hasPlugin()) {
-            IModelDAO modelDAO = Database.getModelDAO();
-            modelDAO.storeCommand(command);
-            if (modelDAO.isCommandLimitReached()) {
-                modelDAO.clearCommands();
-                modelDAO.saveGames(ServerRoot.getGames());
+            if(command.getGameId() >= 0) {
+                IModelDAO modelDAO = Database.getModelDAO();
+                modelDAO.storeCommand(command);
+                if (modelDAO.isCommandLimitReached()) {
+                    modelDAO.clearCommands();
+                    modelDAO.saveGames(ServerRoot.getGames());
+                }
             }
         }
 
