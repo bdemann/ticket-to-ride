@@ -1,5 +1,6 @@
 package server.facades;
 
+import server.database.Database;
 import server.facades.helpers.StartGameFacade;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
@@ -26,6 +27,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "started the game", System.currentTimeMillis()));
         IPlayer player = game.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
+        Database.getModelDAO().saveGames(ServerRoot.getGames());
         Logger.log(game.toString() + " started", Level.FINNEST);
         return new StartGameResult(player, game.getGameInfo(), true, ClientCommands.getCommandList(username), "Game Started");
     }
