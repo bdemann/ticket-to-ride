@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import server.comm.ServerCommunicator;
+import server.database.Database;
 import server.facades.GameMenuServerFacade;
 import server.facades.LoginServerFacade;
 import server.model.ServerRoot;
@@ -41,6 +42,7 @@ public class Server {
         new ServerCommunicator(serverPortNumber).run();
         ServerRoot.setPluginPath(pluginPath);
         ServerRoot.setCommandListLen(commandListLen);
+        Database.getModelDAO().initializeDB(commandListLen);
         ILoginServerFacade loginServerFacade = new LoginServerFacade();
         loginServerFacade.register("z", "z");
         loginServerFacade.register("x", "x");

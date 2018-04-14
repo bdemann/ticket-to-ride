@@ -52,6 +52,11 @@ public class Command implements ICommand, Serializable {
         return _gameID;
     }
 
+    @Override
+    public void setGameId(int id) {
+        _gameID = id;
+    }
+
     public String toString() {
         StringBuffer result = new StringBuffer();
         result.append("_className = " + _className + "\n");
