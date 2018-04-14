@@ -2,6 +2,7 @@ package proxies;
 
 import java.util.concurrent.ExecutionException;
 
+import model.ClientRoot;
 import shared.command.Command;
 import shared.command.ICommand;
 import shared.results.Result;
@@ -20,6 +21,7 @@ public class ServerProxy implements IServerFacade {
         Class<?>[] parmTypes = {String.class};
         Object[] parmValues = {username};
         ICommand getCommandsCommand = new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues);
+        getCommandsCommand.setGameId(ClientRoot.getClientGame().getId());
 
         return TaskExecutor.runTask(getCommandsCommand);
     }
