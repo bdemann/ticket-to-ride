@@ -2,6 +2,7 @@ package com.sqlitedb;
 
 import java.util.List;
 import java.sql.*;
+import java.util.Set;
 
 import dao.IModelDAO;
 import shared.command.ICommand;
@@ -12,6 +13,8 @@ import shared.model.interfaces.IPlayer;
 public class ModelDAO implements IModelDAO {
 
 
+    private RelationalDatabase db;
+
     public static void main(String[] args){
         ModelDAO m = new ModelDAO();
         m.initializeDB(1);
@@ -19,8 +22,17 @@ public class ModelDAO implements IModelDAO {
 
     @Override
     public void initializeDB(int commandLimit) {
-        String[] strings = {"her"};
-        RelationalDatabase.main(strings);
+        try {
+            this.db = new RelationalDatabase();
+            db.openConnection();
+            db.createTables();
+            db.fillDictionary();
+            Set<String> words = db.loadDictionary();
+            db.closeConnection(true);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

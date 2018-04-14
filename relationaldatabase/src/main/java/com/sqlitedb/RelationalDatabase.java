@@ -16,8 +16,9 @@ public class RelationalDatabase {
     }
 
     private Connection conn;
+    private final String ID = "id";
     private final String GAME = "game";
-    private final String DB_TITLE = "ticket_to_ride";
+    private final String DB_TITLE = "Database_TTR";
 
     public void openConnection() throws Exception {
         try {
@@ -58,7 +59,8 @@ public class RelationalDatabase {
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("drop table if exists " + DB_TITLE);
-                stmt.executeUpdate("create table " + DB_TITLE + " ( " + GAME + " text not null unique )");
+                stmt.executeUpdate("create table " + DB_TITLE + " ( " + ID +   " integer not null unique, "
+                                                                         + GAME + " text not null unique )");
             }
             finally {
                 if (stmt != null) {
@@ -77,11 +79,13 @@ public class RelationalDatabase {
             String[] words = {"fred", "wilma", "betty", "barney"};
             PreparedStatement stmt = null;
             try {
-                String sql = "insert into "+ DB_TITLE +" (" + GAME + ") values (?)";
+                String sql = "insert into "+ DB_TITLE +" (" + ID +", " + GAME + ") values (?,?)";
                 stmt = conn.prepareStatement(sql);
 
-                for (String game : words) {
-                    stmt.setString(1, game);
+                int i = 0;
+                for (String word : words) {
+                    stmt.setInt(1, i++);
+                    stmt.setString(1, word);
 
                     if (stmt.executeUpdate() != 1) {
                         throw new Exception("fillDictionary failed: Could not insert word");
@@ -130,19 +134,4 @@ public class RelationalDatabase {
         }
     }
 
-
-    public static void main(String[] args) {
-        try {
-            RelationalDatabase db = new RelationalDatabase();
-
-            db.openConnection();
-            db.createTables();
-            db.fillDictionary();
-            Set<String> words = db.loadDictionary();
-            db.closeConnection(true);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
