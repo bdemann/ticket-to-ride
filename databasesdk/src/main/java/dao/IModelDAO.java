@@ -22,4 +22,7 @@ public interface IModelDAO {
     public void clearCommands();
 
     void addPlayer(IPlayer player);
+
+    List<IPlayer> getPlayers();
+    List<ICommand> getCommandList(int id);
 }

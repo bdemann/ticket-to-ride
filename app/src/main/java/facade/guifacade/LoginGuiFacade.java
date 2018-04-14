@@ -34,7 +34,7 @@ public class LoginGuiFacade {
 
     private static String _processResults(String username, String password, Result results, boolean isSignIn){
 
-        System.out.println("EXception? " + results.getExceptionType());
+        System.out.println("Exception? " + results.getExceptionType());
         if(results == null){
             return "Server Down";
         }
