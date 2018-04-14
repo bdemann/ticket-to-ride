@@ -1,5 +1,6 @@
 package com.sqlitedb;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
@@ -33,10 +34,10 @@ public class ModelDAO implements IModelDAO {
         return false;
     }
 
-    @Override
-    public void executeCommandList() {
-
-    }
+//    @Override
+//    public void executeCommandList() {
+//
+//    }
 
     @Override
     public void saveGames(List<IGame> games) {
@@ -59,12 +60,17 @@ public class ModelDAO implements IModelDAO {
     }
 
     @Override
-    public List<IPlayer> getPlayers(int gameID) {
+    public List<IPlayer> getPlayers() {
         return null;
     }
 
     @Override
     public void clearCommands() {
         //TODO implement this method!! It should delete the list of commands
+    }
+
+    @Override
+    public List<ICommand> getCommandList(int id){
+        return new ArrayList<>();
     }
 }
