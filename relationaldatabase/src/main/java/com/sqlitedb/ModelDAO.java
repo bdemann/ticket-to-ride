@@ -12,6 +12,10 @@ import shared.model.interfaces.IPlayer;
 public class ModelDAO implements IModelDAO {
 
 
+    public static void main(String[] args){
+
+
+    }
     @Override
     public void initializeDB(int commandLimit) {
         Connection c = null;
@@ -43,12 +47,12 @@ public class ModelDAO implements IModelDAO {
     }
 
     @Override
-    public void setGames(List<IGame> games) {
+    public void saveGames(List<IGame> games) {
 
     }
 
     @Override
-    public void setPlayers(List<IPlayer> players, int gameID) {
+    public void savePlayers(List<IPlayer> players, int gameID) {
 
     }
 
@@ -60,5 +64,10 @@ public class ModelDAO implements IModelDAO {
     @Override
     public List<IPlayer> getPlayers(int gameID) {
         return null;
+    }
+
+    @Override
+    public void clearCommands() {
+        //TODO implement this method!! It should delete the list of commands
     }
 }

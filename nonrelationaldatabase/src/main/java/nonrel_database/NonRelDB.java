@@ -1,13 +1,10 @@
 package nonrel_database;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import dao.IModelDAO;
-import shared.command.Command;
 import shared.command.ICommand;
-import shared.model.Game;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
@@ -21,6 +18,7 @@ public class NonRelDB implements IModelDAO {
     private File commandFile;
     private int commandLimit;
 
+    @Override
     public void initializeDB(int commandLimit){
         try{
             playerFile = new File("PlayerFile.txt");
@@ -33,24 +31,36 @@ public class NonRelDB implements IModelDAO {
         }
     }
 
+    @Override
     public void storeCommand(ICommand command){
         if(!isCommandLimitReached()){
             CommandDAO.getInstance(commandFile).addCommand(command);
         }
         else{
-            //TODO: serialize whole game
-            //TODO: delete commands
+            //TODO: serialize every game and player
+//            List<IGame> games = ServerRoot.getGames();
+//            List<IPlayer> players = ServerRoot.getPlayers();
+            //delete old games and players
+            PlayerDAO.getInstance(playerFile).deletePlayers();
+            GameDAO.getInstance(gameFile).deleteGames();
+            //add new games and players
+//            setGames(games);
+//            setPlayers(players,1);
+            //delete commands
+            clearCommands();
         }
     }
 
+    @Override
     public boolean isCommandLimitReached(){
-        if(CommandDAO.getInstance(commandFile).getCommands().size() > commandLimit){
+        if(CommandDAO.getInstance(commandFile).getCommandLimit() > commandLimit){
             return true;
         }
 
         return false;
     }
 
+    @Override
     public void executeCommandList() {
         List<ICommand> commands = CommandDAO.getInstance(commandFile).getCommands();
         for(ICommand command:commands){
@@ -63,23 +73,33 @@ public class NonRelDB implements IModelDAO {
         }
     }
 
-    public void setGames(List<IGame> games){
+    @Override
+    public void saveGames(List<IGame> games){
         for(IGame game:games){
             GameDAO.getInstance(gameFile).addGame(game);
         }
     }
 
-    public void setPlayers(List<IPlayer>players, int gameID){
+    @Override
+    public void savePlayers(List<IPlayer>players, int gameID){
         for(IPlayer player:players){
             PlayerDAO.getInstance(playerFile).addPlayer(player,gameID);
         }
     }
 
+    @Override
     public List<IGame> getGames(){
         return GameDAO.getInstance(gameFile).getGames();
     }
 
+    @Override
     public List<IPlayer>getPlayers(int gameID){
         return PlayerDAO.getInstance(playerFile).getPlayers();
     }
+
+    @Override
+    public void clearCommands() {
+        CommandDAO.getInstance(commandFile).deleteCommands();
+    }
+
 }

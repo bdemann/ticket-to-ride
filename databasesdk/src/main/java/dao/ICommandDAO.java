@@ -1,6 +1,6 @@
 package dao;
 
-import java.io.File;
+import java.util.List;
 
 import shared.command.ICommand;
 
@@ -10,6 +10,7 @@ import shared.command.ICommand;
 
 public interface ICommandDAO {
     public boolean addCommand(ICommand command);
-    public ICommand getCommand(int commandId);
-    public boolean deleteCommand(ICommand command);
+    public int getCommandLimit();
+    public List<ICommand> getCommands();
+    public void deleteCommands();
 }
