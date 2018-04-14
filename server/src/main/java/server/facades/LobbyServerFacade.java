@@ -27,7 +27,10 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         game.getGameHistory().addEvent(new GameEvent(username, "started the game", System.currentTimeMillis()));
         IPlayer player = game.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
+        //Serialize the started game
         Database.getModelDAO().saveGames(ServerRoot.getGames());
+        //Clear out any commands that might have built up. There shouldn't be any but just in case.
+        Database.getModelDAO().clearCommands();
         Logger.log(game.toString() + " started", Level.FINNEST);
         return new StartGameResult(player, game.getGameInfo(), true, ClientCommands.getCommandList(username), "Game Started");
     }
