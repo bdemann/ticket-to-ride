@@ -35,7 +35,7 @@ public class ModelDAO implements IModelDAO {
 
         //TEST COMMAND LIMIT IS REACHED
         if(modelDAO.isCommandLimitReached()){
-            System.out.printf("Command Limit was reached with COMMANDS STORED: " + Integer.toString(commandsStored) + "   and COMMAND LIMIT SET TO: " + Integer.toString(commandLimit));
+            System.out.printf("Command Limit was reached with COMMANDS STORED: " + Integer.toString(commandsStored) + "   and COMMAND LIMIT SET TO: " + Integer.toString(commandLimit) + "\n");
         }
         //END OF TESTING COMMAND LIMIT
 
@@ -49,6 +49,12 @@ public class ModelDAO implements IModelDAO {
         modelDAO.addPlayer(three);
         modelDAO.addPlayer(four);
         //END OF ADDING PLAYERS
+
+        //TESTING GET PLAYERS
+        for(IPlayer player : modelDAO.getPlayers()){
+            System.out.printf("Got Player: " + player.getUsername() + "\n");
+        }
+        //END OF GET PLAYERS TEST
 
 
 
@@ -111,7 +117,6 @@ public class ModelDAO implements IModelDAO {
 
     }
 
-
     @Override
     public void saveGames(List<IGame> games) {
 
@@ -144,6 +149,23 @@ public class ModelDAO implements IModelDAO {
 
     @Override
     public List<IPlayer> getPlayers() {
+        if(db != null){
+            try {
+                db.openConnection();
+                List<Object> list = db.load(TABLE_PLAYERS, COLUMN_PLAYER_BLOB);
+                db.closeConnection(true);
+
+                List<IPlayer> players = new ArrayList<>();
+                for(Object obj : list){
+                    if(obj instanceof IPlayer){
+                        players.add((IPlayer) obj);
+                    }
+                }
+                return players;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
