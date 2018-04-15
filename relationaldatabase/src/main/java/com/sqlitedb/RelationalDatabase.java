@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.*;
 
 import shared.comm.CommandEncoder;
+import shared.model.interfaces.IGame;
+import shared.model.interfaces.IPlayer;
 
 public class RelationalDatabase {
 
@@ -158,14 +160,39 @@ public class RelationalDatabase {
         }
     }
 
-    public void clearCommands() throws Exception{
+    public void replaceGamePlayers(List<IPlayer> players, int gameID) {
+        try {
+
+            List<Object> games = load(TABLE_GAMES, COLUMN_GAME_BLOB);
+            clearTable(TABLE_GAMES, COLUMN_GAME_BLOB);
+            for(Object obj: games){
+                if(obj instanceof IGame){
+                    IGame game = (IGame) obj;
+                    if(game.getId() == gameID) {
+                        int index = games.indexOf(obj);
+                        games.remove(obj);
+                        game.setPlayers(players);
+                        games.add(index, game);
+                        break;
+                    }
+                }
+            }
+            //Now the game is altered, lets put them all back in the db
+            insert(TABLE_GAMES, COLUMN_GAME_BLOB, games);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clearTable(String tableName, String columnName) throws Exception{
         try {
             Statement stmt = null;
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("drop table if exists " + TABLE_COMMANDS);
-                stmt.executeUpdate("create table " + TABLE_COMMANDS + " ( " + COLUMN_COMMANDS + " text not null unique )");
+                stmt.executeUpdate("drop table if exists " + tableName);
+                stmt.executeUpdate("create table " + tableName + " ( " + columnName + " text not null unique )");
 
             }
             finally {
@@ -176,7 +203,7 @@ public class RelationalDatabase {
             }
         }
         catch (SQLException e) {
-            throw new SQLException("createTables failed", e);
+            throw new SQLException("clear failed", e);
         }
     }
 }

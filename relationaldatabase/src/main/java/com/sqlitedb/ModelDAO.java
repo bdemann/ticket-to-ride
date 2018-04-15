@@ -68,7 +68,9 @@ public class ModelDAO implements IModelDAO {
         //TESTING SAVE GAMES
         List<IGame> games = new ArrayList<>();
         for(int i = 0; i < 7; i++){
-            games.add(new Game("Game" + Integer.toString(i), modelDAO.getPlayers(), 2));
+            IGame game = new Game("Game" + Integer.toString(i), modelDAO.getPlayers(), 2);
+            game.setId(i);
+            games.add(game);
         }
         modelDAO.saveGames(games);
         //END OF TESTING SAVE GAMES
@@ -76,8 +78,32 @@ public class ModelDAO implements IModelDAO {
         //TESTING GET GAMES
         for(IGame game : modelDAO.getGames()){
             System.out.printf("Got Game: " + game.getGameName() + "\n");
+            for(IPlayer player : game.getPlayers()){
+                System.out.printf("\tContains Player: " + player.getUsername() + "\n");
+            }
         }
         //END OF GET GAMES TEST
+
+        //TESTING SAVE PLAYERS
+        IPlayer five = new Player("Jacob Nixon", "Yo Mama", 0);
+        IPlayer six = new Player("Ted Blight", "Hey Yo", 1);
+        List<IPlayer> test = new ArrayList<>();
+        test.add(five);
+        test.add(six);
+        modelDAO.savePlayers(test, 1);
+
+        System.out.printf("\n\nTESTING SAVE PLAYERS...\n\nHere's the new Game List:\n\n");
+
+        for(IGame game : modelDAO.getGames()){
+            System.out.printf("Got Game: " + game.getGameName() + "\n");
+            for(IPlayer player : game.getPlayers()){
+                System.out.printf("\tContains Player: " + player.getUsername() + "\n");
+            }
+        }
+        //END OF TESTING SAVE PLAYERS
+
+
+
 
 
 
@@ -159,9 +185,25 @@ public class ModelDAO implements IModelDAO {
         }
     }
 
+    //TESTED and should work properly
+    /**
+     * This method will take a list of players, and find the game associated with the given gameID and put the list of players with that game. It will delete the old players
+     * @param players List of players
+     * @param gameID gameID for the game
+     */
     @Override
     public void savePlayers(List<IPlayer> players, int gameID) {
-
+        if(db != null){
+            List<Object> list = new ArrayList<>();
+            list.addAll(players);
+            try {
+                db.openConnection();
+                db.replaceGamePlayers(players, gameID);
+                db.closeConnection(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //TESTED and should work properly
@@ -233,7 +275,7 @@ public class ModelDAO implements IModelDAO {
         if(db != null){
             try {
                 db.openConnection();
-                db.clearCommands();
+                db.clearTable(TABLE_COMMANDS, COLUMN_COMMANDS);
                 db.closeConnection(true);
             } catch (Exception e) {
                 e.printStackTrace();
