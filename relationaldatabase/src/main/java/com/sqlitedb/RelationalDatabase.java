@@ -64,14 +64,6 @@ public class RelationalDatabase {
         }
     }
 
-    private ByteArrayInputStream serializeObject(Object object) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(object);
-        byte[] objectAsBytes = baos.toByteArray();
-        return new ByteArrayInputStream(objectAsBytes);
-    }
-
     public void createTables() throws Exception {
         try {
             Statement stmt = null;
@@ -136,22 +128,21 @@ public class RelationalDatabase {
         }
     }
 
-    public Set<String> loadDictionary() throws Exception {
+    public List<Object> load(String tableName, String tableColumn) throws Exception {
         try {
             PreparedStatement stmt = null;
             ResultSet rs = null;
             try {
-                String sql = "select "+ COLUMN_GAME_BLOB +" from " + TABLE_GAMES;
+                String sql = "select "+ tableColumn +" from " + tableName;
                 stmt = conn.prepareStatement(sql);
 
-                Set<String> words = new HashSet<>();
+                List<Object> list = new ArrayList<>();
                 rs = stmt.executeQuery();
                 while (rs.next()) {
-                    String word = rs.getString(1);
-                    words.add(word);
+                    Object obj = CommandEncoder.decodeDBInfo(rs.getString(1));
+                    list.add(obj);
                 }
-
-                return words;
+                return list;
             }
             finally {
                 if (rs != null) {
@@ -163,7 +154,7 @@ public class RelationalDatabase {
             }
         }
         catch (SQLException e) {
-            throw new Exception("fillDictionary failed", e);
+            throw new Exception("load failed", e);
         }
     }
 
