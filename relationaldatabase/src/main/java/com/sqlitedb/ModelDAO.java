@@ -73,6 +73,11 @@ public class ModelDAO implements IModelDAO {
         modelDAO.saveGames(games);
         //END OF TESTING SAVE GAMES
 
+        //TESTING GET GAMES
+        for(IGame game : modelDAO.getGames()){
+            System.out.printf("Got Game: " + game.getGameName() + "\n");
+        }
+        //END OF GET GAMES TEST
 
 
 
@@ -138,6 +143,7 @@ public class ModelDAO implements IModelDAO {
 
     }
 
+    //TESTED and should work properly
     @Override
     public void saveGames(List<IGame> games) {
         if(db != null){
@@ -174,9 +180,28 @@ public class ModelDAO implements IModelDAO {
         }
     }
 
+    //TESTED and should work properly
     @Override
     public List<IGame> getGames() {
-        return null;
+        if(db != null){
+            try {
+                db.openConnection();
+                List<Object> list = db.load(TABLE_GAMES, COLUMN_GAME_BLOB);
+                db.closeConnection(true);
+
+                List<IGame> games = new ArrayList<>();
+                for(Object obj : list){
+                    if(obj instanceof IGame){
+                        games.add((IGame) obj);
+                    }
+                }
+                return games;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return new ArrayList<>();
     }
 
     //TESTED and should work properly
