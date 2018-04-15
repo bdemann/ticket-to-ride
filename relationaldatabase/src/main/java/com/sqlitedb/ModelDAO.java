@@ -2,26 +2,43 @@ package com.sqlitedb;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 
 import dao.IModelDAO;
 import shared.command.ICommand;
+import shared.model.Player;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
+
+import static com.sqlitedb.RelationalDatabase.*;
 
 
 public class ModelDAO implements IModelDAO {
 
     public static void main(String[] args){
-        ModelDAO m = new ModelDAO();
-        m.initializeDB(1);
+        ModelDAO model = new ModelDAO();
+        model.initializeDB(10);
     }
 
+    private RelationalDatabase db;
     @Override
     public void initializeDB(int commandLimit) {
-        String[] strings = {"her"};
-        RelationalDatabase.main(strings);
+        try {
+            db = new RelationalDatabase();
+            db.openConnection();
+            db.createTables();
+            //Add the command limit for the database
 
+            List<Object> list = new ArrayList<>();
+            list.add(commandLimit);
+            db.insert(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT, list);
+
+            //Close the db connection
+            db.closeConnection(true);
+            System.out.println("Database Initialized");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -50,8 +67,16 @@ public class ModelDAO implements IModelDAO {
     }
 
     @Override
-    public void addPlayer(IPlayer player){
-
+    public void addPlayer(IPlayer player) {
+        if(db != null){
+            List<Object> list = new ArrayList<>();
+            list.add(player);
+            try {
+                db.insert(TABLE_PLAYERS, COLUMN_PLAYER_BLOB, list);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

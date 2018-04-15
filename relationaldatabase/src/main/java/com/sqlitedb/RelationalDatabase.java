@@ -1,7 +1,13 @@
 package com.sqlitedb;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.*;
 import java.util.*;
+
+import shared.comm.CommandEncoder;
 
 public class RelationalDatabase {
 
@@ -16,9 +22,15 @@ public class RelationalDatabase {
     }
 
     private Connection conn;
-    private final String ID = "id";
-    private final String GAME = "game";
-    private final String DB_TITLE = "Database_TTR";
+   // static final String COLUMN_GAME_ID = "Game_IDs";
+    static final String COLUMN_GAME_BLOB = "Game_Blobs";
+    static final String TABLE_GAMES = "Games_TABLE";
+    static final String TABLE_COMMANDS = "Commands_TABLE";
+    static final String COLUMN_COMMANDS = "Commands";
+    static final String TABLE_PLAYERS = "Players_TABLE";
+    static final String COLUMN_PLAYER_BLOB = "Player_Blobs";
+    static final String TABLE_COMMAND_LIMIT = "Command_Limit_TABLE";
+    static final String COLUMN_COMMAND_LIMIT = "Limit_of_commands";
 
     public void openConnection() throws Exception {
         try {
@@ -52,15 +64,33 @@ public class RelationalDatabase {
         }
     }
 
+    private ByteArrayInputStream serializeObject(Object object) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(object);
+        byte[] objectAsBytes = baos.toByteArray();
+        return new ByteArrayInputStream(objectAsBytes);
+    }
+
     public void createTables() throws Exception {
         try {
             Statement stmt = null;
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("drop table if exists " + DB_TITLE);
-                stmt.executeUpdate("create table " + DB_TITLE + " ( " + ID +   " integer not null unique, "
-                                                                         + GAME + " text not null unique )");
+                stmt.executeUpdate("drop table if exists " + TABLE_GAMES);
+               // stmt.executeUpdate("create table " + TABLE_GAMES + " ( " + COLUMN_GAME_ID +   " integer not null unique, " + COLUMN_GAME_BLOB + " text not null unique )");
+                stmt.executeUpdate("create table " + TABLE_GAMES + " ( " + COLUMN_GAME_BLOB + " text not null unique )");
+
+                stmt.executeUpdate("drop table if exists " + TABLE_COMMANDS);
+                stmt.executeUpdate("create table " + TABLE_COMMANDS + " ( " + COLUMN_COMMANDS + " text not null unique )");
+
+                stmt.executeUpdate("drop table if exists " + TABLE_PLAYERS);
+                stmt.executeUpdate("create table " + TABLE_PLAYERS + " ( " + COLUMN_PLAYER_BLOB + " text not null unique )");
+
+                stmt.executeUpdate("drop table if exists " + TABLE_COMMAND_LIMIT);
+                stmt.executeUpdate("create table " + TABLE_COMMAND_LIMIT + " ( " + COLUMN_COMMAND_LIMIT + " text not null unique )");
+
             }
             finally {
                 if (stmt != null) {
@@ -74,21 +104,24 @@ public class RelationalDatabase {
         }
     }
 
-    public void fillDictionary() throws Exception {
+    /**
+     * @pre this method expects the list of values to be either ints or serializable objects
+     *
+     * @param tableName
+     * @throws Exception
+     */
+    public void insert(String tableName, String tableColumn, List<Object> values) throws Exception {
         try {
-            String[] words = {"fred", "wilma", "betty", "barney"};
             PreparedStatement stmt = null;
             try {
-                String sql = "insert into "+ DB_TITLE +" (" + ID +", " + GAME + ") values (?,?)";
+                String sql = "insert into "+ tableName +" (" + tableColumn +") values (?)";
                 stmt = conn.prepareStatement(sql);
 
-                int i = 0;
-                for (String word : words) {
-                    stmt.setInt(1, i++);
-                    stmt.setString(1, word);
+                for (Object obj : values) {
+                    stmt.setString(1, CommandEncoder.encodeDBInfo(obj));
 
                     if (stmt.executeUpdate() != 1) {
-                        throw new Exception("fillDictionary failed: Could not insert word");
+                        throw new Exception("insert into DB failed: Could not insert OBJECT");
                     }
                 }
             }
@@ -99,7 +132,7 @@ public class RelationalDatabase {
             }
         }
         catch (SQLException e) {
-            throw new Exception("fillDictionary failed", e);
+            throw new Exception("insert into DB failed", e);
         }
     }
 
@@ -108,7 +141,7 @@ public class RelationalDatabase {
             PreparedStatement stmt = null;
             ResultSet rs = null;
             try {
-                String sql = "select game from " + DB_TITLE;
+                String sql = "select "+ COLUMN_GAME_BLOB +" from " + TABLE_GAMES;
                 stmt = conn.prepareStatement(sql);
 
                 Set<String> words = new HashSet<>();
