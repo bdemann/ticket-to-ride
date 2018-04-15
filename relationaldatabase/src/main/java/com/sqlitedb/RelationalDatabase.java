@@ -158,4 +158,25 @@ public class RelationalDatabase {
         }
     }
 
+    public void clearCommands() throws Exception{
+        try {
+            Statement stmt = null;
+            try {
+                stmt = conn.createStatement();
+
+                stmt.executeUpdate("drop table if exists " + TABLE_COMMANDS);
+                stmt.executeUpdate("create table " + TABLE_COMMANDS + " ( " + COLUMN_COMMANDS + " text not null unique )");
+
+            }
+            finally {
+                if (stmt != null) {
+                    stmt.close();
+                    stmt = null;
+                }
+            }
+        }
+        catch (SQLException e) {
+            throw new SQLException("createTables failed", e);
+        }
+    }
 }

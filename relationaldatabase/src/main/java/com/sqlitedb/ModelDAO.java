@@ -56,10 +56,19 @@ public class ModelDAO implements IModelDAO {
         }
         //END OF GET PLAYERS TEST
 
+        //CLEAR COMMANDS WORKS
+
+        //TESTING GET COMMANDS
+        for(ICommand command : modelDAO.getCommandList(-1)){
+            System.out.printf("Got COMMAND FROM GAME ID: " + command.getGameId() + "\n");
+        }
+
+
 
 
     }
 
+    //TESTED and should work properly
     @Override
     public void initializeDB(int commandLimit) {
         try {
@@ -81,6 +90,7 @@ public class ModelDAO implements IModelDAO {
         }
     }
 
+    //TESTED and should work properly
     @Override
     public void storeCommand(ICommand command) {
         if(db != null){
@@ -96,6 +106,7 @@ public class ModelDAO implements IModelDAO {
         }
     }
 
+    //TESTED and should work properly
     @Override
     public boolean isCommandLimitReached() {
         if(db != null){
@@ -127,6 +138,7 @@ public class ModelDAO implements IModelDAO {
 
     }
 
+    //TESTED and should work properly
     @Override
     public void addPlayer(IPlayer player) {
         if(db != null){
@@ -147,6 +159,7 @@ public class ModelDAO implements IModelDAO {
         return null;
     }
 
+    //TESTED and should work properly
     @Override
     public List<IPlayer> getPlayers() {
         if(db != null){
@@ -166,16 +179,46 @@ public class ModelDAO implements IModelDAO {
                 e.printStackTrace();
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
+    //TESTED and should work properly
     @Override
     public void clearCommands() {
-        //TODO implement this method!! It should delete the list of commands
+        if(db != null){
+            try {
+                db.openConnection();
+                db.clearCommands();
+                db.closeConnection(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    //TESTED and should work properly
     @Override
     public List<ICommand> getCommandList(int id){
+        if(db != null){
+            try {
+                db.openConnection();
+                List<Object> list = db.load(TABLE_COMMANDS, COLUMN_COMMANDS);
+                db.closeConnection(true);
+
+                List<ICommand> commands = new ArrayList<>();
+                for(Object obj : list){
+                    if(obj instanceof ICommand){
+                        ICommand cmd = (ICommand) obj;
+                        if(cmd.getGameId() == id){
+                            commands.add(cmd);
+                        }
+                    }
+                }
+                return commands;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return new ArrayList<>();
     }
 }
