@@ -6,6 +6,7 @@ import java.util.List;
 import dao.IModelDAO;
 import shared.command.Command;
 import shared.command.ICommand;
+import shared.model.Game;
 import shared.model.Player;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
@@ -62,6 +63,15 @@ public class ModelDAO implements IModelDAO {
         for(ICommand command : modelDAO.getCommandList(-1)){
             System.out.printf("Got COMMAND FROM GAME ID: " + command.getGameId() + "\n");
         }
+        //END OF GET COMMANDS TEST
+
+        //TESTING SAVE GAMES
+        List<IGame> games = new ArrayList<>();
+        for(int i = 0; i < 7; i++){
+            games.add(new Game("Game" + Integer.toString(i), modelDAO.getPlayers(), 2));
+        }
+        modelDAO.saveGames(games);
+        //END OF TESTING SAVE GAMES
 
 
 
@@ -130,7 +140,17 @@ public class ModelDAO implements IModelDAO {
 
     @Override
     public void saveGames(List<IGame> games) {
-
+        if(db != null){
+            List<Object> list = new ArrayList<>();
+            list.addAll(games);
+            try {
+                db.openConnection();
+                db.insert(TABLE_GAMES, COLUMN_GAME_BLOB, list);
+                db.closeConnection(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
