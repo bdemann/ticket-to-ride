@@ -39,9 +39,6 @@ public class ModelDAO implements IModelDAO {
         }
         //END OF TESTING COMMAND LIMIT
 
-
-
-
         //TEST ADDING PLAYERS
         IPlayer one = new Player("Ben Nelson", "Yo Mama", 0);
         IPlayer two = new Player("Bob Trythall", "Hey Yo", 1);
@@ -65,7 +62,7 @@ public class ModelDAO implements IModelDAO {
             db.createTables();
             //Add the command limit for the database
 
-            List<Object> list = new ArrayList<>();
+            List<java.lang.Object> list = new ArrayList<>();
             list.add(commandLimit);
             db.insert(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT, list);
 
@@ -114,10 +111,6 @@ public class ModelDAO implements IModelDAO {
 
     }
 
-//    @Override
-//    public void executeCommandList() {
-//
-//    }
 
     @Override
     public void saveGames(List<IGame> games) {
