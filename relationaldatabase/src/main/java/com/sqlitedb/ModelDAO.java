@@ -1,5 +1,6 @@
 package com.sqlitedb;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,15 +91,12 @@ public class ModelDAO implements IModelDAO {
         List<IPlayer> test = new ArrayList<>();
         test.add(five);
         test.add(six);
-        modelDAO.savePlayers(test, 1);
+        modelDAO.savePlayers(test);
 
-        System.out.printf("\n\nTESTING SAVE PLAYERS...\n\nHere's the new Game List:\n\n");
+        System.out.printf("\n\nTESTING SAVE PLAYERS...\n\nHere's the new Player List:\n\n");
 
-        for(IGame game : modelDAO.getGames()){
-            System.out.printf("Got Game: " + game.getGameName() + "\n");
-            for(IPlayer player : game.getPlayers()){
-                System.out.printf("\tContains Player: " + player.getUsername() + "\n");
-            }
+        for(IPlayer player : modelDAO.getPlayers()){
+            System.out.println("We Got Player: " + player.getUsername());
         }
         //END OF TESTING SAVE PLAYERS
 
@@ -112,22 +110,27 @@ public class ModelDAO implements IModelDAO {
     //TESTED and should work properly
     @Override
     public void initializeDB(int commandLimit) {
-        try {
-            db = new RelationalDatabase();
-            db.openConnection();
-            db.createTables();
-            //Add the command limit for the database
+        db = new RelationalDatabase();
+        File file = new File("ticketToRide.sqlite");
+        if(!file.exists()) {
+            try {
 
-            List<java.lang.Object> list = new ArrayList<>();
-            list.add(commandLimit);
-            db.insert(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT, list);
+                db.openConnection();
+                db.createTables();
+                //Add the command limit for the database
 
-            //Close the db connection
-            db.closeConnection(true);
-            System.out.println("Database Initialized");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+                List<java.lang.Object> list = new ArrayList<>();
+                list.add(commandLimit);
+                db.insert(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT, list);
+
+                //Close the db connection
+                db.closeConnection(true);
+                System.out.println("Database Initialized");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("I guess it existed");
         }
     }
 
@@ -186,19 +189,15 @@ public class ModelDAO implements IModelDAO {
     }
 
     //TESTED and should work properly
-    /**
-     * This method will take a list of players, and find the game associated with the given gameID and put the list of players with that game. It will delete the old players
-     * @param players List of players
-     * @param gameID gameID for the game
-     */
     @Override
-    public void savePlayers(List<IPlayer> players, int gameID) {
+    public void savePlayers(List<IPlayer> players) {
         if(db != null){
             List<Object> list = new ArrayList<>();
             list.addAll(players);
             try {
                 db.openConnection();
-                db.replaceGamePlayers(players, gameID);
+                db.clearTable(TABLE_PLAYERS, COLUMN_PLAYER_BLOB);
+                db.insert(TABLE_PLAYERS, COLUMN_PLAYER_BLOB, list);
                 db.closeConnection(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -235,8 +234,10 @@ public class ModelDAO implements IModelDAO {
                 for(Object obj : list){
                     if(obj instanceof IGame){
                         games.add((IGame) obj);
+                        System.out.println("We are adding this game: " + obj);
                     }
                 }
+                System.out.println("This is the num of games we are returning: " + games.size());
                 return games;
 
             } catch (Exception e) {

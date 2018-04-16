@@ -74,16 +74,16 @@ public class RelationalDatabase {
 
                 stmt.executeUpdate("drop table if exists " + TABLE_GAMES);
                // stmt.executeUpdate("create table " + TABLE_GAMES + " ( " + COLUMN_GAME_ID +   " integer not null unique, " + COLUMN_GAME_BLOB + " text not null unique )");
-                stmt.executeUpdate("create table " + TABLE_GAMES + " ( " + COLUMN_GAME_BLOB + " text not null unique )");
+                stmt.executeUpdate("create table " + TABLE_GAMES + " ( " + COLUMN_GAME_BLOB + " text not null )");
 
                 stmt.executeUpdate("drop table if exists " + TABLE_COMMANDS);
-                stmt.executeUpdate("create table " + TABLE_COMMANDS + " ( " + COLUMN_COMMANDS + " text not null unique )");
+                stmt.executeUpdate("create table " + TABLE_COMMANDS + " ( " + COLUMN_COMMANDS + " text not null )");
 
                 stmt.executeUpdate("drop table if exists " + TABLE_PLAYERS);
-                stmt.executeUpdate("create table " + TABLE_PLAYERS + " ( " + COLUMN_PLAYER_BLOB + " text not null unique )");
+                stmt.executeUpdate("create table " + TABLE_PLAYERS + " ( " + COLUMN_PLAYER_BLOB + " text not null )");
 
                 stmt.executeUpdate("drop table if exists " + TABLE_COMMAND_LIMIT);
-                stmt.executeUpdate("create table " + TABLE_COMMAND_LIMIT + " ( " + COLUMN_COMMAND_LIMIT + " text not null unique )");
+                stmt.executeUpdate("create table " + TABLE_COMMAND_LIMIT + " ( " + COLUMN_COMMAND_LIMIT + " text not null )");
 
             }
             finally {
@@ -192,7 +192,7 @@ public class RelationalDatabase {
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("drop table if exists " + tableName);
-                stmt.executeUpdate("create table " + tableName + " ( " + columnName + " text not null unique )");
+                stmt.executeUpdate("create table " + tableName + " ( " + columnName + " text not null )");
 
             }
             finally {

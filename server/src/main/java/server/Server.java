@@ -48,8 +48,10 @@ public class Server {
         Database.getModelDAO().initializeDB(commandListLen);
 
         //Restore server state from database
-        ServerRoot.setGames(Database.getModelDAO().getGames());
+        System.out.println("-----Here is the DB info--------");
+        System.out.println(Database.getModelDAO().getGames().size());
         ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
+        ServerRoot.setGames(Database.getModelDAO().getGames());
         for(IGame game : ServerRoot.getGames()){
             List<ICommand> commands = Database.getModelDAO().getCommandList(game.getId());
             for(ICommand command : commands) {
