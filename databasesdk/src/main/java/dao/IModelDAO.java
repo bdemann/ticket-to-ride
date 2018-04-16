@@ -15,7 +15,7 @@ public interface IModelDAO {
     public void storeCommand(ICommand command);
     public boolean isCommandLimitReached();
     public void saveGames(List<IGame>games);
-    public void savePlayers(List<IPlayer>players, int gameID);
+    public void savePlayers(List<IPlayer>players);
     public List<IGame> getGames();
     public void clearCommands();
 

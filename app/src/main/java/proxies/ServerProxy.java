@@ -25,7 +25,7 @@ public class ServerProxy implements IServerFacade {
         IGame clientGame = ClientRoot.getClientGame();
         if(clientGame != null) {
             //If there is a game already then we add the game id. Otherwise don't add it.
-            getCommandsCommand.setGameId(ClientRoot.getClientGame().getId());
+//            getCommandsCommand.setGameId(ClientRoot.getClientGame().getId()); TODO do we want to store the poling ones?
         }
 
         return TaskExecutor.runTask(getCommandsCommand);
