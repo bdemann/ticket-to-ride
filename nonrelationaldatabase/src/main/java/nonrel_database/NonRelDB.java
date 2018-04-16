@@ -84,10 +84,10 @@ public class NonRelDB implements IModelDAO {
     }
 
     @Override
-    public void savePlayers(List<IPlayer>players, int gameID){
+    public void savePlayers(List<IPlayer>players){
         PlayerDAO.getInstance(playerFile).deletePlayers();
         for(IPlayer player:players){
-            PlayerDAO.getInstance(playerFile).addPlayer(player,gameID);
+            PlayerDAO.getInstance(playerFile).addPlayer(player);
         }
     }
 

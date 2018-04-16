@@ -42,7 +42,7 @@ public class PlayerDAO implements IPlayerDAO {
 
     }
 
-    public boolean addPlayer(IPlayer player, int gameID){
+    public boolean addPlayer(IPlayer player){
         try{
             //deserialize player
             PrintWriter pw = new PrintWriter(new FileWriter(file,true));
