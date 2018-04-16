@@ -48,8 +48,6 @@ public class Server {
         Database.getModelDAO().initializeDB(commandListLen);
 
         //Restore server state from database
-        System.out.println("-----Here is the DB info--------");
-        System.out.println(Database.getModelDAO().getGames().size());
         ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
         ServerRoot.setGames(Database.getModelDAO().getGames());
         for(IGame game : ServerRoot.getGames()){
@@ -65,13 +63,13 @@ public class Server {
 
         //Put in default info
         ILoginServerFacade loginServerFacade = new LoginServerFacade();
-        loginServerFacade.register("z", "z");
-        loginServerFacade.register("x", "x");
-        loginServerFacade.register("c", "c");
-        loginServerFacade.register("v", "v");
-        loginServerFacade.register("b", "b");
-        loginServerFacade.register("n", "n");
-        loginServerFacade.register("m", "m");
+//        loginServerFacade.register("z", "z");
+//        loginServerFacade.register("x", "x");
+//        loginServerFacade.register("c", "c");
+//        loginServerFacade.register("v", "v");
+//        loginServerFacade.register("b", "b");
+//        loginServerFacade.register("n", "n");
+//        loginServerFacade.register("m", "m");
         IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
         loginServerFacade.register("bdemann", "password");
         loginServerFacade.signin("bdemann", "password");
