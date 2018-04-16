@@ -94,7 +94,7 @@ public class NonRelDB implements IModelDAO {
     @Override
     public void addPlayer(IPlayer player){
         //gameID is not used in this function call
-        PlayerDAO.getInstance(playerFile).addPlayer(player, 0);
+        PlayerDAO.getInstance(playerFile).addPlayer(player);
     };
 
     @Override
