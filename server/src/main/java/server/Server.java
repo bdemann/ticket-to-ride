@@ -50,6 +50,10 @@ public class Server {
         //Restore server state from database
         ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
         ServerRoot.setGames(Database.getModelDAO().getGames());
+        System.out.println("We are getting the list of games from the DB.");
+        System.out.println("Number of games in DB: " + Database.getModelDAO().getGames().size());
+        System.out.println("Number of games in Server: " + ServerRoot.getGames().size());
+
         for(IGame game : ServerRoot.getGames()){
             List<ICommand> commands = Database.getModelDAO().getCommandList(game.getId());
             for(ICommand command : commands) {

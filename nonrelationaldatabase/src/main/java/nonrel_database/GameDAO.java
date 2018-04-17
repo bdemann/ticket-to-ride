@@ -3,9 +3,13 @@ package nonrel_database;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.tree.ExpandVetoException;
 
 import dao.IGameDAO;
 import shared.comm.CommandEncoder;
@@ -17,9 +21,11 @@ import shared.model.interfaces.IGame;
 
 public class GameDAO implements IGameDAO {
     private File file;
-    private PrintWriter pw;
-    private BufferedReader reader;
+//    private PrintWriter pw;
+//    private BufferedReader reader;
+//    private Scanner scanner;
     private static GameDAO instance;
+
     public static GameDAO getInstance(File file) {
         if (instance == null)
             instance = new GameDAO(file);
@@ -29,8 +35,9 @@ public class GameDAO implements IGameDAO {
     private GameDAO(File file){
         try{
             this.file = file;
-            this.pw = new PrintWriter(file);
-            this.reader = new BufferedReader(new FileReader(file));
+//            this.pw = new PrintWriter(new FileWriter(file,true));
+//            this.reader = new BufferedReader(new FileReader(file));
+//            this.scanner = new Scanner(file);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -41,10 +48,11 @@ public class GameDAO implements IGameDAO {
     @Override
     public boolean addGame(IGame game){
         try{
+            PrintWriter pw = new PrintWriter(new FileWriter(file,true));
             //deserialize player
             String strGame = CommandEncoder.encodeDBInfo(game);
-            pw.append(strGame + "\n");
-            pw.flush();
+            pw.append(strGame + "end of game");
+            pw.close();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -54,18 +62,20 @@ public class GameDAO implements IGameDAO {
     }
 
     public List<IGame> getGames(){
-        String line;
         List<IGame> games = new ArrayList<>();
-
         try{
-            while((line = reader.readLine()) != null) {
-                IGame game = (IGame) CommandEncoder.decodeDBInfo(line);
+            Scanner scanner = new Scanner(file);
+            scanner.useDelimiter("end of game");
+            while(scanner.hasNext()){
+                IGame game = (IGame) CommandEncoder.decodeDBInfo(scanner.next());
                 games.add(game);
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
+        System.out.println("Size of list of games: " + games.size());
         return games;
     }
 
@@ -73,23 +83,23 @@ public class GameDAO implements IGameDAO {
     @Override
     public void deleteGames(){
         try{
-            pw.close();
-            pw = new PrintWriter(file);
+            System.out.println("GAME DELETED");
+            PrintWriter pw = new PrintWriter(new FileWriter(file,false));
             pw.append("");
-            pw.flush();
+            pw.close();
         }
         catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public void closeFile(){
-        pw.close();
-        try{
-            reader.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+//    public void closeFile(){
+//        pw.close();
+//        try{
+//            reader.close();
+//        }
+//        catch(Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }

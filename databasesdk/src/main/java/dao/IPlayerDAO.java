@@ -9,7 +9,7 @@ import shared.model.interfaces.IPlayer;
  */
 
 public interface IPlayerDAO {
-    public boolean addPlayer(IPlayer player, int gameID);
+    public boolean addPlayer(IPlayer player);
     public List<IPlayer> getPlayers();
     public void deletePlayers();
 }
