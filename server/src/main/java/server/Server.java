@@ -67,7 +67,7 @@ public class Server {
         }
 
         //Put in default info
-        ILoginServerFacade loginServerFacade = new LoginServerFacade();
+        //ILoginServerFacade loginServerFacade = new LoginServerFacade();
 //        loginServerFacade.register("z", "z");
 //        loginServerFacade.register("x", "x");
 //        loginServerFacade.register("c", "c");
@@ -75,11 +75,11 @@ public class Server {
 //        loginServerFacade.register("b", "b");
 //        loginServerFacade.register("n", "n");
 //        loginServerFacade.register("m", "m");
-        IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
-        loginServerFacade.register("bdemann", "password");
-        loginServerFacade.signin("bdemann", "password");
-        IPlayer bdemann = new Player("bdemann", "password", -16777216);
-        gameMenuServerFacade.createGame(bdemann, 2, "test game");
+//        IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
+//        loginServerFacade.register("bdemann", "password");
+//        loginServerFacade.signin("bdemann", "password");
+//        IPlayer bdemann = new Player("bdemann", "password", -16777216);
+//        gameMenuServerFacade.createGame(bdemann, 2, "test game");
         InetAddress inetAddress = null;
         try {
             inetAddress = InetAddress.getLocalHost();

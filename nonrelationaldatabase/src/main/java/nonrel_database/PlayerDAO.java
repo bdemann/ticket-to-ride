@@ -59,6 +59,10 @@ public class PlayerDAO implements IPlayerDAO {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter("end of player");
             while(scanner.hasNext()){
+                String test = scanner.next();
+                if(test.contains("end of player")){
+                    System.out.println("IT HAS END OF PLAYER");
+                }
                 IPlayer player = (IPlayer) CommandEncoder.decodeDBInfo(scanner.next());
                 players.add(player);
             }
