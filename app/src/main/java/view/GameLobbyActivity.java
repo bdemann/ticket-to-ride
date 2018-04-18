@@ -96,8 +96,9 @@ public class GameLobbyActivity extends AppCompatActivity implements IGameLobbyAc
         ViewUtilities.displayMessage(message,this);
     }
 
-    public void goToGameActivity(){
+    public void goToGameActivity(boolean game_start){
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(ViewUtilities.GAME_START, game_start);
         startActivity(intent);
     }
 }

@@ -66,6 +66,13 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
             Logger.log("Couldn't find the current game", Level.ALL);
             return new JoinGameResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Could not find game");
         }
+        else if (currentGame.getPlayers().contains(joiner)){
+            Logger.log(ServerRoot.getGame(currentGame.getId()).isGameStarted());
+            Logger.log(joinerUsername + " is re-joining the game", Level.ALL);
+            currentGame.getGameHistory().addEvent(new GameEvent(joiner.getUsername(), "joined the game", System.currentTimeMillis()));
+            JoinGameResult jgresult = new JoinGameResult(ServerRoot.getGame(currentGame.getId()), true, ClientCommands.getCommandList(joiner.getUsername()),"Join successful");
+            return jgresult;
+        }
         else if(currentGame.getNumberPlayer() >= currentGame.getMaxNumberPlayer()){
             Logger.log("Already has the max number of players.", Level.ALL);
             return new JoinGameResult(currentGame, false, ClientCommands.getCommandList(joiner.getUsername()),"Cannot join. Game is full");

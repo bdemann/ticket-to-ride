@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
+import proxies.ServerProxy;
 import shared.model.City;
 import shared.model.Color;
 import shared.model.Hand;
@@ -18,6 +19,8 @@ import shared.model.Train;
 import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Cities;
+import shared.model.interfaces.IGameInfo;
+import shared.model.interfaces.IPlayer;
 import shared.model.interfaces.IRoute;
 import view.GameActivity;
 import view.GameInfoActivity;
@@ -29,15 +32,26 @@ import view.GameInfoActivity;
 
 public class GamePresenter implements IGamePresenter, Observer{
     private GameActivity _gameActivity;
+    private boolean updatable;
 
     //This presenter needs to add itself as an observer to the client
     public GamePresenter(GameActivity gameActivity){
         this._gameActivity = gameActivity;
         ClientRoot.addClientRootObserver(this);
+        ServerProxy sproxy  = new ServerProxy();
+        IGameInfo gi = sproxy.getGameInfo(ClientRoot.getClientPlayer().getUsername()).getGameInfo();
+        ClientRoot.setClientGameInfo(gi);
+        IPlayer player = sproxy.getPlayerInfo(ClientRoot.getClientPlayer().getUsername()).getPlayerInfo();
+        ClientRoot.setClientPlayer(player);
+        int yes = 0;
+        updatable = true;
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        if(!updatable){
+            return;
+        }
         _gameActivity.checkTurn();
         if(ClientRoot.getClientGameInfo() != null){
             _gameActivity.drawRoutes();
@@ -90,6 +104,7 @@ public class GamePresenter implements IGamePresenter, Observer{
 
     @Override
     public boolean checkTurn(){
+        System.out.println(GameGuiFacade.checkTurn());
         return GameGuiFacade.checkTurn();
     }
 

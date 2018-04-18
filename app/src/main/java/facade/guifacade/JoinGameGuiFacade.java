@@ -2,6 +2,7 @@ package facade.guifacade;
 
 import model.ClientRoot;
 import proxies.GameMenuServerProxy;
+import shared.logging.Logger;
 import shared.results.JoinGameResult;
 import shared.facades.server.IGameMenuServerFacade;
 import shared.model.interfaces.IGame;
@@ -48,6 +49,7 @@ public class JoinGameGuiFacade {
 
 
     private static void _addGame(IGame game){
+        Logger.log(game.isGameStarted());
         ClientRoot.setClientGame(game);
     }
 }

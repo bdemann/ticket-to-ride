@@ -4,6 +4,9 @@ import java.util.concurrent.ExecutionException;
 
 import shared.command.Command;
 import shared.command.ICommand;
+import shared.model.GameInfo;
+import shared.results.GameInfoResult;
+import shared.results.PlayerInfoResult;
 import shared.results.Result;
 import shared.facades.server.IServerFacade;
 import tasks.CommandTask;
@@ -22,5 +25,35 @@ public class ServerProxy implements IServerFacade {
         ICommand getCommandsCommand = new Command("server.facades.ServerFacade", "getCommands", parmTypes, parmValues);
 
         return TaskExecutor.runTask(getCommandsCommand);
+    }
+
+    @Override
+    public GameInfoResult getGameInfo(String username) {
+        Class<?>[] parmTypes = {String.class};
+        Object[] parmValues = {username};
+        ICommand getCommandsCommand = new Command("server.facades.ServerFacade", "getGameInfo", parmTypes, parmValues);
+
+        Result result = TaskExecutor.runTask(getCommandsCommand);
+
+        if(result.isExceptional()) {
+            return new GameInfoResult(result.getExceptionType(), result.getExceptionMessage());
+        }
+
+        return (GameInfoResult) result;
+    }
+
+    @Override
+    public PlayerInfoResult getPlayerInfo(String username) {
+        Class<?>[] parmTypes = {String.class};
+        Object[] parmValues = {username};
+        ICommand getCommandsCommand = new Command("server.facades.ServerFacade", "getPlayerInfo", parmTypes, parmValues);
+
+        Result result = TaskExecutor.runTask(getCommandsCommand);
+
+        if(result.isExceptional()) {
+            return new PlayerInfoResult(result.getExceptionType(), result.getExceptionMessage());
+        }
+
+        return (PlayerInfoResult) result;
     }
 }

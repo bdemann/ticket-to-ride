@@ -411,7 +411,7 @@ public class GameServerFacade implements IGameServerFacade {
 
         game.getGameHistory().addEvent(new GameEvent(username, "drew three destination card", System.currentTimeMillis()));
         ClientNotifications.playerDrewDestinationCards(username);
-
+        ClientNotifications.gameUpdated(username);
         return new DrawDestCardsResult(cards, true, ClientCommands.getCommandList(username), "Draw three destination card");
     }
 
