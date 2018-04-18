@@ -3,6 +3,7 @@ package server.facades;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.database.Database;
 import server.poller.ClientNotifications;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
@@ -54,6 +55,8 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
         Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
 
         Logger.log("CommandResult: " + createGameCommandResult.getGame(), Level.FINNEST);
+
+        Database.getModelDAO().saveGames(ServerRoot.getGames());
 
         return createGameCommandResult;
     }
