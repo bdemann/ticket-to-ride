@@ -44,10 +44,6 @@ public class CommandHandler implements HttpHandler {
             e.printStackTrace();
         }
 
-        for(IPlayer player : ServerRoot.getPlayers()) {
-            System.out.println(player.getUsername());
-            System.out.println("This is the game id for the player " + player.getGameId());
-        }
 
         if(ServerRoot.hasPlugin()) {
             IModelDAO modelDAO = Database.getModelDAO();
