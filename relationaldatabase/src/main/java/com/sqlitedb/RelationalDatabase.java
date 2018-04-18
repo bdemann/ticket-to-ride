@@ -165,31 +165,6 @@ public class RelationalDatabase {
         }
     }
 
-    public void replaceGamePlayers(List<IPlayer> players, int gameID) {
-        try {
-
-            List<Object> games = load(TABLE_GAMES, COLUMN_GAME_BLOB);
-            clearTable(TABLE_GAMES, COLUMN_GAME_BLOB);
-            for(Object obj: games){
-                if(obj instanceof IGame){
-                    IGame game = (IGame) obj;
-                    if(game.getId() == gameID) {
-                        int index = games.indexOf(obj);
-                        games.remove(obj);
-                        game.setPlayers(players);
-                        games.add(index, game);
-                        break;
-                    }
-                }
-            }
-            //Now the game is altered, lets put them all back in the db
-            insert(TABLE_GAMES, COLUMN_GAME_BLOB, games);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void clearTable(String tableName, String columnName) throws Exception{
         try {
             Statement stmt = null;
