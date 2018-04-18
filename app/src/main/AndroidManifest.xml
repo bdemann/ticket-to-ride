@@ -45,9 +45,12 @@
         <activity
             android:name="view.DrawDestinationsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="view.ChatActivity" />
-        <activity android:name="view.GameOverActivity" />
-        <activity android:name="view.ServerDownActivity"></activity>
+        <activity android:name="view.ChatActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name="view.GameOverActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name="view.ServerDownActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
