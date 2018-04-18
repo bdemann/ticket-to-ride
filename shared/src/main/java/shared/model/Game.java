@@ -393,4 +393,20 @@ public class Game implements IGame, Serializable {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Game game = (Game) o;
+
+        return _id == game._id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return _id;
+    }
 }
