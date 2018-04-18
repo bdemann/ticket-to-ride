@@ -28,6 +28,7 @@ public class ClientRoot extends Observable {
     private List<Chat> messages;
     private static List<EndGameTotals> endGameTotals;
     private boolean isSeverDown;
+    private boolean serverDownActivityUp;
 
     private ClientRoot(){
         this._clientPlayer = null;
@@ -176,5 +177,13 @@ public class ClientRoot extends Observable {
         _instance.isSeverDown = isSeverDown;
         _instance.setChanged();
         _instance.notifyObservers();
+    }
+
+    public static boolean isServerDownActivityUp() {
+        return _instance.serverDownActivityUp;
+    }
+
+    public static void setServerDownActivityUp(boolean serverDownActivityUp) {
+        _instance.serverDownActivityUp = serverDownActivityUp;
     }
 }

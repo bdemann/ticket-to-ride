@@ -18,12 +18,14 @@ public class ServerDownActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ClientRoot.setServerDownActivityUp(true);
         setContentView(R.layout.activity_server_down);
         try_again = (Button) findViewById(R.id.try_button);
         try_again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!ClientRoot.isServerDown()){
+                    ClientRoot.setServerDownActivityUp(false);
                     finish();
                 }
                 else{
@@ -36,6 +38,7 @@ public class ServerDownActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (!ClientRoot.isServerDown()){
+            ClientRoot.setServerDownActivityUp(false);
             finish();
         }
         else{

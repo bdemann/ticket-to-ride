@@ -167,8 +167,11 @@ public class ViewUtilities {
     public static void checkServerStatus(AppCompatActivity appCompatActivity){
 
         if(ClientRoot.isServerDown()){
-            Intent intent = new Intent(appCompatActivity, ServerDownActivity.class);
-            appCompatActivity.startActivity(intent);
+            if (!ClientRoot.isServerDownActivityUp()){
+                Intent intent = new Intent(appCompatActivity, ServerDownActivity.class);
+                appCompatActivity.startActivity(intent);
+            }
+
         }
     }
 }
