@@ -19,7 +19,7 @@ import shared.results.Result;
 
 public class ClientCommunicator {
 
-    private static final String SERVER_HOST = "10.24.67.116";
+    private static final String SERVER_HOST = "192.168.2.191";
     private static final String SERVER_PORT = "8080";
     private static String URL_PREFIX = "http://" + SERVER_HOST + ":" + SERVER_PORT + "/";
     private static final String HTTP_POST = "POST";

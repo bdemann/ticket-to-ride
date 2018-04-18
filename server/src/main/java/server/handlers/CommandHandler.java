@@ -6,8 +6,13 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import dao.IModelDAO;
+import server.database.Database;
+import server.model.ServerRoot;
+import server.pluginmanager.PluginManager;
 import shared.comm.CommandEncoder;
 import shared.command.ICommand;
+import shared.model.interfaces.IPlayer;
 import shared.results.CreateGameResult;
 import shared.results.Result;
 import shared.logging.Level;
@@ -37,6 +42,23 @@ public class CommandHandler implements HttpHandler {
         } catch (Exception e){
             results = new Result(e.getClass().toString(), e.getMessage());
             e.printStackTrace();
+        }
+
+        for(IPlayer player : ServerRoot.getPlayers()) {
+            System.out.println(player.getUsername());
+            System.out.println("This is the game id for the player " + player.getGameId());
+        }
+
+        if(ServerRoot.hasPlugin()) {
+            IModelDAO modelDAO = Database.getModelDAO();
+            modelDAO.savePlayers(ServerRoot.getPlayers());
+            if(command.getGameId() >= 0) {
+                modelDAO.storeCommand(command);
+                if (modelDAO.isCommandLimitReached()) {
+                    modelDAO.clearCommands();
+                    modelDAO.saveGames(ServerRoot.getGames());
+                }
+            }
         }
 
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

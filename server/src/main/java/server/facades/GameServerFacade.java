@@ -268,6 +268,7 @@ public class GameServerFacade implements IGameServerFacade {
         // add discarded cards to discard
 
         //Update dest cards of the player in the game
+        System.out.println("This player is discardDestCarding: " + player.getUsername());
         ServerRoot.getGame(player.getGameId()).updatePlayerDestCard(player,keptCards.toList());
 
         //Update game history

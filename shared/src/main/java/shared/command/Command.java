@@ -18,12 +18,14 @@ public class Command implements ICommand, Serializable {
     private String _methodName;
     private Class<?>[] _parmTypes;
     private Object[] _parmValues;
+    private int _gameID;
 
     public Command(String className, String methodName, Class<?>[] parmTypes, Object[] parms) {
         this._className = className;
         this._methodName = methodName;
         this._parmTypes = parmTypes;
         this._parmValues = parms;
+        _gameID = -1;
     }
 
     public Command(String className, String methodName) {
@@ -31,6 +33,7 @@ public class Command implements ICommand, Serializable {
         this._methodName = methodName;
         this._parmTypes = new Class[0];
         this._parmValues = new Object[0];
+        _gameID = -1;
     }
 
     public Result execute() throws Exception{
@@ -42,6 +45,16 @@ public class Command implements ICommand, Serializable {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Override
+    public int getGameId() {
+        return _gameID;
+    }
+
+    @Override
+    public void setGameId(int id) {
+        _gameID = id;
     }
 
     public String toString() {

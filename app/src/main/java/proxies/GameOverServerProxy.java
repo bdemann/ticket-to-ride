@@ -25,6 +25,7 @@ public class GameOverServerProxy implements IGameOverServerFacade {
         Object[] parmValues = {game};
 
         ICommand command = generateGameOverServerFacadeCommand("getTotalPoints", parmTypes, parmValues);
+        command.setGameId(ClientRoot.getClientGame().getId());
 
         Result result = TaskExecutor.runTask(command);
 
