@@ -51,6 +51,7 @@ public class CommandHandler implements HttpHandler {
             if(command.getGameId() >= 0) {
                 modelDAO.storeCommand(command);
                 if (modelDAO.isCommandLimitReached()) {
+                    Logger.log("We are CLEARING COMMANDS");
                     modelDAO.clearCommands();
                     modelDAO.saveChats(ServerRoot.getChats());
                     modelDAO.saveGames(ServerRoot.getGames());

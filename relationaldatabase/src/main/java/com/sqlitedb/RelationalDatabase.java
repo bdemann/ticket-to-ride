@@ -24,6 +24,7 @@ public class RelationalDatabase {
     }
 
     private Connection conn;
+    private final String CONNECTION_URL = "jdbc:sqlite:ticketToRide.sqlite";
     static final String COLUMN_GAME_BLOB = "Game_Blobs";
     static final String TABLE_GAMES = "Games_TABLE";
     static final String TABLE_COMMANDS = "Commands_TABLE";
@@ -38,13 +39,11 @@ public class RelationalDatabase {
 
     public void openConnection() throws Exception {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:ticketToRide.sqlite";
-
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);
-
             // Start a transaction
             conn.setAutoCommit(false);
+
         }
         catch (SQLException e) {
             throw new Exception("openConnection failed", e);
@@ -179,5 +178,19 @@ public class RelationalDatabase {
         catch (SQLException e) {
             throw new SQLException("clear failed", e);
         }
+    }
+
+    public void checkConnection() throws Exception {
+        try {
+            conn = DriverManager.getConnection(CONNECTION_URL);
+            conn.close();
+
+            //conn.close();
+            //conn = null;
+        }
+        catch (SQLException e) {
+            throw new Exception("closeConnection failed", e);
+        }
+
     }
 }

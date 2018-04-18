@@ -26,6 +26,7 @@ public class ModelDAO implements IModelDAO {
         int commandLimit = 10;
         modelDAO.initializeDB(commandLimit);
 
+        /*
         //TEST STORE COMMAND
         int commandsStored = 10;
         for(int i = 0; i < commandsStored; i++) {
@@ -74,7 +75,7 @@ public class ModelDAO implements IModelDAO {
             game.setId(i);
             games.add(game);
         }
-        modelDAO.saveGames(games);
+        modelDAO.saveGames(games);*/
         //END OF TESTING SAVE GAMES
 
         //TESTING GET GAMES
@@ -84,6 +85,7 @@ public class ModelDAO implements IModelDAO {
                 System.out.printf("\tContains Player: " + player.getUsername() + "\n");
             }
         }
+        /*
         //END OF GET GAMES TEST
 
         //TESTING SAVE PLAYERS
@@ -95,6 +97,7 @@ public class ModelDAO implements IModelDAO {
         modelDAO.savePlayers(test);
 
         System.out.printf("\n\nTESTING SAVE PLAYERS...\n\nHere's the new Player List:\n\n");
+        */
 
         for(IPlayer player : modelDAO.getPlayers()){
             System.out.println("We Got Player: " + player.getUsername());
@@ -115,7 +118,6 @@ public class ModelDAO implements IModelDAO {
         File file = new File("ticketToRide.sqlite");
         if(!file.exists()) {
             try {
-
                 db.openConnection();
                 db.createTables();
                 //Add the command limit for the database
@@ -139,6 +141,13 @@ public class ModelDAO implements IModelDAO {
     @Override
     public void storeCommand(ICommand command) {
         if(db != null){
+
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             List<Object> list = new ArrayList<>();
             list.add(command);
             try {
@@ -155,6 +164,14 @@ public class ModelDAO implements IModelDAO {
     @Override
     public boolean isCommandLimitReached() {
         if(db != null){
+
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             try {
                 db.openConnection();
                 int limit = (int) db.load(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT).get(0);
@@ -177,6 +194,12 @@ public class ModelDAO implements IModelDAO {
     @Override
     public void saveGames(List<IGame> games) {
         if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             List<Object> list = new ArrayList<>();
             list.addAll(games);
             try {
@@ -194,6 +217,12 @@ public class ModelDAO implements IModelDAO {
     @Override
     public void savePlayers(List<IPlayer> players) {
         if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             List<Object> list = new ArrayList<>();
             list.addAll(players);
             try {
@@ -211,6 +240,11 @@ public class ModelDAO implements IModelDAO {
     @Override
     public void addPlayer(IPlayer player) {
         if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             List<Object> list = new ArrayList<>();
             list.add(player);
             try {
@@ -227,6 +261,11 @@ public class ModelDAO implements IModelDAO {
     @Override
     public List<IGame> getGames() {
         if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
                 db.openConnection();
                 List<Object> list = db.load(TABLE_GAMES, COLUMN_GAME_BLOB);
@@ -254,6 +293,11 @@ public class ModelDAO implements IModelDAO {
     public List<IPlayer> getPlayers() {
         if(db != null){
             try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
                 db.openConnection();
                 List<Object> list = db.load(TABLE_PLAYERS, COLUMN_PLAYER_BLOB);
                 db.closeConnection(true);
@@ -277,6 +321,11 @@ public class ModelDAO implements IModelDAO {
     public void clearCommands() {
         if(db != null){
             try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
                 db.openConnection();
                 db.clearTable(TABLE_COMMANDS, COLUMN_COMMANDS);
                 db.closeConnection(true);
@@ -290,6 +339,11 @@ public class ModelDAO implements IModelDAO {
     @Override
     public List<ICommand> getCommandList(int id){
         if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
                 db.openConnection();
                 List<Object> list = db.load(TABLE_COMMANDS, COLUMN_COMMANDS);
@@ -315,6 +369,11 @@ public class ModelDAO implements IModelDAO {
     @Override
     public void saveChats(List<List<Chat>> chats) {
         if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             List<Object> list = new ArrayList<>();
             list.addAll(chats);
             try {
@@ -332,6 +391,11 @@ public class ModelDAO implements IModelDAO {
     public List<List<Chat>> getChats() {
         if(db != null){
             try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
                 db.openConnection();
                 List<Object> list = db.load(TABLE_CHATS, COLUMN_CHATS);
                 db.closeConnection(true);
@@ -348,5 +412,11 @@ public class ModelDAO implements IModelDAO {
             }
         }
         return new ArrayList<>();
+    }
+
+    private void ensureAccess() throws Exception {
+        if(db !=null) {
+            db.checkConnection();
+        }
     }
 }
