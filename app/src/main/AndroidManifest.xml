@@ -46,7 +46,8 @@
             android:name="view.DrawDestinationsActivity"
             android:screenOrientation="landscape" />
         <activity android:name="view.ChatActivity" />
-        <activity android:name="view.GameOverActivity"></activity>
+        <activity android:name="view.GameOverActivity" />
+        <activity android:name="view.ServerDownActivity"></activity>
     </application>
 
 </manifest>
