@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import com.a340team.tickettoride.R;
 
+import model.ClientRoot;
+import poller.Poller;
+
 public class ServerDownActivity extends AppCompatActivity {
 
     Button try_again;
@@ -20,6 +23,7 @@ public class ServerDownActivity extends AppCompatActivity {
         try_again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ClientRoot.setServerDown(false);
                 finish();
             }
         });
