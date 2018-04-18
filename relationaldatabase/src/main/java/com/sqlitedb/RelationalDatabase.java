@@ -103,12 +103,6 @@ public class RelationalDatabase {
         }
     }
 
-    /**
-     * @pre this method expects the list of values to be either ints or serializable objects
-     *
-     * @param tableName
-     * @throws Exception
-     */
     public void insert(String tableName, String tableColumn, List<Object> values) throws Exception {
         try {
             PreparedStatement stmt = null;
