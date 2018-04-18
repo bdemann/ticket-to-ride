@@ -170,6 +170,9 @@ public class ClientRoot extends Observable {
     }
 
     public static void setServerDown(boolean isSeverDown) {
+        if(_instance.isSeverDown == isSeverDown){
+            return;
+        }
         _instance.isSeverDown = isSeverDown;
         _instance.setChanged();
         _instance.notifyObservers();

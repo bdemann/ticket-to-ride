@@ -42,6 +42,7 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
         //Add game to server
         IGame game = new Game(gameName, playerList, maxNumberPlayer);
         ServerRoot.addGame(game);
+        player.setGameId(game.getId());
 
         Logger.log("Game: " + game, Level.FINNEST);
 
