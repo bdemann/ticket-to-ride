@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import dao.IPlayerDAO;
 import shared.comm.CommandEncoder;
+import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
 /**
@@ -54,15 +55,16 @@ public class PlayerDAO implements IPlayerDAO {
 
     @Override
     public List<IPlayer> getPlayers(){
+        System.out.println("GETTING PLAYERS");
         List<IPlayer> players = new ArrayList<>();
         try{
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter("end of player");
             while(scanner.hasNext()){
-                String test = scanner.next();
-                if(test.contains("end of player")){
-                    System.out.println("IT HAS END OF PLAYER");
-                }
+//                String test = scanner.next();
+//                if(test.contains("end of player")){
+//                    System.out.println("IT HAS END OF PLAYER");
+//                }
                 IPlayer player = (IPlayer) CommandEncoder.decodeDBInfo(scanner.next());
                 players.add(player);
             }
