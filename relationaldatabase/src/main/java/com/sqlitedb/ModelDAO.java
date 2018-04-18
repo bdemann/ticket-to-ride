@@ -7,6 +7,7 @@ import java.util.List;
 import dao.IModelDAO;
 import shared.command.Command;
 import shared.command.ICommand;
+import shared.model.Chat;
 import shared.model.Game;
 import shared.model.Player;
 import shared.model.interfaces.IGame;
@@ -303,6 +304,43 @@ public class ModelDAO implements IModelDAO {
                     }
                 }
                 return commands;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void saveChats(List<List<Chat>> chats) {
+        if(db != null){
+            List<Object> list = new ArrayList<>();
+            list.addAll(chats);
+            try {
+                db.openConnection();
+                db.insert(TABLE_CHATS, COLUMN_CHATS, list);
+                db.closeConnection(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public List<List<Chat>> getChats() {
+        if(db != null){
+            try {
+                db.openConnection();
+                List<Object> list = db.load(TABLE_CHATS, COLUMN_CHATS);
+                db.closeConnection(true);
+
+                List<List<Chat>> chats = new ArrayList<>();
+
+                for(Object obj : list){
+                    chats.add((List<Chat>) obj);
+                }
+                return chats;
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

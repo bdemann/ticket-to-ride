@@ -49,6 +49,7 @@ public class Server {
 
         //Restore server state from database
         ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
+        ServerRoot.setChats(Database.getModelDAO().getChats());
         ServerRoot.setGames(Database.getModelDAO().getGames());
         System.out.println("We are getting the list of games from the DB.");
         System.out.println("Number of games in DB: " + Database.getModelDAO().getGames().size());
