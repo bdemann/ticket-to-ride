@@ -1,8 +1,6 @@
 package nonrel_database;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,7 +9,6 @@ import java.util.Scanner;
 
 import dao.IPlayerDAO;
 import shared.comm.CommandEncoder;
-import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 
 /**
@@ -19,9 +16,7 @@ import shared.model.interfaces.IPlayer;
  */
 
 public class PlayerDAO implements IPlayerDAO {
-//    private PrintWriter pw;
     private File file;
-//    private BufferedReader reader;
 
     private static PlayerDAO instance;
     public static PlayerDAO getInstance(File file) {
@@ -33,8 +28,6 @@ public class PlayerDAO implements IPlayerDAO {
     private PlayerDAO(File file){
         try{
             this.file = file;
-//            pw = new PrintWriter(file);
-//            reader = new BufferedReader(new FileReader(file));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -42,6 +35,7 @@ public class PlayerDAO implements IPlayerDAO {
 
     }
 
+    @Override
     public boolean addPlayer(IPlayer player){
         try{
             //deserialize player
@@ -58,6 +52,7 @@ public class PlayerDAO implements IPlayerDAO {
         return true;
     }
 
+    @Override
     public List<IPlayer> getPlayers(){
         List<IPlayer> players = new ArrayList<>();
         try{
@@ -76,9 +71,11 @@ public class PlayerDAO implements IPlayerDAO {
         return players;
     }
 
+    @Override
     public void deletePlayers(){
         try{
-            PrintWriter pw = new PrintWriter(new FileWriter(file,true));
+            System.out.println("PLAYERS DELETED");
+            PrintWriter pw = new PrintWriter(new FileWriter(file,false));
             pw.append("");
             pw.close();
         }
@@ -86,14 +83,4 @@ public class PlayerDAO implements IPlayerDAO {
             e.printStackTrace();
         }
     }
-
-//    public void closeFile(){
-//        pw.close();
-//        try{
-//            reader.close();
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 }

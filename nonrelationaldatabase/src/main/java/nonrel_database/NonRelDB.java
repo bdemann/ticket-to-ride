@@ -44,7 +44,6 @@ public class NonRelDB implements IModelDAO {
         }
     }
 
-    //TODO: Should it return a boolean instead that lets us know if we need to reserialize the game?
     @Override
     public void storeCommand(ICommand command){
         CommandDAO.getInstance(commandFile).addCommand(command);
@@ -62,19 +61,6 @@ public class NonRelDB implements IModelDAO {
         return false;
     }
 
-//    @Override
-//    public void executeCommandList() {
-//        List<ICommand> commands = CommandDAO.getInstance(commandFile).getCommands();
-//        for(ICommand command:commands){
-//            try{
-//                command.execute();
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
     @Override
     public void saveGames(List<IGame> games){
         GameDAO.getInstance(gameFile).deleteGames();
@@ -84,7 +70,7 @@ public class NonRelDB implements IModelDAO {
     }
 
     @Override
-    public void savePlayers(List<IPlayer>players){
+    public void savePlayers(List<IPlayer> players){
         PlayerDAO.getInstance(playerFile).deletePlayers();
         for(IPlayer player:players){
             PlayerDAO.getInstance(playerFile).addPlayer(player);
@@ -93,7 +79,6 @@ public class NonRelDB implements IModelDAO {
 
     @Override
     public void addPlayer(IPlayer player){
-        //gameID is not used in this function call
         PlayerDAO.getInstance(playerFile).addPlayer(player);
     };
 
