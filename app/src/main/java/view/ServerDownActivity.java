@@ -32,4 +32,14 @@ public class ServerDownActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if (!ClientRoot.isServerDown()){
+            finish();
+        }
+        else{
+            ViewUtilities.displayMessage("Nope... The server is still down", this);
+        }
+    }
 }
