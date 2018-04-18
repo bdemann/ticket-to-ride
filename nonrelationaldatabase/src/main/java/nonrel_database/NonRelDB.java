@@ -6,6 +6,7 @@ import java.util.List;
 
 import dao.IModelDAO;
 import shared.command.ICommand;
+import shared.model.Chat;
 import shared.model.Player;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
@@ -18,6 +19,7 @@ public class NonRelDB implements IModelDAO {
     private File playerFile;
     private File gameFile;
     private File commandFile;
+    private File chatFile;
     private int commandLimit;
 
     @Override
@@ -34,6 +36,10 @@ public class NonRelDB implements IModelDAO {
             commandFile = new File("CommandFile.txt");
             if(!commandFile.exists()){
                 commandFile.createNewFile();
+            }
+            chatFile = new File("ChatFile.txt");
+            if(!chatFile.exists()){
+                chatFile.createNewFile();
             }
 
             this.commandLimit = commandLimit;
@@ -107,4 +113,17 @@ public class NonRelDB implements IModelDAO {
         return wantedCommands;
     }
 
+    @Override
+    public void saveChats(List<List<Chat>> chats){
+        ChatDao.getInstance(chatFile).deleteChats();
+        for(List<Chat> chat:chats){
+            ChatDao.getInstance(chatFile).addChat(chat);
+        }
+
+    }
+
+    @Override
+    public List<List<Chat>> getChats(){
+        return ChatDao.getInstance(chatFile).getChats();
+    }
 }
