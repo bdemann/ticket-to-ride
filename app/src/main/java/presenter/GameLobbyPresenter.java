@@ -1,7 +1,5 @@
 package presenter;
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -10,7 +8,6 @@ import facade.guifacade.LobbyGuiFacade;
 import model.ClientRoot;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
-import view.GameActivity;
 import view.GameLobbyActivity;
 import view.ViewUtilities;
 

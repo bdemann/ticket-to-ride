@@ -9,7 +9,6 @@ import shared.logging.Level;
 import shared.logging.Logger;
 import shared.model.Chat;
 import shared.model.interfaces.IGame;
-import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IPlayer;
 
 /**

@@ -6,29 +6,16 @@ import java.util.List;
 import server.facades.helpers.LongestPath;
 import server.model.ServerRoot;
 import server.poller.ClientCommands;
-import server.poller.ClientNotifications;
-import shared.command.ICommand;
-import java.util.ArrayList;
-import java.util.List;
 
 import shared.facades.server.IGameOverServerFacade;
 import shared.model.City;
 import shared.model.DestCard;
-import shared.model.DestCardSet;
 import shared.model.EndGameTotals;
 import shared.model.Graph;
-import shared.model.Player;
-import shared.model.Route;
 import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import shared.model.interfaces.IRoute;
-import shared.model.DestCard;
-import shared.model.DestCardSet;
-import shared.model.EndGameTotals;
-import shared.model.interfaces.IGame;
-import shared.model.interfaces.IPlayer;
 import shared.results.GameOverResult;
-import shared.results.Result;
 
 /**
  * Created by paulinecausse on 3/24/18.
@@ -144,7 +131,7 @@ public class GameOverServerFacade implements IGameOverServerFacade {
 
         //Loop through each player to calculate points
         for (int i = 0; i < players.size(); i++){
-            IPlayer current_player = players.get(i);
+            IPlayer current_player = ServerRoot.getPlayer(players.get(i).getUsername());
             EndGameTotals end = new EndGameTotals();
 
             //Claimed Destinations

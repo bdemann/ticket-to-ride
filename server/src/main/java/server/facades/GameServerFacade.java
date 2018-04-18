@@ -1,6 +1,5 @@
 package server.facades;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import server.facades.traincardstate.FirstDraw;
@@ -13,8 +12,6 @@ import shared.model.CityPoint;
 import shared.model.DestCardSet;
 import shared.model.Color;
 import shared.model.DestCard;
-import shared.model.EndGameTotals;
-import shared.model.Player;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
 import shared.model.interfaces.IRoute;
