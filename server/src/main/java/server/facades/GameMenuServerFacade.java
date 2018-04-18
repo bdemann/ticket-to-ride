@@ -26,15 +26,30 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
     @Override
     public CreateGameResult createGame(IPlayer creator, int maxNumberPlayer, String gameName) {
 //        IPlayer creator = ServerRoot.getPlayer(creatorUsername);
+        if(creator == null){
+            Logger.log("creator is null", Level.ALL);
+        }
+        else{
+            Logger.log("creator is not null", Level.ALL);
+        }
         Logger.log("Creating game: " + gameName + ". Creator: " + creator.toString() + " ", Level.FINNEST);
+        List<IPlayer> players = ServerRoot.getPlayers();
+        if(players == null){
+            Logger.log("There are no players in the Server Root", Level.ALL);
+        }
+        else{
+            Logger.log("There are " + Integer.toString(players.size()) + " players in the Server Root", Level.ALL);
+        }
         IPlayer player = ServerRoot.getPlayer(creator.getUsername());
-
-        //set color to creator
-        ServerRoot.getPlayer(creator.getUsername()).setColor(creator.getColor());
 
         if(player == null) {
             Logger.log("player couldn't be found", Level.ALL);
         }
+
+        //set color to creator
+        ServerRoot.getPlayer(creator.getUsername()).setColor(creator.getColor());
+
+
 
         //Create a list of players for the game.
         List<IPlayer> playerList = new ArrayList<>();
