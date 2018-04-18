@@ -42,11 +42,13 @@ public class Poller {
                             e.printStackTrace();
                         }
                     }
-                    handler.postDelayed(this, delay);
+
                 }
                 else {
                     ClientRoot.setServerDown(true);
                 }
+
+                handler.postDelayed(this, delay);
             }
         }, delay);
 
