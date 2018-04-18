@@ -13,6 +13,7 @@ import shared.model.history.events.GameEvent;
 import shared.model.interfaces.IGame;
 import view.ChatActivity;
 import view.GameLobbyActivity;
+import view.ViewUtilities;
 
 /**
  * Created by bdemann on 3/8/18.
@@ -29,6 +30,7 @@ public class ChatHistoryPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        ViewUtilities.checkServerStatus(_chatActivity);
         _chatActivity.updateChat(getChats());
         _chatActivity.updateEvents(getEvents());
     }

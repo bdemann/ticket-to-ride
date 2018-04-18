@@ -10,6 +10,7 @@ import model.ClientRoot;
 import shared.model.interfaces.IGame;
 import view.CreateGameActivity;
 import view.GameLobbyActivity;
+import view.ViewUtilities;
 
 /**
  *
@@ -30,6 +31,7 @@ public class CreateJoinPresenter implements ICreateJoinPresenter, Observer {
     public void update(Observable obs, Object o) {
 
         System.out.println("Create Join Update called\n");
+        ViewUtilities.checkServerStatus(_createGameActivity);
 
         if(ClientRoot.getClientGame()!= null && ClientRoot.getClientGameInfo() == null){
             IGame game = ClientRoot.getClientGame();

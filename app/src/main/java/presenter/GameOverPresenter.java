@@ -11,6 +11,7 @@ import shared.model.EndGameTotals;
 import shared.model.TrainCard;
 import shared.model.interfaces.IGameInfo;
 import view.GameOverActivity;
+import view.ViewUtilities;
 
 /**
  * Created by mikeporet on 3/23/18.
@@ -30,6 +31,8 @@ public class GameOverPresenter implements Observer{
 
     @Override
     public void update(Observable observable, Object o) {
+
+        ViewUtilities.checkServerStatus(activity);
 
         if(ClientRoot.getClientGameInfo() != null){
             updateActivity();

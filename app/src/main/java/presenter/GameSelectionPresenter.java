@@ -8,6 +8,7 @@ import facade.guifacade.JoinGameGuiFacade;
 import model.ClientRoot;
 import shared.model.interfaces.IGame;
 import view.GameSelectionActivity;
+import view.ViewUtilities;
 
 /**
  *
@@ -24,6 +25,9 @@ public class GameSelectionPresenter implements IGameSelectionPresenter, Observer
 
     @Override
     public void update(Observable observable, Object o) {
+
+
+        ViewUtilities.checkServerStatus(_gameSelectionActivity);
         //If a game has been joined
         if (ClientRoot.getClientGame() != null && ClientRoot.getClientGameInfo().getGameId() == -1){
             _gameSelectionActivity.goToGameLobby();

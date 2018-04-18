@@ -6,6 +6,7 @@ import java.util.Observer;
 import facade.guifacade.GameGuiFacade;
 import model.ClientRoot;
 import view.DrawTrainCardsActivity;
+import view.ViewUtilities;
 
 /**
  * Presenter for drawing train cards
@@ -33,6 +34,7 @@ public class DrawTrainCardsPresenter implements IDrawTrainCardsPresenter, Observ
 
     @Override
     public void update(Observable observable, Object o) {
+        ViewUtilities.checkServerStatus(view);
         view.setFaceUpCards(ClientRoot.getClientGameInfo().getFaceUpCards());
         if(!new GameGuiFacade().checkTurn()){
             view.finish();

@@ -24,7 +24,7 @@ import static shared.model.initialized_info.DestCardId.*;
  * The point of this class is to hold certain methods that all or most views will use.
  */
 
-class ViewUtilities {
+public class ViewUtilities {
 
     static String GAME_START = "gameStart";
     static boolean containsSpecialCharacters(String str){
@@ -164,13 +164,11 @@ class ViewUtilities {
         }
     }
 
-    static void checkServerStatus(Context context){
+    public static void checkServerStatus(AppCompatActivity appCompatActivity){
 
         if(ClientRoot.isServerDown()){
-            /*
-        Intent intent = new Intent(context, //SOME NEW ACTIVITY);
-        context.startActivity(intent);
-        */
+            Intent intent = new Intent(appCompatActivity, ServerDownActivity.class);
+            appCompatActivity.startActivity(intent);
         }
     }
 }

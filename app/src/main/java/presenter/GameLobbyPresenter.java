@@ -12,6 +12,7 @@ import shared.model.interfaces.IGame;
 import shared.model.interfaces.IPlayer;
 import view.GameActivity;
 import view.GameLobbyActivity;
+import view.ViewUtilities;
 
 /**
  * Created by mikeporet on 2/12/18.
@@ -39,6 +40,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         System.out.println("---------------We are at least getting into this function--------------------");
 
+        ViewUtilities.checkServerStatus(_activity);
         if(ClientRoot.getClientGame() == null){
             //if we have left the game
             _activity.finish();
