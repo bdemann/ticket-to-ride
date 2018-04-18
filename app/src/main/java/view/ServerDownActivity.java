@@ -23,8 +23,12 @@ public class ServerDownActivity extends AppCompatActivity {
         try_again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClientRoot.setServerDown(false);
-                finish();
+                if (!ClientRoot.isServerDown()){
+                    finish();
+                }
+                else{
+                    ViewUtilities.displayMessage("Nope... The server is still down", view.getContext());
+                }
             }
         });
     }
