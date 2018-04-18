@@ -24,6 +24,7 @@ import shared.model.interfaces.IPlayer;
 
 public class Server {
     public static void main(String[] args) {
+        int serverPortNumber = 8080;
         Logger.setLevel(Level.FINNER);
         if(args.length < 2) {
             Logger.log("Not enough arguments for plugin");
@@ -34,14 +35,10 @@ public class Server {
             ServerRoot.setHasPlugin(true);
         }
 
-        int serverPortNumber;
+
         String pluginPath = args[0];
         int commandListLen = Integer.parseInt(args[1]);
-        if (args.length == 2) {
-            serverPortNumber = 8080;
-        } else {
-            serverPortNumber = Integer.parseInt(args[2]);
-        }
+
         new ServerCommunicator(serverPortNumber).run();
         ServerRoot.setPluginPath(pluginPath);
         ServerRoot.setCommandListLen(commandListLen);
