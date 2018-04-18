@@ -27,6 +27,7 @@ public class ClientRoot extends Observable {
     private IGameInfo _gameInfo;
     private List<Chat> messages;
     private static List<EndGameTotals> endGameTotals;
+    private boolean isSeverDown;
 
     private ClientRoot(){
         this._clientPlayer = null;
@@ -34,6 +35,7 @@ public class ClientRoot extends Observable {
         this._gameInfo = new GameInfo();
         this._gamesList = new ArrayList<>();
         this.messages = new ArrayList<>();
+        this.isSeverDown = false;
     }
 
     public static List<Chat> getChats(){
@@ -159,6 +161,16 @@ public class ClientRoot extends Observable {
     }
 
     public static void somethingChanged() {
+        _instance.setChanged();
+        _instance.notifyObservers();
+    }
+
+    public static boolean isServerDown() {
+        return _instance.isSeverDown;
+    }
+
+    public static void setServerDown(boolean isSeverDown) {
+        _instance.isSeverDown = isSeverDown;
         _instance.setChanged();
         _instance.notifyObservers();
     }
