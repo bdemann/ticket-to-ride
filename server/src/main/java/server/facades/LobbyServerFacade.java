@@ -23,10 +23,12 @@ public class LobbyServerFacade implements ILobbyServerFacade {
     @Override
     public StartGameResult startGame(IGame game, String username) {
         game = ServerRoot.getGame(game.getId());
+        game.startGame();
         StartGameFacade.setUpGame(game);
         game.getGameHistory().addEvent(new GameEvent(username, "started the game", System.currentTimeMillis()));
         IPlayer player = game.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
+        ClientNotifications.gameUpdated(username);
         //Serialize the started game
         Database.getModelDAO().saveGames(ServerRoot.getGames());
         //Clear out any commands that might have built up. There shouldn't be any but just in case.

@@ -25,6 +25,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         _activity = activity;
         System.out.println("#############################We are observing the client##########################3");
         ClientRoot.addClientRootObserver(this);
+        System.out.println(ClientRoot.getClientGame().isGameStarted());
+        if(ClientRoot.getClientGame().isGameStarted()){
+            System.out.println("The game has been marked as started");
+            //switch to the game activity
+            ClientRoot.removeAllObservers();
+            _activity.goToGameActivity(false);
+        }
     }
 
     @Override
@@ -39,7 +46,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         else if(ClientRoot.getClientGame().isGameStarted()){
             //switch to the game activity
             ClientRoot.removeAllObservers();
-            _activity.goToGameActivity();
+            _activity.goToGameActivity(true);
             System.out.println("----------WE ARE UPDATEING THE game instead of the PLAYERS--------------");
             listPlayers(); //TODO I am putting this here for tests. if it crashes try removing it.
         }

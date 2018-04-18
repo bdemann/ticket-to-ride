@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import facade.guifacade.GameGuiFacade;
 import facade.guifacade.GameOverGuiFacade;
 import model.ClientRoot;
 import presenter.GamePresenter;
@@ -26,6 +27,7 @@ import shared.model.TrainCard;
 import shared.model.TrainCardSet;
 import shared.model.initialized_info.Routes;
 import shared.model.Color.*;
+import shared.model.interfaces.IGameInfo;
 import shared.model.interfaces.IRoute;
 
 public class GameActivity extends AppCompatActivity implements IGameActivity{
@@ -130,6 +132,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         //Make the mape
         mapView = (ImageView) findViewById(R.id.map_image);
 
+
         //Initialize Components
         _initializeCardPicker();
         _createCardPickerListeners();
@@ -137,7 +140,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity{
         _createOnClickListeners(_cityButtons);
         _createFunctionButtonListeners();
         _setCityButtons(false);
-        displayStartDestCards();
+        checkTurn();
+        IGameInfo gi = ClientRoot.getClientGameInfo();
+        System.out.println("#@$(*@#$@#%$8632948@#_($)*#@(*$&#@^&$(*&$#@(*%(*#@FHELDSF ");
+        System.out.println("active player" + gi.activePlayer());
+        System.out.println("turn_index" + gi.getTurnIndex());
+//        System.out.println(gi.getGameHistory().getEvents().get(0));
+        System.out.println("gamename" + gi.getGameName());
+        if (this.getIntent().getBooleanExtra(ViewUtilities.GAME_START, true)) {
+            displayStartDestCards();
+        }
 
     }
 
