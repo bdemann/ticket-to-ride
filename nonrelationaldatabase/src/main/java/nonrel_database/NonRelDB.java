@@ -134,5 +134,9 @@ public class NonRelDB implements IModelDAO {
     @Override
     public void clearDatabase() {
         //GOT TO DO THIS STILL
+        CommandDAO.getInstance(commandFile).deleteCommands();
+        ChatDao.getInstance(chatFile).deleteChats();
+        GameDAO.getInstance(gameFile).deleteGames();
+        PlayerDAO.getInstance(playerFile).deletePlayers();
     }
 }
