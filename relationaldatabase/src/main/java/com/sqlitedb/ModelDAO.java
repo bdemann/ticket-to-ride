@@ -23,7 +23,7 @@ public class ModelDAO implements IModelDAO {
 
     public static void main(String[] args){
         ModelDAO modelDAO = new ModelDAO();
-        int commandLimit = 10;
+        int commandLimit = 18;
         modelDAO.initializeDB(commandLimit);
 
         /*
@@ -134,6 +134,20 @@ public class ModelDAO implements IModelDAO {
             }
         } else {
             System.out.println("I guess it existed");
+            //Switch the command limit
+            if(db != null){
+                try {
+                    db.openConnection();
+                    db.clearTable(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT);
+                    List<java.lang.Object> list = new ArrayList<>();
+                    list.add(commandLimit);
+                    db.insert(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT, list);
+                    db.closeConnection(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 
