@@ -24,7 +24,8 @@
         android:layout_width="match_parent"
         app:srcCompat="@mipmap/server_down"
         android:id="@+id/imageView"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:layout_height="500dp" />
 
     <Button
         android:text="Try Again"
