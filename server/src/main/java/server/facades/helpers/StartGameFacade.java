@@ -3,6 +3,7 @@ package server.facades.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.model.ServerRoot;
 import shared.model.DestCard;
 import shared.model.DestDeck;
 import shared.model.interfaces.IGame;
@@ -42,7 +43,7 @@ public class StartGameFacade {
         DestDeck destDeck = game.getDestCardDeck();
         for(IPlayer player : game.getPlayers()) {
             List<DestCard> startingTickets = destDeck.draw(startingDestCardCount);
-            player.setUnresolvedDestCards(startingTickets);
+            ServerRoot.getPlayer(player.getUsername()).setUnresolvedDestCards(startingTickets);
         }
         return game;
     }
@@ -64,7 +65,7 @@ public class StartGameFacade {
         TrainDeck trainDeck = game.getTrainCardDeck();
         for(IPlayer player : game.getPlayers()){
             List<TrainCard> startingHand = trainDeck.draw(startingHandSize);
-            player.setTrainCards(startingHand);
+            ServerRoot.getPlayer(player.getUsername()).setTrainCards(startingHand);
         }
         return game;
     }
@@ -77,14 +78,14 @@ public class StartGameFacade {
 
     private static IGame initScore(IGame game) {
         for (IPlayer player : game.getPlayers()){
-            player.setScore(0);
+            ServerRoot.getPlayer(player.getUsername()).setScore(0);
         }
         return game;
     }
 
     private static IGame initTrains(IGame game) {
         for(IPlayer player : game.getPlayers()) {
-            player.setTrains(initTrainList());
+            ServerRoot.getPlayer(player.getUsername()).setTrains(initTrainList());
         }
         return game;
     }
