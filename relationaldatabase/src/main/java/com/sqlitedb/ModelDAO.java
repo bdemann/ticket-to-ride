@@ -20,11 +20,14 @@ public class ModelDAO implements IModelDAO {
 
 
     private RelationalDatabase db;
+    private int climit;
 
     public static void main(String[] args){
         ModelDAO modelDAO = new ModelDAO();
         int commandLimit = 18;
         modelDAO.initializeDB(commandLimit);
+        modelDAO.clearDatabase();
+
 
         /*
         //TEST STORE COMMAND
@@ -114,7 +117,8 @@ public class ModelDAO implements IModelDAO {
     //TESTED and should work properly
     @Override
     public void initializeDB(int commandLimit) {
-        db = new RelationalDatabase();
+        this.db = new RelationalDatabase();
+        this.climit = commandLimit;
         File file = new File("ticketToRide.sqlite");
         if(!file.exists()) {
             try {
@@ -426,6 +430,34 @@ public class ModelDAO implements IModelDAO {
             }
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public void clearDatabase() {
+        if(db != null){
+            try {
+                ensureAccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                db.openConnection();
+                db.clearTable(TABLE_GAMES, COLUMN_GAME_BLOB);
+                db.clearTable(TABLE_COMMANDS, COLUMN_COMMANDS);
+                db.clearTable(TABLE_PLAYERS, COLUMN_PLAYER_BLOB);
+                db.clearTable(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT);
+                db.clearTable(TABLE_CHATS, COLUMN_CHATS);
+
+                List<java.lang.Object> list = new ArrayList<>();
+                list.add(this.climit);
+                db.insert(TABLE_COMMAND_LIMIT, COLUMN_COMMAND_LIMIT, list);
+
+                db.closeConnection(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void ensureAccess() throws Exception {

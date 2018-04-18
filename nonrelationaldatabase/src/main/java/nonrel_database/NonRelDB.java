@@ -130,4 +130,9 @@ public class NonRelDB implements IModelDAO {
     public List<List<Chat>> getChats(){
         return ChatDao.getInstance(chatFile).getChats();
     }
+
+    @Override
+    public void clearDatabase() {
+        //GOT TO DO THIS STILL
+    }
 }
