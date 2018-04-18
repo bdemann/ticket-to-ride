@@ -62,16 +62,16 @@ public class GameMenuServerFacade implements IGameMenuServerFacade {
 
         Logger.log("Game: " + game, Level.FINNEST);
 
-        CreateGameResult createGameCommandResult = new CreateGameResult(game, true, ClientCommands.getCommandList(creator.getUsername()));
+
 
         game.getGameHistory().addEvent(new GameEvent(creator.getUsername(), "created the game", System.currentTimeMillis()));
         ClientNotifications.gameCreated(game.getId(), player.getUsername());
 
-        Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
-
-        Logger.log("CommandResult: " + createGameCommandResult.getGame(), Level.FINNEST);
-
         Database.getModelDAO().saveGames(ServerRoot.getGames());
+        CreateGameResult createGameCommandResult = new CreateGameResult(game, true, ClientCommands.getCommandList(creator.getUsername()));
+
+        Logger.log("Game Creation Successful! Results:" + createGameCommandResult.toString(), Level.FINNEST);
+        Logger.log("CommandResult: " + createGameCommandResult.getGame(), Level.FINNEST);
 
         return createGameCommandResult;
     }

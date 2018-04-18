@@ -181,6 +181,7 @@ public class ModelDAO implements IModelDAO {
             list.addAll(games);
             try {
                 db.openConnection();
+                db.clearTable(TABLE_GAMES, COLUMN_GAME_BLOB);
                 db.insert(TABLE_GAMES, COLUMN_GAME_BLOB, list);
                 db.closeConnection(true);
             } catch (Exception e) {
@@ -318,6 +319,7 @@ public class ModelDAO implements IModelDAO {
             list.addAll(chats);
             try {
                 db.openConnection();
+                db.clearTable(TABLE_CHATS, COLUMN_CHATS);
                 db.insert(TABLE_CHATS, COLUMN_CHATS, list);
                 db.closeConnection(true);
             } catch (Exception e) {

@@ -26,7 +26,7 @@ public class LobbyServerFacade implements ILobbyServerFacade {
         game.startGame();
         StartGameFacade.setUpGame(game);
         game.getGameHistory().addEvent(new GameEvent(username, "started the game", System.currentTimeMillis()));
-        IPlayer player = game.getPlayer(username);
+        IPlayer player = ServerRoot.getPlayer(username);
         ClientNotifications.gameStarted(game, player);
         ClientNotifications.gameUpdated(username);
         //Serialize the started game
