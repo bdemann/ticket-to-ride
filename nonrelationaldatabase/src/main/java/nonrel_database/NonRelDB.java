@@ -22,7 +22,6 @@ public class NonRelDB implements IModelDAO {
 
     @Override
     public void initializeDB(int commandLimit){
-        System.out.println("CHANGES MADE !");
         try{
             playerFile = new File("PlayerFile.txt");
             if(!playerFile.exists()){
@@ -52,9 +51,7 @@ public class NonRelDB implements IModelDAO {
     @Override
     public boolean isCommandLimitReached(){
         int limit = CommandDAO.getInstance(commandFile).getCommands().size();
-        System.out.println("NUMBER OF COMMANDS: " + limit);
         if(limit > commandLimit){
-            System.out.println("TRUE");
             return true;
         }
 

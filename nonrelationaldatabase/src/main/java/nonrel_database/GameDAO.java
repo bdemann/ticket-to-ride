@@ -77,7 +77,6 @@ public class GameDAO implements IGameDAO {
     @Override
     public void deleteGames(){
         try{
-            System.out.println("GAME DELETED");
             PrintWriter pw = new PrintWriter(new FileWriter(file,false));
             pw.append("");
             pw.close();
