@@ -21,9 +21,6 @@ import shared.model.interfaces.IGame;
 
 public class GameDAO implements IGameDAO {
     private File file;
-//    private PrintWriter pw;
-//    private BufferedReader reader;
-//    private Scanner scanner;
     private static GameDAO instance;
 
     public static GameDAO getInstance(File file) {
@@ -35,9 +32,6 @@ public class GameDAO implements IGameDAO {
     private GameDAO(File file){
         try{
             this.file = file;
-//            this.pw = new PrintWriter(new FileWriter(file,true));
-//            this.reader = new BufferedReader(new FileReader(file));
-//            this.scanner = new Scanner(file);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -83,7 +77,6 @@ public class GameDAO implements IGameDAO {
     @Override
     public void deleteGames(){
         try{
-            System.out.println("GAME DELETED");
             PrintWriter pw = new PrintWriter(new FileWriter(file,false));
             pw.append("");
             pw.close();
@@ -92,14 +85,4 @@ public class GameDAO implements IGameDAO {
             e.printStackTrace();
         }
     }
-
-//    public void closeFile(){
-//        pw.close();
-//        try{
-//            reader.close();
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 }

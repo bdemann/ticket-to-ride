@@ -19,11 +19,10 @@ import shared.model.interfaces.IPlayer;
  */
 
 public class CommandDAO implements ICommandDAO {
-//    private PrintWriter pw;
-//    private BufferedReader reader;
     private File file;
     private int numCommands;
     private static CommandDAO instance;
+
     public static CommandDAO getInstance(File file) {
         if (instance == null)
             instance = new CommandDAO(file);
@@ -32,8 +31,6 @@ public class CommandDAO implements ICommandDAO {
 
     private CommandDAO(File file){
         try{
-//            this.pw = new PrintWriter(file);
-//            this.reader = new BufferedReader(new FileReader(file));
             this.file = file;
             numCommands = 0;
         }
@@ -45,6 +42,7 @@ public class CommandDAO implements ICommandDAO {
     public int getCommandLimit(){
         return numCommands;
     }
+
 
     public boolean addCommand(ICommand command){
         try{
@@ -77,7 +75,6 @@ public class CommandDAO implements ICommandDAO {
             e.printStackTrace();
         }
 
-        System.out.println("Size of commands: " + commands.size());
         return commands;
     }
 
@@ -93,14 +90,4 @@ public class CommandDAO implements ICommandDAO {
 
         numCommands = 0;
     }
-
-//    public void closeFile(){
-//        pw.close();
-//        try{
-//            reader.close();
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 }
