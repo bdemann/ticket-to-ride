@@ -32,15 +32,17 @@ public class Poller {
             public void run() {
                 Result result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
                 Logger.log("We are polling", Level.SANITY_CHECK);
-                List<ICommand> commandList = result.getClientCommands();
-                for(ICommand command: commandList) {
-                    try {
-                        command.execute();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                if(result != null) {
+                    List<ICommand> commandList = result.getClientCommands();
+                    for (ICommand command : commandList) {
+                        try {
+                            command.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+                    handler.postDelayed(this, delay);
                 }
-                handler.postDelayed(this, delay);
             }
         }, delay);
 
