@@ -26,4 +26,5 @@ public interface IModelDAO {
     void saveChats(List<List<Chat>> chats);
     List<List<Chat>> getChats();
 
+    void clearDatabase();
 }
