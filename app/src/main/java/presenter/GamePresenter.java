@@ -24,6 +24,7 @@ import shared.model.interfaces.IPlayer;
 import shared.model.interfaces.IRoute;
 import view.GameActivity;
 import view.GameInfoActivity;
+import view.ViewUtilities;
 
 /**
  * This class is the presenter for the game
@@ -49,6 +50,9 @@ public class GamePresenter implements IGamePresenter, Observer{
 
     @Override
     public void update(Observable o, Object arg) {
+
+        ViewUtilities.checkServerStatus(_gameActivity);
+
         if(!updatable){
             return;
         }

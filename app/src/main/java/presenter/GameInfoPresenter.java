@@ -11,6 +11,7 @@ import shared.model.DestCard;
 import shared.model.TrainCard;
 import shared.model.interfaces.IGameInfo;
 import view.GameInfoActivity;
+import view.ViewUtilities;
 
 /**
  * Created by paulinecausse on 3/7/18.
@@ -30,6 +31,7 @@ public class GameInfoPresenter implements IGameInfoPresenter, Observer {
 
         System.out.println("GameInfo Update called\n");
 
+        ViewUtilities.checkServerStatus(_gameInfoActivity);
         if(ClientRoot.getClientGameInfo() != null){
             _updateActivity();
         }

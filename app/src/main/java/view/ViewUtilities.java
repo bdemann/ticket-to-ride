@@ -1,6 +1,7 @@
 package view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import model.ClientRoot;
 import shared.model.DestCard;
 import static shared.model.initialized_info.DestCardId.*;
 
@@ -21,7 +24,7 @@ import static shared.model.initialized_info.DestCardId.*;
  * The point of this class is to hold certain methods that all or most views will use.
  */
 
-class ViewUtilities {
+public class ViewUtilities {
 
     static String GAME_START = "gameStart";
     static boolean containsSpecialCharacters(String str){
@@ -158,6 +161,14 @@ class ViewUtilities {
         {
             //If you get a train card that means there is a failure
             return R.drawable.black;
+        }
+    }
+
+    public static void checkServerStatus(AppCompatActivity appCompatActivity){
+
+        if(ClientRoot.isServerDown()){
+            Intent intent = new Intent(appCompatActivity, ServerDownActivity.class);
+            appCompatActivity.startActivity(intent);
         }
     }
 }

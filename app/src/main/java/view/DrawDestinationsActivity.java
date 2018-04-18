@@ -95,7 +95,8 @@ public class DrawDestinationsActivity extends AppCompatActivity implements IDraw
     }
 
     private void _initializePresenter(){
-        _destinationsPresenter = new DrawDestinationsPresenter();
+        _destinationsPresenter = new DrawDestinationsPresenter(this);
+
     }
 
     private void printDestList(List<DestCard> destList){
