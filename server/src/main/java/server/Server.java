@@ -48,12 +48,11 @@ public class Server {
         Database.getModelDAO().initializeDB(commandListLen);
 
         //Restore server state from database
+        ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
         ServerRoot.setGames(Database.getModelDAO().getGames());
         System.out.println("We are getting the list of games from the DB.");
         System.out.println("Number of games in DB: " + Database.getModelDAO().getGames().size());
         System.out.println("Number of games in Server: " + ServerRoot.getGames().size());
-
-        ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
 
         for(IGame game : ServerRoot.getGames()){
             List<ICommand> commands = Database.getModelDAO().getCommandList(game.getId());
@@ -68,13 +67,13 @@ public class Server {
 
         //Put in default info
         ILoginServerFacade loginServerFacade = new LoginServerFacade();
-        loginServerFacade.register("z", "z");
-        loginServerFacade.register("x", "x");
-        loginServerFacade.register("c", "c");
-        loginServerFacade.register("v", "v");
-        loginServerFacade.register("b", "b");
-        loginServerFacade.register("n", "n");
-        loginServerFacade.register("m", "m");
+//        loginServerFacade.register("z", "z");
+//        loginServerFacade.register("x", "x");
+//        loginServerFacade.register("c", "c");
+//        loginServerFacade.register("v", "v");
+//        loginServerFacade.register("b", "b");
+//        loginServerFacade.register("n", "n");
+//        loginServerFacade.register("m", "m");
         IGameMenuServerFacade gameMenuServerFacade = new GameMenuServerFacade();
         loginServerFacade.register("bdemann", "password");
         loginServerFacade.signin("bdemann", "password");

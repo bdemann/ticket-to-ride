@@ -12,6 +12,7 @@ import server.model.ServerRoot;
 import server.pluginmanager.PluginManager;
 import shared.comm.CommandEncoder;
 import shared.command.ICommand;
+import shared.model.interfaces.IPlayer;
 import shared.results.CreateGameResult;
 import shared.results.Result;
 import shared.logging.Level;
@@ -43,14 +44,19 @@ public class CommandHandler implements HttpHandler {
             e.printStackTrace();
         }
 
+        for(IPlayer player : ServerRoot.getPlayers()) {
+            System.out.println(player.getUsername());
+            System.out.println("This is the game id for the player " + player.getGameId());
+        }
+
         if(ServerRoot.hasPlugin()) {
             IModelDAO modelDAO = Database.getModelDAO();
+            modelDAO.savePlayers(ServerRoot.getPlayers());
             if(command.getGameId() >= 0) {
                 modelDAO.storeCommand(command);
                 if (modelDAO.isCommandLimitReached()) {
                     modelDAO.clearCommands();
                     modelDAO.saveGames(ServerRoot.getGames());
-                    modelDAO.savePlayers(ServerRoot.getPlayers());
                 }
             }
         }
