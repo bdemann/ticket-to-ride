@@ -1,35 +1,30 @@
 package nonrel_database;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.tree.ExpandVetoException;
-
-import dao.IGameDAO;
 import shared.comm.CommandEncoder;
-import shared.model.interfaces.IGame;
+import shared.model.Chat;
 
 /**
- * Created by paulinecausse on 4/9/18.
+ * Created by paulinecausse on 4/17/18.
  */
 
-public class GameDAO implements IGameDAO {
+public class ChatDao {
     private File file;
-    private static GameDAO instance;
+    private static ChatDao instance;
 
-    public static GameDAO getInstance(File file) {
+    public static ChatDao getInstance(File file) {
         if (instance == null)
-            instance = new GameDAO(file);
+            instance = new ChatDao(file);
         return instance;
     }
 
-    private GameDAO(File file){
+    private ChatDao(File file){
         try{
             this.file = file;
         }
@@ -39,13 +34,12 @@ public class GameDAO implements IGameDAO {
 
     }
 
-    @Override
-    public boolean addGame(IGame game){
+    public boolean addChat(List<Chat> chat){
         try{
             PrintWriter pw = new PrintWriter(new FileWriter(file,true));
             //deserialize player
-            String strGame = CommandEncoder.encodeDBInfo(game);
-            pw.append(strGame + "end of game");
+            String strChat = CommandEncoder.encodeDBInfo(chat);
+            pw.append(strChat + "end of chat");
             pw.close();
         }
         catch (Exception e){
@@ -55,27 +49,25 @@ public class GameDAO implements IGameDAO {
         return true;
     }
 
-    public List<IGame> getGames(){
-        List<IGame> games = new ArrayList<>();
+    public List<List<Chat>> getChats(){
+        List<List<Chat>> allChats = new ArrayList<>();
         try{
             Scanner scanner = new Scanner(file);
-            scanner.useDelimiter("end of game");
+            scanner.useDelimiter("end of chat");
             while(scanner.hasNext()){
-                IGame game = (IGame) CommandEncoder.decodeDBInfo(scanner.next());
-                games.add(game);
+                List<Chat> chats = (List<Chat>) CommandEncoder.decodeDBInfo(scanner.next());
+                allChats.add(chats);
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
-        System.out.println("Size of list of games: " + games.size());
-        return games;
+        return allChats;
     }
 
 
-    @Override
-    public void deleteGames(){
+    public void deleteChats(){
         try{
             PrintWriter pw = new PrintWriter(new FileWriter(file,false));
             pw.append("");

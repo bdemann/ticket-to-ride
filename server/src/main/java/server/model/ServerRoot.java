@@ -48,6 +48,10 @@ public class ServerRoot extends Observable {
         _instance._addPlayer(player);
     }
 
+    public static void setChats(List<List<Chat>> chats) {
+        _instance._chats = chats;
+    }
+
     private void _addGame(IGame game){
         game.setId(gameId);
         gameId++;
@@ -128,9 +132,18 @@ public class ServerRoot extends Observable {
 
     public static void setGames(List<IGame> games){
         _instance._games = games;
+        for(int i = 0; i < games.size(); i++) {
+            if(_instance._chats.size() <= i) {
+                _instance._chats.add(new ArrayList<Chat>());
+            }
+        }
     }
 
     public static void setPlayers(List<IPlayer> players){
         _instance._players = players;
 	}
+
+    public static List<List<Chat>> getChats() {
+        return _instance._chats;
+    }
 }

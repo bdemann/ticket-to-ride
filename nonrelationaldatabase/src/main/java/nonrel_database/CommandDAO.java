@@ -75,7 +75,6 @@ public class CommandDAO implements ICommandDAO {
             e.printStackTrace();
         }
 
-        System.out.println("Size of commands: " + commands.size());
         return commands;
     }
 

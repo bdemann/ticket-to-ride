@@ -24,7 +24,6 @@ public class RelationalDatabase {
     }
 
     private Connection conn;
-   // static final String COLUMN_GAME_ID = "Game_IDs";
     static final String COLUMN_GAME_BLOB = "Game_Blobs";
     static final String TABLE_GAMES = "Games_TABLE";
     static final String TABLE_COMMANDS = "Commands_TABLE";
@@ -33,6 +32,9 @@ public class RelationalDatabase {
     static final String COLUMN_PLAYER_BLOB = "Player_Blobs";
     static final String TABLE_COMMAND_LIMIT = "Command_Limit_TABLE";
     static final String COLUMN_COMMAND_LIMIT = "Limit_of_commands";
+
+    static final String TABLE_CHATS = "Chats_TABLE";
+    static final String COLUMN_CHATS = "List_of_Chat_Lists";
 
     public void openConnection() throws Exception {
         try {
@@ -84,6 +86,9 @@ public class RelationalDatabase {
 
                 stmt.executeUpdate("drop table if exists " + TABLE_COMMAND_LIMIT);
                 stmt.executeUpdate("create table " + TABLE_COMMAND_LIMIT + " ( " + COLUMN_COMMAND_LIMIT + " text not null )");
+
+                stmt.executeUpdate("drop table if exists " + TABLE_CHATS);
+                stmt.executeUpdate("create table " + TABLE_CHATS + " ( " + COLUMN_CHATS + " text not null )");
 
             }
             finally {

@@ -74,7 +74,6 @@ public class PlayerDAO implements IPlayerDAO {
     @Override
     public void deletePlayers(){
         try{
-            System.out.println("PLAYERS DELETED");
             PrintWriter pw = new PrintWriter(new FileWriter(file,false));
             pw.append("");
             pw.close();
