@@ -22,6 +22,10 @@ public class NonRelDB implements IModelDAO {
     private File chatFile;
     private int commandLimit;
 
+    public static void main(String[] args) {
+        System.out.println("Built");
+    }
+
     @Override
     public void initializeDB(int commandLimit){
         try{
