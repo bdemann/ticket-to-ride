@@ -33,6 +33,7 @@ public class Poller {
                 Result result = new ServerProxy().getCommands(ClientRoot.getClientPlayer().getUsername());
                 Logger.log("We are polling", Level.SANITY_CHECK);
                 if(result != null) {
+                    ClientRoot.setServerDown(false);
                     List<ICommand> commandList = result.getClientCommands();
                     for (ICommand command : commandList) {
                         try {
@@ -42,6 +43,9 @@ public class Poller {
                         }
                     }
                     handler.postDelayed(this, delay);
+                }
+                else {
+                    ClientRoot.setServerDown(true);
                 }
             }
         }, delay);
