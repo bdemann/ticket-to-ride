@@ -166,10 +166,11 @@ class ViewUtilities {
 
     static void checkServerStatus(Context context){
 
-        /*
+        if(ClientRoot.isServerDown()){
+            /*
         Intent intent = new Intent(context, //SOME NEW ACTIVITY);
         context.startActivity(intent);
         */
-
+        }
     }
 }
