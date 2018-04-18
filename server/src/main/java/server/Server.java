@@ -47,6 +47,10 @@ public class Server {
         ServerRoot.setCommandListLen(commandListLen);
         Database.getModelDAO().initializeDB(commandListLen);
 
+        if(args.length == 3) {
+            Database.getModelDAO().clearDatabase();
+        }
+
         //Restore server state from database
         ServerRoot.setPlayers(Database.getModelDAO().getPlayers());
         ServerRoot.setChats(Database.getModelDAO().getChats());
